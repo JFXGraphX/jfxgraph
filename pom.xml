@@ -1,0 +1,43 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.jfxgraph</groupId>
+	<artifactId>jfxgraph</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>jfxGraphX</name>
+	<description>https://github.com/JFXGraphX/jfxGraphX</description>
+	<properties>
+		<jdk.version>1.7</jdk.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<!-- checkStyle -->
+		<checkStyle.checks.FilePath>config/epichust-checkstyle.xml</checkStyle.checks.FilePath>
+
+
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>jfxrt</artifactId>
+			<version>2.3</version>
+			<scope>system</scope>
+			<systemPath>${JAVA_HOME}/jre/lib/jfxrt.jar</systemPath>
+		</dependency>
+	</dependencies>
+
+</project>

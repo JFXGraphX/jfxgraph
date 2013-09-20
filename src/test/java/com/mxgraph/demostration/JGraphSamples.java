@@ -1,5 +1,4 @@
-package com.demostration.jgraph;
-
+package com.mxgraph.demostration;
 
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
@@ -28,16 +27,12 @@ import com.mxgraph.util.png.mxPngImageEncoder;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxStylesheet;
 
-public class HelloWorld extends JFrame
-{
+public class JGraphSamples extends JFrame {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2707712944901661771L;
+	private static final long serialVersionUID = -8438885392187249856L;
 
-	public HelloWorld()
-	{
+	public JGraphSamples() {
+
 		super("Hello, World!");
 
 		// mxSaxOutputHandler aa = new mxSaxOutputHandler();
@@ -45,40 +40,52 @@ public class HelloWorld extends JFrame
 		final mxGraph graph = new mxGraph();
 		Object parent = graph.getDefaultParent();
 
-//		final mxCircleLayout circleLayout = new mxCircleLayout(graph);
-//		final mxCompactTreeLayout compactTreeLayout = new mxCompactTreeLayout(graph, false);
-//		final mxEdgeLabelLayout edgeLabelLayout = new mxEdgeLabelLayout(graph);
-//		final mxFastOrganicLayout fastOrganicLayout = new mxFastOrganicLayout(graph);
-//
-//		final mxOrganicLayout organicLayout = new mxOrganicLayout(graph);
-//		final mxParallelEdgeLayout parallelEdgeLayout = new mxParallelEdgeLayout(graph);
-//		final mxPartitionLayout partitionLayout = new mxPartitionLayout(graph);
-//		final mxStackLayout stackLayout = new mxStackLayout(graph);
+		// final mxCircleLayout circleLayout = new mxCircleLayout(graph);
+		// final mxCompactTreeLayout compactTreeLayout = new
+		// mxCompactTreeLayout(graph, false);
+		// final mxEdgeLabelLayout edgeLabelLayout = new
+		// mxEdgeLabelLayout(graph);
+		// final mxFastOrganicLayout fastOrganicLayout = new
+		// mxFastOrganicLayout(graph);
+		//
+		// final mxOrganicLayout organicLayout = new mxOrganicLayout(graph);
+		// final mxParallelEdgeLayout parallelEdgeLayout = new
+		// mxParallelEdgeLayout(graph);
+		// final mxPartitionLayout partitionLayout = new
+		// mxPartitionLayout(graph);
+		// final mxStackLayout stackLayout = new mxStackLayout(graph);
 
-		final mxHierarchicalLayout hierarchicalLayout = new mxHierarchicalLayout(graph, SwingConstants.NORTH);
-		final mxOrthogonalLayout orthogonalLayout = new mxOrthogonalLayout(graph);
+		final mxHierarchicalLayout hierarchicalLayout = new mxHierarchicalLayout(
+				graph, SwingConstants.NORTH);
+		final mxOrthogonalLayout orthogonalLayout = new mxOrthogonalLayout(
+				graph);
 
-		 hierarchicalLayout.setIntraCellSpacing(50.0);
-		 hierarchicalLayout.setResizeParent(true);
-		 hierarchicalLayout.setFineTuning(true);
-		 hierarchicalLayout.setParentBorder(20);
-		 hierarchicalLayout.setMoveParent(true);
-		 hierarchicalLayout.setDisableEdgeStyle(false);
-		 hierarchicalLayout.setUseBoundingBox(true);
+		hierarchicalLayout.setIntraCellSpacing(50.0);
+		hierarchicalLayout.setResizeParent(true);
+		hierarchicalLayout.setFineTuning(true);
+		hierarchicalLayout.setParentBorder(20);
+		hierarchicalLayout.setMoveParent(true);
+		hierarchicalLayout.setDisableEdgeStyle(false);
+		hierarchicalLayout.setUseBoundingBox(true);
 
 		graph.getModel().beginUpdate();
-		Object A = graph.insertVertex(parent, null, "A", 0, 0, 60, 30,"ROUNDED;shape=cylinder");
+		Object A = graph.insertVertex(parent, null, "A", 0, 0, 60, 30,
+				"ROUNDED;shape=cylinder");
 		Object A1 = graph.insertVertex(parent, null, "A1", 0, 0, 60, 30);
 		Object A2 = graph.insertVertex(parent, null, "A2", 0, 0, 60, 30);
 		Object A3 = graph.insertVertex(parent, null, "A3", 0, 0, 60, 30);
 		Object A4 = graph.insertVertex(parent, null, "A4", 0, 0, 60, 30);
 		Object A5 = graph.insertVertex(parent, null, "A5", 0, 0, 60, 30);
 
-		Object A11 = graph.insertVertex(parent, null, "A11", 0, 0, 60, 30, "ROUNDED;shape=ellipse");
-		Object A21 = graph.insertVertex(parent, null, "A21", 0, 0, 60, 30, "ROUNDED;shape=ellipse");
+		Object A11 = graph.insertVertex(parent, null, "A11", 0, 0, 60, 30,
+				"ROUNDED;shape=ellipse");
+		Object A21 = graph.insertVertex(parent, null, "A21", 0, 0, 60, 30,
+				"ROUNDED;shape=ellipse");
 
-		Object A31 = graph.insertVertex(parent, null, "A31", 0, 0, 60, 30, "ROUNDED;shape=ellipse");
-		Object A41 = graph.insertVertex(parent, null, "A41", 0, 0, 60, 30, "ROUNDED;shape=ellipse");
+		Object A31 = graph.insertVertex(parent, null, "A31", 0, 0, 60, 30,
+				"ROUNDED;shape=ellipse");
+		Object A41 = graph.insertVertex(parent, null, "A41", 0, 0, 60, 30,
+				"ROUNDED;shape=ellipse");
 
 		graph.insertEdge(parent, null, "", A, A1);
 		graph.insertEdge(parent, null, "", A, A2);
@@ -96,11 +103,11 @@ public class HelloWorld extends JFrame
 		graph.insertEdge(parent, null, "", A5, A41);
 
 		mxStylesheet stylesheet = graph.getStylesheet();
-		
-//		Hashtable style1 = new Hashtable<String, Object>();
-//		style1.put(mxConstants.STYLE_SHAPE, mxConstants.SHAPE_ELLIPSE);
-//		stylesheet.putCellStyle("ROUNDED", style1);
-		
+
+		// Hashtable style1 = new Hashtable<String, Object>();
+		// style1.put(mxConstants.STYLE_SHAPE, mxConstants.SHAPE_ELLIPSE);
+		// stylesheet.putCellStyle("ROUNDED", style1);
+
 		graph.setStylesheet(stylesheet);
 
 		// graph.insertEdge(parent, null, "SPS1,JIT1", A, C);
@@ -121,12 +128,12 @@ public class HelloWorld extends JFrame
 		// partitionLayout.execute(parent);
 		// stackLayout.execute(parent);
 
-		 List vertex = new ArrayList();
-		 vertex.add(A);
+		List vertex = new ArrayList();
+		vertex.add(A);
 
-		 hierarchicalLayout.setVertexLocation(vertex, 100, 200);
-		 hierarchicalLayout.execute(parent);
-//		orthogonalLayout.execute(parent);
+		hierarchicalLayout.setVertexLocation(vertex, 100, 200);
+		hierarchicalLayout.execute(parent);
+		// orthogonalLayout.execute(parent);
 
 		// graph.getModel().beginUpdate();
 		// graph.getModel().endUpdate();
@@ -134,69 +141,64 @@ public class HelloWorld extends JFrame
 		final mxGraphComponent graphComponent = new mxGraphComponent(graph);
 		getContentPane().add(graphComponent);
 
-		graphComponent.getGraphControl().addMouseListener(new MouseAdapter()
-		{
+		graphComponent.getGraphControl().addMouseListener(new MouseAdapter() {
 
-			public void mouseReleased(MouseEvent e)
-			{
+			public void mouseReleased(MouseEvent e) {
 				Object cell = graphComponent.getCellAt(e.getX(), e.getY());
 
-				if (cell != null)
-				{
+				if (cell != null) {
 					System.out.println("x=" + e.getX() + "y=" + e.getY());
 					System.out.println("cell=" + graph.getLabel(cell));
 				}
 			}
 		});
 
-		try
-		{
+		try {
 			this.saveXmlPng(graphComponent);
-		} catch (IOException e1)
-		{
+		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
 
-	protected void saveXmlPng(mxGraphComponent graphComponent) throws IOException
-	{
+	protected void saveXmlPng(mxGraphComponent graphComponent)
+			throws IOException {
 		Color bg = graphComponent.getBackground();
 
 		mxGraph graph = graphComponent.getGraph();
 
 		// Creates the image for the PNG file
-		BufferedImage image = mxCellRenderer.createBufferedImage(graph, null, 1, bg, graphComponent.isAntiAlias(), null, graphComponent.getCanvas());
+		BufferedImage image = mxCellRenderer.createBufferedImage(graph, null,
+				1, bg, graphComponent.isAntiAlias(), null,
+				graphComponent.getCanvas());
 		// Creates the URL-encoded XML data
 		mxCodec codec = new mxCodec();
-		String xml = URLEncoder.encode(mxXmlUtils.getXml(codec.encode(graph.getModel())), "UTF-8");
+		String xml = URLEncoder.encode(
+				mxXmlUtils.getXml(codec.encode(graph.getModel())), "UTF-8");
 		mxPngEncodeParam param = mxPngEncodeParam.getDefaultEncodeParam(image);
 		param.setCompressedText(new String[] { "mxGraphModel", xml });
 
 		// Saves as a PNG file
-		FileOutputStream outputStream = new FileOutputStream(new File("d:\\123.png"));
-		try
-		{
-			mxPngImageEncoder encoder = new mxPngImageEncoder(outputStream, param);
-			if (image != null)
-			{
+		FileOutputStream outputStream = new FileOutputStream(new File(
+				"d:\\123.png"));
+		try {
+			mxPngImageEncoder encoder = new mxPngImageEncoder(outputStream,
+					param);
+			if (image != null) {
 				encoder.encode(image);
-			} else
-			{
-				JOptionPane.showMessageDialog(graphComponent, mxResources.get("noImageData"));
+			} else {
+				JOptionPane.showMessageDialog(graphComponent,
+						mxResources.get("noImageData"));
 			}
-		} finally
-		{
+		} finally {
 			outputStream.close();
 		}
 	}
 
-	public static void main(String[] args)
-	{
-		HelloWorld frame = new HelloWorld();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(600, 600);
-		frame.setVisible(true);
+	public static void main(String[] args) {
+		 JGraphSamples frame = new JGraphSamples();
+		 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		 frame.setSize(600, 600);
+		 frame.setVisible(true);
 	}
-
 }

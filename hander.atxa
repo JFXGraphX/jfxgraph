@@ -1,0 +1,1208 @@
+<,albert.suen@foxmail.com> <http://www.architexa.com/rdf/core#creator> "true" .
+
+@prefix atxa-rse-eclipse: <http://www.architexa.com/rdf/rse-eclipse#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix atxa-jdt-wkspc: <http://www.architexa.com/rdf/jdt-wkspc#> .
+@prefix atxa-core: <http://www.architexa.com/rdf/core#> .
+@prefix atxa: <http://www.architexa.com/rdf/> .
+@prefix atxa-jdt: <http://www.architexa.com/rdf/jdt#> .
+
+<http://www.architexa.com/rdf/rse-eclipse#hander.atxa> a atxa-core:reloFile .
+
+atxa:DetailNode atxa-core:detailLevel "0" .
+
+atxa-core:docRoot atxa-core:browseModel "com.architexa.diagrams.relo.jdt/com.architexa.diagrams.relo.jdt.browse.ClassStrucBrowseModel" ;
+	atxa-core:contains _:node183s0mggex58031 .
+
+_:node183s0mggex58031 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler> ;
+	atxa-core:posX "182" ;
+	atxa-core:posY "31" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellMarker> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxSelectionCellsHandler> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxConnectionHandler> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellTracker> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxVertexHandler> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxEdgeHandler> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxElbowEdgeHandler> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellHandler> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphHandler> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxKeyboardHandler> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphTransferHandler> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxRubberband> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxInsertHandler> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxRotationHandler> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxPanningHandler> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxMovePreview> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxConnectPreview> .
+
+_:node183s0mggex58031 atxa-core:contains _:node183s0mggex58047 .
+
+_:node183s0mggex58047 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellMarker> ;
+	atxa-core:posX "1228" ;
+	atxa-core:posY "56" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellMarker> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellMarker.currentColor> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellMarker.enabled> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellMarker.eventSource> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellMarker.graphComponent> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellMarker.hotspot> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellMarker.hotspotEnabled> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellMarker.invalidColor> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellMarker.markedState> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellMarker.swimlaneContentEnabled> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellMarker.validColor> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellMarker.validState> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellMarker.addListener(String,mxIEventListener,)> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellMarker.intersects(mxCellState,MouseEvent,)> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellMarker.getState(MouseEvent,)> .
+
+_:node183s0mggex33920 a atxa-core:link ;
+	atxa-core:model atxa-jdt:inherits ;
+	rdf:subject _:node183s0mggex58047 ;
+	rdf:object _:node183s0mggex58048 ;
+	atxa-core:bendpoint _:node183s0mggex66807 .
+
+_:node183s0mggex66807 atxa-core:bpLocation "1429,19" ;
+	atxa-core:bpIndex "0" .
+
+_:node183s0mggex58047 atxa-core:contains _:node183s0mggex58051 .
+
+_:node183s0mggex58051 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellMarker.currentColor> ;
+	atxa-core:posX "1229" ;
+	atxa-core:posY "74" .
+
+_:node183s0mggex58047 atxa-core:contains _:node183s0mggex58052 .
+
+_:node183s0mggex58052 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellMarker.enabled> ;
+	atxa-core:posX "1229" ;
+	atxa-core:posY "90" .
+
+_:node183s0mggex58047 atxa-core:contains _:node183s0mggex58053 .
+
+_:node183s0mggex58053 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellMarker.eventSource> ;
+	atxa-core:posX "1229" ;
+	atxa-core:posY "106" .
+
+_:node183s0mggex58047 atxa-core:contains _:node183s0mggex58054 .
+
+_:node183s0mggex58054 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellMarker.graphComponent> ;
+	atxa-core:posX "1229" ;
+	atxa-core:posY "122" .
+
+_:node183s0mggex58047 atxa-core:contains _:node183s0mggex58055 .
+
+_:node183s0mggex58055 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellMarker.hotspot> ;
+	atxa-core:posX "1229" ;
+	atxa-core:posY "138" .
+
+_:node183s0mggex58047 atxa-core:contains _:node183s0mggex58056 .
+
+_:node183s0mggex58056 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellMarker.hotspotEnabled> ;
+	atxa-core:posX "1229" ;
+	atxa-core:posY "154" .
+
+_:node183s0mggex58047 atxa-core:contains _:node183s0mggex58057 .
+
+_:node183s0mggex58057 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellMarker.invalidColor> ;
+	atxa-core:posX "1229" ;
+	atxa-core:posY "170" .
+
+_:node183s0mggex58047 atxa-core:contains _:node183s0mggex58058 .
+
+_:node183s0mggex58058 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellMarker.markedState> ;
+	atxa-core:posX "1229" ;
+	atxa-core:posY "186" .
+
+_:node183s0mggex58047 atxa-core:contains _:node183s0mggex58059 .
+
+_:node183s0mggex58059 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellMarker.swimlaneContentEnabled> ;
+	atxa-core:posX "1229" ;
+	atxa-core:posY "202" .
+
+_:node183s0mggex58047 atxa-core:contains _:node183s0mggex58060 .
+
+_:node183s0mggex58060 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellMarker.validColor> ;
+	atxa-core:posX "1229" ;
+	atxa-core:posY "218" .
+
+_:node183s0mggex58047 atxa-core:contains _:node183s0mggex58061 .
+
+_:node183s0mggex58061 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellMarker.validState> ;
+	atxa-core:posX "1229" ;
+	atxa-core:posY "234" .
+
+_:node183s0mggex58047 atxa-core:contains _:node183s0mggex58062 .
+
+_:node183s0mggex58062 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellMarker.addListener(String,mxIEventListener,)> ;
+	atxa-core:posX "1229" ;
+	atxa-core:posY "250" .
+
+_:node183s0mggex58047 atxa-core:contains _:node183s0mggex58063 .
+
+_:node183s0mggex58063 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellMarker.intersects(mxCellState,MouseEvent,)> ;
+	atxa-core:posX "1229" ;
+	atxa-core:posY "266" .
+
+_:node183s0mggex58047 atxa-core:contains _:node183s0mggex58064 .
+
+_:node183s0mggex58064 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellMarker.getState(MouseEvent,)> ;
+	atxa-core:posX "1229" ;
+	atxa-core:posY "282" .
+
+_:node183s0mggex34563 a atxa-core:link ;
+	atxa-core:model atxa-jdt:calls ;
+	rdf:subject _:node183s0mggex58064 ;
+	rdf:object _:node183s0mggex58063 .
+
+_:node183s0mggex58031 atxa-core:contains _:node183s0mggex58100 .
+
+_:node183s0mggex58100 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxSelectionCellsHandler> ;
+	atxa-core:posX "433" ;
+	atxa-core:posY "393" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxSelectionCellsHandler> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxSelectionCellsHandler.paintHandles(Graphics,)> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxSelectionCellsHandler.reset()> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxSelectionCellsHandler.refresh()> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxSelectionCellsHandler.removeGraphListeners(mxGraph,)> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxSelectionCellsHandler.mxSelectionCellsHandler(mxGraphComponent,)> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxSelectionCellsHandler.addGraphListeners(mxGraph,)> .
+
+_:node183s0mggex58100 atxa-core:contains _:node183s0mggex58105 .
+
+_:node183s0mggex58105 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxSelectionCellsHandler.paintHandles(Graphics,)> ;
+	atxa-core:posX "434" ;
+	atxa-core:posY "411" .
+
+_:node183s0mggex28491 a atxa-core:link ;
+	atxa-core:model atxa-jdt:calls ;
+	rdf:subject _:node183s0mggex58105 ;
+	rdf:object _:node183s0mggex58106 .
+
+_:node183s0mggex58100 atxa-core:contains _:node183s0mggex58107 .
+
+_:node183s0mggex58107 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxSelectionCellsHandler.reset()> ;
+	atxa-core:posX "434" ;
+	atxa-core:posY "427" .
+
+_:node183s0mggex29078 a atxa-core:link ;
+	atxa-core:model atxa-jdt:calls ;
+	rdf:subject _:node183s0mggex58107 ;
+	rdf:object _:node183s0mggex58108 .
+
+_:node183s0mggex58100 atxa-core:contains _:node183s0mggex58109 .
+
+_:node183s0mggex58109 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxSelectionCellsHandler.refresh()> ;
+	atxa-core:posX "434" ;
+	atxa-core:posY "443" .
+
+_:node183s0mggex28346 a atxa-core:link ;
+	atxa-core:model atxa-jdt:calls ;
+	rdf:subject _:node183s0mggex58109 ;
+	rdf:object _:node183s0mggex58110 .
+
+_:node183s0mggex58100 atxa-core:contains _:node183s0mggex58111 .
+
+_:node183s0mggex58111 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxSelectionCellsHandler.removeGraphListeners(mxGraph,)> ;
+	atxa-core:posX "434" ;
+	atxa-core:posY "459" .
+
+_:node183s0mggex58100 atxa-core:contains _:node183s0mggex58112 .
+
+_:node183s0mggex58112 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxSelectionCellsHandler.mxSelectionCellsHandler(mxGraphComponent,)> ;
+	atxa-core:posX "434" ;
+	atxa-core:posY "475" .
+
+_:node183s0mggex29687 a atxa-core:link ;
+	atxa-core:model atxa-jdt:calls ;
+	rdf:subject _:node183s0mggex58112 ;
+	rdf:object _:node183s0mggex58113 .
+
+_:node183s0mggex58100 atxa-core:contains _:node183s0mggex58113 .
+
+_:node183s0mggex58113 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxSelectionCellsHandler.addGraphListeners(mxGraph,)> ;
+	atxa-core:posX "434" ;
+	atxa-core:posY "491" .
+
+_:node183s0mggex58031 atxa-core:contains _:node183s0mggex58114 .
+
+_:node183s0mggex58114 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxConnectionHandler> ;
+	atxa-core:posX "901" ;
+	atxa-core:posY "129" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxConnectionHandler> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxConnectionHandler$4> .
+
+_:node183s0mggex58114 atxa-core:contains _:node183s0mggex58115 .
+
+_:node183s0mggex58115 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxConnectionHandler$4> ;
+	atxa-core:posX "902" ;
+	atxa-core:posY "147" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxConnectionHandler$4> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxConnectionHandler$4.intersects(mxCellState,MouseEvent,)> .
+
+_:node183s0mggex58115 atxa-core:contains _:node183s0mggex58116 .
+
+_:node183s0mggex58116 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxConnectionHandler$4.intersects(mxCellState,MouseEvent,)> ;
+	atxa-core:posX "903" ;
+	atxa-core:posY "165" .
+
+_:node183s0mggex34562 a atxa-core:link ;
+	atxa-core:model atxa-jdt:calls ;
+	rdf:subject _:node183s0mggex58116 ;
+	rdf:object _:node183s0mggex58063 .
+
+_:node183s0mggex58031 atxa-core:contains _:node183s0mggex58117 .
+
+_:node183s0mggex58117 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellTracker> ;
+	atxa-core:posX "694" ;
+	atxa-core:posY "335" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellTracker> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellTracker.mxCellTracker(mxGraphComponent,Color,)> .
+
+_:node183s0mggex26508 a atxa-core:link ;
+	atxa-core:model atxa-jdt:inherits ;
+	rdf:subject _:node183s0mggex58117 ;
+	rdf:object _:node183s0mggex58047 ;
+	atxa-core:bendpoint _:node183s0mggex66808 .
+
+_:node183s0mggex66808 atxa-core:bpLocation "857,319" ;
+	atxa-core:bpIndex "0" .
+
+_:node183s0mggex26508 atxa-core:bendpoint _:node183s0mggex66809 .
+
+_:node183s0mggex66809 atxa-core:bpLocation "1429,319" ;
+	atxa-core:bpIndex "1" .
+
+_:node183s0mggex58117 atxa-core:contains _:node183s0mggex58124 .
+
+_:node183s0mggex58124 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellTracker.mxCellTracker(mxGraphComponent,Color,)> ;
+	atxa-core:posX "695" ;
+	atxa-core:posY "353" .
+
+_:node183s0mggex58031 atxa-core:contains _:node183s0mggex58125 .
+
+_:node183s0mggex58125 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxVertexHandler> ;
+	atxa-core:posX "852" ;
+	atxa-core:posY "584" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxVertexHandler> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxVertexHandler.mouseReleased(MouseEvent,)> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxVertexHandler.moveLabel(MouseEvent,)> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxVertexHandler.resizeCell(MouseEvent,)> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxVertexHandler.union(mxRectangle,double,double,int,)> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxVertexHandler.getCursor(MouseEvent,int,)> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxVertexHandler.createPreview()> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxVertexHandler.createHandles()> .
+
+_:node183s0mggex26511 a atxa-core:link ;
+	atxa-core:model atxa-jdt:inherits ;
+	rdf:subject _:node183s0mggex58125 ;
+	rdf:object _:node183s0mggex58126 ;
+	atxa-core:bendpoint _:node183s0mggex66810 .
+
+_:node183s0mggex66810 atxa-core:bpLocation "1077,538" ;
+	atxa-core:bpIndex "0" .
+
+_:node183s0mggex26511 atxa-core:bendpoint _:node183s0mggex66811 .
+
+_:node183s0mggex66811 atxa-core:bpLocation "1245,538" ;
+	atxa-core:bpIndex "1" .
+
+_:node183s0mggex58125 atxa-core:contains _:node183s0mggex58129 .
+
+_:node183s0mggex58129 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxVertexHandler.mouseReleased(MouseEvent,)> ;
+	atxa-core:posX "853" ;
+	atxa-core:posY "602" .
+
+_:node183s0mggex30472 a atxa-core:link ;
+	atxa-core:model atxa-jdt:calls ;
+	rdf:subject _:node183s0mggex58129 ;
+	rdf:object _:node183s0mggex58130 .
+
+_:node183s0mggex31270 a atxa-core:link ;
+	atxa-core:model atxa-jdt:calls ;
+	rdf:subject _:node183s0mggex58129 ;
+	rdf:object _:node183s0mggex58131 .
+
+_:node183s0mggex58125 atxa-core:contains _:node183s0mggex58131 .
+
+_:node183s0mggex58131 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxVertexHandler.moveLabel(MouseEvent,)> ;
+	atxa-core:posX "853" ;
+	atxa-core:posY "618" .
+
+_:node183s0mggex58125 atxa-core:contains _:node183s0mggex58130 .
+
+_:node183s0mggex58130 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxVertexHandler.resizeCell(MouseEvent,)> ;
+	atxa-core:posX "853" ;
+	atxa-core:posY "634" .
+
+_:node183s0mggex31133 a atxa-core:link ;
+	atxa-core:model atxa-jdt:calls ;
+	rdf:subject _:node183s0mggex58130 ;
+	rdf:object _:node183s0mggex58132 .
+
+_:node183s0mggex58125 atxa-core:contains _:node183s0mggex58132 .
+
+_:node183s0mggex58132 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxVertexHandler.union(mxRectangle,double,double,int,)> ;
+	atxa-core:posX "853" ;
+	atxa-core:posY "650" .
+
+_:node183s0mggex58125 atxa-core:contains _:node183s0mggex58133 .
+
+_:node183s0mggex58133 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxVertexHandler.getCursor(MouseEvent,int,)> ;
+	atxa-core:posX "853" ;
+	atxa-core:posY "666" .
+
+_:node183s0mggex58125 atxa-core:contains _:node183s0mggex58134 .
+
+_:node183s0mggex58134 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxVertexHandler.createPreview()> ;
+	atxa-core:posX "853" ;
+	atxa-core:posY "682" .
+
+_:node183s0mggex58125 atxa-core:contains _:node183s0mggex58135 .
+
+_:node183s0mggex58135 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxVertexHandler.createHandles()> ;
+	atxa-core:posX "853" ;
+	atxa-core:posY "698" .
+
+_:node183s0mggex58031 atxa-core:contains _:node183s0mggex58136 .
+
+_:node183s0mggex58136 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxEdgeHandler> ;
+	atxa-core:posX "1328" ;
+	atxa-core:posY "586" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxEdgeHandler> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxEdgeHandler.movePoint(Object,int,mxPoint,)> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxEdgeHandler.connect(Object,Object,boolean,boolean,)> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxEdgeHandler.paint(Graphics,)> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxEdgeHandler.getSelectionColor()> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxEdgeHandler.getSelectionStroke()> .
+
+_:node183s0mggex26509 a atxa-core:link ;
+	atxa-core:model atxa-jdt:inherits ;
+	rdf:subject _:node183s0mggex58136 ;
+	rdf:object _:node183s0mggex58126 ;
+	atxa-core:bendpoint _:node183s0mggex66812 .
+
+_:node183s0mggex66812 atxa-core:bpLocation "1485,538" ;
+	atxa-core:bpIndex "0" .
+
+_:node183s0mggex26509 atxa-core:bendpoint _:node183s0mggex66813 .
+
+_:node183s0mggex66813 atxa-core:bpLocation "1245,538" ;
+	atxa-core:bpIndex "1" .
+
+_:node183s0mggex58136 atxa-core:contains _:node183s0mggex58139 .
+
+_:node183s0mggex58139 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxEdgeHandler.movePoint(Object,int,mxPoint,)> ;
+	atxa-core:posX "1329" ;
+	atxa-core:posY "604" .
+
+_:node183s0mggex30665 a atxa-core:link ;
+	atxa-core:model atxa-jdt:calls ;
+	rdf:subject _:node183s0mggex58139 ;
+	rdf:object _:node183s0mggex58140 .
+
+_:node183s0mggex58136 atxa-core:contains _:node183s0mggex58140 .
+
+_:node183s0mggex58140 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxEdgeHandler.connect(Object,Object,boolean,boolean,)> ;
+	atxa-core:posX "1329" ;
+	atxa-core:posY "620" .
+
+_:node183s0mggex58136 atxa-core:contains _:node183s0mggex58141 .
+
+_:node183s0mggex58141 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxEdgeHandler.paint(Graphics,)> ;
+	atxa-core:posX "1329" ;
+	atxa-core:posY "636" .
+
+_:node183s0mggex30778 a atxa-core:link ;
+	atxa-core:model atxa-jdt:calls ;
+	rdf:subject _:node183s0mggex58141 ;
+	rdf:object _:node183s0mggex58142 .
+
+_:node183s0mggex30843 a atxa-core:link ;
+	atxa-core:model atxa-jdt:calls ;
+	rdf:subject _:node183s0mggex58141 ;
+	rdf:object _:node183s0mggex58143 .
+
+_:node183s0mggex58136 atxa-core:contains _:node183s0mggex58142 .
+
+_:node183s0mggex58142 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxEdgeHandler.getSelectionColor()> ;
+	atxa-core:posX "1329" ;
+	atxa-core:posY "652" .
+
+_:node183s0mggex58136 atxa-core:contains _:node183s0mggex58143 .
+
+_:node183s0mggex58143 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxEdgeHandler.getSelectionStroke()> ;
+	atxa-core:posX "1329" ;
+	atxa-core:posY "668" .
+
+_:node183s0mggex58031 atxa-core:contains _:node183s0mggex58144 .
+
+_:node183s0mggex58144 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxElbowEdgeHandler> ;
+	atxa-core:posX "1282" ;
+	atxa-core:posY "735" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxElbowEdgeHandler> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxElbowEdgeHandler.mxElbowEdgeHandler(mxGraphComponent,mxCellState,)> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxElbowEdgeHandler.getToolTipText(MouseEvent,)> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxElbowEdgeHandler.isLabel(int,)> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxElbowEdgeHandler.isFlipEvent(MouseEvent,)> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxElbowEdgeHandler.createHandles()> .
+
+_:node183s0mggex26510 a atxa-core:link ;
+	atxa-core:model atxa-jdt:inherits ;
+	rdf:subject _:node183s0mggex58144 ;
+	rdf:object _:node183s0mggex58136 ;
+	atxa-core:bendpoint _:node183s0mggex66814 .
+
+_:node183s0mggex66814 atxa-core:bpLocation "1485,705" ;
+	atxa-core:bpIndex "0" .
+
+_:node183s0mggex58144 atxa-core:contains _:node183s0mggex58146 .
+
+_:node183s0mggex58146 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxElbowEdgeHandler.mxElbowEdgeHandler(mxGraphComponent,mxCellState,)> ;
+	atxa-core:posX "1283" ;
+	atxa-core:posY "753" .
+
+_:node183s0mggex58144 atxa-core:contains _:node183s0mggex58147 .
+
+_:node183s0mggex58147 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxElbowEdgeHandler.getToolTipText(MouseEvent,)> ;
+	atxa-core:posX "1283" ;
+	atxa-core:posY "769" .
+
+_:node183s0mggex58144 atxa-core:contains _:node183s0mggex58148 .
+
+_:node183s0mggex58148 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxElbowEdgeHandler.isLabel(int,)> ;
+	atxa-core:posX "1283" ;
+	atxa-core:posY "785" .
+
+_:node183s0mggex58144 atxa-core:contains _:node183s0mggex58149 .
+
+_:node183s0mggex58149 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxElbowEdgeHandler.isFlipEvent(MouseEvent,)> ;
+	atxa-core:posX "1283" ;
+	atxa-core:posY "801" .
+
+_:node183s0mggex58144 atxa-core:contains _:node183s0mggex58150 .
+
+_:node183s0mggex58150 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxElbowEdgeHandler.createHandles()> ;
+	atxa-core:posX "1283" ;
+	atxa-core:posY "817" .
+
+_:node183s0mggex58031 atxa-core:contains _:node183s0mggex58126 .
+
+_:node183s0mggex58126 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellHandler> ;
+	atxa-core:posX "1091" ;
+	atxa-core:posY "339" ;
+	atxa-core:color "f2;;77;;77" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellHandler> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellHandler.getState()> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellHandler.start(MouseEvent,int,)> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellHandler.createPreview()> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellHandler.refresh(mxCellState,)> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellHandler.createHandles()> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellHandler.paint(Graphics,)> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellHandler.mouseReleased(MouseEvent,)> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellHandler.reset()> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellHandler.destroy()> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellHandler.getToolTipText(MouseEvent,)> .
+
+_:node183s0mggex58126 atxa-core:contains _:node183s0mggex58151 .
+
+_:node183s0mggex58151 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellHandler.getState()> ;
+	atxa-core:posX "1092" ;
+	atxa-core:posY "357" .
+
+_:node183s0mggex58126 atxa-core:contains _:node183s0mggex58152 .
+
+_:node183s0mggex58152 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellHandler.start(MouseEvent,int,)> ;
+	atxa-core:posX "1092" ;
+	atxa-core:posY "373" .
+
+_:node183s0mggex28040 a atxa-core:link ;
+	atxa-core:model atxa-jdt:calls ;
+	rdf:subject _:node183s0mggex58152 ;
+	rdf:object _:node183s0mggex58153 .
+
+_:node183s0mggex58126 atxa-core:contains _:node183s0mggex58153 .
+
+_:node183s0mggex58153 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellHandler.createPreview()> ;
+	atxa-core:posX "1092" ;
+	atxa-core:posY "389" .
+
+_:node183s0mggex58126 atxa-core:contains _:node183s0mggex58154 .
+
+_:node183s0mggex58154 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellHandler.refresh(mxCellState,)> ;
+	atxa-core:posX "1092" ;
+	atxa-core:posY "405" .
+
+_:node183s0mggex28257 a atxa-core:link ;
+	atxa-core:model atxa-jdt:calls ;
+	rdf:subject _:node183s0mggex58154 ;
+	rdf:object _:node183s0mggex58155 .
+
+_:node183s0mggex58126 atxa-core:contains _:node183s0mggex58155 .
+
+_:node183s0mggex58155 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellHandler.createHandles()> ;
+	atxa-core:posX "1092" ;
+	atxa-core:posY "421" .
+
+_:node183s0mggex58126 atxa-core:contains _:node183s0mggex58106 .
+
+_:node183s0mggex58106 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellHandler.paint(Graphics,)> ;
+	atxa-core:posX "1092" ;
+	atxa-core:posY "437" .
+
+_:node183s0mggex58126 atxa-core:contains _:node183s0mggex58156 .
+
+_:node183s0mggex58156 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellHandler.mouseReleased(MouseEvent,)> ;
+	atxa-core:posX "1092" ;
+	atxa-core:posY "453" .
+
+_:node183s0mggex28933 a atxa-core:link ;
+	atxa-core:model atxa-jdt:calls ;
+	rdf:subject _:node183s0mggex58156 ;
+	rdf:object _:node183s0mggex58108 .
+
+_:node183s0mggex58126 atxa-core:contains _:node183s0mggex58108 .
+
+_:node183s0mggex58108 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellHandler.reset()> ;
+	atxa-core:posX "1092" ;
+	atxa-core:posY "469" .
+
+_:node183s0mggex58126 atxa-core:contains _:node183s0mggex58110 .
+
+_:node183s0mggex58110 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellHandler.destroy()> ;
+	atxa-core:posX "1092" ;
+	atxa-core:posY "485" .
+
+_:node183s0mggex58126 atxa-core:contains _:node183s0mggex58157 .
+
+_:node183s0mggex58157 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxCellHandler.getToolTipText(MouseEvent,)> ;
+	atxa-core:posX "1092" ;
+	atxa-core:posY "501" .
+
+_:node183s0mggex58031 atxa-core:contains _:node183s0mggex58065 .
+
+_:node183s0mggex58065 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphHandler> ;
+	atxa-core:posX "191" ;
+	atxa-core:posY "690" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphHandler> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphHandler.createEvent(DropTargetEvent,)> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphHandler.createMarker()> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphHandler.createMovePreview()> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphHandler.fold(Object,)> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphHandler.getCursor(MouseEvent,)> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphHandler.getDropTarget(DropTargetEvent,)> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphHandler.getGraphTransferHandler(DropTargetEvent,)> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphHandler.getPreviewLocation(MouseEvent,boolean,)> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphHandler.installDragGestureHandler()> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphHandler.installDropTargetHandler()> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphHandler.moveCells(Object[],double,double,Object,MouseEvent,)> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphHandler.shouldRemoveCellFromParent(Object,Object[],MouseEvent,)> .
+
+_:node183s0mggex58065 atxa-core:contains _:node183s0mggex58069 .
+
+_:node183s0mggex58069 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphHandler.createEvent(DropTargetEvent,)> ;
+	atxa-core:posX "192" ;
+	atxa-core:posY "708" .
+
+_:node183s0mggex58065 atxa-core:contains _:node183s0mggex58070 .
+
+_:node183s0mggex58070 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphHandler.createMarker()> ;
+	atxa-core:posX "192" ;
+	atxa-core:posY "724" .
+
+_:node183s0mggex58065 atxa-core:contains _:node183s0mggex58071 .
+
+_:node183s0mggex58071 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphHandler.createMovePreview()> ;
+	atxa-core:posX "192" ;
+	atxa-core:posY "740" .
+
+_:node183s0mggex58065 atxa-core:contains _:node183s0mggex58072 .
+
+_:node183s0mggex58072 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphHandler.fold(Object,)> ;
+	atxa-core:posX "192" ;
+	atxa-core:posY "756" .
+
+_:node183s0mggex58065 atxa-core:contains _:node183s0mggex58073 .
+
+_:node183s0mggex58073 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphHandler.getCursor(MouseEvent,)> ;
+	atxa-core:posX "192" ;
+	atxa-core:posY "772" .
+
+_:node183s0mggex58065 atxa-core:contains _:node183s0mggex58074 .
+
+_:node183s0mggex58074 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphHandler.getDropTarget(DropTargetEvent,)> ;
+	atxa-core:posX "192" ;
+	atxa-core:posY "788" .
+
+_:node183s0mggex58065 atxa-core:contains _:node183s0mggex58075 .
+
+_:node183s0mggex58075 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphHandler.getGraphTransferHandler(DropTargetEvent,)> ;
+	atxa-core:posX "192" ;
+	atxa-core:posY "804" .
+
+_:node183s0mggex58065 atxa-core:contains _:node183s0mggex58076 .
+
+_:node183s0mggex58076 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphHandler.getPreviewLocation(MouseEvent,boolean,)> ;
+	atxa-core:posX "192" ;
+	atxa-core:posY "820" .
+
+_:node183s0mggex58065 atxa-core:contains _:node183s0mggex58077 .
+
+_:node183s0mggex58077 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphHandler.installDragGestureHandler()> ;
+	atxa-core:posX "192" ;
+	atxa-core:posY "836" .
+
+_:node183s0mggex58065 atxa-core:contains _:node183s0mggex58078 .
+
+_:node183s0mggex58078 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphHandler.installDropTargetHandler()> ;
+	atxa-core:posX "192" ;
+	atxa-core:posY "852" .
+
+_:node183s0mggex58065 atxa-core:contains _:node183s0mggex58079 .
+
+_:node183s0mggex58079 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphHandler.moveCells(Object[],double,double,Object,MouseEvent,)> ;
+	atxa-core:posX "192" ;
+	atxa-core:posY "868" .
+
+_:node183s0mggex58065 atxa-core:contains _:node183s0mggex58080 .
+
+_:node183s0mggex58080 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphHandler.shouldRemoveCellFromParent(Object,Object[],MouseEvent,)> ;
+	atxa-core:posX "192" ;
+	atxa-core:posY "884" .
+
+_:node183s0mggex58031 atxa-core:contains _:node183s0mggex58095 .
+
+_:node183s0mggex58095 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxKeyboardHandler> ;
+	atxa-core:posX "214" ;
+	atxa-core:posY "547" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxKeyboardHandler> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxKeyboardHandler.createActionMap()> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxKeyboardHandler.getInputMap(int,)> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxKeyboardHandler.installKeyboardActions(mxGraphComponent,)> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxKeyboardHandler.mxKeyboardHandler(mxGraphComponent,)> .
+
+_:node183s0mggex58095 atxa-core:contains _:node183s0mggex58096 .
+
+_:node183s0mggex58096 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxKeyboardHandler.createActionMap()> ;
+	atxa-core:posX "215" ;
+	atxa-core:posY "565" .
+
+_:node183s0mggex58095 atxa-core:contains _:node183s0mggex58097 .
+
+_:node183s0mggex58097 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxKeyboardHandler.getInputMap(int,)> ;
+	atxa-core:posX "215" ;
+	atxa-core:posY "581" .
+
+_:node183s0mggex58095 atxa-core:contains _:node183s0mggex58098 .
+
+_:node183s0mggex58098 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxKeyboardHandler.installKeyboardActions(mxGraphComponent,)> ;
+	atxa-core:posX "215" ;
+	atxa-core:posY "597" .
+
+_:node183s0mggex58095 atxa-core:contains _:node183s0mggex58099 .
+
+_:node183s0mggex58099 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxKeyboardHandler.mxKeyboardHandler(mxGraphComponent,)> ;
+	atxa-core:posX "215" ;
+	atxa-core:posY "613" .
+
+_:node183s0mggex58031 atxa-core:contains _:node183s0mggex58185 .
+
+_:node183s0mggex58185 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphTransferHandler> ;
+	atxa-core:posX "188" ;
+	atxa-core:posY "935" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphTransferHandler> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphTransferHandler.getDropTarget(mxGraphComponent,mxGraphTransferable,)> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphTransferHandler.importCells(mxGraphComponent,mxGraphTransferable,double,double,)> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphTransferHandler.importGraphTransferable(mxGraphComponent,mxGraphTransferable,)> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphTransferHandler.removeCells(mxGraphComponent,Object[],)> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphTransferHandler.updateImportCount(Transferable,)> .
+
+_:node183s0mggex58185 atxa-core:contains _:node183s0mggex58186 .
+
+_:node183s0mggex58186 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphTransferHandler.getDropTarget(mxGraphComponent,mxGraphTransferable,)> ;
+	atxa-core:posX "189" ;
+	atxa-core:posY "953" .
+
+_:node183s0mggex58185 atxa-core:contains _:node183s0mggex58187 .
+
+_:node183s0mggex58187 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphTransferHandler.importCells(mxGraphComponent,mxGraphTransferable,double,double,)> ;
+	atxa-core:posX "189" ;
+	atxa-core:posY "969" .
+
+_:node183s0mggex58185 atxa-core:contains _:node183s0mggex58188 .
+
+_:node183s0mggex58188 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphTransferHandler.importGraphTransferable(mxGraphComponent,mxGraphTransferable,)> ;
+	atxa-core:posX "189" ;
+	atxa-core:posY "985" .
+
+_:node183s0mggex58185 atxa-core:contains _:node183s0mggex58189 .
+
+_:node183s0mggex58189 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphTransferHandler.removeCells(mxGraphComponent,Object[],)> ;
+	atxa-core:posX "189" ;
+	atxa-core:posY "1001" .
+
+_:node183s0mggex58185 atxa-core:contains _:node183s0mggex58190 .
+
+_:node183s0mggex58190 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxGraphTransferHandler.updateImportCount(Transferable,)> ;
+	atxa-core:posX "189" ;
+	atxa-core:posY "1017" .
+
+_:node183s0mggex58031 atxa-core:contains _:node183s0mggex58032 .
+
+_:node183s0mggex58032 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxRubberband> ;
+	atxa-core:posX "236" ;
+	atxa-core:posY "101" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxRubberband> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxRubberband.borderColor> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxRubberband.bounds> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxRubberband.enabled> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxRubberband.fillColor> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxRubberband.first> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxRubberband.graphComponent> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxRubberband.mouseReleased(MouseEvent,)> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxRubberband.reset()> .
+
+_:node183s0mggex58032 atxa-core:contains _:node183s0mggex58039 .
+
+_:node183s0mggex58039 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxRubberband.borderColor> ;
+	atxa-core:posX "237" ;
+	atxa-core:posY "119" .
+
+_:node183s0mggex58032 atxa-core:contains _:node183s0mggex58040 .
+
+_:node183s0mggex58040 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxRubberband.bounds> ;
+	atxa-core:posX "237" ;
+	atxa-core:posY "135" .
+
+_:node183s0mggex58032 atxa-core:contains _:node183s0mggex58041 .
+
+_:node183s0mggex58041 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxRubberband.enabled> ;
+	atxa-core:posX "237" ;
+	atxa-core:posY "151" .
+
+_:node183s0mggex58032 atxa-core:contains _:node183s0mggex58042 .
+
+_:node183s0mggex58042 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxRubberband.fillColor> ;
+	atxa-core:posX "237" ;
+	atxa-core:posY "167" .
+
+_:node183s0mggex58032 atxa-core:contains _:node183s0mggex58043 .
+
+_:node183s0mggex58043 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxRubberband.first> ;
+	atxa-core:posX "237" ;
+	atxa-core:posY "183" .
+
+_:node183s0mggex58032 atxa-core:contains _:node183s0mggex58044 .
+
+_:node183s0mggex58044 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxRubberband.graphComponent> ;
+	atxa-core:posX "237" ;
+	atxa-core:posY "199" .
+
+_:node183s0mggex58032 atxa-core:contains _:node183s0mggex58045 .
+
+_:node183s0mggex58045 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxRubberband.mouseReleased(MouseEvent,)> ;
+	atxa-core:posX "237" ;
+	atxa-core:posY "215" .
+
+_:node183s0mggex38180 a atxa-core:link ;
+	atxa-core:model atxa-jdt:calls ;
+	rdf:subject _:node183s0mggex58045 ;
+	rdf:object _:node183s0mggex58046 .
+
+_:node183s0mggex58032 atxa-core:contains _:node183s0mggex58046 .
+
+_:node183s0mggex58046 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxRubberband.reset()> ;
+	atxa-core:posX "237" ;
+	atxa-core:posY "231" .
+
+_:node183s0mggex58031 atxa-core:contains _:node183s0mggex58158 .
+
+_:node183s0mggex58158 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxInsertHandler> ;
+	atxa-core:posX "1162" ;
+	atxa-core:posY "923" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxInsertHandler> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxInsertHandler.current> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxInsertHandler.enabled> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxInsertHandler.eventSource> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxInsertHandler.first> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxInsertHandler.graphComponent> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxInsertHandler.lineColor> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxInsertHandler.lineWidth> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxInsertHandler.rounded> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxInsertHandler.style> .
+
+_:node183s0mggex58158 atxa-core:contains _:node183s0mggex58159 .
+
+_:node183s0mggex58159 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxInsertHandler.current> ;
+	atxa-core:posX "1163" ;
+	atxa-core:posY "941" .
+
+_:node183s0mggex58158 atxa-core:contains _:node183s0mggex58160 .
+
+_:node183s0mggex58160 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxInsertHandler.enabled> ;
+	atxa-core:posX "1163" ;
+	atxa-core:posY "957" .
+
+_:node183s0mggex58158 atxa-core:contains _:node183s0mggex58161 .
+
+_:node183s0mggex58161 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxInsertHandler.eventSource> ;
+	atxa-core:posX "1163" ;
+	atxa-core:posY "973" .
+
+_:node183s0mggex58158 atxa-core:contains _:node183s0mggex58162 .
+
+_:node183s0mggex58162 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxInsertHandler.first> ;
+	atxa-core:posX "1163" ;
+	atxa-core:posY "989" .
+
+_:node183s0mggex58158 atxa-core:contains _:node183s0mggex58163 .
+
+_:node183s0mggex58163 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxInsertHandler.graphComponent> ;
+	atxa-core:posX "1163" ;
+	atxa-core:posY "1005" .
+
+_:node183s0mggex58158 atxa-core:contains _:node183s0mggex58164 .
+
+_:node183s0mggex58164 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxInsertHandler.lineColor> ;
+	atxa-core:posX "1163" ;
+	atxa-core:posY "1021" .
+
+_:node183s0mggex58158 atxa-core:contains _:node183s0mggex58165 .
+
+_:node183s0mggex58165 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxInsertHandler.lineWidth> ;
+	atxa-core:posX "1163" ;
+	atxa-core:posY "1037" .
+
+_:node183s0mggex58158 atxa-core:contains _:node183s0mggex58166 .
+
+_:node183s0mggex58166 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxInsertHandler.rounded> ;
+	atxa-core:posX "1163" ;
+	atxa-core:posY "1053" .
+
+_:node183s0mggex58158 atxa-core:contains _:node183s0mggex58167 .
+
+_:node183s0mggex58167 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxInsertHandler.style> ;
+	atxa-core:posX "1163" ;
+	atxa-core:posY "1069" .
+
+_:node183s0mggex58031 atxa-core:contains _:node183s0mggex58177 .
+
+_:node183s0mggex58177 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxRotationHandler> ;
+	atxa-core:posX "1578" ;
+	atxa-core:posY "929" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxRotationHandler> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxRotationHandler.currentAngle> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxRotationHandler.currentState> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxRotationHandler.enabled> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxRotationHandler.first> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxRotationHandler.graphComponent> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxRotationHandler.handle> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxRotationHandler.initialAngle> .
+
+_:node183s0mggex58177 atxa-core:contains _:node183s0mggex58178 .
+
+_:node183s0mggex58178 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxRotationHandler.currentAngle> ;
+	atxa-core:posX "1579" ;
+	atxa-core:posY "947" .
+
+_:node183s0mggex58177 atxa-core:contains _:node183s0mggex58179 .
+
+_:node183s0mggex58179 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxRotationHandler.currentState> ;
+	atxa-core:posX "1579" ;
+	atxa-core:posY "963" .
+
+_:node183s0mggex58177 atxa-core:contains _:node183s0mggex58180 .
+
+_:node183s0mggex58180 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxRotationHandler.enabled> ;
+	atxa-core:posX "1579" ;
+	atxa-core:posY "979" .
+
+_:node183s0mggex58177 atxa-core:contains _:node183s0mggex58181 .
+
+_:node183s0mggex58181 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxRotationHandler.first> ;
+	atxa-core:posX "1579" ;
+	atxa-core:posY "995" .
+
+_:node183s0mggex58177 atxa-core:contains _:node183s0mggex58182 .
+
+_:node183s0mggex58182 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxRotationHandler.graphComponent> ;
+	atxa-core:posX "1579" ;
+	atxa-core:posY "1011" .
+
+_:node183s0mggex58177 atxa-core:contains _:node183s0mggex58183 .
+
+_:node183s0mggex58183 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxRotationHandler.handle> ;
+	atxa-core:posX "1579" ;
+	atxa-core:posY "1027" .
+
+_:node183s0mggex58177 atxa-core:contains _:node183s0mggex58184 .
+
+_:node183s0mggex58184 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxRotationHandler.initialAngle> ;
+	atxa-core:posX "1579" ;
+	atxa-core:posY "1043" .
+
+_:node183s0mggex58031 atxa-core:contains _:node183s0mggex58173 .
+
+_:node183s0mggex58173 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxPanningHandler> ;
+	atxa-core:posX "1444" ;
+	atxa-core:posY "850" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxPanningHandler> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxPanningHandler.enabled> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxPanningHandler.graphComponent> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxPanningHandler.start> .
+
+_:node183s0mggex58173 atxa-core:contains _:node183s0mggex58174 .
+
+_:node183s0mggex58174 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxPanningHandler.enabled> ;
+	atxa-core:posX "1445" ;
+	atxa-core:posY "868" .
+
+_:node183s0mggex58173 atxa-core:contains _:node183s0mggex58175 .
+
+_:node183s0mggex58175 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxPanningHandler.graphComponent> ;
+	atxa-core:posX "1445" ;
+	atxa-core:posY "884" .
+
+_:node183s0mggex58173 atxa-core:contains _:node183s0mggex58176 .
+
+_:node183s0mggex58176 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxPanningHandler.start> ;
+	atxa-core:posX "1445" ;
+	atxa-core:posY "900" .
+
+_:node183s0mggex58031 atxa-core:contains _:node183s0mggex58081 .
+
+_:node183s0mggex58081 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxMovePreview> ;
+	atxa-core:posX "2104" ;
+	atxa-core:posY "96" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxMovePreview> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxMovePreview.clonePreview> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxMovePreview.contextPreview> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxMovePreview.graphComponent> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxMovePreview.hideSelectionHandler> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxMovePreview.initialPlaceholder> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxMovePreview.lastDirty> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxMovePreview.movingCells> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxMovePreview.placeholder> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxMovePreview.placeholderPreview> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxMovePreview.preview> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxMovePreview.previewStates> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxMovePreview.startState> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxMovePreview.threshold> .
+
+_:node183s0mggex64982 a atxa-core:link ;
+	atxa-core:model atxa-jdt:inherits ;
+	rdf:subject _:node183s0mggex58081 ;
+	rdf:object _:node183s0mggex66815 ;
+	atxa-core:bendpoint _:node183s0mggex66816 .
+
+_:node183s0mggex66816 atxa-core:bpLocation "2305,22" ;
+	atxa-core:bpIndex "0" .
+
+_:node183s0mggex64982 atxa-core:bendpoint _:node183s0mggex66817 .
+
+_:node183s0mggex66817 atxa-core:bpLocation "1957,22" ;
+	atxa-core:bpIndex "1" .
+
+_:node183s0mggex58081 atxa-core:contains _:node183s0mggex58082 .
+
+_:node183s0mggex58082 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxMovePreview.clonePreview> ;
+	atxa-core:posX "2105" ;
+	atxa-core:posY "114" .
+
+_:node183s0mggex58081 atxa-core:contains _:node183s0mggex58083 .
+
+_:node183s0mggex58083 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxMovePreview.contextPreview> ;
+	atxa-core:posX "2105" ;
+	atxa-core:posY "130" .
+
+_:node183s0mggex58081 atxa-core:contains _:node183s0mggex58084 .
+
+_:node183s0mggex58084 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxMovePreview.graphComponent> ;
+	atxa-core:posX "2105" ;
+	atxa-core:posY "146" .
+
+_:node183s0mggex58081 atxa-core:contains _:node183s0mggex58085 .
+
+_:node183s0mggex58085 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxMovePreview.hideSelectionHandler> ;
+	atxa-core:posX "2105" ;
+	atxa-core:posY "162" .
+
+_:node183s0mggex58081 atxa-core:contains _:node183s0mggex58086 .
+
+_:node183s0mggex58086 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxMovePreview.initialPlaceholder> ;
+	atxa-core:posX "2105" ;
+	atxa-core:posY "178" .
+
+_:node183s0mggex58081 atxa-core:contains _:node183s0mggex58087 .
+
+_:node183s0mggex58087 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxMovePreview.lastDirty> ;
+	atxa-core:posX "2105" ;
+	atxa-core:posY "194" .
+
+_:node183s0mggex58081 atxa-core:contains _:node183s0mggex58088 .
+
+_:node183s0mggex58088 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxMovePreview.movingCells> ;
+	atxa-core:posX "2105" ;
+	atxa-core:posY "210" .
+
+_:node183s0mggex58081 atxa-core:contains _:node183s0mggex58089 .
+
+_:node183s0mggex58089 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxMovePreview.placeholder> ;
+	atxa-core:posX "2105" ;
+	atxa-core:posY "226" .
+
+_:node183s0mggex58081 atxa-core:contains _:node183s0mggex58090 .
+
+_:node183s0mggex58090 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxMovePreview.placeholderPreview> ;
+	atxa-core:posX "2105" ;
+	atxa-core:posY "242" .
+
+_:node183s0mggex58081 atxa-core:contains _:node183s0mggex58091 .
+
+_:node183s0mggex58091 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxMovePreview.preview> ;
+	atxa-core:posX "2105" ;
+	atxa-core:posY "258" .
+
+_:node183s0mggex58081 atxa-core:contains _:node183s0mggex58092 .
+
+_:node183s0mggex58092 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxMovePreview.previewStates> ;
+	atxa-core:posX "2105" ;
+	atxa-core:posY "274" .
+
+_:node183s0mggex58081 atxa-core:contains _:node183s0mggex58093 .
+
+_:node183s0mggex58093 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxMovePreview.startState> ;
+	atxa-core:posX "2105" ;
+	atxa-core:posY "290" .
+
+_:node183s0mggex58081 atxa-core:contains _:node183s0mggex58094 .
+
+_:node183s0mggex58094 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxMovePreview.threshold> ;
+	atxa-core:posX "2105" ;
+	atxa-core:posY "306" .
+
+_:node183s0mggex58031 atxa-core:contains _:node183s0mggex58168 .
+
+_:node183s0mggex58168 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxConnectPreview> ;
+	atxa-core:posX "1665" ;
+	atxa-core:posY "129" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxConnectPreview> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxConnectPreview.graphComponent> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxConnectPreview.previewState> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxConnectPreview.sourceState> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxConnectPreview.startPoint> .
+
+_:node183s0mggex64981 a atxa-core:link ;
+	atxa-core:model atxa-jdt:inherits ;
+	rdf:subject _:node183s0mggex58168 ;
+	rdf:object _:node183s0mggex66815 ;
+	atxa-core:bendpoint _:node183s0mggex66818 .
+
+_:node183s0mggex66818 atxa-core:bpLocation "1866,22" ;
+	atxa-core:bpIndex "0" .
+
+_:node183s0mggex64981 atxa-core:bendpoint _:node183s0mggex66819 .
+
+_:node183s0mggex66819 atxa-core:bpLocation "1957,22" ;
+	atxa-core:bpIndex "1" .
+
+_:node183s0mggex58168 atxa-core:contains _:node183s0mggex58169 .
+
+_:node183s0mggex58169 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxConnectPreview.graphComponent> ;
+	atxa-core:posX "1666" ;
+	atxa-core:posY "147" .
+
+_:node183s0mggex58168 atxa-core:contains _:node183s0mggex58170 .
+
+_:node183s0mggex58170 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxConnectPreview.previewState> ;
+	atxa-core:posX "1666" ;
+	atxa-core:posY "163" .
+
+_:node183s0mggex58168 atxa-core:contains _:node183s0mggex58171 .
+
+_:node183s0mggex58171 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxConnectPreview.sourceState> ;
+	atxa-core:posX "1666" ;
+	atxa-core:posY "179" .
+
+_:node183s0mggex58168 atxa-core:contains _:node183s0mggex58172 .
+
+_:node183s0mggex58172 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.swing.handler$mxConnectPreview.startPoint> ;
+	atxa-core:posX "1666" ;
+	atxa-core:posY "195" .
+
+atxa-core:docRoot atxa-core:contains _:node183s0mggex58191 .
+
+_:node183s0mggex58191 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#javax.swing> ;
+	atxa-core:posX "1364" ;
+	atxa-core:posY "-60" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#javax.swing> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#javax.swing$JComponent> .
+
+_:node183s0mggex58191 atxa-core:contains _:node183s0mggex58048 .
+
+_:node183s0mggex58048 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#javax.swing$JComponent> ;
+	atxa-core:posX "1370" ;
+	atxa-core:posY "-35" .
+
+atxa-core:docRoot atxa-core:contains _:node183s0mggex66820 .
+
+_:node183s0mggex66820 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.util> ;
+	atxa-core:posX "1790" ;
+	atxa-core:posY "-168" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.util> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.util$mxEventSource> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.util$mxEvent> , <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.util$mxStyleUtils> .
+
+_:node183s0mggex66820 atxa-core:contains _:node183s0mggex66815 .
+
+_:node183s0mggex66815 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.util$mxEventSource> ;
+	atxa-core:posX "1890" ;
+	atxa-core:posY "-32" .
+
+_:node183s0mggex66820 atxa-core:contains _:node183s0mggex66821 .
+
+_:node183s0mggex66821 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.util$mxEvent> ;
+	atxa-core:posX "2095" ;
+	atxa-core:posY "-62" .
+
+_:node183s0mggex66820 atxa-core:contains _:node183s0mggex66822 .
+
+_:node183s0mggex66822 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#com.mxgraph.util$mxStyleUtils> ;
+	atxa-core:posX "1796" ;
+	atxa-core:posY "-143" .
+
+@prefix atxa-rse-eclipse: <http://www.architexa.com/rdf/rse-eclipse#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix atxa-jdt-wkspc: <http://www.architexa.com/rdf/jdt-wkspc#> .
+@prefix atxa-core: <http://www.architexa.com/rdf/core#> .
+@prefix atxa: <http://www.architexa.com/rdf/> .
+@prefix atxa-jdt: <http://www.architexa.com/rdf/jdt#> .
+
+<http://www.architexa.com/rdf/rse-eclipse#hander.atxa> a atxa-core:reloFile ;
+	atxa-core:contains _:node183s0mggex58051 , _:node183s0mggex58052 , _:node183s0mggex58053 , _:node183s0mggex58054 , _:node183s0mggex58055 , _:node183s0mggex58056 , _:node183s0mggex58057 , _:node183s0mggex58058 , _:node183s0mggex58059 , _:node183s0mggex58060 , _:node183s0mggex58061 , _:node183s0mggex58062 , _:node183s0mggex58063 , _:node183s0mggex58064 , _:node183s0mggex58047 , _:node183s0mggex58105 , _:node183s0mggex58107 , _:node183s0mggex58109 , _:node183s0mggex58111 , _:node183s0mggex58112 , _:node183s0mggex58113 , _:node183s0mggex58100 , _:node183s0mggex58116 , _:node183s0mggex58115 , _:node183s0mggex58114 , _:node183s0mggex58124 , _:node183s0mggex58117 , _:node183s0mggex58129 , _:node183s0mggex58131 , _:node183s0mggex58130 , _:node183s0mggex58132 , _:node183s0mggex58133 , _:node183s0mggex58134 , _:node183s0mggex58135 , _:node183s0mggex58125 , _:node183s0mggex58139 , _:node183s0mggex58140 , _:node183s0mggex58141 , _:node183s0mggex58142 , _:node183s0mggex58143 , _:node183s0mggex58136 , _:node183s0mggex58146 , _:node183s0mggex58147 , _:node183s0mggex58148 , _:node183s0mggex58149 , _:node183s0mggex58150 , _:node183s0mggex58144 , _:node183s0mggex58151 , _:node183s0mggex58152 , _:node183s0mggex58153 , _:node183s0mggex58154 , _:node183s0mggex58155 , _:node183s0mggex58106 , _:node183s0mggex58156 , _:node183s0mggex58108 , _:node183s0mggex58110 , _:node183s0mggex58157 , _:node183s0mggex58126 , _:node183s0mggex58069 , _:node183s0mggex58070 , _:node183s0mggex58071 , _:node183s0mggex58072 , _:node183s0mggex58073 , _:node183s0mggex58074 , _:node183s0mggex58075 , _:node183s0mggex58076 , _:node183s0mggex58077 , _:node183s0mggex58078 , _:node183s0mggex58079 , _:node183s0mggex58080 , _:node183s0mggex58065 , _:node183s0mggex58096 , _:node183s0mggex58097 , _:node183s0mggex58098 , _:node183s0mggex58099 , _:node183s0mggex58095 , _:node183s0mggex58186 , _:node183s0mggex58187 , _:node183s0mggex58188 , _:node183s0mggex58189 , _:node183s0mggex58190 , _:node183s0mggex58185 , _:node183s0mggex58039 , _:node183s0mggex58040 , _:node183s0mggex58041 , _:node183s0mggex58042 , _:node183s0mggex58043 , _:node183s0mggex58044 , _:node183s0mggex58045 , _:node183s0mggex58046 , _:node183s0mggex58032 , _:node183s0mggex58159 , _:node183s0mggex58160 , _:node183s0mggex58161 , _:node183s0mggex58162 , _:node183s0mggex58163 , _:node183s0mggex58164 , _:node183s0mggex58165 , _:node183s0mggex58166 , _:node183s0mggex58167 , _:node183s0mggex58158 , _:node183s0mggex58178 , _:node183s0mggex58179 , _:node183s0mggex58180 , _:node183s0mggex58181 , _:node183s0mggex58182 , _:node183s0mggex58183 , _:node183s0mggex58184 , _:node183s0mggex58177 , _:node183s0mggex58174 , _:node183s0mggex58175 , _:node183s0mggex58176 , _:node183s0mggex58173 , _:node183s0mggex58082 , _:node183s0mggex58083 , _:node183s0mggex58084 , _:node183s0mggex58085 , _:node183s0mggex58086 , _:node183s0mggex58087 , _:node183s0mggex58088 , _:node183s0mggex58089 , _:node183s0mggex58090 , _:node183s0mggex58091 , _:node183s0mggex58092 , _:node183s0mggex58093 , _:node183s0mggex58094 , _:node183s0mggex58081 , _:node183s0mggex58169 , _:node183s0mggex58170 , _:node183s0mggex58171 , _:node183s0mggex58172 , _:node183s0mggex58168 , _:node183s0mggex58031 , _:node183s0mggex58048 , _:node183s0mggex58191 , _:node183s0mggex66815 , _:node183s0mggex66821 , _:node183s0mggex66822 , _:node183s0mggex66820 , atxa-core:docRoot , _:node183s0mggex58051 , _:node183s0mggex58052 , _:node183s0mggex58053 , _:node183s0mggex58054 , _:node183s0mggex58055 , _:node183s0mggex58056 , _:node183s0mggex58057 , _:node183s0mggex58058 , _:node183s0mggex58059 , _:node183s0mggex58060 , _:node183s0mggex58061 , _:node183s0mggex58062 , _:node183s0mggex58063 , _:node183s0mggex58064 , _:node183s0mggex58047 , _:node183s0mggex58105 , _:node183s0mggex58107 , _:node183s0mggex58109 , _:node183s0mggex58111 , _:node183s0mggex58112 , _:node183s0mggex58113 , _:node183s0mggex58100 , _:node183s0mggex58116 , _:node183s0mggex58115 , _:node183s0mggex58114 , _:node183s0mggex58124 , _:node183s0mggex58117 , _:node183s0mggex58129 , _:node183s0mggex58131 , _:node183s0mggex58130 , _:node183s0mggex58132 , _:node183s0mggex58133 , _:node183s0mggex58134 , _:node183s0mggex58135 , _:node183s0mggex58125 , _:node183s0mggex58139 , _:node183s0mggex58140 , _:node183s0mggex58141 , _:node183s0mggex58142 , _:node183s0mggex58143 , _:node183s0mggex58136 , _:node183s0mggex58146 , _:node183s0mggex58147 , _:node183s0mggex58148 , _:node183s0mggex58149 , _:node183s0mggex58150 , _:node183s0mggex58144 , _:node183s0mggex58151 , _:node183s0mggex58152 , _:node183s0mggex58153 , _:node183s0mggex58154 , _:node183s0mggex58155 , _:node183s0mggex58106 , _:node183s0mggex58156 , _:node183s0mggex58108 , _:node183s0mggex58110 , _:node183s0mggex58157 , _:node183s0mggex58126 , _:node183s0mggex58069 , _:node183s0mggex58070 , _:node183s0mggex58071 , _:node183s0mggex58072 , _:node183s0mggex58073 , _:node183s0mggex58074 , _:node183s0mggex58075 , _:node183s0mggex58076 , _:node183s0mggex58077 , _:node183s0mggex58078 , _:node183s0mggex58079 , _:node183s0mggex58080 , _:node183s0mggex58065 , _:node183s0mggex58096 , _:node183s0mggex58097 , _:node183s0mggex58098 , _:node183s0mggex58099 , _:node183s0mggex58095 , _:node183s0mggex58186 , _:node183s0mggex58187 , _:node183s0mggex58188 , _:node183s0mggex58189 , _:node183s0mggex58190 , _:node183s0mggex58185 , _:node183s0mggex58039 , _:node183s0mggex58040 , _:node183s0mggex58041 , _:node183s0mggex58042 , _:node183s0mggex58043 , _:node183s0mggex58044 , _:node183s0mggex58045 , _:node183s0mggex58046 , _:node183s0mggex58032 , _:node183s0mggex58159 , _:node183s0mggex58160 , _:node183s0mggex58161 , _:node183s0mggex58162 , _:node183s0mggex58163 , _:node183s0mggex58164 , _:node183s0mggex58165 , _:node183s0mggex58166 , _:node183s0mggex58167 , _:node183s0mggex58158 , _:node183s0mggex58178 , _:node183s0mggex58179 , _:node183s0mggex58180 , _:node183s0mggex58181 , _:node183s0mggex58182 , _:node183s0mggex58183 , _:node183s0mggex58184 , _:node183s0mggex58177 , _:node183s0mggex58174 , _:node183s0mggex58175 , _:node183s0mggex58176 , _:node183s0mggex58173 , _:node183s0mggex58082 , _:node183s0mggex58083 , _:node183s0mggex58084 , _:node183s0mggex58085 , _:node183s0mggex58086 , _:node183s0mggex58087 , _:node183s0mggex58088 , _:node183s0mggex58089 , _:node183s0mggex58090 , _:node183s0mggex58091 , _:node183s0mggex58092 , _:node183s0mggex58093 , _:node183s0mggex58094 , _:node183s0mggex58081 , _:node183s0mggex58169 , _:node183s0mggex58170 , _:node183s0mggex58171 , _:node183s0mggex58172 , _:node183s0mggex58168 , _:node183s0mggex58031 , _:node183s0mggex58048 , _:node183s0mggex58191 , _:node183s0mggex66815 , _:node183s0mggex66821 , _:node183s0mggex66822 , _:node183s0mggex66820 , atxa-core:docRoot , _:node183s0mggex33920 , _:node183s0mggex34563 , _:node183s0mggex28491 , _:node183s0mggex29078 , _:node183s0mggex28346 , _:node183s0mggex29687 , _:node183s0mggex34562 , _:node183s0mggex26508 , _:node183s0mggex26511 , _:node183s0mggex30472 , _:node183s0mggex31270 , _:node183s0mggex31133 , _:node183s0mggex26509 , _:node183s0mggex30665 , _:node183s0mggex30778 , _:node183s0mggex30843 , _:node183s0mggex26510 , _:node183s0mggex28040 , _:node183s0mggex28257 , _:node183s0mggex28933 , _:node183s0mggex38180 , _:node183s0mggex64982 , _:node183s0mggex64981 , _:node183s0mggex33920 , _:node183s0mggex34563 , _:node183s0mggex28491 , _:node183s0mggex29078 , _:node183s0mggex28346 , _:node183s0mggex29687 , _:node183s0mggex34562 , _:node183s0mggex26508 , _:node183s0mggex26511 , _:node183s0mggex30472 , _:node183s0mggex31270 , _:node183s0mggex31133 , _:node183s0mggex26509 , _:node183s0mggex30665 , _:node183s0mggex30778 , _:node183s0mggex30843 , _:node183s0mggex26510 , _:node183s0mggex28040 , _:node183s0mggex28257 , _:node183s0mggex28933 , _:node183s0mggex38180 , _:node183s0mggex64982 , _:node183s0mggex64981 .
+

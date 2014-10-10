@@ -32,10 +32,10 @@ import com.mxgraph.util.mxUndoableEdit.mxUndoableChange;
  * mxSelectionChange.
  * 
  * mxEvent.CHANGE fires after the selection changes by executing an
- * mxSelectionChange. The <code>added</code> and <code>removed</code>
- * properties contain Collections of cells that have been added to or removed
- * from the selection, respectively.
- *  
+ * mxSelectionChange. The <code>added</code> and <code>removed</code> properties
+ * contain Collections of cells that have been added to or removed from the
+ * selection, respectively.
+ * 
  * To add a change listener to the graph selection model:
  * 
  * <code>
@@ -52,8 +52,7 @@ import com.mxgraph.util.mxUndoableEdit.mxUndoableChange;
  *   });
  * </code>
  */
-public class mxGraphSelectionModel extends mxEventSource
-{
+public class mxGraphSelectionModel extends mxEventSource {
 
 	/**
 	 * Reference to the enclosing graph.
@@ -61,8 +60,8 @@ public class mxGraphSelectionModel extends mxEventSource
 	protected mxGraph graph;
 
 	/**
-	 * Specifies if only one selected item at a time is allowed.
-	 * Default is false.
+	 * Specifies if only one selected item at a time is allowed. Default is
+	 * false.
 	 */
 	protected boolean singleSelection = false;
 
@@ -76,24 +75,22 @@ public class mxGraphSelectionModel extends mxEventSource
 	 * 
 	 * @param graph
 	 */
-	public mxGraphSelectionModel(mxGraph graph)
-	{
+	public mxGraphSelectionModel(mxGraph graph) {
 		this.graph = graph;
 	}
 
 	/**
 	 * @return the singleSelection
 	 */
-	public boolean isSingleSelection()
-	{
+	public boolean isSingleSelection() {
 		return singleSelection;
 	}
 
 	/**
-	 * @param singleSelection the singleSelection to set
+	 * @param singleSelection
+	 *            the singleSelection to set
 	 */
-	public void setSingleSelection(boolean singleSelection)
-	{
+	public void setSingleSelection(boolean singleSelection) {
 		this.singleSelection = singleSelection;
 	}
 
@@ -103,62 +100,52 @@ public class mxGraphSelectionModel extends mxEventSource
 	 * @param cell
 	 * @return Returns true if the given cell is selected.
 	 */
-	public boolean isSelected(Object cell)
-	{
+	public boolean isSelected(Object cell) {
 		return (cell == null) ? false : cells.contains(cell);
 	}
 
 	/**
 	 * Returns true if no cells are selected.
 	 */
-	public boolean isEmpty()
-	{
+	public boolean isEmpty() {
 		return cells.isEmpty();
 	}
 
 	/**
 	 * Returns the number of selected cells.
 	 */
-	public int size()
-	{
+	public int size() {
 		return cells.size();
 	}
 
 	/**
 	 * Clears the selection.
 	 */
-	public void clear()
-	{
+	public void clear() {
 		changeSelection(null, cells);
 	}
 
 	/**
 	 * Returns the first selected cell.
 	 */
-	public Object getCell()
-	{
+	public Object getCell() {
 		return (cells.isEmpty()) ? null : cells.iterator().next();
 	}
 
 	/**
 	 * Returns the selection cells.
 	 */
-	public Object[] getCells()
-	{
+	public Object[] getCells() {
 		return cells.toArray();
 	}
 
 	/**
 	 * Clears the selection and adds the given cell to the selection.
 	 */
-	public void setCell(Object cell)
-	{
-		if (cell != null)
-		{
+	public void setCell(Object cell) {
+		if (cell != null) {
 			setCells(new Object[] { cell });
-		}
-		else
-		{
+		} else {
 			clear();
 		}
 	}
@@ -166,29 +153,22 @@ public class mxGraphSelectionModel extends mxEventSource
 	/**
 	 * Clears the selection and adds the given cells.
 	 */
-	public void setCells(Object[] cells)
-	{
-		if (cells != null)
-		{
-			if (singleSelection)
-			{
+	public void setCells(Object[] cells) {
+		if (cells != null) {
+			if (singleSelection) {
 				cells = new Object[] { getFirstSelectableCell(cells) };
 			}
 
 			List<Object> tmp = new ArrayList<Object>(cells.length);
 
-			for (int i = 0; i < cells.length; i++)
-			{
-				if (graph.isCellSelectable(cells[i]))
-				{
+			for (int i = 0; i < cells.length; i++) {
+				if (graph.isCellSelectable(cells[i])) {
 					tmp.add(cells[i]);
 				}
 			}
 
 			changeSelection(tmp, this.cells);
-		}
-		else
-		{
+		} else {
 			clear();
 		}
 	}
@@ -196,17 +176,14 @@ public class mxGraphSelectionModel extends mxEventSource
 	/**
 	 * Returns the first selectable cell in the given array of cells.
 	 * 
-	 * @param cells Array of cells to return the first selectable cell for.
+	 * @param cells
+	 *            Array of cells to return the first selectable cell for.
 	 * @return Returns the first cell that may be selected.
 	 */
-	protected Object getFirstSelectableCell(Object[] cells)
-	{
-		if (cells != null)
-		{
-			for (int i = 0; i < cells.length; i++)
-			{
-				if (graph.isCellSelectable(cells[i]))
-				{
+	protected Object getFirstSelectableCell(Object[] cells) {
+		if (cells != null) {
+			for (int i = 0; i < cells.length; i++) {
+				if (graph.isCellSelectable(cells[i])) {
 					return cells[i];
 				}
 			}
@@ -218,10 +195,8 @@ public class mxGraphSelectionModel extends mxEventSource
 	/**
 	 * Adds the given cell to the selection.
 	 */
-	public void addCell(Object cell)
-	{
-		if (cell != null)
-		{
+	public void addCell(Object cell) {
+		if (cell != null) {
 			addCells(new Object[] { cell });
 		}
 	}
@@ -229,24 +204,19 @@ public class mxGraphSelectionModel extends mxEventSource
 	/**
 	 * 
 	 */
-	public void addCells(Object[] cells)
-	{
-		if (cells != null)
-		{
+	public void addCells(Object[] cells) {
+		if (cells != null) {
 			Collection<Object> remove = null;
 
-			if (singleSelection)
-			{
+			if (singleSelection) {
 				remove = this.cells;
 				cells = new Object[] { getFirstSelectableCell(cells) };
 			}
 
 			List<Object> tmp = new ArrayList<Object>(cells.length);
 
-			for (int i = 0; i < cells.length; i++)
-			{
-				if (!isSelected(cells[i]) && graph.isCellSelectable(cells[i]))
-				{
+			for (int i = 0; i < cells.length; i++) {
+				if (!isSelected(cells[i]) && graph.isCellSelectable(cells[i])) {
 					tmp.add(cells[i]);
 				}
 			}
@@ -258,10 +228,8 @@ public class mxGraphSelectionModel extends mxEventSource
 	/**
 	 * Removes the given cell from the selection.
 	 */
-	public void removeCell(Object cell)
-	{
-		if (cell != null)
-		{
+	public void removeCell(Object cell) {
+		if (cell != null) {
 			removeCells(new Object[] { cell });
 		}
 	}
@@ -269,16 +237,12 @@ public class mxGraphSelectionModel extends mxEventSource
 	/**
 	 * 
 	 */
-	public void removeCells(Object[] cells)
-	{
-		if (cells != null)
-		{
+	public void removeCells(Object[] cells) {
+		if (cells != null) {
 			List<Object> tmp = new ArrayList<Object>(cells.length);
 
-			for (int i = 0; i < cells.length; i++)
-			{
-				if (isSelected(cells[i]))
-				{
+			for (int i = 0; i < cells.length; i++) {
+				if (isSelected(cells[i])) {
 					tmp.add(cells[i]);
 				}
 			}
@@ -291,11 +255,9 @@ public class mxGraphSelectionModel extends mxEventSource
 	 * 
 	 */
 	protected void changeSelection(Collection<Object> added,
-			Collection<Object> removed)
-	{
+			Collection<Object> removed) {
 		if ((added != null && !added.isEmpty())
-				|| (removed != null && !removed.isEmpty()))
-		{
+				|| (removed != null && !removed.isEmpty())) {
 			mxSelectionChange change = new mxSelectionChange(this, added,
 					removed);
 			change.execute();
@@ -308,10 +270,8 @@ public class mxGraphSelectionModel extends mxEventSource
 	/**
 	 * 
 	 */
-	protected void cellAdded(Object cell)
-	{
-		if (cell != null)
-		{
+	protected void cellAdded(Object cell) {
+		if (cell != null) {
 			cells.add(cell);
 		}
 	}
@@ -319,10 +279,8 @@ public class mxGraphSelectionModel extends mxEventSource
 	/**
 	 * 
 	 */
-	protected void cellRemoved(Object cell)
-	{
-		if (cell != null)
-		{
+	protected void cellRemoved(Object cell) {
+		if (cell != null) {
 			cells.remove(cell);
 		}
 	}
@@ -330,8 +288,7 @@ public class mxGraphSelectionModel extends mxEventSource
 	/**
 	 *
 	 */
-	public static class mxSelectionChange implements mxUndoableChange
-	{
+	public static class mxSelectionChange implements mxUndoableChange {
 
 		/**
 		 * 
@@ -350,8 +307,7 @@ public class mxGraphSelectionModel extends mxEventSource
 		 * @param removed
 		 */
 		public mxSelectionChange(mxGraphSelectionModel model,
-				Collection<Object> added, Collection<Object> removed)
-		{
+				Collection<Object> added, Collection<Object> removed) {
 			this.model = model;
 			this.added = (added != null) ? new ArrayList<Object>(added) : null;
 			this.removed = (removed != null) ? new ArrayList<Object>(removed)
@@ -361,24 +317,19 @@ public class mxGraphSelectionModel extends mxEventSource
 		/**
 		 * 
 		 */
-		public void execute()
-		{
-			if (removed != null)
-			{
+		public void execute() {
+			if (removed != null) {
 				Iterator<Object> it = removed.iterator();
 
-				while (it.hasNext())
-				{
+				while (it.hasNext()) {
 					model.cellRemoved(it.next());
 				}
 			}
 
-			if (added != null)
-			{
+			if (added != null) {
 				Iterator<Object> it = added.iterator();
 
-				while (it.hasNext())
-				{
+				while (it.hasNext()) {
 					model.cellAdded(it.next());
 				}
 			}

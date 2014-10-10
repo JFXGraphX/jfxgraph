@@ -14,8 +14,7 @@ import com.mxgraph.swing.util.mxMouseAdapter;
 /**
  * 
  */
-public class mxPanningHandler extends mxMouseAdapter
-{
+public class mxPanningHandler extends mxMouseAdapter {
 
 	/**
 	 * 
@@ -26,7 +25,7 @@ public class mxPanningHandler extends mxMouseAdapter
 	 * 
 	 */
 	protected mxGraphComponent graphComponent;
-	
+
 	/**
 	 * 
 	 */
@@ -41,8 +40,7 @@ public class mxPanningHandler extends mxMouseAdapter
 	 * 
 	 * @param graphComponent
 	 */
-	public mxPanningHandler(mxGraphComponent graphComponent)
-	{
+	public mxPanningHandler(mxGraphComponent graphComponent) {
 		this.graphComponent = graphComponent;
 
 		graphComponent.getGraphControl().addMouseListener(this);
@@ -52,27 +50,23 @@ public class mxPanningHandler extends mxMouseAdapter
 	/**
 	 * 
 	 */
-	public boolean isEnabled()
-	{
+	public boolean isEnabled() {
 		return enabled;
 	}
 
 	/**
 	 * 
 	 */
-	public void setEnabled(boolean value)
-	{
+	public void setEnabled(boolean value) {
 		enabled = value;
 	}
 
 	/**
 	 * 
 	 */
-	public void mousePressed(MouseEvent e)
-	{
+	public void mousePressed(MouseEvent e) {
 		if (isEnabled() && !e.isConsumed() && graphComponent.isPanningEvent(e)
-				&& !e.isPopupTrigger())
-		{
+				&& !e.isPopupTrigger()) {
 			start = e.getPoint();
 		}
 	}
@@ -80,10 +74,8 @@ public class mxPanningHandler extends mxMouseAdapter
 	/**
 	 * 
 	 */
-	public void mouseDragged(MouseEvent e)
-	{
-		if (!e.isConsumed() && start != null)
-		{
+	public void mouseDragged(MouseEvent e) {
+		if (!e.isConsumed() && start != null) {
 			int dx = e.getX() - start.x;
 			int dy = e.getY() - start.y;
 
@@ -102,15 +94,12 @@ public class mxPanningHandler extends mxMouseAdapter
 	/**
 	 * 
 	 */
-	public void mouseReleased(MouseEvent e)
-	{
-		if (!e.isConsumed() && start != null)
-		{
+	public void mouseReleased(MouseEvent e) {
+		if (!e.isConsumed() && start != null) {
 			int dx = Math.abs(start.x - e.getX());
 			int dy = Math.abs(start.y - e.getY());
 
-			if (graphComponent.isSignificant(dx, dy))
-			{
+			if (graphComponent.isSignificant(dx, dy)) {
 				e.consume();
 			}
 		}
@@ -120,10 +109,10 @@ public class mxPanningHandler extends mxMouseAdapter
 
 	/**
 	 * Whether or not panning is currently active
+	 * 
 	 * @return Whether or not panning is currently active
 	 */
-	public boolean isActive()
-	{
+	public boolean isActive() {
 		return (start != null);
 	}
 }

@@ -23,8 +23,7 @@ import org.xml.sax.InputSource;
 /**
  * Contains various XML helper methods for use with mxGraph.
  */
-public class mxXmlUtils
-{
+public class mxXmlUtils {
 	/**
 	 * Returns a new document for the given XML string.
 	 * 
@@ -32,24 +31,20 @@ public class mxXmlUtils
 	 *            String that represents the XML data.
 	 * @return Returns a new XML document.
 	 */
-	public static Document parseXml(String xml)
-	{
-		try
-		{
+	public static Document parseXml(String xml) {
+		try {
 			DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory
 					.newInstance();
 			DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
 
 			return docBuilder.parse(new InputSource(new StringReader(xml)));
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		return null;
 	}
-	
+
 	/**
 	 * Returns a string that represents the given node.
 	 * 
@@ -57,10 +52,8 @@ public class mxXmlUtils
 	 *            Node to return the XML for.
 	 * @return Returns an XML string.
 	 */
-	public static String getXml(Node node)
-	{
-		try
-		{
+	public static String getXml(Node node) {
+		try {
 			Transformer tf = TransformerFactory.newInstance().newTransformer();
 
 			tf.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
@@ -70,9 +63,7 @@ public class mxXmlUtils
 			tf.transform(new DOMSource(node), dest);
 
 			return dest.getWriter().toString();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			// ignore
 		}
 

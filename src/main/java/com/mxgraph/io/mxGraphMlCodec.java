@@ -37,15 +37,17 @@ import org.w3c.dom.NodeList;
  * This class depends from the classes contained in
  * com.mxgraph.io.gmlImplements.
  */
-public class mxGraphMlCodec
-{
+public class mxGraphMlCodec {
 	/**
-	 * Receives a GraphMl document and parses it generating a new graph that is inserted in graph.
-	 * @param document XML to be parsed
-	 * @param graph Graph where the parsed graph is included.
+	 * Receives a GraphMl document and parses it generating a new graph that is
+	 * inserted in graph.
+	 * 
+	 * @param document
+	 *            XML to be parsed
+	 * @param graph
+	 *            Graph where the parsed graph is included.
 	 */
-	public static void decode(Document document, mxGraph graph)
-	{
+	public static void decode(Document document, mxGraph graph) {
 		Object parent = graph.getDefaultParent();
 
 		graph.getModel().beginUpdate();
@@ -53,13 +55,13 @@ public class mxGraphMlCodec
 		// Initialise the key properties.
 		mxGraphMlKeyManager.getInstance().initialise(document);
 
-		NodeList graphs = document.getElementsByTagName(mxGraphMlConstants.GRAPH);
-		if (graphs.getLength() > 0)
-		{
+		NodeList graphs = document
+				.getElementsByTagName(mxGraphMlConstants.GRAPH);
+		if (graphs.getLength() > 0) {
 
 			Element graphElement = (Element) graphs.item(0);
 
-			//Create the graph model.
+			// Create the graph model.
 			mxGraphMlGraph gmlGraph = new mxGraphMlGraph(graphElement);
 
 			gmlGraph.addGraph(graph, parent);
@@ -72,18 +74,18 @@ public class mxGraphMlCodec
 	/**
 	 * Remove all the elements in the Defined Maps.
 	 */
-	private static void cleanMaps()
-	{
+	private static void cleanMaps() {
 		mxGraphMlKeyManager.getInstance().getKeyMap().clear();
 	}
 
 	/**
 	 * Generates a Xml document with the gmlGraph.
-	 * @param gmlGraph Graph model.
+	 * 
+	 * @param gmlGraph
+	 *            Graph model.
 	 * @return The Xml document generated.
 	 */
-	public static Document encodeXML(mxGraphMlGraph gmlGraph)
-	{
+	public static Document encodeXML(mxGraphMlGraph gmlGraph) {
 		Document doc = mxDomUtils.createDocument();
 
 		Element graphml = doc.createElement(mxGraphMlConstants.GRAPHML);
@@ -98,11 +100,10 @@ public class mxGraphMlCodec
 				"xsi:schemaLocation",
 				"http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd");
 
-		HashMap<String, mxGraphMlKey> keyMap = mxGraphMlKeyManager.getInstance()
-				.getKeyMap();
+		HashMap<String, mxGraphMlKey> keyMap = mxGraphMlKeyManager
+				.getInstance().getKeyMap();
 
-		for (mxGraphMlKey key : keyMap.values())
-		{
+		for (mxGraphMlKey key : keyMap.values()) {
 			Element keyElement = key.generateElement(doc);
 			graphml.appendChild(keyElement);
 		}
@@ -118,11 +119,12 @@ public class mxGraphMlCodec
 
 	/**
 	 * Generates a Xml document with the cells in the graph.
-	 * @param graph Graph with the cells.
+	 * 
+	 * @param graph
+	 *            Graph with the cells.
 	 * @return The Xml document generated.
 	 */
-	public static Document encode(mxGraph graph)
-	{
+	public static Document encode(mxGraph graph) {
 		mxGraphMlGraph gmlGraph = new mxGraphMlGraph();
 		Object parent = graph.getDefaultParent();
 
@@ -139,16 +141,17 @@ public class mxGraphMlCodec
 	/**
 	 * Creates the key elements for the encode.
 	 */
-	private static void createKeyElements()
-	{
-		HashMap<String, mxGraphMlKey> keyMap = mxGraphMlKeyManager.getInstance()
-				.getKeyMap();
+	private static void createKeyElements() {
+		HashMap<String, mxGraphMlKey> keyMap = mxGraphMlKeyManager
+				.getInstance().getKeyMap();
 		mxGraphMlKey keyNode = new mxGraphMlKey(mxGraphMlConstants.KEY_NODE_ID,
-				mxGraphMlKey.keyForValues.NODE, mxGraphMlConstants.KEY_NODE_NAME,
+				mxGraphMlKey.keyForValues.NODE,
+				mxGraphMlConstants.KEY_NODE_NAME,
 				mxGraphMlKey.keyTypeValues.STRING);
 		keyMap.put(mxGraphMlConstants.KEY_NODE_ID, keyNode);
 		mxGraphMlKey keyEdge = new mxGraphMlKey(mxGraphMlConstants.KEY_EDGE_ID,
-				mxGraphMlKey.keyForValues.EDGE, mxGraphMlConstants.KEY_EDGE_NAME,
+				mxGraphMlKey.keyForValues.EDGE,
+				mxGraphMlConstants.KEY_EDGE_NAME,
 				mxGraphMlKey.keyTypeValues.STRING);
 		keyMap.put(mxGraphMlConstants.KEY_EDGE_ID, keyEdge);
 		mxGraphMlKeyManager.getInstance().setKeyMap(keyMap);
@@ -156,21 +159,23 @@ public class mxGraphMlCodec
 
 	/**
 	 * Returns a Gml graph with the data of the vertexes and edges in the graph.
-	 * @param gmlGraph Gml document where the elements are put.
-	 * @param parent Parent cell of the vertexes and edges to be added.
-	 * @param graph Graph that contains the vertexes and edges.
+	 * 
+	 * @param gmlGraph
+	 *            Gml document where the elements are put.
+	 * @param parent
+	 *            Parent cell of the vertexes and edges to be added.
+	 * @param graph
+	 *            Graph that contains the vertexes and edges.
 	 * @return Returns the document with the elements added.
 	 */
 	public static mxGraphMlGraph decodeGraph(mxGraph graph, Object parent,
-			mxGraphMlGraph gmlGraph)
-	{
+			mxGraphMlGraph gmlGraph) {
 		Object[] vertexes = graph.getChildVertices(parent);
 		List<mxGraphMlEdge> gmlEdges = gmlGraph.getEdges();
 		gmlEdges = encodeEdges(gmlEdges, parent, graph);
 		gmlGraph.setEdges(gmlEdges);
 
-		for (Object vertex : vertexes)
-		{
+		for (Object vertex : vertexes) {
 			List<mxGraphMlNode> Gmlnodes = gmlGraph.getNodes();
 
 			mxCell v = (mxCell) vertex;
@@ -184,8 +189,7 @@ public class mxGraphMlCodec
 
 			gmlGraphx = decodeGraph(graph, vertex, gmlGraphx);
 
-			if (!gmlGraphx.isEmpty())
-			{
+			if (!gmlGraphx.isEmpty()) {
 				List<mxGraphMlGraph> nodeGraphs = gmlNode.getNodeGraph();
 				nodeGraphs.add(gmlGraphx);
 				gmlNode.setNodeGraph(nodeGraphs);
@@ -197,11 +201,13 @@ public class mxGraphMlCodec
 
 	/**
 	 * Add the node data in the gmlNode.
-	 * @param gmlNode Gml node where the data add.
-	 * @param v mxCell where data are obtained.
+	 * 
+	 * @param gmlNode
+	 *            Gml node where the data add.
+	 * @param v
+	 *            mxCell where data are obtained.
 	 */
-	public static void addNodeData(mxGraphMlNode gmlNode, mxCell v)
-	{
+	public static void addNodeData(mxGraphMlNode gmlNode, mxCell v) {
 		mxGraphMlData data = new mxGraphMlData();
 		mxGraphMlShapeNode dataShapeNode = new mxGraphMlShapeNode();
 
@@ -221,11 +227,13 @@ public class mxGraphMlCodec
 
 	/**
 	 * Add the edge data in the gmlEdge.
-	 * @param gmlEdge Gml edge where the data add.
-	 * @param v mxCell where data are obtained.
+	 * 
+	 * @param gmlEdge
+	 *            Gml edge where the data add.
+	 * @param v
+	 *            mxCell where data are obtained.
 	 */
-	public static void addEdgeData(mxGraphMlEdge gmlEdge, mxCell v)
-	{
+	public static void addEdgeData(mxGraphMlEdge gmlEdge, mxCell v) {
 		mxGraphMlData data = new mxGraphMlData();
 		mxGraphMlShapeEdge dataShapeEdge = new mxGraphMlShapeEdge();
 
@@ -239,55 +247,38 @@ public class mxGraphMlCodec
 	}
 
 	/**
-	 * Converts a connection point in the string representation of a port.
-	 * The specials names North, NorthWest, NorthEast, East, West, South, SouthEast and SouthWest
-	 * may be returned. Else, the values returned follows the pattern "double,double"
-	 * where double must be in the range 0..1
-	 * @param point mxPoint
+	 * Converts a connection point in the string representation of a port. The
+	 * specials names North, NorthWest, NorthEast, East, West, South, SouthEast
+	 * and SouthWest may be returned. Else, the values returned follows the
+	 * pattern "double,double" where double must be in the range 0..1
+	 * 
+	 * @param point
+	 *            mxPoint
 	 * @return Name of the port
 	 */
-	private static String pointToPortString(mxPoint point)
-	{
+	private static String pointToPortString(mxPoint point) {
 		String port = "";
-		if (point != null)
-		{
+		if (point != null) {
 			double x = point.getX();
 			double y = point.getY();
 
-			if (x == 0 && y == 0)
-			{
+			if (x == 0 && y == 0) {
 				port = "NorthWest";
-			}
-			else if (x == 0.5 && y == 0)
-			{
+			} else if (x == 0.5 && y == 0) {
 				port = "North";
-			}
-			else if (x == 1 && y == 0)
-			{
+			} else if (x == 1 && y == 0) {
 				port = "NorthEast";
-			}
-			else if (x == 1 && y == 0.5)
-			{
+			} else if (x == 1 && y == 0.5) {
 				port = "East";
-			}
-			else if (x == 1 && y == 1)
-			{
+			} else if (x == 1 && y == 1) {
 				port = "SouthEast";
-			}
-			else if (x == 0.5 && y == 1)
-			{
+			} else if (x == 0.5 && y == 1) {
 				port = "South";
-			}
-			else if (x == 0 && y == 1)
-			{
+			} else if (x == 0 && y == 1) {
 				port = "SouthWest";
-			}
-			else if (x == 0 && y == 0.5)
-			{
+			} else if (x == 0 && y == 0.5) {
 				port = "West";
-			}
-			else
-			{
+			} else {
 				port = "" + x + "," + y;
 			}
 		}
@@ -296,17 +287,19 @@ public class mxGraphMlCodec
 
 	/**
 	 * Returns a list of mxGmlEdge with the data of the edges in the graph.
-	 * @param Gmledges List where the elements are put.
-	 * @param parent Parent cell of the edges to be added.
-	 * @param graph Graph that contains the edges.
+	 * 
+	 * @param Gmledges
+	 *            List where the elements are put.
+	 * @param parent
+	 *            Parent cell of the edges to be added.
+	 * @param graph
+	 *            Graph that contains the edges.
 	 * @return Returns the list Gmledges with the elements added.
 	 */
-	private static List<mxGraphMlEdge> encodeEdges(List<mxGraphMlEdge> Gmledges,
-			Object parent, mxGraph graph)
-	{
+	private static List<mxGraphMlEdge> encodeEdges(
+			List<mxGraphMlEdge> Gmledges, Object parent, mxGraph graph) {
 		Object[] edges = graph.getChildEdges(parent);
-		for (Object edge : edges)
-		{
+		for (Object edge : edges) {
 			mxCell e = (mxCell) edge;
 			mxCell source = (mxCell) e.getSource();
 			mxCell target = (mxCell) e.getTarget();
@@ -318,31 +311,28 @@ public class mxGraphMlCodec
 			sourceName = source != null ? source.getId() : "";
 			targetName = target != null ? target.getId() : "";
 
-			//Get the graph view that contains the states
+			// Get the graph view that contains the states
 			mxGraphView view = graph.getView();
 			mxPoint sourceConstraint = null;
 			mxPoint targetConstraint = null;
-			if (view != null)
-			{
+			if (view != null) {
 				mxCellState edgeState = view.getState(edge);
 				mxCellState sourceState = view.getState(source);
 				mxConnectionConstraint scc = graph.getConnectionConstraint(
 						edgeState, sourceState, true);
-				if (scc != null)
-				{
+				if (scc != null) {
 					sourceConstraint = scc.getPoint();
 				}
 
 				mxCellState targetState = view.getState(target);
 				mxConnectionConstraint tcc = graph.getConnectionConstraint(
 						edgeState, targetState, false);
-				if (tcc != null)
-				{
+				if (tcc != null) {
 					targetConstraint = tcc.getPoint();
 				}
 			}
 
-			//gets the port names
+			// gets the port names
 			targetPort = pointToPortString(targetConstraint);
 			sourcePort = pointToPortString(sourceConstraint);
 
@@ -351,22 +341,18 @@ public class mxGraphMlCodec
 
 			String style = e.getStyle();
 
-			if (style == null)
-			{
+			if (style == null) {
 				style = "horizontal";
 
 			}
 
-			HashMap<String, Object> styleMap = mxGraphMlUtils.getStyleMap(style,
-					"=");
+			HashMap<String, Object> styleMap = mxGraphMlUtils.getStyleMap(
+					style, "=");
 			String endArrow = (String) styleMap.get(mxConstants.STYLE_ENDARROW);
 			if ((endArrow != null && !endArrow.equals(mxConstants.NONE))
-					|| endArrow == null)
-			{
+					|| endArrow == null) {
 				Gmledge.setEdgeDirected("true");
-			}
-			else
-			{
+			} else {
 				Gmledge.setEdgeDirected("false");
 			}
 			addEdgeData(Gmledge, e);

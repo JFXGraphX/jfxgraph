@@ -63,20 +63,19 @@ import com.mxgraph.view.mxCellState;
 /**
  * Contains various helper methods for use with mxGraph.
  */
-public class mxUtils
-{
+public class mxUtils {
 
 	/**
 	 * True if the machine is a Mac.
 	 */
 	public static boolean IS_MAC = System.getProperty("os.name").toLowerCase()
 			.indexOf("mac") >= 0;
-			
+
 	/**
 	 * True if the machine is running a linux kernel.
 	 */
-	public static boolean IS_LINUX = System.getProperty("os.name").toLowerCase()
-			.indexOf("linux") >= 0;
+	public static boolean IS_LINUX = System.getProperty("os.name")
+			.toLowerCase().indexOf("linux") >= 0;
 
 	/**
 	 * Static Graphics used for Font Metrics.
@@ -85,15 +84,11 @@ public class mxUtils
 
 	// Creates a renderer for HTML markup (only possible in
 	// non-headless environment)
-	static
-	{
-		try
-		{
+	static {
+		try {
 			fontGraphics = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB)
 					.getGraphics();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			// ignore
 		}
 	}
@@ -104,8 +99,7 @@ public class mxUtils
 	 * body are converted into linebreaks.
 	 */
 	public static mxRectangle getLabelSize(String label,
-			Map<String, Object> style, boolean isHtml, double scale)
-	{
+			Map<String, Object> style, boolean isHtml, double scale) {
 		return getLabelSize(label, style, isHtml, scale, 0);
 	}
 
@@ -116,17 +110,13 @@ public class mxUtils
 	 */
 	public static mxRectangle getLabelSize(String label,
 			Map<String, Object> style, boolean isHtml, double scale,
-			double htmlWrapWidth)
-	{
+			double htmlWrapWidth) {
 		mxRectangle size;
 
-		if (isHtml)
-		{
+		if (isHtml) {
 			size = getSizeForHtml(getBodyMarkup(label, true), style, scale,
 					htmlWrapWidth);
-		}
-		else
-		{
+		} else {
 			size = getSizeForString(label, getFont(style), scale);
 		}
 
@@ -136,24 +126,20 @@ public class mxUtils
 	/**
 	 * Returns the body part of the given HTML markup.
 	 */
-	public static String getBodyMarkup(String markup, boolean replaceLinefeeds)
-	{
+	public static String getBodyMarkup(String markup, boolean replaceLinefeeds) {
 		String lowerCase = markup.toLowerCase();
 		int bodyStart = lowerCase.indexOf("<body>");
 
-		if (bodyStart >= 0)
-		{
+		if (bodyStart >= 0) {
 			bodyStart += 7;
 			int bodyEnd = lowerCase.lastIndexOf("</body>");
 
-			if (bodyEnd > bodyStart)
-			{
+			if (bodyEnd > bodyStart) {
 				markup = markup.substring(bodyStart, bodyEnd).trim();
 			}
 		}
 
-		if (replaceLinefeeds)
-		{
+		if (replaceLinefeeds) {
 			markup = markup.replaceAll("\n", "<br>");
 		}
 
@@ -165,15 +151,13 @@ public class mxUtils
 	 */
 	public static mxRectangle getLabelPaintBounds(String label,
 			Map<String, Object> style, boolean isHtml, mxPoint offset,
-			mxRectangle vertexBounds, double scale)
-	{
+			mxRectangle vertexBounds, double scale) {
 		double wrapWidth = 0;
 
 		if (isHtml
 				&& vertexBounds != null
 				&& mxUtils.getString(style, mxConstants.STYLE_WHITE_SPACE,
-						"nowrap").equals("wrap"))
-		{
+						"nowrap").equals("wrap")) {
 			wrapWidth = vertexBounds.getWidth();
 		}
 
@@ -189,14 +173,12 @@ public class mxUtils
 		double width = 0;
 		double height = 0;
 
-		if (vertexBounds != null)
-		{
+		if (vertexBounds != null) {
 			x += vertexBounds.getX();
 			y += vertexBounds.getY();
 
 			if (mxUtils.getString(style, mxConstants.STYLE_SHAPE, "").equals(
-					mxConstants.SHAPE_SWIMLANE))
-			{
+					mxConstants.SHAPE_SWIMLANE)) {
 				// Limits the label to the swimlane title
 				boolean horizontal = mxUtils.isTrue(style,
 						mxConstants.STYLE_HORIZONTAL, true);
@@ -205,19 +187,14 @@ public class mxUtils
 						mxConstants.DEFAULT_STARTSIZE)
 						* scale;
 
-				if (horizontal)
-				{
+				if (horizontal) {
 					width += vertexBounds.getWidth();
 					height += start;
-				}
-				else
-				{
+				} else {
 					width += start;
 					height += vertexBounds.getHeight();
 				}
-			}
-			else
-			{
+			} else {
 				width += vertexBounds.getWidth();
 				height += vertexBounds.getHeight();
 			}
@@ -236,8 +213,7 @@ public class mxUtils
 	 */
 	public static mxRectangle getScaledLabelBounds(double x, double y,
 			mxRectangle size, double outerWidth, double outerHeight,
-			Map<String, Object> style, double scale)
-	{
+			Map<String, Object> style, double scale) {
 		double inset = mxConstants.LABEL_INSET * scale;
 
 		// Scales the size of the label
@@ -264,8 +240,7 @@ public class mxUtils
 		int right = (int) (getInt(style, mxConstants.STYLE_SPACING_RIGHT) * scale);
 
 		// Applies the orientation to the spacings and dimension
-		if (!horizontal)
-		{
+		if (!horizontal) {
 			int tmp = top;
 			top = right;
 			right = bottom;
@@ -279,33 +254,23 @@ public class mxUtils
 
 		// Computes the position of the label for the horizontal alignment
 		if ((horizontal && align.equals(mxConstants.ALIGN_CENTER))
-				|| (!horizontal && valign.equals(mxConstants.ALIGN_MIDDLE)))
-		{
+				|| (!horizontal && valign.equals(mxConstants.ALIGN_MIDDLE))) {
 			x += (outerWidth - width) / 2 + left - right;
-		}
-		else if ((horizontal && align.equals(mxConstants.ALIGN_RIGHT))
-				|| (!horizontal && valign.equals(mxConstants.ALIGN_BOTTOM)))
-		{
+		} else if ((horizontal && align.equals(mxConstants.ALIGN_RIGHT))
+				|| (!horizontal && valign.equals(mxConstants.ALIGN_BOTTOM))) {
 			x += outerWidth - width - spacing - right;
-		}
-		else
-		{
+		} else {
 			x += spacing + left;
 		}
 
 		// Computes the position of the label for the vertical alignment
 		if ((!horizontal && align.equals(mxConstants.ALIGN_CENTER))
-				|| (horizontal && valign.equals(mxConstants.ALIGN_MIDDLE)))
-		{
+				|| (horizontal && valign.equals(mxConstants.ALIGN_MIDDLE))) {
 			y += (outerHeight - height) / 2 + top - bottom;
-		}
-		else if ((!horizontal && align.equals(mxConstants.ALIGN_LEFT))
-				|| (horizontal && valign.equals(mxConstants.ALIGN_BOTTOM)))
-		{
+		} else if ((!horizontal && align.equals(mxConstants.ALIGN_LEFT))
+				|| (horizontal && valign.equals(mxConstants.ALIGN_BOTTOM))) {
 			y += outerHeight - height - spacing - bottom;
-		}
-		else
-		{
+		} else {
 			y += spacing + top;
 		}
 
@@ -314,13 +279,13 @@ public class mxUtils
 
 	/**
 	 * Returns the font metrics of the static font graphics instance
-	 * @param font The font whose metrics are to be returned
+	 * 
+	 * @param font
+	 *            The font whose metrics are to be returned
 	 * @return the font metrics of the specified font
 	 */
-	public static FontMetrics getFontMetrics(Font font)
-	{
-		if (fontGraphics != null)
-		{
+	public static FontMetrics getFontMetrics(Font font) {
+		if (fontGraphics != null) {
 			return fontGraphics.getFontMetrics(font);
 		}
 
@@ -337,25 +302,20 @@ public class mxUtils
 	 *            Font to be used for the computation.
 	 */
 	public static mxRectangle getSizeForString(String text, Font font,
-			double scale)
-	{
+			double scale) {
 		FontRenderContext frc = new FontRenderContext(null, false, false);
 		font = font.deriveFont((float) (font.getSize2D() * scale));
 		FontMetrics metrics = null;
 
-		if (fontGraphics != null)
-		{
+		if (fontGraphics != null) {
 			metrics = fontGraphics.getFontMetrics(font);
 		}
 
 		double lineHeight = mxConstants.LINESPACING;
 
-		if (metrics != null)
-		{
+		if (metrics != null) {
 			lineHeight += metrics.getHeight();
-		}
-		else
-		{
+		} else {
 			lineHeight += font.getSize2D() * 1.27;
 		}
 
@@ -363,22 +323,15 @@ public class mxUtils
 
 		Rectangle2D boundingBox = null;
 
-		if (lines.length == 0)
-		{
+		if (lines.length == 0) {
 			boundingBox = font.getStringBounds("", frc);
-		}
-		else
-		{
-			for (int i = 0; i < lines.length; i++)
-			{
+		} else {
+			for (int i = 0; i < lines.length; i++) {
 				Rectangle2D bounds = font.getStringBounds(lines[i], frc);
 
-				if (boundingBox == null)
-				{
+				if (boundingBox == null) {
 					boundingBox = bounds;
-				}
-				else
-				{
+				} else {
 					boundingBox
 							.setFrame(
 									0,
@@ -394,23 +347,25 @@ public class mxUtils
 	}
 
 	/**
-	 * Returns the specified text in lines that fit within the specified
-	 * width when the specified font metrics are applied to the text
-	 * @param text the text to wrap
-	 * @param metrics the font metrics to calculate the text size for
-	 * @param width the width that the text must fit within
+	 * Returns the specified text in lines that fit within the specified width
+	 * when the specified font metrics are applied to the text
+	 * 
+	 * @param text
+	 *            the text to wrap
+	 * @param metrics
+	 *            the font metrics to calculate the text size for
+	 * @param width
+	 *            the width that the text must fit within
 	 * @return the input text split in lines that fit the specified width
 	 */
 	public static String[] wordWrap(String text, FontMetrics metrics,
-			double width)
-	{
+			double width) {
 		List<String> result = new ArrayList<String>();
 		// First split the processing into lines already delimited by
 		// newlines. We want the result to retain all newlines in position.
 		String[] lines = text.split("\n");
 
-		for (int i = 0; i < lines.length; i++)
-		{
+		for (int i = 0; i < lines.length; i++) {
 			int lineWidth = 0; // the display width of the current line
 			int charCount = 0; // keeps count of current position in the line
 			StringBuilder currentLine = new StringBuilder();
@@ -420,26 +375,23 @@ public class mxUtils
 			String[] words = lines[i].split("\\s+");
 
 			// Need to a form a stack of the words in reverse order
-			// This is because if a word is split during the process 
-			// the remainder of the word is added to the front of the 
+			// This is because if a word is split during the process
+			// the remainder of the word is added to the front of the
 			// stack and processed next
 			Stack<String> wordStack = new Stack<String>();
 
-			for (int j = words.length - 1; j >= 0; j--)
-			{
+			for (int j = words.length - 1; j >= 0; j--) {
 				wordStack.push(words[j]);
 			}
 
-			while (!wordStack.isEmpty())
-			{
+			while (!wordStack.isEmpty()) {
 				String word = wordStack.pop();
 
 				// Work out what whitespace exists before this word.
 				// and add the width of the whitespace to the calculation
 				int whitespaceCount = 0;
 
-				if (word.length() > 0)
-				{
+				if (word.length() > 0) {
 					// Concatenate any preceding whitespace to the
 					// word and calculate the number of characters of that
 					// whitespace
@@ -457,21 +409,16 @@ public class mxUtils
 				// If the line width is zero, we are at the start of a newline
 				// We don't proceed preceeding whitespace in the width
 				// calculation
-				if (lineWidth > 0)
-				{
+				if (lineWidth > 0) {
 					wordLength = metrics.stringWidth(word);
-				}
-				else
-				{
+				} else {
 					wordLength = metrics.stringWidth(word.trim());
 				}
 
-				// Does the width of line so far plus the width of the 
+				// Does the width of line so far plus the width of the
 				// current word exceed the allowed width?
-				if (lineWidth + wordLength > width)
-				{
-					if (lineWidth > 0)
-					{
+				if (lineWidth + wordLength > width) {
+					if (lineWidth > 0) {
 						// There is already at least one word on this line
 						// and the current word takes the overall width over
 						// the allowed width. Because there is something on
@@ -482,22 +429,18 @@ public class mxUtils
 						currentLine = new StringBuilder();
 						wordStack.push(word.trim());
 						lineWidth = 0;
-					}
-					else if (mxConstants.SPLIT_WORDS)
-					{
-						// There are no words on the current line and the 
+					} else if (mxConstants.SPLIT_WORDS) {
+						// There are no words on the current line and the
 						// current word does not fit on it. Find the maximum
 						// number of characters of this word that just fit
 						// in the available width
 						word = word.trim();
 
-						for (int j = 1; j <= word.length(); j++)
-						{
+						for (int j = 1; j <= word.length(); j++) {
 							wordLength = metrics.stringWidth(word.substring(0,
 									j));
 
-							if (lineWidth + wordLength > width)
-							{
+							if (lineWidth + wordLength > width) {
 								// The last character took us over the allowed
 								// width, deducted it unless there is only one
 								// character, in which case we have to use it
@@ -505,46 +448,39 @@ public class mxUtils
 								j = j > 1 ? j - 1 : j;
 								String chars = word.substring(0, j);
 								currentLine = currentLine.append(chars);
-								// Return the unprocessed part of the word 
+								// Return the unprocessed part of the word
 								// to the stack
 								wordStack
 										.push(word.substring(j, word.length()));
 								result.add(currentLine.toString());
 								currentLine = new StringBuilder();
 								lineWidth = 0;
-								// Increment char counter allowing for white 
+								// Increment char counter allowing for white
 								// space in the original word
 								charCount = charCount + chars.length()
 										+ whitespaceCount;
 								break;
 							}
 						}
-					}
-					else
-					{
+					} else {
 						// There are no words on the current line, but
 						// we are not splitting.
 						word = word.trim();
 						result.add(word);
 						currentLine = new StringBuilder();
 						lineWidth = 0;
-						// Increment char counter allowing for white 
+						// Increment char counter allowing for white
 						// space in the original word
 						charCount = word.length() + whitespaceCount;
 					}
-				}
-				else
-				{
+				} else {
 					// The current word does not take the total line width
 					// over the allowed width. Append the word, removing
 					// preceeding whitespace if it is the first word in the
 					// line.
-					if (lineWidth > 0)
-					{
+					if (lineWidth > 0) {
 						currentLine = currentLine.append(word);
-					}
-					else
-					{
+					} else {
 						currentLine = currentLine.append(word.trim());
 					}
 
@@ -567,13 +503,11 @@ public class mxUtils
 	 *            HTML markup whose size should be returned.
 	 */
 	public static mxRectangle getSizeForHtml(String markup,
-			Map<String, Object> style, double scale, double wrapWidth)
-	{
+			Map<String, Object> style, double scale, double wrapWidth) {
 		mxLightweightLabel textRenderer = mxLightweightLabel
 				.getSharedInstance();
 
-		if (textRenderer != null)
-		{
+		if (textRenderer != null) {
 			// First run measures size with no wrapping
 			textRenderer.setText(createHtmlDocument(style, markup));
 			Dimension size = textRenderer.getPreferredSize();
@@ -582,8 +516,7 @@ public class mxUtils
 			// Note that this is only required because max-width
 			// is not supported and we can't get the width of an
 			// inner HTML element (or is this possible?).
-			if (wrapWidth > 0)
-			{
+			if (wrapWidth > 0) {
 				textRenderer.setText(createHtmlDocument(
 						style,
 						markup,
@@ -593,17 +526,14 @@ public class mxUtils
 				Dimension size2 = textRenderer.getPreferredSize();
 
 				// Uses wrapped text size if any text was actually wrapped
-				if (size2.width < size.width)
-				{
+				if (size2.width < size.width) {
 					size = size2;
 				}
 			}
 
 			return new mxRectangle(0, 0, size.width * scale, size.height
 					* scale);
-		}
-		else
-		{
+		} else {
 			return getSizeForString(markup, getFont(style), scale);
 		}
 	}
@@ -615,13 +545,11 @@ public class mxUtils
 	 */
 	public static double[] arcToCurves(double x0, double y0, double r1,
 			double r2, double angle, double largeArcFlag, double sweepFlag,
-			double x, double y)
-	{
+			double x, double y) {
 		x -= x0;
 		y -= y0;
 
-		if (r1 == 0 || r2 == 0)
-		{
+		if (r1 == 0 || r2 == 0) {
 			return new double[0];
 		}
 
@@ -642,18 +570,14 @@ public class mxUtils
 		double lamda = rxdd / r1x + rydd / r2y;
 		double sds;
 
-		if (lamda > 1)
-		{
+		if (lamda > 1) {
 			r1 = Math.sqrt(lamda) * r1;
 			r2 = Math.sqrt(lamda) * r2;
 			sds = 0;
-		}
-		else
-		{
+		} else {
 			double seif = 1;
 
-			if (largeArcFlag == fS)
-			{
+			if (largeArcFlag == fS) {
 				seif = -1;
 			}
 
@@ -673,12 +597,9 @@ public class mxUtils
 				- Math.atan2((ryd - tyd) / r2, (rxd - txd) / r1);
 		double dr = (rad >= 0) ? rad : 2 * Math.PI + rad;
 
-		if (fS == 0 && dr > 0)
-		{
+		if (fS == 0 && dr > 0) {
 			dr -= 2 * Math.PI;
-		}
-		else if (fS != 0 && dr < 0)
-		{
+		} else if (fS != 0 && dr < 0) {
 			dr += 2 * Math.PI;
 		}
 
@@ -700,8 +621,7 @@ public class mxUtils
 
 		double[] result = new double[seg * 6];
 
-		for (int n = 0; n < seg; ++n)
-		{
+		for (int n = 0; n < seg; ++n) {
 			s1 += segr;
 			mc = Math.cos(s1);
 			ms = Math.sin(s1);
@@ -730,12 +650,10 @@ public class mxUtils
 	/**
 	 * Returns the bounding box for the rotated rectangle.
 	 */
-	public static mxRectangle getBoundingBox(mxRectangle rect, double rotation)
-	{
+	public static mxRectangle getBoundingBox(mxRectangle rect, double rotation) {
 		mxRectangle result = null;
 
-		if (rect != null && rotation != 0)
-		{
+		if (rect != null && rotation != 0) {
 			double rad = Math.toRadians(rotation);
 			double cos = Math.cos(rad);
 			double sin = Math.sin(rad);
@@ -760,9 +678,7 @@ public class mxUtils
 			tmp.add(p4.getPoint());
 
 			result = new mxRectangle(tmp);
-		}
-		else if (rect != null)
-		{
+		} else if (rect != null) {
 			result = (mxRectangle) rect.clone();
 		}
 
@@ -770,46 +686,40 @@ public class mxUtils
 	}
 
 	/**
-	 * Find the first character matching the input character in the given
-	 * string where the character has no letter preceding it.
+	 * Find the first character matching the input character in the given string
+	 * where the character has no letter preceding it.
 	 * 
-	 * @param text the string to test for the presence of the input character
-	 * @param inputChar the test character
-	 * @param fromIndex the index position of the string to start from
+	 * @param text
+	 *            the string to test for the presence of the input character
+	 * @param inputChar
+	 *            the test character
+	 * @param fromIndex
+	 *            the index position of the string to start from
 	 * @return the position of the first character matching the input character
-	 * 			in the given string where the character has no letter preceding it.
+	 *         in the given string where the character has no letter preceding
+	 *         it.
 	 */
-	public static int firstCharAt(String text, int inputChar, int fromIndex)
-	{
+	public static int firstCharAt(String text, int inputChar, int fromIndex) {
 		int result = 0;
 
-		while (result >= 0)
-		{
+		while (result >= 0) {
 			result = text.indexOf(inputChar, fromIndex);
 
-			if (result == 0)
-			{
+			if (result == 0) {
 				return result;
-			}
-			else if (result > 0)
-			{
-				// Check there is a whitespace or symbol before the hit character
-				if (Character.isLetter(text.codePointAt(result - 1)))
-				{
+			} else if (result > 0) {
+				// Check there is a whitespace or symbol before the hit
+				// character
+				if (Character.isLetter(text.codePointAt(result - 1))) {
 					// The pre-increment is used in if and else branches.
-					if (++fromIndex >= text.length())
-					{
+					if (++fromIndex >= text.length()) {
 						return -1;
-					}
-					else
-					{
+					} else {
 						// Test again from next candidate character
 						// This isn't the first letter of this word
 						result = text.indexOf(inputChar, fromIndex);
 					}
-				}
-				else
-				{
+				} else {
 					return result;
 				}
 			}
@@ -822,8 +732,7 @@ public class mxUtils
 	/**
 	 * Rotates the given point by the given cos and sin.
 	 */
-	public static mxPoint getRotatedPoint(mxPoint pt, double cos, double sin)
-	{
+	public static mxPoint getRotatedPoint(mxPoint pt, double cos, double sin) {
 		return getRotatedPoint(pt, cos, sin, new mxPoint());
 	}
 
@@ -831,23 +740,19 @@ public class mxUtils
 	 * Finds the index of the nearest segment on the given cell state for the
 	 * specified coordinate pair.
 	 */
-	public static int findNearestSegment(mxCellState state, double x, double y)
-	{
+	public static int findNearestSegment(mxCellState state, double x, double y) {
 		int index = -1;
 
-		if (state.getAbsolutePointCount() > 0)
-		{
+		if (state.getAbsolutePointCount() > 0) {
 			mxPoint last = state.getAbsolutePoint(0);
 			double min = Double.MAX_VALUE;
 
-			for (int i = 1; i < state.getAbsolutePointCount(); i++)
-			{
+			for (int i = 1; i < state.getAbsolutePointCount(); i++) {
 				mxPoint current = state.getAbsolutePoint(i);
 				double dist = new Line2D.Double(last.x, last.y, current.x,
 						current.y).ptSegDistSq(x, y);
 
-				if (dist < min)
-				{
+				if (dist < min) {
 					min = dist;
 					index = i - 1;
 				}
@@ -863,8 +768,7 @@ public class mxUtils
 	 * Rotates the given point by the given cos and sin.
 	 */
 	public static mxPoint getRotatedPoint(mxPoint pt, double cos, double sin,
-			mxPoint c)
-	{
+			mxPoint c) {
 		double x = pt.getX() - c.getX();
 		double y = pt.getY() - c.getY();
 
@@ -876,59 +780,59 @@ public class mxUtils
 
 	/**
 	 * Returns an integer mask of the port constraints of the given map
-	 * @param terminal the cached cell state of the cell to determine the
-	 * 			port constraints for
-	 * @param edge the edge connected to the constrained terminal
-	 * @param source whether or not the edge specified is connected to the
-	 * 			terminal specified at its source end
+	 * 
+	 * @param terminal
+	 *            the cached cell state of the cell to determine the port
+	 *            constraints for
+	 * @param edge
+	 *            the edge connected to the constrained terminal
+	 * @param source
+	 *            whether or not the edge specified is connected to the terminal
+	 *            specified at its source end
 	 * @return the mask of port constraint directions
 	 */
 	public static int getPortConstraints(mxCellState terminal,
-			mxCellState edge, boolean source)
-	{
+			mxCellState edge, boolean source) {
 		return getPortConstraints(terminal, edge, source,
 				mxConstants.DIRECTION_MASK_ALL);
 	}
 
 	/**
 	 * Returns an integer mask of the port constraints of the given map
-	 * @param terminal the cached cell state of the cell to determine the
-	 * 			port constraints for
-	 * @param edge the edge connected to the constrained terminal
-	 * @param source whether or not the edge specified is connected to the
-	 * 			terminal specified at its source end
-	 * @param defaultValue Default value to return if the key is undefined.
+	 * 
+	 * @param terminal
+	 *            the cached cell state of the cell to determine the port
+	 *            constraints for
+	 * @param edge
+	 *            the edge connected to the constrained terminal
+	 * @param source
+	 *            whether or not the edge specified is connected to the terminal
+	 *            specified at its source end
+	 * @param defaultValue
+	 *            Default value to return if the key is undefined.
 	 * @return the mask of port constraint directions
 	 */
 	public static int getPortConstraints(mxCellState terminal,
-			mxCellState edge, boolean source, int defaultValue)
-	{
+			mxCellState edge, boolean source, int defaultValue) {
 		Object value = terminal.getStyle().get(
 				mxConstants.STYLE_PORT_CONSTRAINT);
 
-		if (value == null)
-		{
+		if (value == null) {
 			return defaultValue;
-		}
-		else
-		{
+		} else {
 			String directions = value.toString();
 			int returnValue = mxConstants.DIRECTION_MASK_NONE;
 
-			if (directions.indexOf(mxConstants.DIRECTION_NORTH) >= 0)
-			{
+			if (directions.indexOf(mxConstants.DIRECTION_NORTH) >= 0) {
 				returnValue |= mxConstants.DIRECTION_MASK_NORTH;
 			}
-			if (directions.indexOf(mxConstants.DIRECTION_WEST) >= 0)
-			{
+			if (directions.indexOf(mxConstants.DIRECTION_WEST) >= 0) {
 				returnValue |= mxConstants.DIRECTION_MASK_WEST;
 			}
-			if (directions.indexOf(mxConstants.DIRECTION_SOUTH) >= 0)
-			{
+			if (directions.indexOf(mxConstants.DIRECTION_SOUTH) >= 0) {
 				returnValue |= mxConstants.DIRECTION_MASK_SOUTH;
 			}
-			if (directions.indexOf(mxConstants.DIRECTION_EAST) >= 0)
-			{
+			if (directions.indexOf(mxConstants.DIRECTION_EAST) >= 0) {
 				returnValue |= mxConstants.DIRECTION_MASK_EAST;
 			}
 
@@ -936,8 +840,7 @@ public class mxUtils
 		}
 	}
 
-	public static int reversePortConstraints(int constraint)
-	{
+	public static int reversePortConstraints(int constraint) {
 		int result = 0;
 
 		result = (constraint & mxConstants.DIRECTION_MASK_WEST) << 3;
@@ -952,12 +855,10 @@ public class mxUtils
 	 * Draws the image inside the clip bounds to the given graphics object.
 	 */
 	public static void drawImageClip(Graphics g, BufferedImage image,
-			ImageObserver observer)
-	{
+			ImageObserver observer) {
 		Rectangle clip = g.getClipBounds();
 
-		if (clip != null)
-		{
+		if (clip != null) {
 			int w = image.getWidth();
 			int h = image.getHeight();
 
@@ -967,15 +868,12 @@ public class mxUtils
 			w = Math.min(clip.width, w - x);
 			h = Math.min(clip.height, h - y);
 
-			if (w > 0 && h > 0)
-			{
+			if (w > 0 && h > 0) {
 				// TODO: Support for normal images using fast subimage copies
 				g.drawImage(image.getSubimage(x, y, w, h), clip.x, clip.y,
 						observer);
 			}
-		}
-		else
-		{
+		} else {
 			g.drawImage(image, 0, 0, observer);
 		}
 	}
@@ -984,19 +882,14 @@ public class mxUtils
 	 * 
 	 */
 	public static void fillClippedRect(Graphics g, int x, int y, int width,
-			int height)
-	{
+			int height) {
 		Rectangle bg = new Rectangle(x, y, width, height);
 
-		try
-		{
-			if (g.getClipBounds() != null)
-			{
+		try {
+			if (g.getClipBounds() != null) {
 				bg = bg.intersection(g.getClipBounds());
 			}
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			// FIXME: Getting clipbounds sometimes throws an NPE
 		}
 
@@ -1009,17 +902,14 @@ public class mxUtils
 	 * added to the result as-is.
 	 */
 	public static List<mxPoint> translatePoints(List<mxPoint> pts, double dx,
-			double dy)
-	{
+			double dy) {
 		List<mxPoint> result = null;
 
-		if (pts != null)
-		{
+		if (pts != null) {
 			result = new ArrayList<mxPoint>(pts.size());
 			Iterator<mxPoint> it = pts.iterator();
 
-			while (it.hasNext())
-			{
+			while (it.hasNext()) {
 				mxPoint point = (mxPoint) it.next().clone();
 
 				point.setX(point.getX() + dx);
@@ -1054,8 +944,7 @@ public class mxUtils
 	 * @return Returns the intersection between the two lines.
 	 */
 	public static mxPoint intersection(double x0, double y0, double x1,
-			double y1, double x2, double y2, double x3, double y3)
-	{
+			double y1, double x2, double y2, double x3, double y3) {
 		double denom = ((y3 - y2) * (x1 - x0)) - ((x3 - x2) * (y1 - y0));
 		double nume_a = ((x3 - x2) * (y0 - y2)) - ((y3 - y2) * (x0 - x2));
 		double nume_b = ((x1 - x0) * (y0 - y2)) - ((y1 - y0) * (x0 - x2));
@@ -1063,8 +952,7 @@ public class mxUtils
 		double ua = nume_a / denom;
 		double ub = nume_b / denom;
 
-		if (ua >= 0.0 && ua <= 1.0 && ub >= 0.0 && ub <= 1.0)
-		{
+		if (ua >= 0.0 && ua <= 1.0 && ub >= 0.0 && ub <= 1.0) {
 			// Get the intersection point
 			double intersectionX = x0 + ua * (x1 - x0);
 			double intersectionY = y0 + ua * (y1 - y0);
@@ -1079,8 +967,7 @@ public class mxUtils
 	/**
 	 * Sorts the given cells according to the order in the cell hierarchy.
 	 */
-	public static Object[] sortCells(Object[] cells, final boolean ascending)
-	{
+	public static Object[] sortCells(Object[] cells, final boolean ascending) {
 		return sortCells(Arrays.asList(cells), ascending).toArray();
 	}
 
@@ -1088,18 +975,18 @@ public class mxUtils
 	 * Sorts the given cells according to the order in the cell hierarchy.
 	 */
 	public static Collection<Object> sortCells(Collection<Object> cells,
-			final boolean ascending)
-	{
-		SortedSet<Object> result = new TreeSet<Object>(new Comparator<Object>()
-		{
-			public int compare(Object o1, Object o2)
-			{
-				int comp = mxCellPath.compare(mxCellPath.create((mxICell) o1),
-						mxCellPath.create((mxICell) o2));
+			final boolean ascending) {
+		SortedSet<Object> result = new TreeSet<Object>(
+				new Comparator<Object>() {
+					public int compare(Object o1, Object o2) {
+						int comp = mxCellPath.compare(
+								mxCellPath.create((mxICell) o1),
+								mxCellPath.create((mxICell) o2));
 
-				return (comp == 0) ? 0 : (((comp > 0) == ascending) ? 1 : -1);
-			}
-		});
+						return (comp == 0) ? 0 : (((comp > 0) == ascending) ? 1
+								: -1);
+					}
+				});
 
 		result.addAll(cells);
 
@@ -1109,8 +996,7 @@ public class mxUtils
 	/**
 	 * Returns true if the given array contains the given object.
 	 */
-	public static boolean contains(Object[] array, Object obj)
-	{
+	public static boolean contains(Object[] array, Object obj) {
 		return indexOf(array, obj) >= 0;
 	}
 
@@ -1118,14 +1004,10 @@ public class mxUtils
 	 * Returns the index of the given object in the given array of -1 if the
 	 * object is not contained in the array.
 	 */
-	public static int indexOf(Object[] array, Object obj)
-	{
-		if (obj != null && array != null)
-		{
-			for (int i = 0; i < array.length; i++)
-			{
-				if (array[i] == obj)
-				{
+	public static int indexOf(Object[] array, Object obj) {
+		if (obj != null && array != null) {
+			for (int i = 0; i < array.length; i++) {
+				if (array[i] == obj) {
 					return i;
 				}
 			}
@@ -1143,8 +1025,7 @@ public class mxUtils
 	 * @return Returns the stylename from the given formatted string.
 	 * @deprecated Use <code>mxStyleUtils.getStylename(String)</code> (Jan 2012)
 	 */
-	public static String getStylename(String style)
-	{
+	public static String getStylename(String style) {
 		return mxStyleUtils.getStylename(style);
 	}
 
@@ -1155,10 +1036,10 @@ public class mxUtils
 	 * @param style
 	 *            String of the form stylename[;stylename][;key=value].
 	 * @return Returns the stylename from the given formatted string.
-	 * @deprecated Use <code>mxStyleUtils.getStylenames(String)</code> (Jan 2012)
+	 * @deprecated Use <code>mxStyleUtils.getStylenames(String)</code> (Jan
+	 *             2012)
 	 */
-	public static String[] getStylenames(String style)
-	{
+	public static String[] getStylenames(String style) {
 		return mxStyleUtils.getStylenames(style);
 	}
 
@@ -1166,20 +1047,23 @@ public class mxUtils
 	 * Returns the index of the given stylename in the given style. This returns
 	 * -1 if the given stylename does not occur (as a stylename) in the given
 	 * style, otherwise it returns the index of the first character.
-	 * @deprecated Use <code>mxStyleUtils.indexOfStylename(String, String)</code> (Jan 2012)
+	 * 
+	 * @deprecated Use
+	 *             <code>mxStyleUtils.indexOfStylename(String, String)</code>
+	 *             (Jan 2012)
 	 */
-	public static int indexOfStylename(String style, String stylename)
-	{
+	public static int indexOfStylename(String style, String stylename) {
 		return mxStyleUtils.indexOfStylename(style, stylename);
 	}
 
 	/**
 	 * Removes all stylenames from the given style and returns the updated
 	 * style.
-	 * @deprecated Use <code>mxStyleUtils.removeAllStylenames(String)</code> (Jan 2012)
+	 * 
+	 * @deprecated Use <code>mxStyleUtils.removeAllStylenames(String)</code>
+	 *             (Jan 2012)
 	 */
-	public static String removeAllStylenames(String style)
-	{
+	public static String removeAllStylenames(String style) {
 		return mxStyleUtils.removeAllStylenames(style);
 	}
 
@@ -1195,11 +1079,12 @@ public class mxUtils
 	 *            Key of the style to be changed.
 	 * @param value
 	 *            New value for the given key.
-	 * @deprecated Use <code>mxStyleUtils.setCellStyles(mxIGraphModel, Object[], String, String)</code> (Jan 2012)
+	 * @deprecated Use
+	 *             <code>mxStyleUtils.setCellStyles(mxIGraphModel, Object[], String, String)</code>
+	 *             (Jan 2012)
 	 */
 	public static void setCellStyles(mxIGraphModel model, Object[] cells,
-			String key, String value)
-	{
+			String key, String value) {
 		mxStyleUtils.setCellStyles(model, cells, key, value);
 	}
 
@@ -1215,10 +1100,11 @@ public class mxUtils
 	 * @param value
 	 *            New value for the given key.
 	 * @return Returns the new style.
-	 * @deprecated Use <code>mxStyleUtils.setStyle(String, String, String)</code> (Jan 2012)
+	 * @deprecated Use
+	 *             <code>mxStyleUtils.setStyle(String, String, String)</code>
+	 *             (Jan 2012)
 	 */
-	public static String setStyle(String style, String key, String value)
-	{
+	public static String setStyle(String style, String key, String value) {
 		return mxStyleUtils.setStyle(style, key, value);
 	}
 
@@ -1245,11 +1131,12 @@ public class mxUtils
 	 *            Integer for the bit to be changed.
 	 * @param value
 	 *            Optional boolean value for the flag.
-	 * @deprecated Use <code>mxStyleUtils.setCellStyleFlags(mxIGraphModel, Object[],String, int, Boolean)</code> (Jan 2012)
+	 * @deprecated Use
+	 *             <code>mxStyleUtils.setCellStyleFlags(mxIGraphModel, Object[],String, int, Boolean)</code>
+	 *             (Jan 2012)
 	 */
 	public static void setCellStyleFlags(mxIGraphModel model, Object[] cells,
-			String key, int flag, Boolean value)
-	{
+			String key, int flag, Boolean value) {
 		mxStyleUtils.setCellStyleFlags(model, cells, key, flag, value);
 	}
 
@@ -1265,17 +1152,17 @@ public class mxUtils
 	 *            Integer for the bit to be changed.
 	 * @param value
 	 *            Optional boolean value for the given flag.
-	 * @deprecated Use <code>mxStyleUtils.setStyleFlag(String, String, int, Boolean)</code> (Jan 2012)
+	 * @deprecated Use
+	 *             <code>mxStyleUtils.setStyleFlag(String, String, int, Boolean)</code>
+	 *             (Jan 2012)
 	 */
 	public static String setStyleFlag(String style, String key, int flag,
-			Boolean value)
-	{
+			Boolean value) {
 		return mxStyleUtils.setStyleFlag(style, key, flag, value);
 	}
 
 	public static boolean intersectsHotspot(mxCellState state, int x, int y,
-			double hotspot)
-	{
+			double hotspot) {
 		return intersectsHotspot(state, x, y, hotspot, 0, 0);
 	}
 
@@ -1284,10 +1171,8 @@ public class mxUtils
 	 * given state.
 	 */
 	public static boolean intersectsHotspot(mxCellState state, int x, int y,
-			double hotspot, int min, int max)
-	{
-		if (hotspot > 0)
-		{
+			double hotspot, int min, int max) {
+		if (hotspot > 0) {
 			int cx = (int) Math.round(state.getCenterX());
 			int cy = (int) Math.round(state.getCenterY());
 			int width = (int) Math.round(state.getWidth());
@@ -1295,20 +1180,16 @@ public class mxUtils
 
 			if (mxUtils
 					.getString(state.getStyle(), mxConstants.STYLE_SHAPE, "")
-					.equals(mxConstants.SHAPE_SWIMLANE))
-			{
+					.equals(mxConstants.SHAPE_SWIMLANE)) {
 				int start = mxUtils.getInt(state.getStyle(),
 						mxConstants.STYLE_STARTSIZE,
 						mxConstants.DEFAULT_STARTSIZE);
 
 				if (mxUtils.isTrue(state.getStyle(),
-						mxConstants.STYLE_HORIZONTAL, true))
-				{
+						mxConstants.STYLE_HORIZONTAL, true)) {
 					cy = (int) Math.round(state.getY() + start / 2);
 					height = start;
-				}
-				else
-				{
+				} else {
 					cx = (int) Math.round(state.getX() + start / 2);
 					width = start;
 				}
@@ -1317,8 +1198,7 @@ public class mxUtils
 			int w = (int) Math.max(min, width * hotspot);
 			int h = (int) Math.max(min, height * hotspot);
 
-			if (max > 0)
-			{
+			if (max > 0) {
 				w = Math.min(w, max);
 				h = Math.min(h, max);
 			}
@@ -1342,8 +1222,7 @@ public class mxUtils
 	 *            Key whose value should be returned.
 	 * @return Returns the boolean value for key in dict.
 	 */
-	public static boolean isTrue(Map<String, Object> dict, String key)
-	{
+	public static boolean isTrue(Map<String, Object> dict, String key) {
 		return isTrue(dict, key, false);
 	}
 
@@ -1360,16 +1239,12 @@ public class mxUtils
 	 * @return Returns the boolean value for key in dict.
 	 */
 	public static boolean isTrue(Map<String, Object> dict, String key,
-			boolean defaultValue)
-	{
+			boolean defaultValue) {
 		Object value = dict.get(key);
 
-		if (value == null)
-		{
+		if (value == null) {
 			return defaultValue;
-		}
-		else
-		{
+		} else {
 			return value.equals("1")
 					|| value.toString().toLowerCase().equals("true");
 		}
@@ -1385,8 +1260,7 @@ public class mxUtils
 	 *            Key whose value should be returned.
 	 * @return Returns the integer value for key in dict.
 	 */
-	public static int getInt(Map<String, Object> dict, String key)
-	{
+	public static int getInt(Map<String, Object> dict, String key) {
 		return getInt(dict, key, 0);
 	}
 
@@ -1403,16 +1277,12 @@ public class mxUtils
 	 * @return Returns the integer value for key in dict.
 	 */
 	public static int getInt(Map<String, Object> dict, String key,
-			int defaultValue)
-	{
+			int defaultValue) {
 		Object value = dict.get(key);
 
-		if (value == null)
-		{
+		if (value == null) {
 			return defaultValue;
-		}
-		else
-		{
+		} else {
 			// Handles commas by casting them to an int
 			return (int) Float.parseFloat(value.toString());
 		}
@@ -1428,8 +1298,7 @@ public class mxUtils
 	 *            Key whose value should be returned.
 	 * @return Returns the float value for key in dict.
 	 */
-	public static float getFloat(Map<String, Object> dict, String key)
-	{
+	public static float getFloat(Map<String, Object> dict, String key) {
 		return getFloat(dict, key, 0);
 	}
 
@@ -1446,23 +1315,19 @@ public class mxUtils
 	 * @return Returns the float value for key in dict.
 	 */
 	public static float getFloat(Map<String, Object> dict, String key,
-			float defaultValue)
-	{
+			float defaultValue) {
 		Object value = dict.get(key);
 
-		if (value == null)
-		{
+		if (value == null) {
 			return defaultValue;
-		}
-		else
-		{
+		} else {
 			return Float.parseFloat(value.toString());
 		}
 	}
 
 	/**
-	 * Returns the value for key in dictionary as a float array or the given default
-	 * value if no value is defined for the key.
+	 * Returns the value for key in dictionary as a float array or the given
+	 * default value if no value is defined for the key.
 	 * 
 	 * @param dict
 	 *            Dictionary that contains the key, value pairs.
@@ -1473,14 +1338,13 @@ public class mxUtils
 	 * @return Returns the float array value for key in dict.
 	 */
 	public static float[] getFloatArray(Map<String, Object> dict, String key,
-			float[] defaultValue)
-	{
+			float[] defaultValue) {
 		return getFloatArray(dict, key, defaultValue, ",");
 	}
 
 	/**
-	 * Returns the value for key in dictionary as a float array or the given default
-	 * value if no value is defined for the key.
+	 * Returns the value for key in dictionary as a float array or the given
+	 * default value if no value is defined for the key.
 	 * 
 	 * @param dict
 	 *            Dictionary that contains the key, value pairs.
@@ -1491,21 +1355,16 @@ public class mxUtils
 	 * @return Returns the float array value for key in dict.
 	 */
 	public static float[] getFloatArray(Map<String, Object> dict, String key,
-			float[] defaultValue, String separator)
-	{
+			float[] defaultValue, String separator) {
 		Object value = dict.get(key);
 
-		if (value == null)
-		{
+		if (value == null) {
 			return defaultValue;
-		}
-		else
-		{
+		} else {
 			String[] floatChars = value.toString().split(separator);
 			float[] result = new float[floatChars.length];
 
-			for (int i = 0; i < floatChars.length; i++)
-			{
+			for (int i = 0; i < floatChars.length; i++) {
 				result[i] = Float.parseFloat(floatChars[i]);
 			}
 
@@ -1523,8 +1382,7 @@ public class mxUtils
 	 *            Key whose value should be returned.
 	 * @return Returns the double value for key in dict.
 	 */
-	public static double getDouble(Map<String, Object> dict, String key)
-	{
+	public static double getDouble(Map<String, Object> dict, String key) {
 		return getDouble(dict, key, 0);
 	}
 
@@ -1541,16 +1399,12 @@ public class mxUtils
 	 * @return Returns the double value for key in dict.
 	 */
 	public static double getDouble(Map<String, Object> dict, String key,
-			double defaultValue)
-	{
+			double defaultValue) {
 		Object value = dict.get(key);
 
-		if (value == null)
-		{
+		if (value == null) {
 			return defaultValue;
-		}
-		else
-		{
+		} else {
 			return Double.parseDouble(value.toString());
 		}
 	}
@@ -1565,8 +1419,7 @@ public class mxUtils
 	 *            Key whose value should be returned.
 	 * @return Returns the string value for key in dict.
 	 */
-	public static String getString(Map<String, Object> dict, String key)
-	{
+	public static String getString(Map<String, Object> dict, String key) {
 		return getString(dict, key, null);
 	}
 
@@ -1583,16 +1436,12 @@ public class mxUtils
 	 * @return Returns the string value for key in dict.
 	 */
 	public static String getString(Map<String, Object> dict, String key,
-			String defaultValue)
-	{
+			String defaultValue) {
 		Object value = dict.get(key);
 
-		if (value == null)
-		{
+		if (value == null) {
 			return defaultValue;
-		}
-		else
-		{
+		} else {
 			return value.toString();
 		}
 	}
@@ -1607,8 +1456,7 @@ public class mxUtils
 	 *            Key whose value should be returned.
 	 * @return Returns the color value for key in dict.
 	 */
-	public static Color getColor(Map<String, Object> dict, String key)
-	{
+	public static Color getColor(Map<String, Object> dict, String key) {
 		return getColor(dict, key, null);
 	}
 
@@ -1625,16 +1473,12 @@ public class mxUtils
 	 * @return Returns the color value for key in dict.
 	 */
 	public static Color getColor(Map<String, Object> dict, String key,
-			Color defaultValue)
-	{
+			Color defaultValue) {
 		Object value = dict.get(key);
 
-		if (value == null)
-		{
+		if (value == null) {
 			return defaultValue;
-		}
-		else
-		{
+		} else {
 			return parseColor(value.toString());
 		}
 	}
@@ -1642,16 +1486,14 @@ public class mxUtils
 	/**
 	 * 
 	 */
-	public static Font getFont(Map<String, Object> style)
-	{
+	public static Font getFont(Map<String, Object> style) {
 		return getFont(style, 1);
 	}
 
 	/**
 	 * 
 	 */
-	public static Font getFont(Map<String, Object> style, double scale)
-	{
+	public static Font getFont(Map<String, Object> style, double scale) {
 		String fontFamily = getString(style, mxConstants.STYLE_FONTFAMILY,
 				mxConstants.DEFAULT_FONTFAMILY);
 		int fontSize = getInt(style, mxConstants.STYLE_FONTSIZE,
@@ -1669,8 +1511,7 @@ public class mxUtils
 	/**
 	 * 
 	 */
-	public static String hexString(Color color)
-	{
+	public static String hexString(Color color) {
 		return mxHtmlColor.hexString(color);
 	}
 
@@ -1689,8 +1530,7 @@ public class mxUtils
 	 *                hexidecimal integer
 	 */
 	public static Color parseColor(String colorString)
-			throws NumberFormatException
-	{
+			throws NumberFormatException {
 		return mxHtmlColor.parseColor(colorString);
 	}
 
@@ -1701,8 +1541,7 @@ public class mxUtils
 	 *            Color to return the hex string for.
 	 * @return Returns a hex string for the given color.
 	 */
-	public static String getHexColorString(Color color)
-	{
+	public static String getHexColorString(Color color) {
 		return mxHtmlColor.getHexColorString(color);
 	}
 
@@ -1714,8 +1553,7 @@ public class mxUtils
 	 * @return Returns a string representing the file contents.
 	 * @throws IOException
 	 */
-	public static String readFile(String filename) throws IOException
-	{
+	public static String readFile(String filename) throws IOException {
 		return readInputStream(new FileInputStream(filename));
 	}
 
@@ -1727,15 +1565,13 @@ public class mxUtils
 	 * @return Returns a string representing the file contents.
 	 * @throws IOException
 	 */
-	public static String readInputStream(InputStream stream) throws IOException
-	{
+	public static String readInputStream(InputStream stream) throws IOException {
 		BufferedReader reader = new BufferedReader(
 				new InputStreamReader(stream));
 		StringBuffer result = new StringBuffer();
 		String tmp = reader.readLine();
 
-		while (tmp != null)
-		{
+		while (tmp != null) {
 			result.append(tmp + "\n");
 			tmp = reader.readLine();
 		}
@@ -1755,8 +1591,7 @@ public class mxUtils
 	 * @throws IOException
 	 */
 	public static void writeFile(String contents, String filename)
-			throws IOException
-	{
+			throws IOException {
 		FileWriter fw = new FileWriter(filename);
 		fw.write(contents);
 		fw.flush();
@@ -1770,24 +1605,19 @@ public class mxUtils
 	 *            String whose Md5 hash should be returned.
 	 * @return Returns the Md5 hash for the given text.
 	 */
-	public static String getMd5Hash(String text)
-	{
+	public static String getMd5Hash(String text) {
 		StringBuffer result = new StringBuffer(32);
-		try
-		{
+		try {
 			MessageDigest md5 = MessageDigest.getInstance("MD5");
 			md5.update(text.getBytes());
 			Formatter f = new Formatter(result);
 
 			byte[] digest = md5.digest();
 
-			for (int i = 0; i < digest.length; i++)
-			{
+			for (int i = 0; i < digest.length; i++) {
 				f.format("%02x", new Object[] { new Byte(digest[i]) });
 			}
-		}
-		catch (NoSuchAlgorithmException ex)
-		{
+		} catch (NoSuchAlgorithmException ex) {
 			ex.printStackTrace();
 		}
 
@@ -1807,8 +1637,7 @@ public class mxUtils
 	 *         given type.
 	 */
 
-	public static boolean isNode(Object value, String nodeName)
-	{
+	public static boolean isNode(Object value, String nodeName) {
 		return isNode(value, nodeName, null, null);
 	}
 
@@ -1827,15 +1656,12 @@ public class mxUtils
 	 * @return Returns true if the value matches the given conditions.
 	 */
 	public static boolean isNode(Object value, String nodeName,
-			String attributeName, String attributeValue)
-	{
-		if (value instanceof Element)
-		{
+			String attributeName, String attributeValue) {
+		if (value instanceof Element) {
 			Element element = (Element) value;
 
 			if (nodeName == null
-					|| element.getNodeName().equalsIgnoreCase(nodeName))
-			{
+					|| element.getNodeName().equalsIgnoreCase(nodeName)) {
 				String tmp = (attributeName != null) ? element
 						.getAttribute(attributeName) : null;
 
@@ -1854,8 +1680,7 @@ public class mxUtils
 	 * @param textAntiAlias
 	 */
 	public static void setAntiAlias(Graphics2D g, boolean antiAlias,
-			boolean textAntiAlias)
-	{
+			boolean textAntiAlias) {
 		g.setRenderingHint(RenderingHints.KEY_RENDERING,
 				(antiAlias) ? RenderingHints.VALUE_RENDER_QUALITY
 						: RenderingHints.VALUE_RENDER_SPEED);
@@ -1871,15 +1696,11 @@ public class mxUtils
 	 * Clears the given area of the specified graphics object with the given
 	 * color or makes the region transparent.
 	 */
-	public static void clearRect(Graphics2D g, Rectangle rect, Color background)
-	{
-		if (background != null)
-		{
+	public static void clearRect(Graphics2D g, Rectangle rect, Color background) {
+		if (background != null) {
 			g.setColor(background);
 			g.fillRect(rect.x, rect.y, rect.width, rect.height);
-		}
-		else
-		{
+		} else {
 			g.setComposite(AlphaComposite.getInstance(AlphaComposite.CLEAR,
 					0.0f));
 			g.fillRect(rect.x, rect.y, rect.width, rect.height);
@@ -1892,19 +1713,16 @@ public class mxUtils
 	 * memory to create the image then a OutOfMemoryError is thrown.
 	 */
 	public static BufferedImage createBufferedImage(int w, int h,
-			Color background)
-	{
+			Color background) {
 		BufferedImage result = null;
 
-		if (w > 0 && h > 0)
-		{
+		if (w > 0 && h > 0) {
 			int type = (background != null) ? BufferedImage.TYPE_INT_RGB
 					: BufferedImage.TYPE_INT_ARGB;
 			result = new BufferedImage(w, h, type);
-			
+
 			// Clears background
-			if (background != null)
-			{
+			if (background != null) {
 				Graphics2D g2 = result.createGraphics();
 				clearRect(g2, new Rectangle(w, h), background);
 				g2.dispose();
@@ -1917,48 +1735,33 @@ public class mxUtils
 	/**
 	 * Loads an image from the local filesystem, a data URI or any other URL.
 	 */
-	public static BufferedImage loadImage(String url)
-	{
+	public static BufferedImage loadImage(String url) {
 		BufferedImage img = null;
 
-		if (url != null)
-		{
+		if (url != null) {
 			// Parses data URIs of the form data:image/format;base64,xxx
-			if (url.startsWith("data:image/"))
-			{
-				try
-				{
+			if (url.startsWith("data:image/")) {
+				try {
 					int comma = url.indexOf(',');
 					byte[] data = mxBase64.decode(url.substring(comma + 1));
 					ByteArrayInputStream is = new ByteArrayInputStream(data);
 					img = ImageIO.read(is);
-				}
-				catch (Exception e1)
-				{
+				} catch (Exception e1) {
 					// ignore
 				}
-			}
-			else
-			{
+			} else {
 				URL realUrl = null;
 
-				try
-				{
+				try {
 					realUrl = new URL(url);
-				}
-				catch (Exception e)
-				{
+				} catch (Exception e) {
 					realUrl = mxUtils.class.getResource(url);
 				}
 
-				if (realUrl != null)
-				{
-					try
-					{
+				if (realUrl != null) {
+					try {
 						img = ImageIO.read(realUrl);
-					}
-					catch (Exception e1)
-					{
+					} catch (Exception e1) {
 						e1.printStackTrace();
 					}
 				}
@@ -1973,13 +1776,11 @@ public class mxUtils
 	 * DOM nodes. Returns the outermost table node.
 	 */
 	public static Element createTable(Document document, String text, int x,
-			int y, int w, int h, double scale, Map<String, Object> style)
-	{
+			int y, int w, int h, double scale, Map<String, Object> style) {
 		// Does not use a textbox as this must go inside another VML shape
 		Element table = document.createElement("table");
 
-		if (text != null && text.length() > 0)
-		{
+		if (text != null && text.length() > 0) {
 			Element tr = document.createElement("tr");
 			Element td = document.createElement("td");
 
@@ -2003,8 +1804,7 @@ public class mxUtils
 					+ ";";
 
 			if (mxUtils.getString(style, mxConstants.STYLE_WHITE_SPACE,
-					"nowrap").equals("wrap"))
-			{
+					"nowrap").equals("wrap")) {
 				s += "whiteSpace:wrap;";
 			}
 
@@ -2012,8 +1812,7 @@ public class mxUtils
 			String background = getString(style,
 					mxConstants.STYLE_LABEL_BACKGROUNDCOLOR);
 
-			if (background != null)
-			{
+			if (background != null) {
 				s += "background:" + background + ";";
 			}
 
@@ -2021,16 +1820,14 @@ public class mxUtils
 			String border = getString(style,
 					mxConstants.STYLE_LABEL_BORDERCOLOR);
 
-			if (border != null)
-			{
+			if (border != null) {
 				s += "border:" + border + " solid 1pt;";
 			}
 
 			// Applies the opacity
 			float opacity = getFloat(style, mxConstants.STYLE_TEXT_OPACITY, 100);
 
-			if (opacity < 100)
-			{
+			if (opacity < 100) {
 				// Adds all rules (first for IE)
 				s += "filter:alpha(opacity=" + opacity + ");";
 				s += "opacity:" + (opacity / 100) + ";";
@@ -2039,8 +1836,7 @@ public class mxUtils
 			td.setAttribute("style", s);
 			String[] lines = text.split("\n");
 
-			for (int i = 0; i < lines.length; i++)
-			{
+			for (int i = 0; i < lines.length; i++) {
 				td.appendChild(document.createTextNode(lines[i]));
 				td.appendChild(document.createElement("br"));
 			}
@@ -2058,17 +1854,17 @@ public class mxUtils
 	 * @return Returns a new DOM document.
 	 * @deprecated Use <code>mxDomUtils.createDocument</code> (Jan 2012)
 	 */
-	public static Document createDocument()
-	{
+	public static Document createDocument() {
 		return mxDomUtils.createDocument();
 	}
 
 	/**
 	 * Creates a new SVG document for the given width and height.
-	 * @deprecated Use <code>mxDomUtils.createSvgDocument(int, int)</code> (Jan 2012)
+	 * 
+	 * @deprecated Use <code>mxDomUtils.createSvgDocument(int, int)</code> (Jan
+	 *             2012)
 	 */
-	public static Document createSvgDocument(int width, int height)
-	{
+	public static Document createSvgDocument(int width, int height) {
 		return mxDomUtils.createSvgDocument(width, height);
 	}
 
@@ -2076,17 +1872,16 @@ public class mxUtils
 	 * 
 	 * @deprecated Use <code>mxDomUtils.createVmlDocument</code> (Jan 2012)
 	 */
-	public static Document createVmlDocument()
-	{
+	public static Document createVmlDocument() {
 		return mxDomUtils.createVmlDocument();
 	}
 
 	/**
 	 * Returns a document with a HTML node containing a HEAD and BODY node.
+	 * 
 	 * @deprecated Use <code>mxDomUtils.createHtmlDocument</code> (Jan 2012)
 	 */
-	public static Document createHtmlDocument()
-	{
+	public static Document createHtmlDocument() {
 		return mxDomUtils.createHtmlDocument();
 	}
 
@@ -2096,8 +1891,7 @@ public class mxUtils
 	 * @return Returns a new DOM document.
 	 */
 	public static String createHtmlDocument(Map<String, Object> style,
-			String text)
-	{
+			String text) {
 		return createHtmlDocument(style, text, 1, 0);
 	}
 
@@ -2107,8 +1901,7 @@ public class mxUtils
 	 * @return Returns a new DOM document.
 	 */
 	public static String createHtmlDocument(Map<String, Object> style,
-			String text, double scale)
-	{
+			String text, double scale) {
 		return createHtmlDocument(style, text, scale, 0);
 	}
 
@@ -2118,8 +1911,7 @@ public class mxUtils
 	 * @return Returns a new DOM document.
 	 */
 	public static String createHtmlDocument(Map<String, Object> style,
-			String text, double scale, int width)
-	{
+			String text, double scale, int width) {
 		return createHtmlDocument(style, text, scale, width, null);
 	}
 
@@ -2128,14 +1920,14 @@ public class mxUtils
 	 * provide an optional HEAD section without the HEAD tags as follows:
 	 * 
 	 * <pre>
-	 * mxUtils.createHtmlDocument(style,  text, 1, 0, "<style type=\"text/css\">.classname { color:red; }</style>")
+	 * mxUtils.createHtmlDocument(style, text, 1, 0,
+	 * 		&quot;&lt;style type=\&quot;text/css\&quot;&gt;.classname { color:red; }&lt;/style&gt;&quot;)
 	 * </pre>
 	 * 
 	 * @return Returns a new DOM document.
 	 */
 	public static String createHtmlDocument(Map<String, Object> style,
-			String text, double scale, int width, String head)
-	{
+			String text, double scale, int width, String head) {
 		StringBuffer css = new StringBuffer();
 		css.append("font-family:"
 				+ getString(style, mxConstants.STYLE_FONTFAMILY,
@@ -2146,50 +1938,42 @@ public class mxUtils
 
 		String color = mxUtils.getString(style, mxConstants.STYLE_FONTCOLOR);
 
-		if (color != null)
-		{
+		if (color != null) {
 			css.append("color:" + color + ";");
 		}
 
 		int fontStyle = mxUtils.getInt(style, mxConstants.STYLE_FONTSTYLE);
 
-		if ((fontStyle & mxConstants.FONT_BOLD) == mxConstants.FONT_BOLD)
-		{
+		if ((fontStyle & mxConstants.FONT_BOLD) == mxConstants.FONT_BOLD) {
 			css.append("font-weight:bold;");
 		}
 
-		if ((fontStyle & mxConstants.FONT_ITALIC) == mxConstants.FONT_ITALIC)
-		{
+		if ((fontStyle & mxConstants.FONT_ITALIC) == mxConstants.FONT_ITALIC) {
 			css.append("font-style:italic;");
 		}
 
-		if ((fontStyle & mxConstants.FONT_UNDERLINE) == mxConstants.FONT_UNDERLINE)
-		{
+		if ((fontStyle & mxConstants.FONT_UNDERLINE) == mxConstants.FONT_UNDERLINE) {
 			css.append("text-decoration:underline;");
 		}
 
 		String align = getString(style, mxConstants.STYLE_ALIGN,
 				mxConstants.ALIGN_LEFT);
 
-		if (align.equals(mxConstants.ALIGN_CENTER))
-		{
+		if (align.equals(mxConstants.ALIGN_CENTER)) {
 			css.append("text-align:center;");
-		}
-		else if (align.equals(mxConstants.ALIGN_RIGHT))
-		{
+		} else if (align.equals(mxConstants.ALIGN_RIGHT)) {
 			css.append("text-align:right;");
 		}
 
-		if (width > 0)
-		{
-			// LATER: With max-width support, wrapped text can be measured in 1 step
+		if (width > 0) {
+			// LATER: With max-width support, wrapped text can be measured in 1
+			// step
 			css.append("width:" + width + "px;");
 		}
 
 		String result = "<html>";
 
-		if (head != null)
-		{
+		if (head != null) {
 			result += "<head>" + head + "</head>";
 		}
 
@@ -2203,8 +1987,7 @@ public class mxUtils
 	 * @return Returns a new DOM document.
 	 */
 	public static HTMLDocument createHtmlDocumentObject(
-			Map<String, Object> style, double scale)
-	{
+			Map<String, Object> style, double scale) {
 		// Applies the font settings
 		HTMLDocument document = new HTMLDocument();
 
@@ -2218,37 +2001,30 @@ public class mxUtils
 
 		String color = mxUtils.getString(style, mxConstants.STYLE_FONTCOLOR);
 
-		if (color != null)
-		{
+		if (color != null) {
 			rule.append("color: " + color + " ; ");
 		}
 
 		int fontStyle = mxUtils.getInt(style, mxConstants.STYLE_FONTSTYLE);
 
-		if ((fontStyle & mxConstants.FONT_BOLD) == mxConstants.FONT_BOLD)
-		{
+		if ((fontStyle & mxConstants.FONT_BOLD) == mxConstants.FONT_BOLD) {
 			rule.append(" font-weight: bold ; ");
 		}
 
-		if ((fontStyle & mxConstants.FONT_ITALIC) == mxConstants.FONT_ITALIC)
-		{
+		if ((fontStyle & mxConstants.FONT_ITALIC) == mxConstants.FONT_ITALIC) {
 			rule.append(" font-style: italic ; ");
 		}
 
-		if ((fontStyle & mxConstants.FONT_UNDERLINE) == mxConstants.FONT_UNDERLINE)
-		{
+		if ((fontStyle & mxConstants.FONT_UNDERLINE) == mxConstants.FONT_UNDERLINE) {
 			rule.append(" text-decoration: underline ; ");
 		}
 
 		String align = getString(style, mxConstants.STYLE_ALIGN,
 				mxConstants.ALIGN_LEFT);
 
-		if (align.equals(mxConstants.ALIGN_CENTER))
-		{
+		if (align.equals(mxConstants.ALIGN_CENTER)) {
 			rule.append(" text-align: center ; ");
-		}
-		else if (align.equals(mxConstants.ALIGN_RIGHT))
-		{
+		} else if (align.equals(mxConstants.ALIGN_RIGHT)) {
 			rule.append(" text-align: right ; ");
 		}
 
@@ -2265,17 +2041,13 @@ public class mxUtils
 	 *            URI to parse into the document.
 	 * @return Returns a new DOM document for the given URI.
 	 */
-	public static Document loadDocument(String uri)
-	{
-		try
-		{
+	public static Document loadDocument(String uri) {
+		try {
 			DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory
 					.newInstance();
 			DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
 			return docBuilder.parse(uri);
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -2290,8 +2062,7 @@ public class mxUtils
 	 * @return Returns a new XML document.
 	 * @deprecated Use <code>mxXmlUtils.parseXml</code> (Jan 2012)
 	 */
-	public static Document parseXml(String xml)
-	{
+	public static Document parseXml(String xml) {
 		return mxXmlUtils.parseXml(xml);
 	}
 
@@ -2300,24 +2071,18 @@ public class mxUtils
 	 * range of supported expressions is limited to static class members such as
 	 * mxEdgeStyle.ElbowConnector.
 	 */
-	public static Object eval(String expression)
-	{
+	public static Object eval(String expression) {
 		int dot = expression.lastIndexOf(".");
 
-		if (dot > 0)
-		{
+		if (dot > 0) {
 			Class<?> clazz = mxCodecRegistry.getClassForName(expression
 					.substring(0, dot));
 
-			if (clazz != null)
-			{
-				try
-				{
+			if (clazz != null) {
+				try {
 					return clazz.getField(expression.substring(dot + 1)).get(
 							null);
-				}
-				catch (Exception e)
-				{
+				} catch (Exception e) {
 					// ignore
 				}
 			}
@@ -2330,24 +2095,20 @@ public class mxUtils
 	 * Returns the first node where attr equals value. This implementation does
 	 * not use XPath.
 	 */
-	public static Node findNode(Node node, String attr, String value)
-	{
+	public static Node findNode(Node node, String attr, String value) {
 		String tmp = (node instanceof Element) ? ((Element) node)
 				.getAttribute(attr) : null;
 
-		if (tmp != null && tmp.equals(value))
-		{
+		if (tmp != null && tmp.equals(value)) {
 			return node;
 		}
 
 		node = node.getFirstChild();
 
-		while (node != null)
-		{
+		while (node != null) {
 			Node result = findNode(node, attr, value);
 
-			if (result != null)
-			{
+			if (result != null) {
 				return result;
 			}
 
@@ -2366,16 +2127,12 @@ public class mxUtils
 	 *            XPath expression to be matched.
 	 * @return Returns a single node matching the given expression.
 	 */
-	public static Node selectSingleNode(Document doc, String expression)
-	{
-		try
-		{
+	public static Node selectSingleNode(Document doc, String expression) {
+		try {
 			XPath xpath = XPathFactory.newInstance().newXPath();
 
 			return (Node) xpath.evaluate(expression, doc, XPathConstants.NODE);
-		}
-		catch (XPathExpressionException e)
-		{
+		} catch (XPathExpressionException e) {
 			// ignore
 		}
 
@@ -2386,8 +2143,7 @@ public class mxUtils
 	 * Converts the ampersand, quote, prime, less-than and greater-than
 	 * characters to their corresponding HTML entities in the given string.
 	 */
-	public static String htmlEntities(String text)
-	{
+	public static String htmlEntities(String text) {
 		return text.replaceAll("&", "&amp;").replaceAll("\"", "&quot;")
 				.replaceAll("'", "&prime;").replaceAll("<", "&lt;")
 				.replaceAll(">", "&gt;");
@@ -2401,8 +2157,7 @@ public class mxUtils
 	 * @return Returns an XML string.
 	 * @deprecated Use <code>mxXmlUtils.getXml(Node)</code> (Jan 2012)
 	 */
-	public static String getXml(Node node)
-	{
+	public static String getXml(Node node) {
 		return mxXmlUtils.getXml(node);
 	}
 
@@ -2413,8 +2168,7 @@ public class mxUtils
 	 *            Node to return the XML for.
 	 * @return Returns a formatted XML string.
 	 */
-	public static String getPrettyXml(Node node)
-	{
+	public static String getPrettyXml(Node node) {
 		return getPrettyXml(node, "  ", "");
 	}
 
@@ -2431,25 +2185,18 @@ public class mxUtils
 	 *            Current indentation for the node.
 	 * @return Returns a formatted XML string.
 	 */
-	public static String getPrettyXml(Node node, String tab, String indent)
-	{
+	public static String getPrettyXml(Node node, String tab, String indent) {
 		StringBuffer result = new StringBuffer();
 
-		if (node != null)
-		{
-			if (node.getNodeType() == Node.TEXT_NODE)
-			{
+		if (node != null) {
+			if (node.getNodeType() == Node.TEXT_NODE) {
 				result.append(node.getNodeValue());
-			}
-			else
-			{
+			} else {
 				result.append(indent + "<" + node.getNodeName());
 				NamedNodeMap attrs = node.getAttributes();
 
-				if (attrs != null)
-				{
-					for (int i = 0; i < attrs.getLength(); i++)
-					{
+				if (attrs != null) {
+					for (int i = 0; i < attrs.getLength(); i++) {
 						String value = attrs.item(i).getNodeValue();
 						value = mxUtils.htmlEntities(value);
 						result.append(" " + attrs.item(i).getNodeName() + "=\""
@@ -2458,20 +2205,16 @@ public class mxUtils
 				}
 				Node tmp = node.getFirstChild();
 
-				if (tmp != null)
-				{
+				if (tmp != null) {
 					result.append(">\n");
 
-					while (tmp != null)
-					{
+					while (tmp != null) {
 						result.append(getPrettyXml(tmp, tab, indent + tab));
 						tmp = tmp.getNextSibling();
 					}
 
 					result.append(indent + "</" + node.getNodeName() + ">\n");
-				}
-				else
-				{
+				} else {
 					result.append("/>\n");
 				}
 			}

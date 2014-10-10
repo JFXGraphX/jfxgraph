@@ -8,14 +8,12 @@ import com.mxgraph.util.mxConstants;
 import com.mxgraph.util.mxPoint;
 import com.mxgraph.view.mxCellState;
 
-public class mxArrowShape extends mxBasicShape
-{
+public class mxArrowShape extends mxBasicShape {
 
 	/**
 	 *
 	 */
-	public Shape createShape(mxGraphics2DCanvas canvas, mxCellState state)
-	{
+	public Shape createShape(mxGraphics2DCanvas canvas, mxCellState state) {
 		double scale = canvas.getScale();
 		mxPoint p0 = state.getAbsolutePoint(0);
 		mxPoint pe = state.getAbsolutePoint(state.getAbsolutePointCount() - 1);
@@ -56,11 +54,11 @@ public class mxArrowShape extends mxBasicShape
 		poly.addPoint((int) Math.round(p1x), (int) Math.round(p1y));
 		poly.addPoint((int) Math.round(p2x), (int) Math.round(p2y));
 		poly.addPoint((int) Math.round(p3x), (int) Math.round(p3y));
-		poly.addPoint((int) Math.round(pe.getX() - spacing * nx), (int) Math
-				.round(pe.getY() - spacing * ny));
+		poly.addPoint((int) Math.round(pe.getX() - spacing * nx),
+				(int) Math.round(pe.getY() - spacing * ny));
 		poly.addPoint((int) Math.round(p5x), (int) Math.round(p5y));
-		poly.addPoint((int) Math.round(p5x + floorx), (int) Math.round(p5y
-				+ floory));
+		poly.addPoint((int) Math.round(p5x + floorx),
+				(int) Math.round(p5y + floory));
 
 		return poly;
 	}

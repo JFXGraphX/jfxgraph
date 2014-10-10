@@ -15,8 +15,7 @@ import com.mxgraph.view.mxGraph;
 /**
  *
  */
-public class mxGraphActions
-{
+public class mxGraphActions {
 
 	/**
 	 * 
@@ -145,8 +144,7 @@ public class mxGraphActions
 	 * 
 	 * @return the delete action
 	 */
-	public static Action getDeleteAction()
-	{
+	public static Action getDeleteAction() {
 		return deleteAction;
 	}
 
@@ -154,8 +152,7 @@ public class mxGraphActions
 	 * 
 	 * @return the edit action
 	 */
-	public static Action getEditAction()
-	{
+	public static Action getEditAction() {
 		return editAction;
 	}
 
@@ -163,8 +160,7 @@ public class mxGraphActions
 	 * 
 	 * @return the edit action
 	 */
-	public static Action getGroupAction()
-	{
+	public static Action getGroupAction() {
 		return groupAction;
 	}
 
@@ -172,8 +168,7 @@ public class mxGraphActions
 	 * 
 	 * @return the edit action
 	 */
-	public static Action getUngroupAction()
-	{
+	public static Action getUngroupAction() {
 		return ungroupAction;
 	}
 
@@ -181,8 +176,7 @@ public class mxGraphActions
 	 * 
 	 * @return the edit action
 	 */
-	public static Action getRemoveFromParentAction()
-	{
+	public static Action getRemoveFromParentAction() {
 		return removeFromParentAction;
 	}
 
@@ -190,8 +184,7 @@ public class mxGraphActions
 	 * 
 	 * @return the edit action
 	 */
-	public static Action getUpdateGroupBoundsAction()
-	{
+	public static Action getUpdateGroupBoundsAction() {
 		return updateGroupBoundsAction;
 	}
 
@@ -199,8 +192,7 @@ public class mxGraphActions
 	 * 
 	 * @return the select all action
 	 */
-	public static Action getSelectAllAction()
-	{
+	public static Action getSelectAllAction() {
 		return selectAllAction;
 	}
 
@@ -208,8 +200,7 @@ public class mxGraphActions
 	 * 
 	 * @return the select vertices action
 	 */
-	public static Action getSelectVerticesAction()
-	{
+	public static Action getSelectVerticesAction() {
 		return selectVerticesAction;
 	}
 
@@ -217,8 +208,7 @@ public class mxGraphActions
 	 * 
 	 * @return the select edges action
 	 */
-	public static Action getSelectEdgesAction()
-	{
+	public static Action getSelectEdgesAction() {
 		return selectEdgesAction;
 	}
 
@@ -226,8 +216,7 @@ public class mxGraphActions
 	 * 
 	 * @return the select none action
 	 */
-	public static Action getSelectNoneAction()
-	{
+	public static Action getSelectNoneAction() {
 		return selectNoneAction;
 	}
 
@@ -235,8 +224,7 @@ public class mxGraphActions
 	 * 
 	 * @return the select next action
 	 */
-	public static Action getSelectNextAction()
-	{
+	public static Action getSelectNextAction() {
 		return selectNextAction;
 	}
 
@@ -244,8 +232,7 @@ public class mxGraphActions
 	 * 
 	 * @return the select previous action
 	 */
-	public static Action getSelectPreviousAction()
-	{
+	public static Action getSelectPreviousAction() {
 		return selectPreviousAction;
 	}
 
@@ -253,8 +240,7 @@ public class mxGraphActions
 	 * 
 	 * @return the select parent action
 	 */
-	public static Action getSelectParentAction()
-	{
+	public static Action getSelectParentAction() {
 		return selectParentAction;
 	}
 
@@ -262,8 +248,7 @@ public class mxGraphActions
 	 * 
 	 * @return the select child action
 	 */
-	public static Action getSelectChildAction()
-	{
+	public static Action getSelectChildAction() {
 		return selectChildAction;
 	}
 
@@ -271,8 +256,7 @@ public class mxGraphActions
 	 * 
 	 * @return the go into action
 	 */
-	public static Action getEnterGroupAction()
-	{
+	public static Action getEnterGroupAction() {
 		return enterGroupAction;
 	}
 
@@ -280,8 +264,7 @@ public class mxGraphActions
 	 * 
 	 * @return the go up action
 	 */
-	public static Action getExitGroupAction()
-	{
+	public static Action getExitGroupAction() {
 		return exitGroupAction;
 	}
 
@@ -289,8 +272,7 @@ public class mxGraphActions
 	 * 
 	 * @return the home action
 	 */
-	public static Action getHomeAction()
-	{
+	public static Action getHomeAction() {
 		return homeAction;
 	}
 
@@ -298,8 +280,7 @@ public class mxGraphActions
 	 * 
 	 * @return the collapse action
 	 */
-	public static Action getCollapseAction()
-	{
+	public static Action getCollapseAction() {
 		return collapseAction;
 	}
 
@@ -307,8 +288,7 @@ public class mxGraphActions
 	 * 
 	 * @return the expand action
 	 */
-	public static Action getExpandAction()
-	{
+	public static Action getExpandAction() {
 		return expandAction;
 	}
 
@@ -316,8 +296,7 @@ public class mxGraphActions
 	 * 
 	 * @return the zoom actual action
 	 */
-	public static Action getZoomActualAction()
-	{
+	public static Action getZoomActualAction() {
 		return zoomActualAction;
 	}
 
@@ -325,8 +304,7 @@ public class mxGraphActions
 	 * 
 	 * @return the zoom in action
 	 */
-	public static Action getZoomInAction()
-	{
+	public static Action getZoomInAction() {
 		return zoomInAction;
 	}
 
@@ -334,8 +312,7 @@ public class mxGraphActions
 	 * 
 	 * @return the zoom out action
 	 */
-	public static Action getZoomOutAction()
-	{
+	public static Action getZoomOutAction() {
 		return zoomOutAction;
 	}
 
@@ -343,8 +320,7 @@ public class mxGraphActions
 	 * 
 	 * @return the action that moves cell(s) to the backmost layer
 	 */
-	public static Action getToBackAction()
-	{
+	public static Action getToBackAction() {
 		return toBackAction;
 	}
 
@@ -352,8 +328,7 @@ public class mxGraphActions
 	 * 
 	 * @return the action that moves cell(s) to the frontmost layer
 	 */
-	public static Action getToFrontAction()
-	{
+	public static Action getToFrontAction() {
 		return toFrontAction;
 	}
 
@@ -362,12 +337,10 @@ public class mxGraphActions
 	 * @param e
 	 * @return Returns the graph for the given action event.
 	 */
-	public static final mxGraph getGraph(ActionEvent e)
-	{
+	public static final mxGraph getGraph(ActionEvent e) {
 		Object source = e.getSource();
 
-		if (source instanceof mxGraphComponent)
-		{
+		if (source instanceof mxGraphComponent) {
 			return ((mxGraphComponent) source).getGraph();
 		}
 
@@ -377,8 +350,7 @@ public class mxGraphActions
 	/**
 	 * 
 	 */
-	public static class EditAction extends AbstractAction
-	{
+	public static class EditAction extends AbstractAction {
 
 		/**
 		 * 
@@ -389,18 +361,15 @@ public class mxGraphActions
 		 * 
 		 * @param name
 		 */
-		public EditAction(String name)
-		{
+		public EditAction(String name) {
 			super(name);
 		}
 
 		/**
 		 * 
 		 */
-		public void actionPerformed(ActionEvent e)
-		{
-			if (e.getSource() instanceof mxGraphComponent)
-			{
+		public void actionPerformed(ActionEvent e) {
+			if (e.getSource() instanceof mxGraphComponent) {
 				((mxGraphComponent) e.getSource()).startEditing();
 			}
 		}
@@ -410,8 +379,7 @@ public class mxGraphActions
 	/**
 	 * 
 	 */
-	public static class DeleteAction extends AbstractAction
-	{
+	public static class DeleteAction extends AbstractAction {
 
 		/**
 		 * 
@@ -422,20 +390,17 @@ public class mxGraphActions
 		 * 
 		 * @param name
 		 */
-		public DeleteAction(String name)
-		{
+		public DeleteAction(String name) {
 			super(name);
 		}
 
 		/**
 		 * 
 		 */
-		public void actionPerformed(ActionEvent e)
-		{
+		public void actionPerformed(ActionEvent e) {
 			mxGraph graph = getGraph(e);
 
-			if (graph != null)
-			{
+			if (graph != null) {
 				graph.removeCells();
 			}
 		}
@@ -445,8 +410,7 @@ public class mxGraphActions
 	/**
 	 * 
 	 */
-	public static class GroupAction extends AbstractAction
-	{
+	public static class GroupAction extends AbstractAction {
 
 		/**
 		 * 
@@ -457,16 +421,14 @@ public class mxGraphActions
 		 * 
 		 * @param name
 		 */
-		public GroupAction(String name)
-		{
+		public GroupAction(String name) {
 			super(name);
 		}
 
 		/**
 		 * 
 		 */
-		protected int getGroupBorder(mxGraph graph)
-		{
+		protected int getGroupBorder(mxGraph graph) {
 			return 2 * graph.getGridSize();
 
 		}
@@ -474,12 +436,10 @@ public class mxGraphActions
 		/**
 		 * 
 		 */
-		public void actionPerformed(ActionEvent e)
-		{
+		public void actionPerformed(ActionEvent e) {
 			mxGraph graph = getGraph(e);
 
-			if (graph != null)
-			{
+			if (graph != null) {
 				graph.setSelectionCell(graph.groupCells(null,
 						getGroupBorder(graph)));
 			}
@@ -490,8 +450,7 @@ public class mxGraphActions
 	/**
 	 * 
 	 */
-	public static class UngroupAction extends AbstractAction
-	{
+	public static class UngroupAction extends AbstractAction {
 
 		/**
 		 * 
@@ -502,20 +461,17 @@ public class mxGraphActions
 		 * 
 		 * @param name
 		 */
-		public UngroupAction(String name)
-		{
+		public UngroupAction(String name) {
 			super(name);
 		}
 
 		/**
 		 * 
 		 */
-		public void actionPerformed(ActionEvent e)
-		{
+		public void actionPerformed(ActionEvent e) {
 			mxGraph graph = getGraph(e);
 
-			if (graph != null)
-			{
+			if (graph != null) {
 				graph.setSelectionCells(graph.ungroupCells());
 			}
 		}
@@ -525,8 +481,7 @@ public class mxGraphActions
 	/**
 	 * 
 	 */
-	public static class RemoveFromParentAction extends AbstractAction
-	{
+	public static class RemoveFromParentAction extends AbstractAction {
 
 		/**
 		 * 
@@ -537,20 +492,17 @@ public class mxGraphActions
 		 * 
 		 * @param name
 		 */
-		public RemoveFromParentAction(String name)
-		{
+		public RemoveFromParentAction(String name) {
 			super(name);
 		}
 
 		/**
 		 * 
 		 */
-		public void actionPerformed(ActionEvent e)
-		{
+		public void actionPerformed(ActionEvent e) {
 			mxGraph graph = getGraph(e);
 
-			if (graph != null)
-			{
+			if (graph != null) {
 				graph.removeCellsFromParent();
 			}
 		}
@@ -560,8 +512,7 @@ public class mxGraphActions
 	/**
 	 * 
 	 */
-	public static class UpdateGroupBoundsAction extends AbstractAction
-	{
+	public static class UpdateGroupBoundsAction extends AbstractAction {
 
 		/**
 		 * 
@@ -572,28 +523,24 @@ public class mxGraphActions
 		 * 
 		 * @param name
 		 */
-		public UpdateGroupBoundsAction(String name)
-		{
+		public UpdateGroupBoundsAction(String name) {
 			super(name);
 		}
 
 		/**
 		 * 
 		 */
-		protected int getGroupBorder(mxGraph graph)
-		{
+		protected int getGroupBorder(mxGraph graph) {
 			return 2 * graph.getGridSize();
 		}
 
 		/**
 		 * 
 		 */
-		public void actionPerformed(ActionEvent e)
-		{
+		public void actionPerformed(ActionEvent e) {
 			mxGraph graph = getGraph(e);
 
-			if (graph != null)
-			{
+			if (graph != null) {
 				graph.updateGroupBounds(null, getGroupBorder(graph));
 			}
 		}
@@ -603,8 +550,7 @@ public class mxGraphActions
 	/**
 	 * 
 	 */
-	public static class LayerAction extends AbstractAction
-	{
+	public static class LayerAction extends AbstractAction {
 
 		/**
 		 * 
@@ -615,20 +561,17 @@ public class mxGraphActions
 		 * 
 		 * @param name
 		 */
-		public LayerAction(String name)
-		{
+		public LayerAction(String name) {
 			super(name);
 		}
 
 		/**
 		 * 
 		 */
-		public void actionPerformed(ActionEvent e)
-		{
+		public void actionPerformed(ActionEvent e) {
 			mxGraph graph = getGraph(e);
 
-			if (graph != null)
-			{
+			if (graph != null) {
 				boolean toBack = getValue(Action.NAME).toString()
 						.equalsIgnoreCase("toBack");
 				graph.orderCells(toBack);
@@ -640,8 +583,7 @@ public class mxGraphActions
 	/**
 	 * 
 	 */
-	public static class FoldAction extends AbstractAction
-	{
+	public static class FoldAction extends AbstractAction {
 
 		/**
 		 * 
@@ -652,20 +594,17 @@ public class mxGraphActions
 		 * 
 		 * @param name
 		 */
-		public FoldAction(String name)
-		{
+		public FoldAction(String name) {
 			super(name);
 		}
 
 		/**
 		 * 
 		 */
-		public void actionPerformed(ActionEvent e)
-		{
+		public void actionPerformed(ActionEvent e) {
 			mxGraph graph = getGraph(e);
 
-			if (graph != null)
-			{
+			if (graph != null) {
 				boolean collapse = getValue(Action.NAME).toString()
 						.equalsIgnoreCase("collapse");
 				graph.foldCells(collapse);
@@ -677,8 +616,7 @@ public class mxGraphActions
 	/**
 	 * 
 	 */
-	public static class DrillAction extends AbstractAction
-	{
+	public static class DrillAction extends AbstractAction {
 
 		/**
 		 * 
@@ -689,32 +627,24 @@ public class mxGraphActions
 		 * 
 		 * @param name
 		 */
-		public DrillAction(String name)
-		{
+		public DrillAction(String name) {
 			super(name);
 		}
 
 		/**
 		 * 
 		 */
-		public void actionPerformed(ActionEvent e)
-		{
+		public void actionPerformed(ActionEvent e) {
 			mxGraph graph = getGraph(e);
 
-			if (graph != null)
-			{
+			if (graph != null) {
 				String name = getValue(Action.NAME).toString();
 
-				if (name.equalsIgnoreCase("enterGroup"))
-				{
+				if (name.equalsIgnoreCase("enterGroup")) {
 					graph.enterGroup();
-				}
-				else if (name.equalsIgnoreCase("exitGroup"))
-				{
+				} else if (name.equalsIgnoreCase("exitGroup")) {
 					graph.exitGroup();
-				}
-				else
-				{
+				} else {
 					graph.home();
 				}
 			}
@@ -725,8 +655,7 @@ public class mxGraphActions
 	/**
 	 * 
 	 */
-	public static class ZoomAction extends AbstractAction
-	{
+	public static class ZoomAction extends AbstractAction {
 
 		/**
 		 * 
@@ -737,33 +666,25 @@ public class mxGraphActions
 		 * 
 		 * @param name
 		 */
-		public ZoomAction(String name)
-		{
+		public ZoomAction(String name) {
 			super(name);
 		}
 
 		/**
 		 * 
 		 */
-		public void actionPerformed(ActionEvent e)
-		{
+		public void actionPerformed(ActionEvent e) {
 			Object source = e.getSource();
 
-			if (source instanceof mxGraphComponent)
-			{
+			if (source instanceof mxGraphComponent) {
 				String name = getValue(Action.NAME).toString();
 				mxGraphComponent graphComponent = (mxGraphComponent) source;
 
-				if (name.equalsIgnoreCase("zoomIn"))
-				{
+				if (name.equalsIgnoreCase("zoomIn")) {
 					graphComponent.zoomIn();
-				}
-				else if (name.equalsIgnoreCase("zoomOut"))
-				{
+				} else if (name.equalsIgnoreCase("zoomOut")) {
 					graphComponent.zoomOut();
-				}
-				else
-				{
+				} else {
 					graphComponent.zoomActual();
 				}
 			}
@@ -774,8 +695,7 @@ public class mxGraphActions
 	/**
 	 * 
 	 */
-	public static class SelectAction extends AbstractAction
-	{
+	public static class SelectAction extends AbstractAction {
 
 		/**
 		 * 
@@ -786,52 +706,34 @@ public class mxGraphActions
 		 * 
 		 * @param name
 		 */
-		public SelectAction(String name)
-		{
+		public SelectAction(String name) {
 			super(name);
 		}
 
 		/**
 		 * 
 		 */
-		public void actionPerformed(ActionEvent e)
-		{
+		public void actionPerformed(ActionEvent e) {
 			mxGraph graph = getGraph(e);
 
-			if (graph != null)
-			{
+			if (graph != null) {
 				String name = getValue(Action.NAME).toString();
 
-				if (name.equalsIgnoreCase("selectAll"))
-				{
+				if (name.equalsIgnoreCase("selectAll")) {
 					graph.selectAll();
-				}
-				else if (name.equalsIgnoreCase("selectNone"))
-				{
+				} else if (name.equalsIgnoreCase("selectNone")) {
 					graph.clearSelection();
-				}
-				else if (name.equalsIgnoreCase("selectNext"))
-				{
+				} else if (name.equalsIgnoreCase("selectNext")) {
 					graph.selectNextCell();
-				}
-				else if (name.equalsIgnoreCase("selectPrevious"))
-				{
+				} else if (name.equalsIgnoreCase("selectPrevious")) {
 					graph.selectPreviousCell();
-				}
-				else if (name.equalsIgnoreCase("selectParent"))
-				{
+				} else if (name.equalsIgnoreCase("selectParent")) {
 					graph.selectParentCell();
-				}
-				else if (name.equalsIgnoreCase("vertices"))
-				{
+				} else if (name.equalsIgnoreCase("vertices")) {
 					graph.selectVertices();
-				}
-				else if (name.equalsIgnoreCase("edges"))
-				{
+				} else if (name.equalsIgnoreCase("edges")) {
 					graph.selectEdges();
-				}
-				else
-				{
+				} else {
 					graph.selectChildCell();
 				}
 			}

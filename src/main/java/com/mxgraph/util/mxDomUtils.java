@@ -13,27 +13,22 @@ import org.w3c.dom.Element;
 /**
  * Contains various DOM API helper methods for use with mxGraph.
  */
-public class mxDomUtils
-{
+public class mxDomUtils {
 	/**
 	 * Returns a new, empty DOM document.
 	 * 
 	 * @return Returns a new DOM document.
 	 */
-	public static Document createDocument()
-	{
+	public static Document createDocument() {
 		Document result = null;
 
-		try
-		{
+		try {
 			DocumentBuilderFactory factory = DocumentBuilderFactory
 					.newInstance();
 			DocumentBuilder parser = factory.newDocumentBuilder();
 
 			result = parser.newDocument();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 
@@ -43,8 +38,7 @@ public class mxDomUtils
 	/**
 	 * Creates a new SVG document for the given width and height.
 	 */
-	public static Document createSvgDocument(int width, int height)
-	{
+	public static Document createSvgDocument(int width, int height) {
 		Document document = createDocument();
 		Element root = document.createElement("svg");
 
@@ -66,8 +60,7 @@ public class mxDomUtils
 	/**
 	 * 
 	 */
-	public static Document createVmlDocument()
-	{
+	public static Document createVmlDocument() {
 		Document document = createDocument();
 
 		Element root = document.createElement("html");
@@ -95,8 +88,7 @@ public class mxDomUtils
 	/**
 	 * Returns a document with a HTML node containing a HEAD and BODY node.
 	 */
-	public static Document createHtmlDocument()
-	{
+	public static Document createHtmlDocument() {
 		Document document = createDocument();
 
 		Element root = document.createElement("html");

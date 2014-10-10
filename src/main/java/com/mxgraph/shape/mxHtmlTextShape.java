@@ -21,20 +21,22 @@ import com.mxgraph.view.mxCellState;
  * 
  * <pre>
  * mxGraphics2DCanvas.putTextShape(mxGraphics2DCanvas.TEXT_SHAPE_HTML,
- *   new mxHtmlTextShape()
- *   {
- *     protected String createHtmlDocument(Map<String, Object> style, String text)
- *     {
- *       return mxUtils.createHtmlDocument(style, text, 1, 0,
- *           "<style type=\"text/css\">.selectRef { " +
- *           "font-size:9px;font-weight:normal; }</style>");
- *     }
- *   }
- * );
- * </pre> 
+ * 		new mxHtmlTextShape() {
+ * 			protected String createHtmlDocument(Map&lt;String, Object&gt; style,
+ * 					String text) {
+ * 				return mxUtils
+ * 						.createHtmlDocument(
+ * 								style,
+ * 								text,
+ * 								1,
+ * 								0,
+ * 								&quot;&lt;style type=\&quot;text/css\&quot;&gt;.selectRef { &quot;
+ * 										+ &quot;font-size:9px;font-weight:normal; }&lt;/style&gt;&quot;);
+ * 			}
+ * 		});
+ * </pre>
  */
-public class mxHtmlTextShape implements mxITextShape
-{
+public class mxHtmlTextShape implements mxITextShape {
 
 	/**
 	 * Specifies if linefeeds should be replaced with breaks in HTML markup.
@@ -45,34 +47,29 @@ public class mxHtmlTextShape implements mxITextShape
 	/**
 	 * Returns replaceHtmlLinefeeds
 	 */
-	public boolean isReplaceHtmlLinefeeds()
-	{
+	public boolean isReplaceHtmlLinefeeds() {
 		return replaceHtmlLinefeeds;
 	}
 
 	/**
 	 * Returns replaceHtmlLinefeeds
 	 */
-	public void setReplaceHtmlLinefeeds(boolean value)
-	{
+	public void setReplaceHtmlLinefeeds(boolean value) {
 		replaceHtmlLinefeeds = value;
 	}
-	
+
 	/**
 	 * 
 	 */
-	protected String createHtmlDocument(Map<String, Object> style,
-			String text)
-	{
-		return mxUtils.createHtmlDocument(style,  text);
+	protected String createHtmlDocument(Map<String, Object> style, String text) {
+		return mxUtils.createHtmlDocument(style, text);
 	}
 
 	/**
 	 * 
 	 */
 	public void paintShape(mxGraphics2DCanvas canvas, String text,
-			mxCellState state, Map<String, Object> style)
-	{
+			mxCellState state, Map<String, Object> style) {
 		mxLightweightLabel textRenderer = mxLightweightLabel
 				.getSharedInstance();
 		CellRendererPane rendererPane = canvas.getRendererPane();
@@ -82,16 +79,14 @@ public class mxHtmlTextShape implements mxITextShape
 		if (textRenderer != null
 				&& rendererPane != null
 				&& (g.getClipBounds() == null || g.getClipBounds().intersects(
-						rect)))
-		{
+						rect))) {
 			double scale = canvas.getScale();
 			int x = rect.x;
 			int y = rect.y;
 			int w = rect.width;
 			int h = rect.height;
 
-			if (!mxUtils.isTrue(style, mxConstants.STYLE_HORIZONTAL, true))
-			{
+			if (!mxUtils.isTrue(style, mxConstants.STYLE_HORIZONTAL, true)) {
 				g.rotate(-Math.PI / 2, x + w / 2, y + h / 2);
 				g.translate(w / 2 - h / 2, h / 2 - w / 2);
 
@@ -101,8 +96,7 @@ public class mxHtmlTextShape implements mxITextShape
 			}
 
 			// Replaces the linefeeds with BR tags
-			if (isReplaceHtmlLinefeeds())
-			{
+			if (isReplaceHtmlLinefeeds()) {
 				text = text.replaceAll("\n", "<br>");
 			}
 

@@ -15,43 +15,37 @@ import com.mxgraph.util.mxLine;
 import com.mxgraph.util.mxPoint;
 import com.mxgraph.view.mxCellState;
 
-public class mxCurveShape extends mxConnectorShape
-{
+public class mxCurveShape extends mxConnectorShape {
 	/**
-	 * Cache of the points between which drawing straight lines views as a
-	 * curve
+	 * Cache of the points between which drawing straight lines views as a curve
 	 */
 	protected mxCurve curve;
 
 	/**
 	 * 
 	 */
-	public mxCurveShape()
-	{
+	public mxCurveShape() {
 		this(new mxCurve());
 	}
-	
+
 	/**
 	 * 
 	 */
-	public mxCurveShape(mxCurve curve)
-	{
+	public mxCurveShape(mxCurve curve) {
 		this.curve = curve;
 	}
 
 	/**
 	 * 
 	 */
-	public mxCurve getCurve()
-	{
+	public mxCurve getCurve() {
 		return curve;
 	}
 
 	/**
 	 * 
 	 */
-	public void paintShape(mxGraphics2DCanvas canvas, mxCellState state)
-	{
+	public void paintShape(mxGraphics2DCanvas canvas, mxCellState state) {
 		Object keyStrokeHint = canvas.getGraphics().getRenderingHint(
 				RenderingHints.KEY_STROKE_CONTROL);
 		canvas.getGraphics().setRenderingHint(
@@ -68,8 +62,7 @@ public class mxCurveShape extends mxConnectorShape
 	 * 
 	 */
 	protected void paintPolyline(mxGraphics2DCanvas canvas,
-			List<mxPoint> points, Map<String, Object> style)
-	{
+			List<mxPoint> points, Map<String, Object> style) {
 		double scale = canvas.getScale();
 		validateCurve(points, scale, style);
 
@@ -78,17 +71,14 @@ public class mxCurveShape extends mxConnectorShape
 
 	/**
 	 * Forces underlying curve to a valid state
+	 * 
 	 * @param points
 	 */
 	public void validateCurve(List<mxPoint> points, double scale,
-			Map<String, Object> style)
-	{
-		if (curve == null)
-		{
+			Map<String, Object> style) {
+		if (curve == null) {
 			curve = new mxCurve(points);
-		}
-		else
-		{
+		} else {
 			curve.updateCurve(points);
 		}
 
@@ -97,32 +87,30 @@ public class mxCurveShape extends mxConnectorShape
 
 	/**
 	 * Hook to override creation of the vector that the marker is drawn along
-	 * since it may not be the same as the vector between any two control
-	 * points
-	 * @param points the guide points of the connector
-	 * @param source whether the marker is at the source end
-	 * @param markerSize the scaled maximum length of the marker
+	 * since it may not be the same as the vector between any two control points
+	 * 
+	 * @param points
+	 *            the guide points of the connector
+	 * @param source
+	 *            whether the marker is at the source end
+	 * @param markerSize
+	 *            the scaled maximum length of the marker
 	 * @return a line describing the vector the marker should be drawn along
 	 */
 	protected mxLine getMarkerVector(List<mxPoint> points, boolean source,
-			double markerSize)
-	{
+			double markerSize) {
 		double curveLength = curve.getCurveLength(mxCurve.CORE_CURVE);
 		double markerRatio = markerSize / curveLength;
-		if (markerRatio >= 1.0)
-		{
+		if (markerRatio >= 1.0) {
 			markerRatio = 1.0;
 		}
 
-		if (source)
-		{
+		if (source) {
 			mxLine sourceVector = curve.getCurveParallel(mxCurve.CORE_CURVE,
 					markerRatio);
 			return new mxLine(sourceVector.getX(), sourceVector.getY(),
 					points.get(0));
-		}
-		else
-		{
+		} else {
 			mxLine targetVector = curve.getCurveParallel(mxCurve.CORE_CURVE,
 					1.0 - markerRatio);
 			int pointCount = points.size();

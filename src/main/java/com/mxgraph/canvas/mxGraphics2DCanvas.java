@@ -53,8 +53,7 @@ import com.mxgraph.view.mxCellState;
 /**
  * An implementation of a canvas that uses Graphics2D for painting.
  */
-public class mxGraphics2DCanvas extends mxBasicCanvas
-{
+public class mxGraphics2DCanvas extends mxBasicCanvas {
 	/**
 	 * 
 	 */
@@ -76,16 +75,16 @@ public class mxGraphics2DCanvas extends mxBasicCanvas
 	protected static Map<String, mxIShape> shapes = new HashMap<String, mxIShape>();
 
 	/**
-	 * Maps from names to mxITextShape instances. There are currently three different
-	 * hardcoded text shapes available here: default, html and wrapped.
+	 * Maps from names to mxITextShape instances. There are currently three
+	 * different hardcoded text shapes available here: default, html and
+	 * wrapped.
 	 */
 	protected static Map<String, mxITextShape> textShapes = new HashMap<String, mxITextShape>();
 
 	/**
 	 * Static initializer.
 	 */
-	static
-	{
+	static {
 		putShape(mxConstants.SHAPE_ACTOR, new mxActorShape());
 		putShape(mxConstants.SHAPE_ARROW, new mxArrowShape());
 		putShape(mxConstants.SHAPE_CLOUD, new mxCloudShape());
@@ -119,25 +118,20 @@ public class mxGraphics2DCanvas extends mxBasicCanvas
 	/**
 	 * Constructs a new graphics canvas with an empty graphics object.
 	 */
-	public mxGraphics2DCanvas()
-	{
+	public mxGraphics2DCanvas() {
 		this(null);
 	}
 
 	/**
 	 * Constructs a new graphics canvas for the given graphics object.
 	 */
-	public mxGraphics2DCanvas(Graphics2D g)
-	{
+	public mxGraphics2DCanvas(Graphics2D g) {
 		this.g = g;
 
 		// Initializes the cell renderer pane for drawing HTML markup
-		try
-		{
+		try {
 			rendererPane = new CellRendererPane();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			// ignore
 		}
 	}
@@ -145,21 +139,18 @@ public class mxGraphics2DCanvas extends mxBasicCanvas
 	/**
 	 * 
 	 */
-	public static void putShape(String name, mxIShape shape)
-	{
+	public static void putShape(String name, mxIShape shape) {
 		shapes.put(name, shape);
 	}
 
 	/**
 	 * 
 	 */
-	public mxIShape getShape(Map<String, Object> style)
-	{
+	public mxIShape getShape(Map<String, Object> style) {
 		String name = mxUtils.getString(style, mxConstants.STYLE_SHAPE, null);
 		mxIShape shape = shapes.get(name);
 
-		if (shape == null && name != null)
-		{
+		if (shape == null && name != null) {
 			shape = mxStencilRegistry.getStencil(name);
 		}
 
@@ -169,24 +160,19 @@ public class mxGraphics2DCanvas extends mxBasicCanvas
 	/**
 	 * 
 	 */
-	public static void putTextShape(String name, mxITextShape shape)
-	{
+	public static void putTextShape(String name, mxITextShape shape) {
 		textShapes.put(name, shape);
 	}
 
 	/**
 	 * 
 	 */
-	public mxITextShape getTextShape(Map<String, Object> style, boolean html)
-	{
+	public mxITextShape getTextShape(Map<String, Object> style, boolean html) {
 		String name;
 
-		if (html)
-		{
+		if (html) {
 			name = TEXT_SHAPE_HTML;
-		}
-		else
-		{
+		} else {
 			name = TEXT_SHAPE_DEFAULT;
 		}
 
@@ -196,38 +182,34 @@ public class mxGraphics2DCanvas extends mxBasicCanvas
 	/**
 	 * 
 	 */
-	public CellRendererPane getRendererPane()
-	{
+	public CellRendererPane getRendererPane() {
 		return rendererPane;
 	}
 
 	/**
 	 * Returns the graphics object for this canvas.
 	 */
-	public Graphics2D getGraphics()
-	{
+	public Graphics2D getGraphics() {
 		return g;
 	}
 
 	/**
 	 * Sets the graphics object for this canvas.
 	 */
-	public void setGraphics(Graphics2D g)
-	{
+	public void setGraphics(Graphics2D g) {
 		this.g = g;
 	}
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see com.mxgraph.canvas.mxICanvas#drawCell()
 	 */
-	public Object drawCell(mxCellState state)
-	{
+	public Object drawCell(mxCellState state) {
 		Map<String, Object> style = state.getStyle();
 		mxIShape shape = getShape(style);
 
-		if (g != null && shape != null)
-		{
+		if (g != null && shape != null) {
 			// Creates a temporary graphics instance for drawing this shape
 			float opacity = mxUtils.getFloat(style, mxConstants.STYLE_OPACITY,
 					100);
@@ -245,16 +227,15 @@ public class mxGraphics2DCanvas extends mxBasicCanvas
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see com.mxgraph.canvas.mxICanvas#drawLabel()
 	 */
-	public Object drawLabel(String text, mxCellState state, boolean html)
-	{
+	public Object drawLabel(String text, mxCellState state, boolean html) {
 		Map<String, Object> style = state.getStyle();
 		mxITextShape shape = getTextShape(style, html);
 
 		if (g != null && shape != null && drawLabels && text != null
-				&& text.length() > 0)
-		{
+				&& text.length() > 0) {
 			// Creates a temporary graphics instance for drawing this shape
 			float opacity = mxUtils.getFloat(style,
 					mxConstants.STYLE_TEXT_OPACITY, 100);
@@ -280,8 +261,7 @@ public class mxGraphics2DCanvas extends mxBasicCanvas
 	/**
 	 * 
 	 */
-	public void drawImage(Rectangle bounds, String imageUrl)
-	{
+	public void drawImage(Rectangle bounds, String imageUrl) {
 		drawImage(bounds, imageUrl, PRESERVE_IMAGE_ASPECT, false, false);
 	}
 
@@ -289,30 +269,24 @@ public class mxGraphics2DCanvas extends mxBasicCanvas
 	 * 
 	 */
 	public void drawImage(Rectangle bounds, String imageUrl,
-			boolean preserveAspect, boolean flipH, boolean flipV)
-	{
-		if (imageUrl != null && bounds.getWidth() > 0 && bounds.getHeight() > 0)
-		{
+			boolean preserveAspect, boolean flipH, boolean flipV) {
+		if (imageUrl != null && bounds.getWidth() > 0 && bounds.getHeight() > 0) {
 			Image img = loadImage(imageUrl);
 
-			if (img != null)
-			{
+			if (img != null) {
 				int w, h;
 				int x = bounds.x;
 				int y = bounds.y;
 				Dimension size = getImageSize(img);
 
-				if (preserveAspect)
-				{
+				if (preserveAspect) {
 					double s = Math.min(bounds.width / (double) size.width,
 							bounds.height / (double) size.height);
 					w = (int) (size.width * s);
 					h = (int) (size.height * s);
 					x += (bounds.width - w) / 2;
 					y += (bounds.height - h) / 2;
-				}
-				else
-				{
+				} else {
 					w = bounds.width;
 					h = bounds.height;
 				}
@@ -320,26 +294,22 @@ public class mxGraphics2DCanvas extends mxBasicCanvas
 				Image scaledImage = (w == size.width && h == size.height) ? img
 						: img.getScaledInstance(w, h, IMAGE_SCALING);
 
-				if (scaledImage != null)
-				{
+				if (scaledImage != null) {
 					AffineTransform af = null;
 
-					if (flipH || flipV)
-					{
+					if (flipH || flipV) {
 						af = g.getTransform();
 						int sx = 1;
 						int sy = 1;
 						int dx = 0;
 						int dy = 0;
 
-						if (flipH)
-						{
+						if (flipH) {
 							sx = -1;
 							dx = -w - 2 * x;
 						}
 
-						if (flipV)
-						{
+						if (flipV) {
 							sy = -1;
 							dy = -h - 2 * y;
 						}
@@ -351,8 +321,7 @@ public class mxGraphics2DCanvas extends mxBasicCanvas
 					drawImageImpl(scaledImage, x, y);
 
 					// Restores the previous transform
-					if (af != null)
-					{
+					if (af != null) {
 						g.setTransform(af);
 					}
 				}
@@ -363,26 +332,22 @@ public class mxGraphics2DCanvas extends mxBasicCanvas
 	/**
 	 * Implements the actual graphics call.
 	 */
-	protected void drawImageImpl(Image image, int x, int y)
-	{
+	protected void drawImageImpl(Image image, int x, int y) {
 		g.drawImage(image, x, y, null);
 	}
 
 	/**
 	 * Returns the size for the given image.
 	 */
-	protected Dimension getImageSize(Image image)
-	{
+	protected Dimension getImageSize(Image image) {
 		return new Dimension(image.getWidth(null), image.getHeight(null));
 	}
 
 	/**
 	 * 
 	 */
-	public void paintPolyline(mxPoint[] points, boolean rounded)
-	{
-		if (points != null && points.length > 1)
-		{
+	public void paintPolyline(mxPoint[] points, boolean rounded) {
+		if (points != null && points.length > 1) {
 			mxPoint pt = points[0];
 			mxPoint pe = points[points.length - 1];
 
@@ -392,14 +357,12 @@ public class mxGraphics2DCanvas extends mxBasicCanvas
 			path.moveTo((float) pt.getX(), (float) pt.getY());
 
 			// Draws the line segments
-			for (int i = 1; i < points.length - 1; i++)
-			{
+			for (int i = 1; i < points.length - 1; i++) {
 				mxPoint tmp = points[i];
 				double dx = pt.getX() - tmp.getX();
 				double dy = pt.getY() - tmp.getY();
 
-				if ((rounded && i < points.length - 1) && (dx != 0 || dy != 0))
-				{
+				if ((rounded && i < points.length - 1) && (dx != 0 || dy != 0)) {
 					// Draws a line from the last point to the current
 					// point with a spacing of size off the current point
 					// into direction of the last point
@@ -417,12 +380,13 @@ public class mxGraphics2DCanvas extends mxBasicCanvas
 					mxPoint next = points[i + 1];
 
 					// Uses next non-overlapping point
-					while (i < points.length - 2 && Math.round(next.getX() - tmp.getX()) == 0 && Math.round(next.getY() - tmp.getY()) == 0)
-					{
+					while (i < points.length - 2
+							&& Math.round(next.getX() - tmp.getX()) == 0
+							&& Math.round(next.getY() - tmp.getY()) == 0) {
 						next = points[i + 2];
 						i++;
 					}
-					
+
 					dx = next.getX() - tmp.getX();
 					dy = next.getY() - tmp.getY();
 
@@ -436,9 +400,7 @@ public class mxGraphics2DCanvas extends mxBasicCanvas
 					path.quadTo((float) tmp.getX(), (float) tmp.getY(),
 							(float) x2, (float) y2);
 					tmp = new mxPoint(x2, y2);
-				}
-				else
-				{
+				} else {
 					path.lineTo((float) tmp.getX(), (float) tmp.getY());
 				}
 
@@ -453,16 +415,13 @@ public class mxGraphics2DCanvas extends mxBasicCanvas
 	/**
 	 *
 	 */
-	public void paintRectangle(Rectangle bounds, Color background, Color border)
-	{
-		if (background != null)
-		{
+	public void paintRectangle(Rectangle bounds, Color background, Color border) {
+		if (background != null) {
 			g.setColor(background);
 			fillShape(bounds);
 		}
 
-		if (border != null)
-		{
+		if (border != null) {
 			g.setColor(border);
 			g.draw(bounds);
 		}
@@ -471,21 +430,18 @@ public class mxGraphics2DCanvas extends mxBasicCanvas
 	/**
 	 *
 	 */
-	public void fillShape(Shape shape)
-	{
+	public void fillShape(Shape shape) {
 		fillShape(shape, false);
 	}
 
 	/**
 	 *
 	 */
-	public void fillShape(Shape shape, boolean shadow)
-	{
+	public void fillShape(Shape shape, boolean shadow) {
 		int shadowOffsetX = (shadow) ? mxConstants.SHADOW_OFFSETX : 0;
 		int shadowOffsetY = (shadow) ? mxConstants.SHADOW_OFFSETY : 0;
 
-		if (shadow)
-		{
+		if (shadow) {
 			// Saves the state and configures the graphics object
 			Paint p = g.getPaint();
 			Color previousColor = g.getColor();
@@ -507,28 +463,23 @@ public class mxGraphics2DCanvas extends mxBasicCanvas
 	/**
 	 * 
 	 */
-	public Stroke createStroke(Map<String, Object> style)
-	{
+	public Stroke createStroke(Map<String, Object> style) {
 		double width = mxUtils
 				.getFloat(style, mxConstants.STYLE_STROKEWIDTH, 1) * scale;
 		boolean dashed = mxUtils.isTrue(style, mxConstants.STYLE_DASHED);
-		if (dashed)
-		{
+		if (dashed) {
 			float[] dashPattern = mxUtils.getFloatArray(style,
 					mxConstants.STYLE_DASH_PATTERN,
 					mxConstants.DEFAULT_DASHED_PATTERN, " ");
 			float[] scaledDashPattern = new float[dashPattern.length];
 
-			for (int i = 0; i < dashPattern.length; i++)
-			{
+			for (int i = 0; i < dashPattern.length; i++) {
 				scaledDashPattern[i] = (float) (dashPattern[i] * scale * width);
 			}
 
 			return new BasicStroke((float) width, BasicStroke.CAP_BUTT,
 					BasicStroke.JOIN_MITER, 10.0f, scaledDashPattern, 0.0f);
-		}
-		else
-		{
+		} else {
 			return new BasicStroke((float) width);
 		}
 	}
@@ -536,18 +487,15 @@ public class mxGraphics2DCanvas extends mxBasicCanvas
 	/**
 	 * 
 	 */
-	public Paint createFillPaint(mxRectangle bounds, Map<String, Object> style)
-	{
+	public Paint createFillPaint(mxRectangle bounds, Map<String, Object> style) {
 		Color fillColor = mxUtils.getColor(style, mxConstants.STYLE_FILLCOLOR);
 		Paint fillPaint = null;
 
-		if (fillColor != null)
-		{
+		if (fillColor != null) {
 			Color gradientColor = mxUtils.getColor(style,
 					mxConstants.STYLE_GRADIENTCOLOR);
 
-			if (gradientColor != null)
-			{
+			if (gradientColor != null) {
 				String gradientDirection = mxUtils.getString(style,
 						mxConstants.STYLE_GRADIENT_DIRECTION);
 
@@ -558,20 +506,14 @@ public class mxGraphics2DCanvas extends mxBasicCanvas
 
 				if (gradientDirection == null
 						|| gradientDirection
-								.equals(mxConstants.DIRECTION_SOUTH))
-				{
+								.equals(mxConstants.DIRECTION_SOUTH)) {
 					y2 = (float) (bounds.getY() + bounds.getHeight());
-				}
-				else if (gradientDirection.equals(mxConstants.DIRECTION_EAST))
-				{
+				} else if (gradientDirection.equals(mxConstants.DIRECTION_EAST)) {
 					x2 = (float) (bounds.getX() + bounds.getWidth());
-				}
-				else if (gradientDirection.equals(mxConstants.DIRECTION_NORTH))
-				{
+				} else if (gradientDirection
+						.equals(mxConstants.DIRECTION_NORTH)) {
 					y1 = (float) (bounds.getY() + bounds.getHeight());
-				}
-				else if (gradientDirection.equals(mxConstants.DIRECTION_WEST))
-				{
+				} else if (gradientDirection.equals(mxConstants.DIRECTION_WEST)) {
 					x1 = (float) (bounds.getX() + bounds.getWidth());
 				}
 
@@ -587,29 +529,25 @@ public class mxGraphics2DCanvas extends mxBasicCanvas
 	 * 
 	 */
 	public Graphics2D createTemporaryGraphics(Map<String, Object> style,
-			float opacity, mxRectangle bounds)
-	{
+			float opacity, mxRectangle bounds) {
 		Graphics2D temporaryGraphics = (Graphics2D) g.create();
 
 		// Applies the default translate
 		temporaryGraphics.translate(translate.x, translate.y);
 
 		// Applies the rotation on the graphics object
-		if (bounds != null)
-		{
+		if (bounds != null) {
 			double rotation = mxUtils.getDouble(style,
 					mxConstants.STYLE_ROTATION, 0);
 
-			if (rotation != 0)
-			{
+			if (rotation != 0) {
 				temporaryGraphics.rotate(Math.toRadians(rotation),
 						bounds.getCenterX(), bounds.getCenterY());
 			}
 		}
 
 		// Applies the opacity to the graphics object
-		if (opacity != 100)
-		{
+		if (opacity != 100) {
 			temporaryGraphics.setComposite(AlphaComposite.getInstance(
 					AlphaComposite.SRC_OVER, opacity / 100));
 		}

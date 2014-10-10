@@ -27,8 +27,7 @@ import com.mxgraph.view.mxGraph;
 /**
  * 
  */
-public class mxVertexHandler extends mxCellHandler
-{
+public class mxVertexHandler extends mxCellHandler {
 
 	/**
 	 * 
@@ -58,20 +57,17 @@ public class mxVertexHandler extends mxCellHandler
 	 * @param graphComponent
 	 * @param state
 	 */
-	public mxVertexHandler(mxGraphComponent graphComponent, mxCellState state)
-	{
+	public mxVertexHandler(mxGraphComponent graphComponent, mxCellState state) {
 		super(graphComponent, state);
 	}
 
 	/**
 	 * 
 	 */
-	protected Rectangle[] createHandles()
-	{
+	protected Rectangle[] createHandles() {
 		Rectangle[] h = null;
 
-		if (graphComponent.getGraph().isCellResizable(getState().getCell()))
-		{
+		if (graphComponent.getGraph().isCellResizable(getState().getCell())) {
 			Rectangle bounds = getState().getRectangle();
 			int half = mxConstants.HANDLE_SIZE / 2;
 
@@ -95,9 +91,7 @@ public class mxVertexHandler extends mxCellHandler
 			h[5] = new Rectangle(left, bottom, s, s);
 			h[6] = new Rectangle(w2, bottom, s, s);
 			h[7] = new Rectangle(right, bottom, s, s);
-		}
-		else
-		{
+		} else {
 			h = new Rectangle[1];
 		}
 
@@ -113,8 +107,7 @@ public class mxVertexHandler extends mxCellHandler
 	/**
 	 * 
 	 */
-	protected JComponent createPreview()
-	{
+	protected JComponent createPreview() {
 		JPanel preview = new JPanel();
 		preview.setBorder(mxSwingConstants.PREVIEW_BORDER);
 		preview.setOpaque(false);
@@ -126,36 +119,28 @@ public class mxVertexHandler extends mxCellHandler
 	/**
 	 * 
 	 */
-	public void mouseDragged(MouseEvent e)
-	{
-		if (!e.isConsumed() && first != null)
-		{
+	public void mouseDragged(MouseEvent e) {
+		if (!e.isConsumed() && first != null) {
 			gridEnabledEvent = graphComponent.isGridEnabledEvent(e);
 			constrainedEvent = graphComponent.isConstrainedEvent(e);
 
 			double dx = e.getX() - first.x;
 			double dy = e.getY() - first.y;
 
-			if (isLabel(index))
-			{
+			if (isLabel(index)) {
 				mxPoint pt = new mxPoint(e.getPoint());
 
-				if (gridEnabledEvent)
-				{
+				if (gridEnabledEvent) {
 					pt = graphComponent.snapScaledPoint(pt);
 				}
 
 				int idx = (int) Math.round(pt.getX() - first.x);
 				int idy = (int) Math.round(pt.getY() - first.y);
 
-				if (constrainedEvent)
-				{
-					if (Math.abs(idx) > Math.abs(idy))
-					{
+				if (constrainedEvent) {
+					if (Math.abs(idx) > Math.abs(idy)) {
 						idy = 0;
-					}
-					else
-					{
+					} else {
 						idx = 0;
 					}
 				}
@@ -163,14 +148,11 @@ public class mxVertexHandler extends mxCellHandler
 				Rectangle rect = state.getLabelBounds().getRectangle();
 				rect.translate(idx, idy);
 				preview.setBounds(rect);
-			}
-			else
-			{
+			} else {
 				mxGraph graph = graphComponent.getGraph();
 				double scale = graph.getView().getScale();
 
-				if (gridEnabledEvent)
-				{
+				if (gridEnabledEvent) {
 					dx = graph.snap(dx / scale) * scale;
 					dy = graph.snap(dy / scale) * scale;
 				}
@@ -181,8 +163,7 @@ public class mxVertexHandler extends mxCellHandler
 				preview.setBounds(bounds.getRectangle());
 			}
 
-			if (!preview.isVisible() && graphComponent.isSignificant(dx, dy))
-			{
+			if (!preview.isVisible() && graphComponent.isSignificant(dx, dy)) {
 				preview.setVisible(true);
 			}
 
@@ -193,18 +174,12 @@ public class mxVertexHandler extends mxCellHandler
 	/**
 	 * 
 	 */
-	public void mouseReleased(MouseEvent e)
-	{
-		if (!e.isConsumed() && first != null)
-		{
-			if (preview != null && preview.isVisible())
-			{
-				if (isLabel(index))
-				{
+	public void mouseReleased(MouseEvent e) {
+		if (!e.isConsumed() && first != null) {
+			if (preview != null && preview.isVisible()) {
+				if (isLabel(index)) {
 					moveLabel(e);
-				}
-				else
-				{
+				} else {
 					resizeCell(e);
 				}
 			}
@@ -218,40 +193,32 @@ public class mxVertexHandler extends mxCellHandler
 	/**
 	 * 
 	 */
-	protected void moveLabel(MouseEvent e)
-	{
+	protected void moveLabel(MouseEvent e) {
 		mxGraph graph = graphComponent.getGraph();
 		mxGeometry geometry = graph.getModel().getGeometry(state.getCell());
 
-		if (geometry != null)
-		{
+		if (geometry != null) {
 			double scale = graph.getView().getScale();
 			mxPoint pt = new mxPoint(e.getPoint());
 
-			if (gridEnabledEvent)
-			{
+			if (gridEnabledEvent) {
 				pt = graphComponent.snapScaledPoint(pt);
 			}
 
 			double dx = (pt.getX() - first.x) / scale;
 			double dy = (pt.getY() - first.y) / scale;
 
-			if (constrainedEvent)
-			{
-				if (Math.abs(dx) > Math.abs(dy))
-				{
+			if (constrainedEvent) {
+				if (Math.abs(dx) > Math.abs(dy)) {
 					dy = 0;
-				}
-				else
-				{
+				} else {
 					dx = 0;
 				}
 			}
 
 			mxPoint offset = geometry.getOffset();
 
-			if (offset == null)
-			{
+			if (offset == null) {
 				offset = new mxPoint();
 			}
 
@@ -268,46 +235,38 @@ public class mxVertexHandler extends mxCellHandler
 	 * 
 	 * @param e
 	 */
-	protected void resizeCell(MouseEvent e)
-	{
+	protected void resizeCell(MouseEvent e) {
 		mxGraph graph = graphComponent.getGraph();
 		double scale = graph.getView().getScale();
 
 		Object cell = state.getCell();
 		mxGeometry geometry = graph.getModel().getGeometry(cell);
 
-		if (geometry != null)
-		{
+		if (geometry != null) {
 			double dx = (e.getX() - first.x) / scale;
 			double dy = (e.getY() - first.y) / scale;
 
-			if (isLabel(index))
-			{
+			if (isLabel(index)) {
 				geometry = (mxGeometry) geometry.clone();
 
-				if (geometry.getOffset() != null)
-				{
+				if (geometry.getOffset() != null) {
 					dx += geometry.getOffset().getX();
 					dy += geometry.getOffset().getY();
 				}
 
-				if (gridEnabledEvent)
-				{
+				if (gridEnabledEvent) {
 					dx = graph.snap(dx);
 					dy = graph.snap(dy);
 				}
 
 				geometry.setOffset(new mxPoint(dx, dy));
 				graph.getModel().setGeometry(cell, geometry);
-			}
-			else
-			{
+			} else {
 				mxRectangle bounds = union(geometry, dx, dy, index);
 				Rectangle rect = bounds.getRectangle();
 
 				// Snaps new bounds to grid (unscaled)
-				if (gridEnabledEvent)
-				{
+				if (gridEnabledEvent) {
 					int x = (int) graph.snap(rect.x);
 					int y = (int) graph.snap(rect.y);
 					rect.width = (int) graph.snap(rect.width - x + rect.x);
@@ -324,10 +283,8 @@ public class mxVertexHandler extends mxCellHandler
 	/**
 	 * 
 	 */
-	protected Cursor getCursor(MouseEvent e, int index)
-	{
-		if (index >= 0 && index <= CURSORS.length)
-		{
+	protected Cursor getCursor(MouseEvent e, int index) {
+		if (index >= 0 && index <= CURSORS.length) {
 			return CURSORS[index];
 		}
 
@@ -342,28 +299,21 @@ public class mxVertexHandler extends mxCellHandler
 	 * @param index
 	 */
 	protected mxRectangle union(mxRectangle bounds, double dx, double dy,
-			int index)
-	{
+			int index) {
 		double left = bounds.getX();
 		double right = left + bounds.getWidth();
 		double top = bounds.getY();
 		double bottom = top + bounds.getHeight();
 
-		if (index > 4 /* Bottom Row */)
-		{
+		if (index > 4 /* Bottom Row */) {
 			bottom = bottom + dy;
-		}
-		else if (index < 3 /* Top Row */)
-		{
+		} else if (index < 3 /* Top Row */) {
 			top = top + dy;
 		}
 
-		if (index == 0 || index == 3 || index == 5 /* Left */)
-		{
+		if (index == 0 || index == 3 || index == 5 /* Left */) {
 			left += dx;
-		}
-		else if (index == 2 || index == 4 || index == 7 /* Right */)
-		{
+		} else if (index == 2 || index == 4 || index == 7 /* Right */) {
 			right += dx;
 		}
 
@@ -371,15 +321,13 @@ public class mxVertexHandler extends mxCellHandler
 		double height = bottom - top;
 
 		// Flips over left side
-		if (width < 0)
-		{
+		if (width < 0) {
 			left += width;
 			width = Math.abs(width);
 		}
 
 		// Flips over top side
-		if (height < 0)
-		{
+		if (height < 0) {
 			top += height;
 			height = Math.abs(height);
 		}
@@ -390,28 +338,24 @@ public class mxVertexHandler extends mxCellHandler
 	/**
 	 * 
 	 */
-	public Color getSelectionColor()
-	{
+	public Color getSelectionColor() {
 		return mxSwingConstants.VERTEX_SELECTION_COLOR;
 	}
 
 	/**
 	 * 
 	 */
-	public Stroke getSelectionStroke()
-	{
+	public Stroke getSelectionStroke() {
 		return mxSwingConstants.VERTEX_SELECTION_STROKE;
 	}
 
 	/**
 	 * 
 	 */
-	public void paint(Graphics g)
-	{
+	public void paint(Graphics g) {
 		Rectangle bounds = getState().getRectangle();
 
-		if (g.hitClip(bounds.x, bounds.y, bounds.width, bounds.height))
-		{
+		if (g.hitClip(bounds.x, bounds.y, bounds.width, bounds.height)) {
 			Graphics2D g2 = (Graphics2D) g;
 
 			Stroke stroke = g2.getStroke();

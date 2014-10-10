@@ -35,8 +35,7 @@ import com.mxgraph.view.mxGraphView;
 /**
  *
  */
-public class mxEdgeHandler extends mxCellHandler
-{
+public class mxEdgeHandler extends mxCellHandler {
 	/**
 	 * 
 	 */
@@ -65,8 +64,7 @@ public class mxEdgeHandler extends mxCellHandler
 	/**
 	 * 
 	 */
-	protected mxCellMarker marker = new mxCellMarker(graphComponent)
-	{
+	protected mxCellMarker marker = new mxCellMarker(graphComponent) {
 
 		/**
 		 * 
@@ -75,15 +73,13 @@ public class mxEdgeHandler extends mxCellHandler
 
 		// Only returns edges if they are connectable and never returns
 		// the edge that is currently being modified
-		protected Object getCell(MouseEvent e)
-		{
+		protected Object getCell(MouseEvent e) {
 			mxGraph graph = graphComponent.getGraph();
 			mxIGraphModel model = graph.getModel();
 			Object cell = super.getCell(e);
 
 			if (cell == mxEdgeHandler.this.state.getCell()
-					|| (!graph.isConnectableEdges() && model.isEdge(cell)))
-			{
+					|| (!graph.isConnectableEdges() && model.isEdge(cell))) {
 				cell = null;
 			}
 
@@ -91,17 +87,15 @@ public class mxEdgeHandler extends mxCellHandler
 		}
 
 		// Sets the highlight color according to isValidConnection
-		protected boolean isValidState(mxCellState state)
-		{
+		protected boolean isValidState(mxCellState state) {
 			mxGraphView view = graphComponent.getGraph().getView();
 			mxIGraphModel model = graphComponent.getGraph().getModel();
 			Object edge = mxEdgeHandler.this.state.getCell();
 			boolean isSource = isSource(index);
 
-			mxCellState other = view
-					.getTerminalPort(state,
-							view.getState(model.getTerminal(edge, !isSource)),
-							!isSource);
+			mxCellState other = view.getTerminalPort(state,
+					view.getState(model.getTerminal(edge, !isSource)),
+					!isSource);
 			Object otherCell = (other != null) ? other.getCell() : null;
 			Object source = (isSource) ? state.getCell() : otherCell;
 			Object target = (isSource) ? otherCell : state.getCell();
@@ -118,40 +112,35 @@ public class mxEdgeHandler extends mxCellHandler
 	 * @param graphComponent
 	 * @param state
 	 */
-	public mxEdgeHandler(mxGraphComponent graphComponent, mxCellState state)
-	{
+	public mxEdgeHandler(mxGraphComponent graphComponent, mxCellState state) {
 		super(graphComponent, state);
 	}
 
 	/**
 	 * 
 	 */
-	public void setCloneEnabled(boolean cloneEnabled)
-	{
+	public void setCloneEnabled(boolean cloneEnabled) {
 		this.cloneEnabled = cloneEnabled;
 	}
 
 	/**
 	 * 
 	 */
-	public boolean isCloneEnabled()
-	{
+	public boolean isCloneEnabled() {
 		return cloneEnabled;
 	}
 
 	/**
 	 * No flip event is ignored.
 	 */
-	protected boolean isIgnoredEvent(MouseEvent e)
-	{
+	protected boolean isIgnoredEvent(MouseEvent e) {
 		return !isFlipEvent(e) && super.isIgnoredEvent(e);
 	}
 
 	/**
 	 * 
 	 */
-	protected boolean isFlipEvent(MouseEvent e)
-	{
+	protected boolean isFlipEvent(MouseEvent e) {
 		return false;
 	}
 
@@ -159,8 +148,7 @@ public class mxEdgeHandler extends mxCellHandler
 	 * Returns the error message or an empty string if the connection for the
 	 * given source target pair is not valid. Otherwise it returns null.
 	 */
-	public String validateConnection(Object source, Object target)
-	{
+	public String validateConnection(Object source, Object target) {
 		return graphComponent.getGraph().getEdgeValidationError(
 				state.getCell(), source, target);
 	}
@@ -168,24 +156,21 @@ public class mxEdgeHandler extends mxCellHandler
 	/**
 	 * Returns true if the current index is 0.
 	 */
-	public boolean isSource(int index)
-	{
+	public boolean isSource(int index) {
 		return index == 0;
 	}
 
 	/**
 	 * Returns true if the current index is the last index.
 	 */
-	public boolean isTarget(int index)
-	{
+	public boolean isTarget(int index) {
 		return index == getHandleCount() - 2;
 	}
 
 	/**
 	 * Hides the middle handle if the edge is not bendable.
 	 */
-	protected boolean isHandleVisible(int index)
-	{
+	protected boolean isHandleVisible(int index) {
 		return super.isHandleVisible(index)
 				&& (isSource(index) || isTarget(index) || isCellBendable());
 	}
@@ -193,21 +178,18 @@ public class mxEdgeHandler extends mxCellHandler
 	/**
 	 * 
 	 */
-	protected boolean isCellBendable()
-	{
+	protected boolean isCellBendable() {
 		return graphComponent.getGraph().isCellBendable(state.getCell());
 	}
 
 	/**
 	 * 
 	 */
-	protected Rectangle[] createHandles()
-	{
+	protected Rectangle[] createHandles() {
 		p = createPoints(state);
 		Rectangle[] h = new Rectangle[p.length + 1];
 
-		for (int i = 0; i < h.length - 1; i++)
-		{
+		for (int i = 0; i < h.length - 1; i++) {
 			h[i] = createHandle(p[i]);
 		}
 
@@ -220,24 +202,19 @@ public class mxEdgeHandler extends mxCellHandler
 	/**
 	 * 
 	 */
-	protected Color getHandleFillColor(int index)
-	{
+	protected Color getHandleFillColor(int index) {
 		boolean source = isSource(index);
 
-		if (source || isTarget(index))
-		{
+		if (source || isTarget(index)) {
 			mxGraph graph = graphComponent.getGraph();
 			Object terminal = graph.getModel().getTerminal(state.getCell(),
 					source);
 
 			if (terminal == null
 					&& !graphComponent.getGraph().isTerminalPointMovable(
-							state.getCell(), source))
-			{
+							state.getCell(), source)) {
 				return mxSwingConstants.LOCKED_HANDLE_FILLCOLOR;
-			}
-			else if (terminal != null)
-			{
+			} else if (terminal != null) {
 				return (graphComponent.getGraph().isCellDisconnectable(
 						state.getCell(), terminal, source)) ? mxSwingConstants.CONNECT_HANDLE_FILLCOLOR
 						: mxSwingConstants.LOCKED_HANDLE_FILLCOLOR;
@@ -253,14 +230,12 @@ public class mxEdgeHandler extends mxCellHandler
 	 * @param y
 	 * @return Returns the inde of the handle at the given location.
 	 */
-	public int getIndexAt(int x, int y)
-	{
+	public int getIndexAt(int x, int y) {
 		int index = super.getIndexAt(x, y);
 
 		// Makes the complete label a trigger for the label handle
 		if (index < 0 && handles != null && handlesVisible && isLabelMovable()
-				&& state.getLabelBounds().getRectangle().contains(x, y))
-		{
+				&& state.getLabelBounds().getRectangle().contains(x, y)) {
 			index = handles.length - 1;
 		}
 
@@ -270,16 +245,14 @@ public class mxEdgeHandler extends mxCellHandler
 	/**
 	 * 
 	 */
-	protected Rectangle createHandle(Point center)
-	{
+	protected Rectangle createHandle(Point center) {
 		return createHandle(center, mxConstants.HANDLE_SIZE);
 	}
 
 	/**
 	 * 
 	 */
-	protected Rectangle createHandle(Point center, int size)
-	{
+	protected Rectangle createHandle(Point center, int size) {
 		return new Rectangle(center.x - size / 2, center.y - size / 2, size,
 				size);
 	}
@@ -287,12 +260,10 @@ public class mxEdgeHandler extends mxCellHandler
 	/**
 	 * 
 	 */
-	protected Point[] createPoints(mxCellState s)
-	{
+	protected Point[] createPoints(mxCellState s) {
 		Point[] pts = new Point[s.getAbsolutePointCount()];
 
-		for (int i = 0; i < pts.length; i++)
-		{
+		for (int i = 0; i < pts.length; i++) {
 			pts[i] = s.getAbsolutePoint(i).getPoint();
 		}
 
@@ -302,46 +273,35 @@ public class mxEdgeHandler extends mxCellHandler
 	/**
 	 * 
 	 */
-	protected JComponent createPreview()
-	{
-		JPanel preview = new JPanel()
-		{
+	protected JComponent createPreview() {
+		JPanel preview = new JPanel() {
 			/**
 			 * 
 			 */
 			private static final long serialVersionUID = -894546588972313020L;
 
-			public void paint(Graphics g)
-			{
+			public void paint(Graphics g) {
 				super.paint(g);
 
-				if (!isLabel(index) && p != null)
-				{
+				if (!isLabel(index) && p != null) {
 					((Graphics2D) g).setStroke(mxSwingConstants.PREVIEW_STROKE);
 
-					if (isSource(index) || isTarget(index))
-					{
+					if (isSource(index) || isTarget(index)) {
 						if (marker.hasValidState()
 								|| graphComponent.getGraph()
-										.isAllowDanglingEdges())
-						{
+										.isAllowDanglingEdges()) {
 							g.setColor(mxSwingConstants.DEFAULT_VALID_COLOR);
-						}
-						else
-						{
+						} else {
 							g.setColor(mxSwingConstants.DEFAULT_INVALID_COLOR);
 						}
-					}
-					else
-					{
+					} else {
 						g.setColor(Color.BLACK);
 					}
 
 					Point origin = getLocation();
 					Point last = p[0];
 
-					for (int i = 1; i < p.length; i++)
-					{
+					for (int i = 1; i < p.length; i++) {
 						g.drawLine(last.x - origin.x, last.y - origin.y, p[i].x
 								- origin.x, p[i].y - origin.y);
 						last = p[i];
@@ -350,8 +310,7 @@ public class mxEdgeHandler extends mxCellHandler
 			}
 		};
 
-		if (isLabel(index))
-		{
+		if (isLabel(index)) {
 			preview.setBorder(mxSwingConstants.PREVIEW_BORDER);
 		}
 
@@ -367,16 +326,14 @@ public class mxEdgeHandler extends mxCellHandler
 	 * @param gridEnabled
 	 * @return Returns the scaled, translated and grid-aligned point.
 	 */
-	protected mxPoint convertPoint(mxPoint point, boolean gridEnabled)
-	{
+	protected mxPoint convertPoint(mxPoint point, boolean gridEnabled) {
 		mxGraph graph = graphComponent.getGraph();
 		double scale = graph.getView().getScale();
 		mxPoint trans = graph.getView().getTranslate();
 		double x = point.getX() / scale - trans.getX();
 		double y = point.getY() / scale - trans.getY();
 
-		if (gridEnabled)
-		{
+		if (gridEnabled) {
 			x = graph.snap(x);
 			y = graph.snap(y);
 		}
@@ -391,20 +348,15 @@ public class mxEdgeHandler extends mxCellHandler
 	 * 
 	 * @return Returns the bounds of the preview.
 	 */
-	protected Rectangle getPreviewBounds()
-	{
+	protected Rectangle getPreviewBounds() {
 		Rectangle bounds = null;
 
-		if (isLabel(index))
-		{
+		if (isLabel(index)) {
 			bounds = state.getLabelBounds().getRectangle();
-		}
-		else
-		{
+		} else {
 			bounds = new Rectangle(p[0]);
 
-			for (int i = 0; i < p.length; i++)
-			{
+			for (int i = 0; i < p.length; i++) {
 				bounds.add(p[i]);
 			}
 
@@ -418,14 +370,12 @@ public class mxEdgeHandler extends mxCellHandler
 	/**
 	 * 
 	 */
-	public void mousePressed(MouseEvent e)
-	{
+	public void mousePressed(MouseEvent e) {
 		super.mousePressed(e);
 
 		boolean source = isSource(index);
 
-		if (source || isTarget(index))
-		{
+		if (source || isTarget(index)) {
 			mxGraph graph = graphComponent.getGraph();
 			mxIGraphModel model = graph.getModel();
 			Object terminal = model.getTerminal(state.getCell(), source);
@@ -433,8 +383,7 @@ public class mxEdgeHandler extends mxCellHandler
 			if ((terminal == null && !graph.isTerminalPointMovable(
 					state.getCell(), source))
 					|| (terminal != null && !graph.isCellDisconnectable(
-							state.getCell(), terminal, source)))
-			{
+							state.getCell(), terminal, source))) {
 				first = null;
 			}
 		}
@@ -443,10 +392,8 @@ public class mxEdgeHandler extends mxCellHandler
 	/**
 	 * 
 	 */
-	public void mouseDragged(MouseEvent e)
-	{
-		if (!e.isConsumed() && first != null)
-		{
+	public void mouseDragged(MouseEvent e) {
+		if (!e.isConsumed() && first != null) {
 			gridEnabledEvent = graphComponent.isGridEnabledEvent(e);
 			constrainedEvent = graphComponent.isConstrainedEvent(e);
 
@@ -456,28 +403,22 @@ public class mxEdgeHandler extends mxCellHandler
 			Object source = null;
 			Object target = null;
 
-			if (isLabel(index))
-			{
+			if (isLabel(index)) {
 				mxPoint abs = state.getAbsoluteOffset();
 				double dx = abs.getX() - first.x;
 				double dy = abs.getY() - first.y;
 
 				mxPoint pt = new mxPoint(e.getPoint());
 
-				if (gridEnabledEvent)
-				{
+				if (gridEnabledEvent) {
 					pt = graphComponent.snapScaledPoint(pt, dx, dy);
 				}
 
-				if (constrainedEvent)
-				{
+				if (constrainedEvent) {
 					if (Math.abs(e.getX() - first.x) > Math.abs(e.getY()
-							- first.y))
-					{
+							- first.y)) {
 						pt.setY(abs.getY());
-					}
-					else
-					{
+					} else {
 						pt.setX(abs.getX());
 					}
 				}
@@ -486,9 +427,7 @@ public class mxEdgeHandler extends mxCellHandler
 				rect.translate((int) Math.round(pt.getX() - first.x),
 						(int) Math.round(pt.getY() - first.y));
 				preview.setBounds(rect);
-			}
-			else
-			{
+			} else {
 				// Clones the cell state and updates the absolute points using
 				// the current state of this handle. This is required for
 				// computing the correct perimeter points and edge style.
@@ -498,46 +437,35 @@ public class mxEdgeHandler extends mxCellHandler
 				List<mxPoint> points = geometry.getPoints();
 				mxGraphView view = clone.getView();
 
-				if (isSource || isTarget)
-				{
+				if (isSource || isTarget) {
 					marker.process(e);
 					mxCellState currentState = marker.getValidState();
 					target = state.getVisibleTerminal(!isSource);
 
-					if (currentState != null)
-					{
+					if (currentState != null) {
 						source = currentState.getCell();
-					}
-					else
-					{
+					} else {
 						mxPoint pt = new mxPoint(e.getPoint());
 
-						if (gridEnabledEvent)
-						{
+						if (gridEnabledEvent) {
 							pt = graphComponent.snapScaledPoint(pt);
 						}
 
 						clone.setAbsoluteTerminalPoint(pt, isSource);
 					}
 
-					if (!isSource)
-					{
+					if (!isSource) {
 						Object tmp = source;
 						source = target;
 						target = tmp;
 					}
-				}
-				else
-				{
+				} else {
 					mxPoint point = convertPoint(new mxPoint(e.getPoint()),
 							gridEnabledEvent);
 
-					if (points == null)
-					{
+					if (points == null) {
 						points = Arrays.asList(new mxPoint[] { point });
-					}
-					else if (index - 1 < points.size())
-					{
+					} else if (index - 1 < points.size()) {
 						points = new ArrayList<mxPoint>(points);
 						points.set(index - 1, point);
 					}
@@ -557,32 +485,23 @@ public class mxEdgeHandler extends mxCellHandler
 						.getGraph().getConnectionConstraint(clone, targetState,
 								false);
 
-				/* TODO: Implement mxConstraintHandler
-				mxConnectionConstraint constraint = constraintHandler.currentConstraint;
+				/*
+				 * TODO: Implement mxConstraintHandler mxConnectionConstraint
+				 * constraint = constraintHandler.currentConstraint;
+				 * 
+				 * if (constraint == null) { constraint = new
+				 * mxConnectionConstraint(); }
+				 * 
+				 * if (isSource) { sourceConstraint = constraint; } else if
+				 * (isTarget) { targetConstraint = constraint; }
+				 */
 
-				if (constraint == null)
-				{
-					constraint = new mxConnectionConstraint();
-				}
-				
-				if (isSource)
-				{
-					sourceConstraint = constraint;
-				}
-				else if (isTarget)
-				{
-					targetConstraint = constraint;
-				}
-				*/
-
-				if (!isSource || sourceState != null)
-				{
+				if (!isSource || sourceState != null) {
 					view.updateFixedTerminalPoint(clone, sourceState, true,
 							sourceConstraint);
 				}
 
-				if (!isTarget || targetState != null)
-				{
+				if (!isTarget || targetState != null) {
 					view.updateFixedTerminalPoint(clone, targetState, false,
 							targetConstraint);
 				}
@@ -591,19 +510,17 @@ public class mxEdgeHandler extends mxCellHandler
 				view.updateFloatingTerminalPoints(clone, sourceState,
 						targetState);
 
-				// Uses the updated points from the cloned state to draw the preview
+				// Uses the updated points from the cloned state to draw the
+				// preview
 				p = createPoints(clone);
 				preview.setBounds(getPreviewBounds());
 			}
 
 			if (!preview.isVisible()
 					&& graphComponent.isSignificant(e.getX() - first.x,
-							e.getY() - first.y))
-			{
+							e.getY() - first.y)) {
 				preview.setVisible(true);
-			}
-			else if (preview.isVisible())
-			{
+			} else if (preview.isVisible()) {
 				preview.repaint();
 			}
 
@@ -614,62 +531,46 @@ public class mxEdgeHandler extends mxCellHandler
 	/**
 	 * 
 	 */
-	public void mouseReleased(MouseEvent e)
-	{
+	public void mouseReleased(MouseEvent e) {
 		mxGraph graph = graphComponent.getGraph();
 
-		if (!e.isConsumed() && first != null)
-		{
+		if (!e.isConsumed() && first != null) {
 			double dx = e.getX() - first.x;
 			double dy = e.getY() - first.y;
 
-			if (graphComponent.isSignificant(dx, dy))
-			{
-				if (error != null)
-				{
-					if (error.length() > 0)
-					{
+			if (graphComponent.isSignificant(dx, dy)) {
+				if (error != null) {
+					if (error.length() > 0) {
 						JOptionPane.showMessageDialog(graphComponent, error);
 					}
-				}
-				else if (isLabel(index))
-				{
+				} else if (isLabel(index)) {
 					mxPoint abs = state.getAbsoluteOffset();
 					dx = abs.getX() - first.x;
 					dy = abs.getY() - first.y;
 
 					mxPoint pt = new mxPoint(e.getPoint());
 
-					if (gridEnabledEvent)
-					{
+					if (gridEnabledEvent) {
 						pt = graphComponent.snapScaledPoint(pt, dx, dy);
 					}
 
-					if (constrainedEvent)
-					{
+					if (constrainedEvent) {
 						if (Math.abs(e.getX() - first.x) > Math.abs(e.getY()
-								- first.y))
-						{
+								- first.y)) {
 							pt.setY(abs.getY());
-						}
-						else
-						{
+						} else {
 							pt.setX(abs.getX());
 						}
 					}
 
 					moveLabelTo(state, pt.getX() + dx, pt.getY() + dy);
-				}
-				else if (marker.hasValidState()
-						&& (isSource(index) || isTarget(index)))
-				{
+				} else if (marker.hasValidState()
+						&& (isSource(index) || isTarget(index))) {
 					connect(state.getCell(), marker.getValidState().getCell(),
 							isSource(index), graphComponent.isCloneEvent(e)
 									&& isCloneEnabled());
-				}
-				else if ((!isSource(index) && !isTarget(index))
-						|| graphComponent.getGraph().isAllowDanglingEdges())
-				{
+				} else if ((!isSource(index) && !isTarget(index))
+						|| graphComponent.getGraph().isAllowDanglingEdges()) {
 					movePoint(
 							state.getCell(),
 							index,
@@ -681,8 +582,7 @@ public class mxEdgeHandler extends mxCellHandler
 			}
 		}
 
-		if (!e.isConsumed() && isFlipEvent(e))
-		{
+		if (!e.isConsumed() && isFlipEvent(e)) {
 			graph.flipEdge(state.getCell());
 			e.consume();
 		}
@@ -693,8 +593,7 @@ public class mxEdgeHandler extends mxCellHandler
 	/**
 	 * Extends the implementation to reset the current error and marker.
 	 */
-	public void reset()
-	{
+	public void reset() {
 		super.reset();
 
 		marker.reset();
@@ -704,50 +603,37 @@ public class mxEdgeHandler extends mxCellHandler
 	/**
 	 * Moves the edges control point with the given index to the given point.
 	 */
-	protected void movePoint(Object edge, int pointIndex, mxPoint point)
-	{
+	protected void movePoint(Object edge, int pointIndex, mxPoint point) {
 		mxIGraphModel model = graphComponent.getGraph().getModel();
 		mxGeometry geometry = model.getGeometry(edge);
 
-		if (geometry != null)
-		{
+		if (geometry != null) {
 			model.beginUpdate();
-			try
-			{
+			try {
 				geometry = (mxGeometry) geometry.clone();
 
-				if (isSource(index) || isTarget(index))
-				{
+				if (isSource(index) || isTarget(index)) {
 					connect(edge, null, isSource(index), false);
 					geometry.setTerminalPoint(point, isSource(index));
-				}
-				else
-				{
+				} else {
 					List<mxPoint> pts = geometry.getPoints();
 
-					if (pts == null)
-					{
+					if (pts == null) {
 						pts = new ArrayList<mxPoint>();
 						geometry.setPoints(pts);
 					}
 
-					if (pts != null)
-					{
-						if (pointIndex <= pts.size())
-						{
+					if (pts != null) {
+						if (pointIndex <= pts.size()) {
 							pts.set(pointIndex - 1, point);
-						}
-						else if (pointIndex - 1 <= pts.size())
-						{
+						} else if (pointIndex - 1 <= pts.size()) {
 							pts.add(pointIndex - 1, point);
 						}
 					}
 				}
 
 				model.setGeometry(edge, geometry);
-			}
-			finally
-			{
+			} finally {
 				model.endUpdate();
 			}
 		}
@@ -761,16 +647,13 @@ public class mxEdgeHandler extends mxCellHandler
 	 * @param isSource
 	 */
 	protected void connect(Object edge, Object terminal, boolean isSource,
-			boolean isClone)
-	{
+			boolean isClone) {
 		mxGraph graph = graphComponent.getGraph();
 		mxIGraphModel model = graph.getModel();
 
 		model.beginUpdate();
-		try
-		{
-			if (isClone)
-			{
+		try {
+			if (isClone) {
 				Object clone = graph.cloneCells(new Object[] { edge })[0];
 
 				Object parent = model.getParent(edge);
@@ -786,9 +669,7 @@ public class mxEdgeHandler extends mxCellHandler
 			// Passes an empty constraint to reset constraint information
 			graph.connectCell(edge, terminal, isSource,
 					new mxConnectionConstraint());
-		}
-		finally
-		{
+		} finally {
 			model.endUpdate();
 		}
 	}
@@ -796,14 +677,12 @@ public class mxEdgeHandler extends mxCellHandler
 	/**
 	 * Moves the label to the given position.
 	 */
-	protected void moveLabelTo(mxCellState edgeState, double x, double y)
-	{
+	protected void moveLabelTo(mxCellState edgeState, double x, double y) {
 		mxGraph graph = graphComponent.getGraph();
 		mxIGraphModel model = graph.getModel();
 		mxGeometry geometry = model.getGeometry(state.getCell());
 
-		if (geometry != null)
-		{
+		if (geometry != null) {
 			geometry = (mxGeometry) geometry.clone();
 
 			// Resets the relative location stored inside the geometry
@@ -826,16 +705,12 @@ public class mxEdgeHandler extends mxCellHandler
 	/**
 	 * 
 	 */
-	protected Cursor getCursor(MouseEvent e, int index)
-	{
+	protected Cursor getCursor(MouseEvent e, int index) {
 		Cursor cursor = null;
 
-		if (isLabel(index))
-		{
+		if (isLabel(index)) {
 			cursor = new Cursor(Cursor.MOVE_CURSOR);
-		}
-		else
-		{
+		} else {
 			cursor = new Cursor(Cursor.HAND_CURSOR);
 		}
 
@@ -845,24 +720,21 @@ public class mxEdgeHandler extends mxCellHandler
 	/**
 	 * 
 	 */
-	public Color getSelectionColor()
-	{
+	public Color getSelectionColor() {
 		return mxSwingConstants.EDGE_SELECTION_COLOR;
 	}
 
 	/**
 	 * 
 	 */
-	public Stroke getSelectionStroke()
-	{
+	public Stroke getSelectionStroke() {
 		return mxSwingConstants.EDGE_SELECTION_STROKE;
 	}
 
 	/**
 	 * 
 	 */
-	public void paint(Graphics g)
-	{
+	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 
 		Stroke stroke = g2.getStroke();
@@ -871,16 +743,14 @@ public class mxEdgeHandler extends mxCellHandler
 
 		Point last = state.getAbsolutePoint(0).getPoint();
 
-		for (int i = 1; i < state.getAbsolutePointCount(); i++)
-		{
+		for (int i = 1; i < state.getAbsolutePointCount(); i++) {
 			Point current = state.getAbsolutePoint(i).getPoint();
 			Line2D line = new Line2D.Float(last.x, last.y, current.x, current.y);
 
 			Rectangle bounds = g2.getStroke().createStrokedShape(line)
 					.getBounds();
 
-			if (g.hitClip(bounds.x, bounds.y, bounds.width, bounds.height))
-			{
+			if (g.hitClip(bounds.x, bounds.y, bounds.width, bounds.height)) {
 				g2.draw(line);
 			}
 

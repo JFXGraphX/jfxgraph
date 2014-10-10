@@ -16,24 +16,24 @@ import com.mxgraph.util.mxXmlUtils;
 /**
  * Implements a diagram that may be shared among multiple sessions. This
  * implementation is based only on string, it does not have a model instance.
- * The diagram is represented by its initial state and the sequence of edits
- * as applied to the diagram.
+ * The diagram is represented by its initial state and the sequence of edits as
+ * applied to the diagram.
  */
-public class mxSharedState extends mxEventSource
-{
+public class mxSharedState extends mxEventSource {
 
 	/**
 	 * Defines the requirements for an object that listens to changes on the
 	 * shared diagram.
 	 */
-	public interface mxDiagramChangeListener
-	{
+	public interface mxDiagramChangeListener {
 
 		/**
 		 * Fires when the shared diagram was changed.
 		 * 
-		 * @param sender Session where the change was received from.
-		 * @param edits String that represents the edits.
+		 * @param sender
+		 *            Session where the change was received from.
+		 * @param edits
+		 *            String that represents the edits.
 		 */
 		void diagramChanged(Object sender, String edits);
 	}
@@ -56,26 +56,24 @@ public class mxSharedState extends mxEventSource
 	/**
 	 * Constructs a new diagram with the given state.
 	 * 
-	 * @param state Initial state of the diagram.
+	 * @param state
+	 *            Initial state of the diagram.
 	 */
-	public mxSharedState(String state)
-	{
+	public mxSharedState(String state) {
 		this.state = state;
 	}
 
 	/**
 	 * Returns the initial state of the diagram.
 	 */
-	public String getState()
-	{
+	public String getState() {
 		return state;
 	}
 
 	/**
 	 * Returns the history of all changes as a string.
 	 */
-	public synchronized String getDelta()
-	{
+	public synchronized String getDelta() {
 		return delta.toString();
 	}
 
@@ -83,21 +81,19 @@ public class mxSharedState extends mxEventSource
 	 * Appends the given string to the history and dispatches the change to all
 	 * sessions that are listening to this shared diagram.
 	 * 
-	 * @param sender Session where the change originated from.
-	 * @param delta XML that represents the change.
+	 * @param sender
+	 *            Session where the change originated from.
+	 * @param delta
+	 *            XML that represents the change.
 	 */
-	public void processDelta(Object sender, Node delta)
-	{
+	public void processDelta(Object sender, Node delta) {
 		StringBuffer edits = new StringBuffer();
 
-		synchronized (this)
-		{
+		synchronized (this) {
 			Node edit = delta.getFirstChild();
 
-			while (edit != null)
-			{
-				if (edit.getNodeName().equals("edit"))
-				{
+			while (edit != null) {
+				if (edit.getNodeName().equals("edit")) {
 					edits.append(processEdit(edit));
 				}
 
@@ -113,16 +109,14 @@ public class mxSharedState extends mxEventSource
 	/**
 	 * 
 	 */
-	protected String processEdit(Node node)
-	{
+	protected String processEdit(Node node) {
 		return mxXmlUtils.getXml(node);
 	}
 
 	/**
 	 * 
 	 */
-	public synchronized void addDelta(String xml)
-	{
+	public synchronized void addDelta(String xml) {
 		// TODO: Clear delta if xml contains mxRootChange
 		delta.append(xml);
 	}
@@ -130,20 +124,18 @@ public class mxSharedState extends mxEventSource
 	/**
 	 * Clears the history of all changes.
 	 */
-	public synchronized void resetDelta()
-	{
+	public synchronized void resetDelta() {
 		delta = new StringBuffer();
 	}
 
 	/**
 	 * Adds the given listener to the list of diagram change listeners.
 	 * 
-	 * @param listener Diagram change listener to be added.
+	 * @param listener
+	 *            Diagram change listener to be added.
 	 */
-	public void addDiagramChangeListener(mxDiagramChangeListener listener)
-	{
-		if (diagramChangeListeners == null)
-		{
+	public void addDiagramChangeListener(mxDiagramChangeListener listener) {
+		if (diagramChangeListeners == null) {
 			diagramChangeListeners = new ArrayList<mxDiagramChangeListener>();
 		}
 
@@ -153,12 +145,11 @@ public class mxSharedState extends mxEventSource
 	/**
 	 * Removes the given listener from the list of diagram change listeners.
 	 * 
-	 * @param listener Diagram change listener to be removed.
+	 * @param listener
+	 *            Diagram change listener to be removed.
 	 */
-	public void removeDiagramChangeListener(mxDiagramChangeListener listener)
-	{
-		if (diagramChangeListeners != null)
-		{
+	public void removeDiagramChangeListener(mxDiagramChangeListener listener) {
+		if (diagramChangeListeners != null) {
 			diagramChangeListeners.remove(listener);
 		}
 	}
@@ -166,18 +157,17 @@ public class mxSharedState extends mxEventSource
 	/**
 	 * Dispatches the given event information to all diagram change listeners.
 	 * 
-	 * @param sender Session where the change was received from.
-	 * @param xml XML string that represents the change.
+	 * @param sender
+	 *            Session where the change was received from.
+	 * @param xml
+	 *            XML string that represents the change.
 	 */
-	void dispatchDiagramChangeEvent(Object sender, String edits)
-	{
-		if (diagramChangeListeners != null)
-		{
+	void dispatchDiagramChangeEvent(Object sender, String edits) {
+		if (diagramChangeListeners != null) {
 			Iterator<mxDiagramChangeListener> it = diagramChangeListeners
 					.iterator();
 
-			while (it.hasNext())
-			{
+			while (it.hasNext()) {
 				mxDiagramChangeListener listener = it.next();
 				listener.diagramChanged(sender, edits);
 			}

@@ -21,30 +21,27 @@ import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxGraphView;
 import com.mxgraph.view.mxTemporaryCellStates;
 
-public class mxCellRenderer
-{
+public class mxCellRenderer {
 	/**
 	 * 
 	 */
-	private mxCellRenderer()
-	{
+	private mxCellRenderer() {
 		// static class
 	}
 
 	/**
-	 * Draws the given cells using a Graphics2D canvas and returns the buffered image
-	 * that represents the cells.
+	 * Draws the given cells using a Graphics2D canvas and returns the buffered
+	 * image that represents the cells.
 	 * 
-	 * @param graph Graph to be painted onto the canvas.
+	 * @param graph
+	 *            Graph to be painted onto the canvas.
 	 * @return Returns the image that represents the canvas.
 	 */
 	public static mxICanvas drawCells(mxGraph graph, Object[] cells,
-			double scale, mxRectangle clip, CanvasFactory factory)
-	{
+			double scale, mxRectangle clip, CanvasFactory factory) {
 		mxICanvas canvas = null;
 
-		if (cells == null)
-		{
+		if (cells == null) {
 			cells = new Object[] { graph.getModel().getRoot() };
 		}
 
@@ -64,44 +61,34 @@ public class mxCellRenderer
 		mxTemporaryCellStates temp = new mxTemporaryCellStates(view, scale,
 				cells);
 
-		try
-		{
-			if (clip == null)
-			{
+		try {
+			if (clip == null) {
 				clip = graph.getPaintBounds(cells);
 			}
 
-			if (clip != null && clip.getWidth() > 0 && clip.getHeight() > 0)
-			{
+			if (clip != null && clip.getWidth() > 0 && clip.getHeight() > 0) {
 				Rectangle rect = clip.getRectangle();
 				canvas = factory.createCanvas(rect.width + 1, rect.height + 1);
 
-				if (canvas != null)
-				{
+				if (canvas != null) {
 					double previousScale = canvas.getScale();
 					Point previousTranslate = canvas.getTranslate();
 
-					try
-					{
+					try {
 						canvas.setTranslate(-rect.x, -rect.y);
 						canvas.setScale(view.getScale());
 
-						for (int i = 0; i < cells.length; i++)
-						{
+						for (int i = 0; i < cells.length; i++) {
 							graph.drawCell(canvas, cells[i]);
 						}
-					}
-					finally
-					{
+					} finally {
 						canvas.setScale(previousScale);
 						canvas.setTranslate(previousTranslate.x,
 								previousTranslate.y);
 					}
 				}
 			}
-		}
-		finally
-		{
+		} finally {
 			temp.destroy();
 			view.setEventsEnabled(eventsEnabled);
 		}
@@ -114,8 +101,7 @@ public class mxCellRenderer
 	 */
 	public static BufferedImage createBufferedImage(mxGraph graph,
 			Object[] cells, double scale, Color background, boolean antiAlias,
-			mxRectangle clip)
-	{
+			mxRectangle clip) {
 		return createBufferedImage(graph, cells, scale, background, antiAlias,
 				clip, new mxGraphics2DCanvas());
 	}
@@ -126,13 +112,10 @@ public class mxCellRenderer
 	public static BufferedImage createBufferedImage(mxGraph graph,
 			Object[] cells, double scale, final Color background,
 			final boolean antiAlias, mxRectangle clip,
-			final mxGraphics2DCanvas graphicsCanvas)
-	{
+			final mxGraphics2DCanvas graphicsCanvas) {
 		mxImageCanvas canvas = (mxImageCanvas) drawCells(graph, cells, scale,
-				clip, new CanvasFactory()
-				{
-					public mxICanvas createCanvas(int width, int height)
-					{
+				clip, new CanvasFactory() {
+					public mxICanvas createCanvas(int width, int height) {
 						return new mxImageCanvas(graphicsCanvas, width, height,
 								background, antiAlias);
 					}
@@ -146,13 +129,10 @@ public class mxCellRenderer
 	 * 
 	 */
 	public static Document createHtmlDocument(mxGraph graph, Object[] cells,
-			double scale, Color background, mxRectangle clip)
-	{
+			double scale, Color background, mxRectangle clip) {
 		mxHtmlCanvas canvas = (mxHtmlCanvas) drawCells(graph, cells, scale,
-				clip, new CanvasFactory()
-				{
-					public mxICanvas createCanvas(int width, int height)
-					{
+				clip, new CanvasFactory() {
+					public mxICanvas createCanvas(int width, int height) {
 						return new mxHtmlCanvas(mxDomUtils.createHtmlDocument());
 					}
 
@@ -165,15 +145,12 @@ public class mxCellRenderer
 	 * 
 	 */
 	public static Document createSvgDocument(mxGraph graph, Object[] cells,
-			double scale, Color background, mxRectangle clip)
-	{
+			double scale, Color background, mxRectangle clip) {
 		mxSvgCanvas canvas = (mxSvgCanvas) drawCells(graph, cells, scale, clip,
-				new CanvasFactory()
-				{
-					public mxICanvas createCanvas(int width, int height)
-					{
-						return new mxSvgCanvas(mxDomUtils.createSvgDocument(width,
-								height));
+				new CanvasFactory() {
+					public mxICanvas createCanvas(int width, int height) {
+						return new mxSvgCanvas(mxDomUtils.createSvgDocument(
+								width, height));
 					}
 
 				});
@@ -185,13 +162,10 @@ public class mxCellRenderer
 	 * 
 	 */
 	public static Document createVmlDocument(mxGraph graph, Object[] cells,
-			double scale, Color background, mxRectangle clip)
-	{
+			double scale, Color background, mxRectangle clip) {
 		mxVmlCanvas canvas = (mxVmlCanvas) drawCells(graph, cells, scale, clip,
-				new CanvasFactory()
-				{
-					public mxICanvas createCanvas(int width, int height)
-					{
+				new CanvasFactory() {
+					public mxICanvas createCanvas(int width, int height) {
 						return new mxVmlCanvas(mxDomUtils.createVmlDocument());
 					}
 
@@ -203,12 +177,12 @@ public class mxCellRenderer
 	/**
 	 * 
 	 */
-	public static abstract class CanvasFactory
-	{
+	public static abstract class CanvasFactory {
 
 		/**
-		 * Separates the creation of the canvas from its initialization, when the
-		 * size of the required graphics buffer / document / container is known.
+		 * Separates the creation of the canvas from its initialization, when
+		 * the size of the required graphics buffer / document / container is
+		 * known.
 		 */
 		public abstract mxICanvas createCanvas(int width, int height);
 

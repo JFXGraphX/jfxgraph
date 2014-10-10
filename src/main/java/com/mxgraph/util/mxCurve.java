@@ -11,8 +11,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-public class mxCurve
-{
+public class mxCurve {
 	/**
 	 * A collection of arrays of curve points
 	 */
@@ -55,20 +54,20 @@ public class mxCurve
 			new mxPoint(1, 0));
 
 	/**
-	 * Offset of the label curve from the curve the label curve is based on.
-	 * If you wish to set this value, do so directly after creation of the curve.
-	 * The first time the curve is used the label curve will be created with 
-	 * whatever value is contained in this variable. Changes to it after that point 
-	 * will have no effect.
+	 * Offset of the label curve from the curve the label curve is based on. If
+	 * you wish to set this value, do so directly after creation of the curve.
+	 * The first time the curve is used the label curve will be created with
+	 * whatever value is contained in this variable. Changes to it after that
+	 * point will have no effect.
 	 */
 	protected double labelBuffer = mxConstants.DEFAULT_LABEL_BUFFER;
 
 	/**
 	 * The points this curve is drawn through. These are typically control
-	 * points and are at distances from each other that straight lines
-	 * between them do not describe a smooth curve. This class takes
-	 * these guiding points and creates a finer set of internal points
-	 * that visually appears to be a curve when linked by straight lines
+	 * points and are at distances from each other that straight lines between
+	 * them do not describe a smooth curve. This class takes these guiding
+	 * points and creates a finer set of internal points that visually appears
+	 * to be a curve when linked by straight lines
 	 */
 	public List<mxPoint> guidePoints = new ArrayList<mxPoint>();
 
@@ -80,18 +79,15 @@ public class mxCurve
 	/**
 	 * 
 	 */
-	public void setLabelBuffer(double buffer)
-	{
+	public void setLabelBuffer(double buffer) {
 		labelBuffer = buffer;
 	}
 
 	/**
 	 * 
 	 */
-	public mxRectangle getBounds()
-	{
-		if (!valid)
-		{
+	public mxRectangle getBounds() {
+		if (!valid) {
 			createCoreCurve();
 		}
 		return new mxRectangle(minXBounds, minYBounds, maxXBounds - minXBounds,
@@ -101,54 +97,45 @@ public class mxCurve
 	/**
 	 * 
 	 */
-	public mxCurve()
-	{
+	public mxCurve() {
 	}
 
 	/**
 	 * 
 	 */
-	public mxCurve(List<mxPoint> points)
-	{
+	public mxCurve(List<mxPoint> points) {
 		boolean nullPoints = false;
 
-		for (mxPoint point : points)
-		{
-			if (point == null)
-			{
+		for (mxPoint point : points) {
+			if (point == null) {
 				nullPoints = true;
 				break;
 			}
 		}
 
-		if (!nullPoints)
-		{
+		if (!nullPoints) {
 			guidePoints = new ArrayList<mxPoint>(points);
 		}
 	}
 
 	/**
-	 * Calculates the index of the lower point on the segment
-	 * that contains the point <i>distance</i> along the 
+	 * Calculates the index of the lower point on the segment that contains the
+	 * point <i>distance</i> along the
 	 */
-	protected int getLowerIndexOfSegment(String index, double distance)
-	{
+	protected int getLowerIndexOfSegment(String index, double distance) {
 		double[] curveIntervals = getIntervals(index);
 
-		if (curveIntervals == null)
-		{
+		if (curveIntervals == null) {
 			return 0;
 		}
 
 		int numIntervals = curveIntervals.length;
 
-		if (distance <= 0.0 || numIntervals < 3)
-		{
+		if (distance <= 0.0 || numIntervals < 3) {
 			return 0;
 		}
 
-		if (distance >= 1.0)
-		{
+		if (distance >= 1.0) {
 			return numIntervals - 2;
 		}
 
@@ -156,8 +143,7 @@ public class mxCurve
 		// to be
 		int testIndex = (int) (numIntervals * distance);
 
-		if (testIndex >= numIntervals)
-		{
+		if (testIndex >= numIntervals) {
 			testIndex = numIntervals - 1;
 		}
 
@@ -167,30 +153,21 @@ public class mxCurve
 
 		// It cannot take more than the number of intervals to find
 		// the correct segment
-		for (int i = 0; i < numIntervals; i++)
-		{
+		for (int i = 0; i < numIntervals; i++) {
 			double segmentDistance = curveIntervals[testIndex];
 			double multiplier = 0.5;
 
-			if (distance < segmentDistance)
-			{
+			if (distance < segmentDistance) {
 				upperLimit = Math.min(upperLimit, testIndex);
 				multiplier = -0.5;
-			}
-			else if (distance > segmentDistance)
-			{
+			} else if (distance > segmentDistance) {
 				lowerLimit = Math.max(lowerLimit, testIndex);
-			}
-			else
-			{
+			} else {
 				// Values equal
-				if (testIndex == 0)
-				{
+				if (testIndex == 0) {
 					lowerLimit = 0;
 					upperLimit = 1;
-				}
-				else
-				{
+				} else {
 					lowerLimit = testIndex - 1;
 					upperLimit = testIndex;
 				}
@@ -198,26 +175,22 @@ public class mxCurve
 
 			int indexDifference = upperLimit - lowerLimit;
 
-			if (indexDifference == 1)
-			{
+			if (indexDifference == 1) {
 				break;
 			}
 
 			testIndex = (int) (testIndex + indexDifference * multiplier);
 
-			if (testIndex == lowerLimit)
-			{
+			if (testIndex == lowerLimit) {
 				testIndex = lowerLimit + 1;
 			}
 
-			if (testIndex == upperLimit)
-			{
+			if (testIndex == upperLimit) {
 				testIndex = upperLimit - 1;
 			}
 		}
 
-		if (lowerLimit != upperLimit - 1)
-		{
+		if (lowerLimit != upperLimit - 1) {
 			return -1;
 		}
 
@@ -225,27 +198,27 @@ public class mxCurve
 	}
 
 	/**
-	 * Returns a unit vector parallel to the curve at the specified
-	 * distance along the curve. To obtain the angle the vector makes
-	 * with (1,0) perform Math.atan(segVectorY/segVectorX).
-	 * @param index the curve index specifying the curve to analyse
-	 * @param distance the distance from start to end of curve (0.0...1.0)
-	 * @return a unit vector at the specified point on the curve represented
-	 * 		as a line, parallel with the curve. If the distance or curve is
-	 * 		invalid, <code>mxCurve.INVALID_POSITION</code> is returned
+	 * Returns a unit vector parallel to the curve at the specified distance
+	 * along the curve. To obtain the angle the vector makes with (1,0) perform
+	 * Math.atan(segVectorY/segVectorX).
+	 * 
+	 * @param index
+	 *            the curve index specifying the curve to analyse
+	 * @param distance
+	 *            the distance from start to end of curve (0.0...1.0)
+	 * @return a unit vector at the specified point on the curve represented as
+	 *         a line, parallel with the curve. If the distance or curve is
+	 *         invalid, <code>mxCurve.INVALID_POSITION</code> is returned
 	 */
-	public mxLine getCurveParallel(String index, double distance)
-	{
+	public mxLine getCurveParallel(String index, double distance) {
 		mxPoint[] pointsCurve = getCurvePoints(index);
 		double[] curveIntervals = getIntervals(index);
 
 		if (pointsCurve != null && pointsCurve.length > 0
-				&& curveIntervals != null && distance >= 0.0 && distance <= 1.0)
-		{
+				&& curveIntervals != null && distance >= 0.0 && distance <= 1.0) {
 			// If the curve is zero length, it will only have one point
 			// We can't calculate in this case
-			if (pointsCurve.length == 1)
-			{
+			if (pointsCurve.length == 1) {
 				mxPoint point = pointsCurve[0];
 				return new mxLine(point.getX(), point.getY(), new mxPoint(1, 0));
 			}
@@ -267,34 +240,33 @@ public class mxCurve
 			mxPoint endPoint = new mxPoint(segVectorX / segLength, segVectorY
 					/ segLength);
 			return new mxLine(startPointX, startPointY, endPoint);
-		}
-		else
-		{
+		} else {
 			return INVALID_POSITION;
 		}
 	}
 
 	/**
 	 * Returns a section of the curve as an array of points
-	 * @param index the curve index specifying the curve to analyse
-	 * @param start the start position of the curve segment (0.0...1.0)
-	 * @param end the end position of the curve segment (0.0...1.0)
-	 * @return a sequence of point representing the curve section or null
-	 * 			if it cannot be calculated
+	 * 
+	 * @param index
+	 *            the curve index specifying the curve to analyse
+	 * @param start
+	 *            the start position of the curve segment (0.0...1.0)
+	 * @param end
+	 *            the end position of the curve segment (0.0...1.0)
+	 * @return a sequence of point representing the curve section or null if it
+	 *         cannot be calculated
 	 */
-	public mxPoint[] getCurveSection(String index, double start, double end)
-	{
+	public mxPoint[] getCurveSection(String index, double start, double end) {
 		mxPoint[] pointsCurve = getCurvePoints(index);
 		double[] curveIntervals = getIntervals(index);
 
 		if (pointsCurve != null && pointsCurve.length > 0
 				&& curveIntervals != null && start >= 0.0 && start <= 1.0
-				&& end >= 0.0 && end <= 1.0)
-		{
+				&& end >= 0.0 && end <= 1.0) {
 			// If the curve is zero length, it will only have one point
 			// We can't calculate in this case
-			if (pointsCurve.length == 1)
-			{
+			if (pointsCurve.length == 1) {
 				mxPoint point = pointsCurve[0];
 				return new mxPoint[] { new mxPoint(point.getX(), point.getY()) };
 			}
@@ -317,18 +289,16 @@ public class mxCurve
 			double current = start;
 			current = curveIntervals[++lowerLimit];
 
-			while (current <= end)
-			{
+			while (current <= end) {
 				mxPoint nextPointOfSeg = pointsCurve[lowerLimit];
 				result.add(nextPointOfSeg);
 				current = curveIntervals[++lowerLimit];
 			}
 
-			// Add whatever proportion of the last segment has to 
+			// Add whatever proportion of the last segment has to
 			// be added to make the exactly end distance
 			if (lowerLimit > 0 && lowerLimit < pointsCurve.length
-					&& end > curveIntervals[lowerLimit - 1])
-			{
+					&& end > curveIntervals[lowerLimit - 1]) {
 				firstPointOfSeg = pointsCurve[lowerLimit - 1];
 				segVectorX = pointsCurve[lowerLimit].getX()
 						- firstPointOfSeg.getX();
@@ -344,9 +314,7 @@ public class mxCurve
 
 			mxPoint[] resultArray = new mxPoint[result.size()];
 			return result.toArray(resultArray);
-		}
-		else
-		{
+		} else {
 			return null;
 		}
 	}
@@ -354,43 +322,38 @@ public class mxCurve
 	/**
 	 * Returns whether or not the rectangle passed in hits any part of this
 	 * curve.
-	 * @param rect the rectangle to detect for a hit
+	 * 
+	 * @param rect
+	 *            the rectangle to detect for a hit
 	 * @return whether or not the rectangle hits this curve
 	 */
-	public boolean intersectsRect(Rectangle rect)
-	{
+	public boolean intersectsRect(Rectangle rect) {
 		// To save CPU, we can test if the rectangle intersects the entire
 		// bounds of this curve
-		if (!getBounds().getRectangle().intersects(rect))
-		{
+		if (!getBounds().getRectangle().intersects(rect)) {
 			return false;
 		}
 
 		mxPoint[] pointsCurve = getCurvePoints(mxCurve.CORE_CURVE);
 
-		if (pointsCurve != null && pointsCurve.length > 1)
-		{
+		if (pointsCurve != null && pointsCurve.length > 1) {
 			mxRectangle mxRect = new mxRectangle(rect);
-			// First check for any of the curve points lying within the 
-			// rectangle, then for any of the curve segments intersecting 
+			// First check for any of the curve points lying within the
+			// rectangle, then for any of the curve segments intersecting
 			// with the rectangle sides
-			for (int i = 1; i < pointsCurve.length; i++)
-			{
+			for (int i = 1; i < pointsCurve.length; i++) {
 				if (mxRect.contains(pointsCurve[i].getX(),
 						pointsCurve[i].getY())
 						|| mxRect.contains(pointsCurve[i - 1].getX(),
-								pointsCurve[i - 1].getY()))
-				{
+								pointsCurve[i - 1].getY())) {
 					return true;
 				}
 			}
 
-			for (int i = 1; i < pointsCurve.length; i++)
-			{
+			for (int i = 1; i < pointsCurve.length; i++) {
 				if (mxRect.intersectLine(pointsCurve[i].getX(),
 						pointsCurve[i].getY(), pointsCurve[i - 1].getX(),
-						pointsCurve[i - 1].getY()) != null)
-				{
+						pointsCurve[i - 1].getY()) != null) {
 					return true;
 				}
 			}
@@ -400,29 +363,28 @@ public class mxCurve
 	}
 
 	/**
-	 * Returns the point at which this curve intersects the boundary of 
-	 * the given rectangle, if it does so. If it does not intersect, 
-	 * null is returned. If it intersects multiple times, the first 
-	 * intersection from the start end of the curve is returned.
+	 * Returns the point at which this curve intersects the boundary of the
+	 * given rectangle, if it does so. If it does not intersect, null is
+	 * returned. If it intersects multiple times, the first intersection from
+	 * the start end of the curve is returned.
 	 * 
-	 * @param index the curve index specifying the curve to analyse
-	 * @param rect the whose boundary is to be tested for intersection
-	 * with this curve
-	 * @return the point at which this curve intersects the boundary of 
-	 * the given rectangle, if it does so. If it does not intersect, 
-	 * null is returned.
+	 * @param index
+	 *            the curve index specifying the curve to analyse
+	 * @param rect
+	 *            the whose boundary is to be tested for intersection with this
+	 *            curve
+	 * @return the point at which this curve intersects the boundary of the
+	 *         given rectangle, if it does so. If it does not intersect, null is
+	 *         returned.
 	 */
-	public mxPoint intersectsRectPerimeter(String index, mxRectangle rect)
-	{
+	public mxPoint intersectsRectPerimeter(String index, mxRectangle rect) {
 		mxPoint result = null;
 		mxPoint[] pointsCurve = getCurvePoints(index);
 
-		if (pointsCurve != null && pointsCurve.length > 1)
-		{
+		if (pointsCurve != null && pointsCurve.length > 1) {
 			int crossingSeg = intersectRectPerimeterSeg(index, rect);
 
-			if (crossingSeg != -1)
-			{
+			if (crossingSeg != -1) {
 				result = intersectRectPerimeterPoint(index, rect, crossingSeg);
 			}
 		}
@@ -431,37 +393,34 @@ public class mxCurve
 	}
 
 	/**
-	 * Returns the distance from the start of the curve at which this 
-	 * curve intersects the boundary of the given rectangle, if it does 
-	 * so. If it does not intersect, -1 is returned. 
-	 * If it intersects multiple times, the first intersection from 
-	 * the start end of the curve is returned.
+	 * Returns the distance from the start of the curve at which this curve
+	 * intersects the boundary of the given rectangle, if it does so. If it does
+	 * not intersect, -1 is returned. If it intersects multiple times, the first
+	 * intersection from the start end of the curve is returned.
 	 * 
-	 * @param index the curve index specifying the curve to analyse
-	 * @param rect the whose boundary is to be tested for intersection
-	 * with this curve
-	 * @return the distance along the curve from the start at which
-	 * the intersection occurs
+	 * @param index
+	 *            the curve index specifying the curve to analyse
+	 * @param rect
+	 *            the whose boundary is to be tested for intersection with this
+	 *            curve
+	 * @return the distance along the curve from the start at which the
+	 *         intersection occurs
 	 */
-	public double intersectsRectPerimeterDist(String index, mxRectangle rect)
-	{
+	public double intersectsRectPerimeterDist(String index, mxRectangle rect) {
 		double result = -1;
 		mxPoint[] pointsCurve = getCurvePoints(index);
 		double[] curveIntervals = getIntervals(index);
 
-		if (pointsCurve != null && pointsCurve.length > 1)
-		{
+		if (pointsCurve != null && pointsCurve.length > 1) {
 			int segIndex = intersectRectPerimeterSeg(index, rect);
 			mxPoint intersectPoint = null;
 
-			if (segIndex != -1)
-			{
+			if (segIndex != -1) {
 				intersectPoint = intersectRectPerimeterPoint(index, rect,
 						segIndex);
 			}
 
-			if (intersectPoint != null)
-			{
+			if (intersectPoint != null) {
 				double startSegX = pointsCurve[segIndex - 1].getX();
 				double startSegY = pointsCurve[segIndex - 1].getY();
 				double distToStartSeg = curveIntervals[segIndex - 1]
@@ -479,78 +438,73 @@ public class mxCurve
 	}
 
 	/**
-	 * Returns a point to move the input rectangle to, in order to
-	 * attempt to place the rectangle away from the curve. NOTE: Curves
-	 * are scaled, the input rectangle should be also.
-	 * @param index  the curve index specifying the curve to analyse
-	 * @param rect the rectangle that is to be moved
-	 * @param buffer the amount by which the rectangle is to be moved,
-	 * 			beyond the dimensions of the rect
-	 * @return the point to move the top left of the input rect to
-	 * 			, otherwise null if no point can be determined
+	 * Returns a point to move the input rectangle to, in order to attempt to
+	 * place the rectangle away from the curve. NOTE: Curves are scaled, the
+	 * input rectangle should be also.
+	 * 
+	 * @param index
+	 *            the curve index specifying the curve to analyse
+	 * @param rect
+	 *            the rectangle that is to be moved
+	 * @param buffer
+	 *            the amount by which the rectangle is to be moved, beyond the
+	 *            dimensions of the rect
+	 * @return the point to move the top left of the input rect to , otherwise
+	 *         null if no point can be determined
 	 */
-	public mxPoint collisionMove(String index, mxRectangle rect, double buffer)
-	{
+	public mxPoint collisionMove(String index, mxRectangle rect, double buffer) {
 		int hitSeg = intersectRectPerimeterSeg(index, rect);
 
-		// Could test for a second hit (the rect exit, unless the same 
+		// Could test for a second hit (the rect exit, unless the same
 		// segment is entry and exit) and allow for that in movement.
-		
-		if (hitSeg == -1)
-		{
+
+		if (hitSeg == -1) {
 			return null;
-		}
-		else
-		{
+		} else {
 			mxPoint[] pointsCurve = getCurvePoints(index);
 
 			double x0 = pointsCurve[hitSeg - 1].getX();
 			double y0 = pointsCurve[hitSeg - 1].getY();
 			double x1 = pointsCurve[hitSeg].getX();
 			double y1 = pointsCurve[hitSeg].getY();
-			
+
 			double x = rect.getX();
 			double y = rect.getY();
 			double width = rect.getWidth();
 			double height = rect.getHeight();
 
-			// Whether the intersection is one of the horizontal sides of the rect
+			// Whether the intersection is one of the horizontal sides of the
+			// rect
 			@SuppressWarnings("unused")
 			boolean horizIncident = false;
-			mxPoint hitPoint = mxUtils.intersection(x, y, x + width, y, x0, y0, x1, y1);
-			
-			if (hitPoint != null)
-			{
+			mxPoint hitPoint = mxUtils.intersection(x, y, x + width, y, x0, y0,
+					x1, y1);
+
+			if (hitPoint != null) {
 				horizIncident = true;
-			}
-			else
-			{
-				hitPoint = mxUtils.intersection(x + width, y, x + width, y + height,
-						x0, y0, x1, y1);
+			} else {
+				hitPoint = mxUtils.intersection(x + width, y, x + width, y
+						+ height, x0, y0, x1, y1);
 			}
 
-			if (hitPoint == null)
-			{
-				hitPoint = mxUtils.intersection(x + width, y + height, x, y + height,
-						x0, y0, x1, y1);
-				
-				if (hitPoint != null)
-				{
+			if (hitPoint == null) {
+				hitPoint = mxUtils.intersection(x + width, y + height, x, y
+						+ height, x0, y0, x1, y1);
+
+				if (hitPoint != null) {
 					horizIncident = true;
-				}
-				else
-				{
-					hitPoint = mxUtils.intersection(x, y, x, y + height, x0, y0, x1, y1);
+				} else {
+					hitPoint = mxUtils.intersection(x, y, x, y + height, x0,
+							y0, x1, y1);
 				}
 			}
 
-			if (hitPoint != null)
-			{
-				
+			if (hitPoint != null) {
+
 			}
 
 		}
-		
+
 		return null;
 	}
 
@@ -558,15 +512,16 @@ public class mxCurve
 	 * Utility method to determine within which segment the specified rectangle
 	 * intersects the specified curve
 	 * 
-	 * @param index the curve index specifying the curve to analyse
-	 * @param rect the whose boundary is to be tested for intersection
-	 * with this curve
-	 * @return the point at which this curve intersects the boundary of 
-	 * the given rectangle, if it does so. If it does not intersect, 
-	 * -1 is returned
+	 * @param index
+	 *            the curve index specifying the curve to analyse
+	 * @param rect
+	 *            the whose boundary is to be tested for intersection with this
+	 *            curve
+	 * @return the point at which this curve intersects the boundary of the
+	 *         given rectangle, if it does so. If it does not intersect, -1 is
+	 *         returned
 	 */
-	protected int intersectRectPerimeterSeg(String index, mxRectangle rect)
-	{
+	protected int intersectRectPerimeterSeg(String index, mxRectangle rect) {
 		return intersectRectPerimeterSeg(index, rect, 1);
 	}
 
@@ -575,28 +530,27 @@ public class mxCurve
 	 * intersects the specified curve. This method specifies which segment to
 	 * start searching at.
 	 * 
-	 * @param index the curve index specifying the curve to analyse
-	 * @param rect the whose boundary is to be tested for intersection
-	 * with this curve
-	 * @param startSegment the segment to start searching at. To start at the 
-	 * 			beginning of the curve, use 1, not 0.
-	 * @return the point at which this curve intersects the boundary of 
-	 * the given rectangle, if it does so. If it does not intersect, 
-	 * -1 is returned
+	 * @param index
+	 *            the curve index specifying the curve to analyse
+	 * @param rect
+	 *            the whose boundary is to be tested for intersection with this
+	 *            curve
+	 * @param startSegment
+	 *            the segment to start searching at. To start at the beginning
+	 *            of the curve, use 1, not 0.
+	 * @return the point at which this curve intersects the boundary of the
+	 *         given rectangle, if it does so. If it does not intersect, -1 is
+	 *         returned
 	 */
 	protected int intersectRectPerimeterSeg(String index, mxRectangle rect,
-			int startSegment)
-	{
+			int startSegment) {
 		mxPoint[] pointsCurve = getCurvePoints(index);
 
-		if (pointsCurve != null && pointsCurve.length > 1)
-		{
-			for (int i = startSegment; i < pointsCurve.length; i++)
-			{
+		if (pointsCurve != null && pointsCurve.length > 1) {
+			for (int i = startSegment; i < pointsCurve.length; i++) {
 				if (rect.intersectLine(pointsCurve[i].getX(),
 						pointsCurve[i].getY(), pointsCurve[i - 1].getX(),
-						pointsCurve[i - 1].getY()) != null)
-				{
+						pointsCurve[i - 1].getY()) != null) {
 					return i;
 				}
 			}
@@ -606,27 +560,28 @@ public class mxCurve
 	}
 
 	/**
-	 * Returns the point at which this curve segment intersects the boundary 
-	 * of the given rectangle, if it does so. If it does not intersect, 
-	 * null is returned.
+	 * Returns the point at which this curve segment intersects the boundary of
+	 * the given rectangle, if it does so. If it does not intersect, null is
+	 * returned.
 	 * 
-	 * @param curveIndex the curve index specifying the curve to analyse
-	 * @param rect the whose boundary is to be tested for intersection
-	 * with this curve
-	 * @param indexSeg the segments on this curve being checked
-	 * @return the point at which this curve segment  intersects the boundary 
-	 * of the given rectangle, if it does so. If it does not intersect, 
-	 * null is returned.
+	 * @param curveIndex
+	 *            the curve index specifying the curve to analyse
+	 * @param rect
+	 *            the whose boundary is to be tested for intersection with this
+	 *            curve
+	 * @param indexSeg
+	 *            the segments on this curve being checked
+	 * @return the point at which this curve segment intersects the boundary of
+	 *         the given rectangle, if it does so. If it does not intersect,
+	 *         null is returned.
 	 */
 	protected mxPoint intersectRectPerimeterPoint(String curveIndex,
-			mxRectangle rect, int indexSeg)
-	{
+			mxRectangle rect, int indexSeg) {
 		mxPoint result = null;
 		mxPoint[] pointsCurve = getCurvePoints(curveIndex);
 
 		if (pointsCurve != null && pointsCurve.length > 1 && indexSeg >= 0
-				&& indexSeg < pointsCurve.length)
-		{
+				&& indexSeg < pointsCurve.length) {
 			double p1X = pointsCurve[indexSeg - 1].getX();
 			double p1Y = pointsCurve[indexSeg - 1].getY();
 			double p2X = pointsCurve[indexSeg].getX();
@@ -639,19 +594,19 @@ public class mxCurve
 	}
 
 	/**
-	 * Calculates the position of an absolute in terms relative
-	 * to this curve.
+	 * Calculates the position of an absolute in terms relative to this curve.
 	 * 
-	 * @param absPoint the point whose relative point is to calculated
-	 * @param index the index of the curve whom the relative position is to be 
-	 * calculated from
-	 * @return an mxRectangle where the x is the distance along the curve 
-	 * (0 to 1), y is the orthogonal offset from the closest segment on the 
-	 * curve and (width, height) is an additional Cartesian offset applied
-	 * after the other calculations
+	 * @param absPoint
+	 *            the point whose relative point is to calculated
+	 * @param index
+	 *            the index of the curve whom the relative position is to be
+	 *            calculated from
+	 * @return an mxRectangle where the x is the distance along the curve (0 to
+	 *         1), y is the orthogonal offset from the closest segment on the
+	 *         curve and (width, height) is an additional Cartesian offset
+	 *         applied after the other calculations
 	 */
-	public mxRectangle getRelativeFromAbsPoint(mxPoint absPoint, String index)
-	{
+	public mxRectangle getRelativeFromAbsPoint(mxPoint absPoint, String index) {
 		// Work out which segment the absolute point is closest to
 		mxPoint[] currentCurve = getCurvePoints(index);
 		double[] currentIntervals = getIntervals(index);
@@ -659,13 +614,11 @@ public class mxCurve
 		double closestSegDistSq = 10000000;
 		mxLine segment = new mxLine(currentCurve[0], currentCurve[1]);
 
-		for (int i = 1; i < currentCurve.length; i++)
-		{
+		for (int i = 1; i < currentCurve.length; i++) {
 			segment.setPoints(currentCurve[i - 1], currentCurve[i]);
 			double segDistSq = segment.ptSegDistSq(absPoint);
 
-			if (segDistSq < closestSegDistSq)
-			{
+			if (segDistSq < closestSegDistSq) {
 				closestSegDistSq = segDistSq;
 				closestSegment = i - 1;
 			}
@@ -711,8 +664,7 @@ public class mxCurve
 		double orthOffsetPointX = 0;
 		double orthOffsetPointY = 0;
 
-		if (candidateDist2 < candidateDist1)
-		{
+		if (candidateDist2 < candidateDist1) {
 			orthogonalOffset = -orthogonalOffset;
 		}
 
@@ -724,8 +676,7 @@ public class mxCurve
 		double cartOffsetY = 0;
 
 		// Don't compare for exact equality, there are often rounding errors
-		if (Math.abs(closestSegDistSq - lineDistSq) > 0.0001)
-		{
+		if (Math.abs(closestSegDistSq - lineDistSq) > 0.0001) {
 			// The orthogonal offset does not move the point onto the
 			// segment. Work out an additional cartesian offset that moves
 			// the offset point onto the closest end point of the
@@ -738,21 +689,16 @@ public class mxCurve
 			double distToEndPoint = Math
 					.abs(orthOffsetPointX - endSegPt.getX())
 					+ Math.abs(orthOffsetPointY - endSegPt.getY());
-			if (distToStartPoint < distToEndPoint)
-			{
+			if (distToStartPoint < distToEndPoint) {
 				distAlongEdge = currentIntervals[closestSegment];
 				cartOffsetX = orthOffsetPointX - startSegPt.getX();
 				cartOffsetY = orthOffsetPointY - startSegPt.getY();
-			}
-			else
-			{
+			} else {
 				distAlongEdge = currentIntervals[closestSegment + 1];
 				cartOffsetX = orthOffsetPointX - endSegPt.getX();
 				cartOffsetY = orthOffsetPointY - endSegPt.getY();
 			}
-		}
-		else
-		{
+		} else {
 			// The point, when orthogonally offset, lies on the segment
 			// work out what proportion along the segment, and therefore
 			// the entire curve, the offset point lies.
@@ -771,8 +717,7 @@ public class mxCurve
 					+ segProportingDiff * proportionAlongSeg;
 		}
 
-		if (distAlongEdge > 1.0)
-		{
+		if (distAlongEdge > 1.0) {
 			distAlongEdge = 1.0;
 		}
 
@@ -781,24 +726,20 @@ public class mxCurve
 	}
 
 	/**
-	 * Creates the core curve that is based on the guide points passed into
-	 * this class instance
+	 * Creates the core curve that is based on the guide points passed into this
+	 * class instance
 	 */
-	protected void createCoreCurve()
-	{
+	protected void createCoreCurve() {
 		// Curve is marked invalid until all of the error situations have
 		// been checked
 		valid = false;
 
-		if (guidePoints == null || guidePoints.isEmpty())
-		{
+		if (guidePoints == null || guidePoints.isEmpty()) {
 			return;
 		}
 
-		for (int i = 0; i < guidePoints.size(); i++)
-		{
-			if (guidePoints.get(i) == null)
-			{
+		for (int i = 0; i < guidePoints.size(); i++) {
+			if (guidePoints.get(i) == null) {
 				return;
 			}
 		}
@@ -815,8 +756,7 @@ public class mxCurve
 
 		// Check for errors in the spline calculation or zero length curves
 		if (Double.isNaN(lengthSpline) || !spline.checkValues()
-				|| lengthSpline < 1)
-		{
+				|| lengthSpline < 1) {
 			return;
 		}
 
@@ -825,16 +765,16 @@ public class mxCurve
 		double baseInterval = 12.0 / lengthSpline;
 		double minInterval = 1.0 / lengthSpline;
 
-		// Store the last two spline positions. If the next position is 
-		// very close to where the extrapolation of the last two points 
+		// Store the last two spline positions. If the next position is
+		// very close to where the extrapolation of the last two points
 		// then double the interval. This diviation is terms the "flatness".
-		// There is a range where the interval is kept the same, any 
-		// variation from this range of flatness invokes a proportional 
-		// adjustment to try to reenter the range without 
+		// There is a range where the interval is kept the same, any
+		// variation from this range of flatness invokes a proportional
+		// adjustment to try to reenter the range without
 		// over compensating
 		double interval = baseInterval;
-		// These deviations are only tested against either 
-		// dimension individually, working out the correct 
+		// These deviations are only tested against either
+		// dimension individually, working out the correct
 		// distance is too computationally intensive
 		double minDeviation = 0.15;
 		double maxDeviation = 0.3;
@@ -856,11 +796,9 @@ public class mxCurve
 		List<Double> coreIntervals = new ArrayList<Double>();
 		boolean twoLoopsComplete = false;
 
-		for (double t = 0; t <= 1.5; t += interval)
-		{
-			if (t > 1.0)
-			{
-				// Use the point regardless of the accuracy, 
+		for (double t = 0; t <= 1.5; t += interval) {
+			if (t > 1.0) {
+				// Use the point regardless of the accuracy,
 				t = 1.0001;
 				mxPoint endControlPoint = guidePoints
 						.get(guidePoints.size() - 1);
@@ -880,10 +818,9 @@ public class mxCurve
 			// Check if the last points are valid (indicated by
 			// dissimilar values)
 			// Check we're not in the first, second or last run
-			if (x1 != -1.0 && twoLoopsComplete && t != 1.0001)
-			{
+			if (x1 != -1.0 && twoLoopsComplete && t != 1.0001) {
 				// Work out how far the new spline point
-				// deviates from the extrapolation created 
+				// deviates from the extrapolation created
 				// by the last two points
 				double diffX = Math.abs(((x2 - x1) * intervalChange + x2)
 						- newX);
@@ -899,23 +836,19 @@ public class mxCurve
 				// reduced to less than the minimum permitted
 				// interval, it may be that it's impossible
 				// to get within the deviation because of
-				// the extrapolation overshoot. The minimum 
+				// the extrapolation overshoot. The minimum
 				// interval is set to draw correctly for the
 				// vast majority of cases.
 				if ((diffX > maxDeviation || diffY > maxDeviation)
-						&& interval != minInterval)
-				{
+						&& interval != minInterval) {
 					double overshootProportion = maxDeviation
 							/ Math.max(diffX, diffY);
 
-					if (interval * overshootProportion <= minInterval)
-					{
-						// Set the interval 
+					if (interval * overshootProportion <= minInterval) {
+						// Set the interval
 						intervalChange = minInterval / interval;
-					}
-					else
-					{
-						// The interval can still be reduced, half 
+					} else {
+						// The interval can still be reduced, half
 						// the interval and go back and redo
 						// this iteration
 						intervalChange = overshootProportion;
@@ -924,14 +857,10 @@ public class mxCurve
 					t -= interval;
 					interval *= intervalChange;
 					currentPointAccepted = false;
-				}
-				else if (diffX < minDeviation && diffY < minDeviation)
-				{
+				} else if (diffX < minDeviation && diffY < minDeviation) {
 					intervalChange = 1.4;
 					interval *= intervalChange;
-				}
-				else
-				{
+				} else {
 					// Try to keep the deviation around the prefered value
 					double errorRatio = preferedDeviation
 							/ Math.max(diffX, diffY);
@@ -939,27 +868,21 @@ public class mxCurve
 					interval *= intervalChange;
 				}
 
-				if (currentPointAccepted)
-				{
+				if (currentPointAccepted) {
 					x1 = x2;
 					y1 = y2;
 					x2 = newX;
 					y2 = newY;
 				}
-			}
-			else if (x1 == -1.0)
-			{
+			} else if (x1 == -1.0) {
 				x1 = x2 = newX;
 				y1 = y2 = newY;
-			}
-			else if (x1 == x2 && y1 == y2)
-			{
+			} else if (x1 == x2 && y1 == y2) {
 				x2 = newX;
 				y2 = newY;
 				twoLoopsComplete = true;
 			}
-			if (currentPointAccepted)
-			{
+			if (currentPointAccepted) {
 				mxPoint newPoint = new mxPoint(newX, newY);
 				coreCurve.add(newPoint);
 				coreIntervals.add(t);
@@ -967,8 +890,7 @@ public class mxCurve
 			}
 		}
 
-		if (coreCurve.size() < 2)
-		{
+		if (coreCurve.size() < 2) {
 			// A single point makes no sense, leave the curve as invalid
 			return;
 		}
@@ -976,8 +898,7 @@ public class mxCurve
 		mxPoint[] corePoints = new mxPoint[coreCurve.size()];
 		int count = 0;
 
-		for (mxPoint point : coreCurve)
-		{
+		for (mxPoint point : coreCurve) {
 			corePoints[count++] = point;
 		}
 
@@ -989,8 +910,7 @@ public class mxCurve
 		double[] coreIntervalsArray = new double[coreIntervals.size()];
 		count = 0;
 
-		for (Double tempInterval : coreIntervals)
-		{
+		for (Double tempInterval : coreIntervals) {
 			coreIntervalsArray[count++] = tempInterval.doubleValue();
 		}
 
@@ -1000,23 +920,21 @@ public class mxCurve
 		valid = true;
 	}
 
-	/** Whether or not the label curve starts from the end target
-	 *  and traces to the start of the branch
+	/**
+	 * Whether or not the label curve starts from the end target and traces to
+	 * the start of the branch
+	 * 
 	 * @return whether the label curve is reversed
 	 */
-	public boolean isLabelReversed()
-	{
-		if (valid)
-		{
+	public boolean isLabelReversed() {
+		if (valid) {
 			mxPoint[] centralCurve = getCurvePoints(CORE_CURVE);
 
-			if (centralCurve != null)
-			{
+			if (centralCurve != null) {
 				double changeX = centralCurve[centralCurve.length - 1].getX()
 						- centralCurve[0].getX();
 
-				if (changeX < 0)
-				{
+				if (changeX < 0) {
 					return true;
 				}
 			}
@@ -1025,8 +943,7 @@ public class mxCurve
 		return false;
 	}
 
-	protected void createLabelCurve()
-	{
+	protected void createLabelCurve() {
 		// Place the label on the "high" side of the vector
 		// joining the start and end points of the curve
 		mxPoint[] currentCurve = getBaseLabelCurve();
@@ -1041,13 +958,11 @@ public class mxCurve
 		// they will contain one more point and both
 		// side curves contain the same end point
 
-		for (int i = 1; i < currentCurve.length; i++)
-		{
+		for (int i = 1; i < currentCurve.length; i++) {
 			int currentIndex = i;
 			int lastIndex = i - 1;
 
-			if (labelReversed)
-			{
+			if (labelReversed) {
 				currentIndex = currentCurve.length - i - 1;
 				lastIndex = currentCurve.length - i;
 			}
@@ -1063,8 +978,7 @@ public class mxCurve
 			double centerSegX = (segEndPoint.getX() + segStartPoint.getX()) / 2.0;
 			double centerSegY = (segEndPoint.getY() + segStartPoint.getY()) / 2.0;
 
-			if (i == 1)
-			{
+			if (i == 1) {
 				// Special case to work out the very end points at
 				// the start of the curve
 				mxPoint startPoint = new mxPoint(segEndPoint.getX()
@@ -1080,8 +994,7 @@ public class mxCurve
 			updateBounds(pointX, pointY);
 			labelCurvePoints.add(labelCurvePoint);
 
-			if (i == currentCurve.length - 1)
-			{
+			if (i == currentCurve.length - 1) {
 				// Special case to work out the very end points at
 				// the start of the curve
 				mxPoint endPoint = new mxPoint(segStartPoint.getX()
@@ -1100,13 +1013,11 @@ public class mxCurve
 	/**
 	 * Returns the curve the label curve is too be based on
 	 */
-	protected mxPoint[] getBaseLabelCurve()
-	{
+	protected mxPoint[] getBaseLabelCurve() {
 		return getCurvePoints(CORE_CURVE);
 	}
 
-	protected void populateIntervals(String index)
-	{
+	protected void populateIntervals(String index) {
 		mxPoint[] currentCurve = points.get(index);
 
 		double[] newIntervals = new double[currentCurve.length];
@@ -1114,8 +1025,7 @@ public class mxCurve
 		double totalLength = 0.0;
 		newIntervals[0] = 0;
 
-		for (int i = 0; i < currentCurve.length - 1; i++)
-		{
+		for (int i = 0; i < currentCurve.length - 1; i++) {
 			double changeX = currentCurve[i + 1].getX()
 					- currentCurve[i].getX();
 			double changeY = currentCurve[i + 1].getY()
@@ -1129,16 +1039,12 @@ public class mxCurve
 		}
 
 		// Normalize the intervals
-		for (int j = 0; j < newIntervals.length; j++)
-		{
-			if (j == newIntervals.length - 1)
-			{
+		for (int j = 0; j < newIntervals.length; j++) {
+			if (j == newIntervals.length - 1) {
 				// Make the final interval slightly over
-				// 1.0 so any analysis to find the lower 
+				// 1.0 so any analysis to find the lower
 				newIntervals[j] = 1.0001;
-			}
-			else
-			{
+			} else {
 				newIntervals[j] = newIntervals[j] / totalLength;
 			}
 		}
@@ -1148,34 +1054,29 @@ public class mxCurve
 	}
 
 	/**
-	 * Updates the existing curve using the points passed in. 
-	 * @param newPoints the new guide points
+	 * Updates the existing curve using the points passed in.
+	 * 
+	 * @param newPoints
+	 *            the new guide points
 	 */
-	public void updateCurve(List<mxPoint> newPoints)
-	{
+	public void updateCurve(List<mxPoint> newPoints) {
 		boolean pointsChanged = false;
 
 		// If any of the new points are null, ignore the list
-		for (mxPoint point : newPoints)
-		{
-			if (point == null)
-			{
+		for (mxPoint point : newPoints) {
+			if (point == null) {
 				return;
 			}
 		}
 
-		if (newPoints.size() != guidePoints.size())
-		{
+		if (newPoints.size() != guidePoints.size()) {
 			pointsChanged = true;
-		}
-		else
-		{
-			// Check for a constant translation of all guide points. In that 
+		} else {
+			// Check for a constant translation of all guide points. In that
 			// case apply the translation directly to all curves.
 			// Also check whether all of the translations are trivial
 			if (newPoints.size() == guidePoints.size() && newPoints.size() > 1
-					&& guidePoints.size() > 1)
-			{
+					&& guidePoints.size() > 1) {
 				boolean constantTranslation = true;
 				boolean trivialTranslation = true;
 				mxPoint newPoint0 = newPoints.get(0);
@@ -1183,37 +1084,30 @@ public class mxCurve
 				double transX = newPoint0.getX() - oldPoint0.getX();
 				double transY = newPoint0.getY() - oldPoint0.getY();
 
-				if (Math.abs(transX) > 0.01 || Math.abs(transY) > 0.01)
-				{
+				if (Math.abs(transX) > 0.01 || Math.abs(transY) > 0.01) {
 					trivialTranslation = false;
 				}
 
-				for (int i = 1; i < newPoints.size(); i++)
-				{
+				for (int i = 1; i < newPoints.size(); i++) {
 					double nextTransX = newPoints.get(i).getX()
 							- guidePoints.get(i).getX();
 					double nextTransY = newPoints.get(i).getY()
 							- guidePoints.get(i).getY();
 
 					if (Math.abs(transX - nextTransX) > 0.01
-							|| Math.abs(transY - nextTransY) > 0.01)
-					{
+							|| Math.abs(transY - nextTransY) > 0.01) {
 						constantTranslation = false;
 					}
 
 					if (Math.abs(nextTransX) > 0.01
-							|| Math.abs(nextTransY) > 0.01)
-					{
+							|| Math.abs(nextTransY) > 0.01) {
 						trivialTranslation = false;
 					}
 				}
 
-				if (trivialTranslation)
-				{
+				if (trivialTranslation) {
 					pointsChanged = false;
-				}
-				else if (constantTranslation)
-				{
+				} else if (constantTranslation) {
 					pointsChanged = false;
 					// Translate all stored points by the translation amounts
 					Collection<mxPoint[]> curves = points.values();
@@ -1221,10 +1115,8 @@ public class mxCurve
 					// Update all geometry information held by the curve
 					// That is, all the curve points, the guide points
 					// and the cached bounds
-					for (mxPoint[] curve : curves)
-					{
-						for (int i = 0; i < curve.length; i++)
-						{
+					for (mxPoint[] curve : curves) {
+						for (int i = 0; i < curve.length; i++) {
 							curve[i].setX(curve[i].getX() + transX);
 							curve[i].setY(curve[i].getY() + transY);
 						}
@@ -1235,16 +1127,13 @@ public class mxCurve
 					minYBounds += transY;
 					maxXBounds += transX;
 					maxYBounds += transY;
-				}
-				else
-				{
+				} else {
 					pointsChanged = true;
 				}
 			}
 		}
 
-		if (pointsChanged)
-		{
+		if (pointsChanged) {
 			guidePoints = new ArrayList<mxPoint>(newPoints);
 			points = new Hashtable<String, mxPoint[]>();
 			valid = false;
@@ -1252,19 +1141,18 @@ public class mxCurve
 	}
 
 	/**
-	 * Obtains the points that make up the curve for the specified
-	 * curve index. If that curve, or the core curve that other curves
-	 * are based on have not yet been created, then they are lazily
-	 * created. If creation is impossible, null is returned
-	 * @param index the key specifying the curve
+	 * Obtains the points that make up the curve for the specified curve index.
+	 * If that curve, or the core curve that other curves are based on have not
+	 * yet been created, then they are lazily created. If creation is
+	 * impossible, null is returned
+	 * 
+	 * @param index
+	 *            the key specifying the curve
 	 * @return the points making up that curve, or null
 	 */
-	public mxPoint[] getCurvePoints(String index)
-	{
-		if (validateCurve())
-		{
-			if (points.get(LABEL_CURVE) == null && index == LABEL_CURVE)
-			{
+	public mxPoint[] getCurvePoints(String index) {
+		if (validateCurve()) {
+			if (points.get(LABEL_CURVE) == null && index == LABEL_CURVE) {
 				createLabelCurve();
 			}
 
@@ -1274,12 +1162,9 @@ public class mxCurve
 		return null;
 	}
 
-	public double[] getIntervals(String index)
-	{
-		if (validateCurve())
-		{
-			if (points.get(LABEL_CURVE) == null && index == LABEL_CURVE)
-			{
+	public double[] getIntervals(String index) {
+		if (validateCurve()) {
+			if (points.get(LABEL_CURVE) == null && index == LABEL_CURVE) {
 				createLabelCurve();
 			}
 
@@ -1289,12 +1174,9 @@ public class mxCurve
 		return null;
 	}
 
-	public double getCurveLength(String index)
-	{
-		if (validateCurve())
-		{
-			if (intervals.get(index) == null)
-			{
+	public double getCurveLength(String index) {
+		if (validateCurve()) {
+			if (intervals.get(index) == null) {
 				createLabelCurve();
 			}
 
@@ -1306,12 +1188,11 @@ public class mxCurve
 
 	/**
 	 * Method must be called before any attempt to access curve information
+	 * 
 	 * @return whether or not the curve may be used
 	 */
-	protected boolean validateCurve()
-	{
-		if (!valid)
-		{
+	protected boolean validateCurve() {
+		if (!valid) {
 			createCoreCurve();
 		}
 
@@ -1319,11 +1200,10 @@ public class mxCurve
 	}
 
 	/**
-	 * Updates the total bounds of this curve, increasing any dimensions,
-	 * if necessary, to fit in the specified point
+	 * Updates the total bounds of this curve, increasing any dimensions, if
+	 * necessary, to fit in the specified point
 	 */
-	protected void updateBounds(double pointX, double pointY)
-	{
+	protected void updateBounds(double pointX, double pointY) {
 		minXBounds = Math.min(minXBounds, pointX);
 		maxXBounds = Math.max(maxXBounds, pointX);
 		minYBounds = Math.min(minYBounds, pointY);
@@ -1333,8 +1213,7 @@ public class mxCurve
 	/**
 	 * @return the guidePoints
 	 */
-	public List<mxPoint> getGuidePoints()
-	{
+	public List<mxPoint> getGuidePoints() {
 		return guidePoints;
 	}
 }

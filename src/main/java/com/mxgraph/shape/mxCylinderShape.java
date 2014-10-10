@@ -7,14 +7,12 @@ import java.awt.geom.Ellipse2D;
 import com.mxgraph.canvas.mxGraphics2DCanvas;
 import com.mxgraph.view.mxCellState;
 
-public class mxCylinderShape extends mxBasicShape
-{
+public class mxCylinderShape extends mxBasicShape {
 
 	/**
 	 * Draws a cylinder for the given parameters.
 	 */
-	public void paintShape(mxGraphics2DCanvas canvas, mxCellState state)
-	{
+	public void paintShape(mxGraphics2DCanvas canvas, mxCellState state) {
 		Rectangle rect = state.getRectangle();
 		int x = rect.x;
 		int y = rect.y;
@@ -25,8 +23,7 @@ public class mxCylinderShape extends mxBasicShape
 		int r = w;
 
 		// Paints the background
-		if (configureGraphics(canvas, state, true))
-		{
+		if (configureGraphics(canvas, state, true)) {
 			Area area = new Area(new Rectangle(x, y + h4 / 2, r, h - h4));
 			area.add(new Area(new Rectangle(x, y + h4 / 2, r, h - h4)));
 			area.add(new Area(new Ellipse2D.Float(x, y, r, h4)));
@@ -36,8 +33,7 @@ public class mxCylinderShape extends mxBasicShape
 		}
 
 		// Paints the foreground
-		if (configureGraphics(canvas, state, false))
-		{
+		if (configureGraphics(canvas, state, false)) {
 			canvas.getGraphics().drawOval(x, y, r, h4);
 			canvas.getGraphics().drawLine(x, y + h2, x, y + h - h2);
 			canvas.getGraphics().drawLine(x + w, y + h2, x + w, y + h - h2);

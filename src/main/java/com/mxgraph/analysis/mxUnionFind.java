@@ -17,8 +17,7 @@ import java.util.Map;
  * <code>alpha(m,n) = min{i &gt;= 1 | A(i, floor(m/n)) &gt; log n} for m &gt;= n &gt;= 1</code>
  * Which yields almost constant time for each individual operation.
  */
-public class mxUnionFind
-{
+public class mxUnionFind {
 
 	/**
 	 * Maps from elements to nodes
@@ -31,10 +30,8 @@ public class mxUnionFind
 	 * 
 	 * @param elements
 	 */
-	public mxUnionFind(Object[] elements)
-	{
-		for (int i = 0; i < elements.length; i++)
-		{
+	public mxUnionFind(Object[] elements) {
+		for (int i = 0; i < elements.length; i++) {
 			nodes.put(elements[i], new Node());
 		}
 	}
@@ -42,8 +39,7 @@ public class mxUnionFind
 	/**
 	 * Returns the node that represents element.
 	 */
-	public Node getNode(Object element)
-	{
+	public Node getNode(Object element) {
 		return nodes.get(element);
 	}
 
@@ -51,10 +47,8 @@ public class mxUnionFind
 	 * Returns the set that contains <code>node</code>. This implementation
 	 * provides path compression by halving.
 	 */
-	public Node find(Node node)
-	{
-		while (node.getParent().getParent() != node.getParent())
-		{
+	public Node find(Node node) {
+		while (node.getParent().getParent() != node.getParent()) {
 			Node t = node.getParent().getParent();
 			node.setParent(t);
 			node = t;
@@ -64,24 +58,19 @@ public class mxUnionFind
 	}
 
 	/**
-	 * Unifies the sets <code>a</code> and <code>b</code> in constant time
-	 * using a union by rank on the tree size.
+	 * Unifies the sets <code>a</code> and <code>b</code> in constant time using
+	 * a union by rank on the tree size.
 	 */
-	public void union(Node a, Node b)
-	{
+	public void union(Node a, Node b) {
 		Node set1 = find(a);
 		Node set2 = find(b);
 
-		if (set1 != set2)
-		{
+		if (set1 != set2) {
 			// Limits the worst case runtime of a find to O(log N)
-			if (set1.getSize() < set2.getSize())
-			{
+			if (set1.getSize() < set2.getSize()) {
 				set2.setParent(set1);
 				set1.setSize(set1.getSize() + set2.getSize());
-			}
-			else
-			{
+			} else {
 				set1.setParent(set2);
 				set2.setSize(set1.getSize() + set2.getSize());
 			}
@@ -92,14 +81,15 @@ public class mxUnionFind
 	 * Returns true if element a and element b are not in the same set. This
 	 * uses getNode and then find to determine the elements set.
 	 * 
-	 * @param a The first element to compare.
-	 * @param b The second element to compare.
+	 * @param a
+	 *            The first element to compare.
+	 * @param b
+	 *            The second element to compare.
 	 * @return Returns true if a and b are in the same set.
 	 * 
 	 * @see #getNode(Object)
 	 */
-	public boolean differ(Object a, Object b)
-	{
+	public boolean differ(Object a, Object b) {
 		Node set1 = find(getNode(a));
 		Node set2 = find(getNode(b));
 
@@ -109,8 +99,7 @@ public class mxUnionFind
 	/**
 	 * A class that defines the identity of a set.
 	 */
-	public class Node
-	{
+	public class Node {
 
 		/**
 		 * Reference to the parent node. Root nodes point to themselves.
@@ -125,32 +114,30 @@ public class mxUnionFind
 		/**
 		 * @return Returns the parent node
 		 */
-		public Node getParent()
-		{
+		public Node getParent() {
 			return parent;
 		}
 
 		/**
-		 * @param parent The parent node to set.
+		 * @param parent
+		 *            The parent node to set.
 		 */
-		public void setParent(Node parent)
-		{
+		public void setParent(Node parent) {
 			this.parent = parent;
 		}
 
 		/**
 		 * @return Returns the size.
 		 */
-		public int getSize()
-		{
+		public int getSize() {
 			return size;
 		}
 
 		/**
-		 * @param size The size to set.
+		 * @param size
+		 *            The size to set.
 		 */
-		public void setSize(int size)
-		{
+		public void setSize(int size) {
 			this.size = size;
 		}
 	}

@@ -15,14 +15,12 @@ import com.mxgraph.view.mxCellState;
 /**
  * A rectangular shape that contains a single image
  */
-public class mxImageShape extends mxRectangleShape
-{
+public class mxImageShape extends mxRectangleShape {
 
 	/**
 	 * 
 	 */
-	public void paintShape(mxGraphics2DCanvas canvas, mxCellState state)
-	{
+	public void paintShape(mxGraphics2DCanvas canvas, mxCellState state) {
 		super.paintShape(canvas, state);
 
 		boolean flipH = mxUtils.isTrue(state.getStyle(),
@@ -38,32 +36,28 @@ public class mxImageShape extends mxRectangleShape
 	/**
 	 * 
 	 */
-	public Rectangle getImageBounds(mxGraphics2DCanvas canvas, mxCellState state)
-	{
+	public Rectangle getImageBounds(mxGraphics2DCanvas canvas, mxCellState state) {
 		return state.getRectangle();
 	}
 
 	/**
 	 * 
 	 */
-	public boolean hasGradient(mxGraphics2DCanvas canvas, mxCellState state)
-	{
+	public boolean hasGradient(mxGraphics2DCanvas canvas, mxCellState state) {
 		return false;
 	}
 
 	/**
 	 * 
 	 */
-	public String getImageForStyle(mxGraphics2DCanvas canvas, mxCellState state)
-	{
+	public String getImageForStyle(mxGraphics2DCanvas canvas, mxCellState state) {
 		return canvas.getImageForStyle(state.getStyle());
 	}
 
 	/**
 	 * 
 	 */
-	public Color getFillColor(mxGraphics2DCanvas canvas, mxCellState state)
-	{
+	public Color getFillColor(mxGraphics2DCanvas canvas, mxCellState state) {
 		return mxUtils.getColor(state.getStyle(),
 				mxConstants.STYLE_IMAGE_BACKGROUND);
 	}
@@ -71,8 +65,7 @@ public class mxImageShape extends mxRectangleShape
 	/**
 	 * 
 	 */
-	public Color getStrokeColor(mxGraphics2DCanvas canvas, mxCellState state)
-	{
+	public Color getStrokeColor(mxGraphics2DCanvas canvas, mxCellState state) {
 		return mxUtils.getColor(state.getStyle(),
 				mxConstants.STYLE_IMAGE_BORDER);
 	}

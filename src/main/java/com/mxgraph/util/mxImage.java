@@ -9,8 +9,7 @@ import java.io.Serializable;
 /**
  * Implements a 2-dimensional point with double precision coordinates.
  */
-public class mxImage implements Serializable, Cloneable
-{
+public class mxImage implements Serializable, Cloneable {
 
 	/**
 	 * 
@@ -30,8 +29,7 @@ public class mxImage implements Serializable, Cloneable
 	/**
 	 * Constructs a new point at (0, 0).
 	 */
-	public mxImage(String src, int width, int height)
-	{
+	public mxImage(String src, int width, int height) {
 		this.src = src;
 		this.width = width;
 		this.height = height;
@@ -40,48 +38,45 @@ public class mxImage implements Serializable, Cloneable
 	/**
 	 * @return the src
 	 */
-	public String getSrc()
-	{
+	public String getSrc() {
 		return src;
 	}
 
 	/**
-	 * @param src the src to set
+	 * @param src
+	 *            the src to set
 	 */
-	public void setSrc(String src)
-	{
+	public void setSrc(String src) {
 		this.src = src;
 	}
 
 	/**
 	 * @return the width
 	 */
-	public int getWidth()
-	{
+	public int getWidth() {
 		return width;
 	}
 
 	/**
-	 * @param width the width to set
+	 * @param width
+	 *            the width to set
 	 */
-	public void setWidth(int width)
-	{
+	public void setWidth(int width) {
 		this.width = width;
 	}
 
 	/**
 	 * @return the height
 	 */
-	public int getHeight()
-	{
+	public int getHeight() {
 		return height;
 	}
 
 	/**
-	 * @param height the height to set
+	 * @param height
+	 *            the height to set
 	 */
-	public void setHeight(int height)
-	{
+	public void setHeight(int height) {
 		this.height = height;
 	}
 

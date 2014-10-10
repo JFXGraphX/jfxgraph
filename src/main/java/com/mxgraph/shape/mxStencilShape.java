@@ -39,10 +39,8 @@ import org.w3c.dom.NodeList;
  * See http://projects.gnome.org/dia/custom-shapes for specs. See
  * http://dia-installer.de/shapes_de.html for shapes.
  */
-public class mxStencilShape extends mxBasicShape
-{
-	public mxStencilShape()
-	{
+public class mxStencilShape extends mxBasicShape {
+	public mxStencilShape() {
 		super();
 	}
 
@@ -70,47 +68,37 @@ public class mxStencilShape extends mxBasicShape
 	/**
 	 * Constructs a new stencil for the given Dia shape description.
 	 */
-	public mxStencilShape(String shapeXml)
-	{
+	public mxStencilShape(String shapeXml) {
 		this(mxXmlUtils.parseXml(shapeXml));
 	}
 
-	public mxStencilShape(Document document)
-	{
-		if (document != null)
-		{
+	public mxStencilShape(Document document) {
+		if (document != null) {
 			NodeList nameList = document.getElementsByTagName("name");
 
-			if (nameList != null && nameList.getLength() > 0)
-			{
+			if (nameList != null && nameList.getLength() > 0) {
 				this.name = nameList.item(0).getTextContent();
 			}
 
 			NodeList iconList = document.getElementsByTagName("icon");
 
-			if (iconList != null && iconList.getLength() > 0)
-			{
+			if (iconList != null && iconList.getLength() > 0) {
 				this.iconPath = iconList.item(0).getTextContent();
 			}
 
 			NodeList svgList = document.getElementsByTagName("svg:svg");
 
-			if (svgList != null && svgList.getLength() > 0)
-			{
+			if (svgList != null && svgList.getLength() > 0) {
 				this.root = svgList.item(0);
-			}
-			else
-			{
+			} else {
 				svgList = document.getElementsByTagName("svg");
 
-				if (svgList != null && svgList.getLength() > 0)
-				{
+				if (svgList != null && svgList.getLength() > 0) {
 					this.root = svgList.item(0);
 				}
 			}
 
-			if (this.root != null)
-			{
+			if (this.root != null) {
 				rootShape = new svgShape(null, null);
 				createShape(this.root, rootShape);
 			}
@@ -121,8 +109,7 @@ public class mxStencilShape extends mxBasicShape
 	 * 
 	 */
 	@Override
-	public void paintShape(mxGraphics2DCanvas canvas, mxCellState state)
-	{
+	public void paintShape(mxGraphics2DCanvas canvas, mxCellState state) {
 		double x = state.getX();
 		double y = state.getY();
 		double w = state.getWidth();
@@ -132,8 +119,7 @@ public class mxStencilShape extends mxBasicShape
 		double widthRatio = 1;
 		double heightRatio = 1;
 
-		if (boundingBox != null)
-		{
+		if (boundingBox != null) {
 			widthRatio = w / boundingBox.getWidth();
 			heightRatio = h / boundingBox.getHeight();
 		}
@@ -147,8 +133,7 @@ public class mxStencilShape extends mxBasicShape
 	 * 
 	 */
 	public void paintNode(mxGraphics2DCanvas canvas, mxCellState state,
-			svgShape shape, double widthRatio, double heightRatio)
-	{
+			svgShape shape, double widthRatio, double heightRatio) {
 		Shape associatedShape = shape.shape;
 
 		boolean fill = false;
@@ -158,64 +143,49 @@ public class mxStencilShape extends mxBasicShape
 
 		Map<String, Object> style = shape.style;
 
-		if (style != null)
-		{
+		if (style != null) {
 			String fillStyle = mxUtils.getString(style,
 					CSSConstants.CSS_FILL_PROPERTY);
 			String strokeStyle = mxUtils.getString(style,
 					CSSConstants.CSS_STROKE_PROPERTY);
 
 			if (strokeStyle != null
-					&& strokeStyle.equals(CSSConstants.CSS_NONE_VALUE))
-			{
-				if (strokeStyle.equals(CSSConstants.CSS_NONE_VALUE))
-				{
+					&& strokeStyle.equals(CSSConstants.CSS_NONE_VALUE)) {
+				if (strokeStyle.equals(CSSConstants.CSS_NONE_VALUE)) {
 					stroke = false;
-				}
-				else if (strokeStyle.trim().startsWith("#"))
-				{
+				} else if (strokeStyle.trim().startsWith("#")) {
 					int hashIndex = strokeStyle.indexOf("#");
 					strokeColor = mxUtils.parseColor(strokeStyle
 							.substring(hashIndex + 1));
 				}
 			}
 
-			if (fillStyle != null)
-			{
-				if (fillStyle.equals(CSSConstants.CSS_NONE_VALUE))
-				{
+			if (fillStyle != null) {
+				if (fillStyle.equals(CSSConstants.CSS_NONE_VALUE)) {
 					fill = false;
-				}
-				else if (fillStyle.trim().startsWith("#"))
-				{
+				} else if (fillStyle.trim().startsWith("#")) {
 					int hashIndex = fillStyle.indexOf("#");
 					fillColor = mxUtils.parseColor(fillStyle
 							.substring(hashIndex + 1));
 					fill = true;
-				}
-				else
-				{
+				} else {
 					fill = true;
 				}
 			}
 		}
 
-		if (associatedShape != null)
-		{
+		if (associatedShape != null) {
 			boolean wasScaled = false;
 
-			if (widthRatio != 1 || heightRatio != 1)
-			{
+			if (widthRatio != 1 || heightRatio != 1) {
 				transformShape(associatedShape, 0.0, 0.0, widthRatio,
 						heightRatio);
 				wasScaled = true;
 			}
 
 			// Paints the background
-			if (fill && configureGraphics(canvas, state, true))
-			{
-				if (fillColor != null)
-				{
+			if (fill && configureGraphics(canvas, state, true)) {
+				if (fillColor != null) {
 					canvas.getGraphics().setColor(fillColor);
 				}
 
@@ -223,18 +193,15 @@ public class mxStencilShape extends mxBasicShape
 			}
 
 			// Paints the foreground
-			if (stroke && configureGraphics(canvas, state, false))
-			{
-				if (strokeColor != null)
-				{
+			if (stroke && configureGraphics(canvas, state, false)) {
+				if (strokeColor != null) {
 					canvas.getGraphics().setColor(strokeColor);
 				}
 
 				canvas.getGraphics().draw(associatedShape);
 			}
 
-			if (wasScaled)
-			{
+			if (wasScaled) {
 				transformShape(associatedShape, 0.0, 0.0, 1.0 / widthRatio,
 						1.0 / heightRatio);
 			}
@@ -244,8 +211,7 @@ public class mxStencilShape extends mxBasicShape
 		 * If root is a group element, then we should add it's styles to the
 		 * children.
 		 */
-		for (svgShape subShape : shape.subShapes)
-		{
+		for (svgShape subShape : shape.subShapes) {
 			paintNode(canvas, state, subShape, widthRatio, heightRatio);
 		}
 	}
@@ -265,63 +231,47 @@ public class mxStencilShape extends mxBasicShape
 	 *            the y co-ordinate scale
 	 */
 	protected void transformShape(Shape shape, double transX, double transY,
-			double widthRatio, double heightRatio)
-	{
-		if (shape instanceof Rectangle2D)
-		{
+			double widthRatio, double heightRatio) {
+		if (shape instanceof Rectangle2D) {
 			Rectangle2D rect = (Rectangle2D) shape;
-			if (transX != 0 || transY != 0)
-			{
+			if (transX != 0 || transY != 0) {
 				rect.setFrame(rect.getX() + transX, rect.getY() + transY,
 						rect.getWidth(), rect.getHeight());
 			}
 
-			if (widthRatio != 1 || heightRatio != 1)
-			{
+			if (widthRatio != 1 || heightRatio != 1) {
 				rect.setFrame(rect.getX() * widthRatio, rect.getY()
 						* heightRatio, rect.getWidth() * widthRatio,
 						rect.getHeight() * heightRatio);
 			}
-		}
-		else if (shape instanceof Line2D)
-		{
+		} else if (shape instanceof Line2D) {
 			Line2D line = (Line2D) shape;
-			if (transX != 0 || transY != 0)
-			{
+			if (transX != 0 || transY != 0) {
 				line.setLine(line.getX1() + transX, line.getY1() + transY,
 						line.getX2() + transX, line.getY2() + transY);
 			}
-			if (widthRatio != 1 || heightRatio != 1)
-			{
+			if (widthRatio != 1 || heightRatio != 1) {
 				line.setLine(line.getX1() * widthRatio, line.getY1()
 						* heightRatio, line.getX2() * widthRatio, line.getY2()
 						* heightRatio);
 			}
-		}
-		else if (shape instanceof GeneralPath)
-		{
+		} else if (shape instanceof GeneralPath) {
 			GeneralPath path = (GeneralPath) shape;
 			cachedTransform.setToScale(widthRatio, heightRatio);
 			cachedTransform.translate(transX, transY);
 			path.transform(cachedTransform);
-		}
-		else if (shape instanceof ExtendedGeneralPath)
-		{
+		} else if (shape instanceof ExtendedGeneralPath) {
 			ExtendedGeneralPath path = (ExtendedGeneralPath) shape;
 			cachedTransform.setToScale(widthRatio, heightRatio);
 			cachedTransform.translate(transX, transY);
 			path.transform(cachedTransform);
-		}
-		else if (shape instanceof Ellipse2D)
-		{
+		} else if (shape instanceof Ellipse2D) {
 			Ellipse2D ellipse = (Ellipse2D) shape;
-			if (transX != 0 || transY != 0)
-			{
+			if (transX != 0 || transY != 0) {
 				ellipse.setFrame(ellipse.getX() + transX, ellipse.getY()
 						+ transY, ellipse.getWidth(), ellipse.getHeight());
 			}
-			if (widthRatio != 1 || heightRatio != 1)
-			{
+			if (widthRatio != 1 || heightRatio != 1) {
 				ellipse.setFrame(ellipse.getX() * widthRatio, ellipse.getY()
 						* heightRatio, ellipse.getWidth() * widthRatio,
 						ellipse.getHeight() * heightRatio);
@@ -332,17 +282,14 @@ public class mxStencilShape extends mxBasicShape
 	/**
 	 * 
 	 */
-	public void createShape(Node root, svgShape shape)
-	{
+	public void createShape(Node root, svgShape shape) {
 		Node child = root.getFirstChild();
 		/*
 		 * If root is a group element, then we should add it's styles to the
 		 * childrens...
 		 */
-		while (child != null)
-		{
-			if (isGroup(child.getNodeName()))
-			{
+		while (child != null) {
+			if (isGroup(child.getNodeName())) {
 				String style = ((Element) root).getAttribute("style");
 				Map<String, Object> styleMap = mxStencilShape
 						.getStylenames(style);
@@ -352,23 +299,17 @@ public class mxStencilShape extends mxBasicShape
 
 			svgShape subShape = createElement(child);
 
-			if (subShape != null)
-			{
+			if (subShape != null) {
 				shape.subShapes.add(subShape);
 			}
 			child = child.getNextSibling();
 		}
 
-		for (svgShape subShape : shape.subShapes)
-		{
-			if (subShape != null && subShape.shape != null)
-			{
-				if (boundingBox == null)
-				{
+		for (svgShape subShape : shape.subShapes) {
+			if (subShape != null && subShape.shape != null) {
+				if (boundingBox == null) {
 					boundingBox = subShape.shape.getBounds2D();
-				}
-				else
-				{
+				} else {
 					boundingBox.add(subShape.shape.getBounds2D());
 				}
 			}
@@ -377,12 +318,9 @@ public class mxStencilShape extends mxBasicShape
 		// If the shape does not butt up against either or both axis,
 		// ensure it is flush against both
 		if (boundingBox != null
-				&& (boundingBox.getX() != 0 || boundingBox.getY() != 0))
-		{
-			for (svgShape subShape : shape.subShapes)
-			{
-				if (subShape != null && subShape.shape != null)
-				{
+				&& (boundingBox.getX() != 0 || boundingBox.getY() != 0)) {
+			for (svgShape subShape : shape.subShapes) {
+				if (subShape != null && subShape.shape != null) {
 					transformShape(subShape.shape, -boundingBox.getX(),
 							-boundingBox.getY(), 1.0, 1.0);
 				}
@@ -399,22 +337,18 @@ public class mxStencilShape extends mxBasicShape
 	 * @return the internal representation of the element, or null if an error
 	 *         occurs
 	 */
-	public svgShape createElement(Node root)
-	{
+	public svgShape createElement(Node root) {
 		Element element = null;
 
-		if (root instanceof Element)
-		{
+		if (root instanceof Element) {
 			element = (Element) root;
 			String style = element.getAttribute("style");
 			Map<String, Object> styleMap = mxStencilShape.getStylenames(style);
 
-			if (isRectangle(root.getNodeName()))
-			{
+			if (isRectangle(root.getNodeName())) {
 				svgShape rectShape = null;
 
-				try
-				{
+				try {
 					String xString = element.getAttribute("x");
 					String yString = element.getAttribute("y");
 					String widthString = element.getAttribute("width");
@@ -426,27 +360,21 @@ public class mxStencilShape extends mxBasicShape
 					double width = 0;
 					double height = 0;
 
-					if (xString.length() > 0)
-					{
+					if (xString.length() > 0) {
 						x = Double.valueOf(xString);
 					}
-					if (yString.length() > 0)
-					{
+					if (yString.length() > 0) {
 						y = Double.valueOf(yString);
 					}
-					if (widthString.length() > 0)
-					{
+					if (widthString.length() > 0) {
 						width = Double.valueOf(widthString);
-						if (width < 0)
-						{
+						if (width < 0) {
 							return null; // error in SVG spec
 						}
 					}
-					if (heightString.length() > 0)
-					{
+					if (heightString.length() > 0) {
 						height = Double.valueOf(heightString);
-						if (height < 0)
-						{
+						if (height < 0) {
 							return null; // error in SVG spec
 						}
 					}
@@ -456,61 +384,45 @@ public class mxStencilShape extends mxBasicShape
 					double rx = 0;
 					double ry = 0;
 
-					if (rxString.length() > 0)
-					{
+					if (rxString.length() > 0) {
 						rx = Double.valueOf(rxString);
-						if (rx < 0)
-						{
+						if (rx < 0) {
 							return null; // error in SVG spec
 						}
 					}
-					if (ryString.length() > 0)
-					{
+					if (ryString.length() > 0) {
 						ry = Double.valueOf(ryString);
-						if (ry < 0)
-						{
+						if (ry < 0) {
 							return null; // error in SVG spec
 						}
 					}
 
-					if (rx > 0 || ry > 0)
-					{
+					if (rx > 0 || ry > 0) {
 						// Specification rules on rx and ry
-						if (rx > 0 && ryString.length() == 0)
-						{
+						if (rx > 0 && ryString.length() == 0) {
 							ry = rx;
-						}
-						else if (ry > 0 && rxString.length() == 0)
-						{
+						} else if (ry > 0 && rxString.length() == 0) {
 							rx = ry;
 						}
-						if (rx > width / 2.0)
-						{
+						if (rx > width / 2.0) {
 							rx = width / 2.0;
 						}
-						if (ry > height / 2.0)
-						{
+						if (ry > height / 2.0) {
 							ry = height / 2.0;
 						}
 
 						rectShape = new svgShape(new RoundRectangle2D.Double(x,
 								y, width, height, rx, ry), styleMap);
-					}
-					else
-					{
+					} else {
 						rectShape = new svgShape(new Rectangle2D.Double(x, y,
 								width, height), styleMap);
 					}
-				}
-				catch (Exception e)
-				{
+				} catch (Exception e) {
 					// TODO log something useful
 				}
 
 				return rectShape;
-			}
-			else if (isLine(root.getNodeName()))
-			{
+			} else if (isLine(root.getNodeName())) {
 				String x1String = element.getAttribute("x1");
 				String x2String = element.getAttribute("x2");
 				String y1String = element.getAttribute("y1");
@@ -521,53 +433,41 @@ public class mxStencilShape extends mxBasicShape
 				double y1 = 0;
 				double y2 = 0;
 
-				if (x1String.length() > 0)
-				{
+				if (x1String.length() > 0) {
 					x1 = Double.valueOf(x1String);
 				}
-				if (x2String.length() > 0)
-				{
+				if (x2String.length() > 0) {
 					x2 = Double.valueOf(x2String);
 				}
-				if (y1String.length() > 0)
-				{
+				if (y1String.length() > 0) {
 					y1 = Double.valueOf(y1String);
 				}
-				if (y2String.length() > 0)
-				{
+				if (y2String.length() > 0) {
 					y2 = Double.valueOf(y2String);
 				}
 
 				svgShape lineShape = new svgShape(new Line2D.Double(x1, y1, x2,
 						y2), styleMap);
 				return lineShape;
-			}
-			else if (isPolyline(root.getNodeName())
-					|| isPolygon(root.getNodeName()))
-			{
+			} else if (isPolyline(root.getNodeName())
+					|| isPolygon(root.getNodeName())) {
 				String pointsString = element.getAttribute("points");
 				Shape shape;
 
-				if (isPolygon(root.getNodeName()))
-				{
+				if (isPolygon(root.getNodeName())) {
 					shape = AWTPolygonProducer.createShape(pointsString,
 							GeneralPath.WIND_NON_ZERO);
-				}
-				else
-				{
+				} else {
 					shape = AWTPolylineProducer.createShape(pointsString,
 							GeneralPath.WIND_NON_ZERO);
 				}
 
-				if (shape != null)
-				{
+				if (shape != null) {
 					return new svgShape(shape, styleMap);
 				}
 
 				return null;
-			}
-			else if (isCircle(root.getNodeName()))
-			{
+			} else if (isCircle(root.getNodeName())) {
 				double cx = 0;
 				double cy = 0;
 				double r = 0;
@@ -576,29 +476,23 @@ public class mxStencilShape extends mxBasicShape
 				String cyString = element.getAttribute("cy");
 				String rString = element.getAttribute("r");
 
-				if (cxString.length() > 0)
-				{
+				if (cxString.length() > 0) {
 					cx = Double.valueOf(cxString);
 				}
-				if (cyString.length() > 0)
-				{
+				if (cyString.length() > 0) {
 					cy = Double.valueOf(cyString);
 				}
-				if (rString.length() > 0)
-				{
+				if (rString.length() > 0) {
 					r = Double.valueOf(rString);
 
-					if (r < 0)
-					{
+					if (r < 0) {
 						return null; // error in SVG spec
 					}
 				}
 
 				return new svgShape(new Ellipse2D.Double(cx - r, cy - r, r * 2,
 						r * 2), styleMap);
-			}
-			else if (isEllipse(root.getNodeName()))
-			{
+			} else if (isEllipse(root.getNodeName())) {
 				double cx = 0;
 				double cy = 0;
 				double rx = 0;
@@ -609,38 +503,30 @@ public class mxStencilShape extends mxBasicShape
 				String rxString = element.getAttribute("rx");
 				String ryString = element.getAttribute("ry");
 
-				if (cxString.length() > 0)
-				{
+				if (cxString.length() > 0) {
 					cx = Double.valueOf(cxString);
 				}
-				if (cyString.length() > 0)
-				{
+				if (cyString.length() > 0) {
 					cy = Double.valueOf(cyString);
 				}
-				if (rxString.length() > 0)
-				{
+				if (rxString.length() > 0) {
 					rx = Double.valueOf(rxString);
 
-					if (rx < 0)
-					{
+					if (rx < 0) {
 						return null; // error in SVG spec
 					}
 				}
-				if (ryString.length() > 0)
-				{
+				if (ryString.length() > 0) {
 					ry = Double.valueOf(ryString);
 
-					if (ry < 0)
-					{
+					if (ry < 0) {
 						return null; // error in SVG spec
 					}
 				}
 
 				return new svgShape(new Ellipse2D.Double(cx - rx, cy - ry,
 						rx * 2, ry * 2), styleMap);
-			}
-			else if (isPath(root.getNodeName()))
-			{
+			} else if (isPath(root.getNodeName())) {
 				String d = element.getAttribute("d");
 				Shape pathShape = AWTPathProducer.createShape(d,
 						GeneralPath.WIND_NON_ZERO);
@@ -654,66 +540,57 @@ public class mxStencilShape extends mxBasicShape
 	/*
 	 *
 	 */
-	private boolean isRectangle(String tag)
-	{
+	private boolean isRectangle(String tag) {
 		return tag.equals("svg:rect") || tag.equals("rect");
 	}
 
 	/*
 	 *
 	 */
-	private boolean isPath(String tag)
-	{
+	private boolean isPath(String tag) {
 		return tag.equals("svg:path") || tag.equals("path");
 	}
 
 	/*
 	 *
 	 */
-	private boolean isEllipse(String tag)
-	{
+	private boolean isEllipse(String tag) {
 		return tag.equals("svg:ellipse") || tag.equals("ellipse");
 	}
 
 	/*
 	 *
 	 */
-	private boolean isLine(String tag)
-	{
+	private boolean isLine(String tag) {
 		return tag.equals("svg:line") || tag.equals("line");
 	}
 
 	/*
 	 *
 	 */
-	private boolean isPolyline(String tag)
-	{
+	private boolean isPolyline(String tag) {
 		return tag.equals("svg:polyline") || tag.equals("polyline");
 	}
 
 	/*
 	 *
 	 */
-	private boolean isCircle(String tag)
-	{
+	private boolean isCircle(String tag) {
 		return tag.equals("svg:circle") || tag.equals("circle");
 	}
 
 	/*
 	 *
 	 */
-	private boolean isPolygon(String tag)
-	{
+	private boolean isPolygon(String tag) {
 		return tag.equals("svg:polygon") || tag.equals("polygon");
 	}
 
-	private boolean isGroup(String tag)
-	{
+	private boolean isGroup(String tag) {
 		return tag.equals("svg:g") || tag.equals("g");
 	}
 
-	protected class svgShape
-	{
+	protected class svgShape {
 		public Shape shape;
 
 		/**
@@ -734,30 +611,25 @@ public class mxStencilShape extends mxBasicShape
 		 */
 		protected double currentYScale;
 
-		public svgShape(Shape shape, Map<String, Object> style)
-		{
+		public svgShape(Shape shape, Map<String, Object> style) {
 			this.shape = shape;
 			this.style = style;
 			subShapes = new ArrayList<svgShape>();
 		}
 
-		public double getCurrentXScale()
-		{
+		public double getCurrentXScale() {
 			return currentXScale;
 		}
 
-		public void setCurrentXScale(double currentXScale)
-		{
+		public void setCurrentXScale(double currentXScale) {
 			this.currentXScale = currentXScale;
 		}
 
-		public double getCurrentYScale()
-		{
+		public double getCurrentYScale() {
 			return currentYScale;
 		}
 
-		public void setCurrentYScale(double currentYScale)
-		{
+		public void setCurrentYScale(double currentYScale) {
 			this.currentYScale = currentYScale;
 		}
 	}
@@ -770,22 +642,17 @@ public class mxStencilShape extends mxBasicShape
 	 *            String of the form stylename[;stylename][;key=value].
 	 * @return Returns the stylename from the given formatted string.
 	 */
-	protected static Map<String, Object> getStylenames(String style)
-	{
-		if (style != null && style.length() > 0)
-		{
+	protected static Map<String, Object> getStylenames(String style) {
+		if (style != null && style.length() > 0) {
 			Map<String, Object> result = new Hashtable<String, Object>();
 
-			if (style != null)
-			{
+			if (style != null) {
 				String[] pairs = style.split(";");
 
-				for (int i = 0; i < pairs.length; i++)
-				{
+				for (int i = 0; i < pairs.length; i++) {
 					String[] keyValue = pairs[i].split(":");
 
-					if (keyValue.length == 2)
-					{
+					if (keyValue.length == 2) {
 						result.put(keyValue[0].trim(), keyValue[1].trim());
 					}
 				}
@@ -796,33 +663,27 @@ public class mxStencilShape extends mxBasicShape
 		return null;
 	}
 
-	public String getName()
-	{
+	public String getName() {
 		return name;
 	}
 
-	public void setName(String name)
-	{
+	public void setName(String name) {
 		this.name = name;
 	}
 
-	public String getIconPath()
-	{
+	public String getIconPath() {
 		return iconPath;
 	}
 
-	public void setIconPath(String iconPath)
-	{
+	public void setIconPath(String iconPath) {
 		this.iconPath = iconPath;
 	}
 
-	public Rectangle2D getBoundingBox()
-	{
+	public Rectangle2D getBoundingBox() {
 		return boundingBox;
 	}
 
-	public void setBoundingBox(Rectangle2D boundingBox)
-	{
+	public void setBoundingBox(Rectangle2D boundingBox) {
 		this.boundingBox = boundingBox;
 	}
 }

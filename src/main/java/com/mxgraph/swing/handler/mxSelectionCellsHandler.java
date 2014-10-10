@@ -31,8 +31,7 @@ import com.mxgraph.view.mxCellState;
 import com.mxgraph.view.mxGraph;
 
 public class mxSelectionCellsHandler implements MouseListener,
-		MouseMotionListener
-{
+		MouseMotionListener {
 
 	/**
 	 * 
@@ -65,8 +64,8 @@ public class mxSelectionCellsHandler implements MouseListener,
 	protected Rectangle bounds = null;
 
 	/**
-	 * Defines the maximum number of handlers to paint individually.
-	 * Default is DEFAULT_MAX_HANDLES.
+	 * Defines the maximum number of handlers to paint individually. Default is
+	 * DEFAULT_MAX_HANDLES.
 	 */
 	protected int maxHandlers = DEFAULT_MAX_HANDLERS;
 
@@ -78,12 +77,9 @@ public class mxSelectionCellsHandler implements MouseListener,
 	/**
 	 * 
 	 */
-	protected transient mxIEventListener refreshHandler = new mxIEventListener()
-	{
-		public void invoke(Object source, mxEventObject evt)
-		{
-			if (isEnabled())
-			{
+	protected transient mxIEventListener refreshHandler = new mxIEventListener() {
+		public void invoke(Object source, mxEventObject evt) {
+			if (isEnabled()) {
 				refresh();
 			}
 		}
@@ -92,18 +88,17 @@ public class mxSelectionCellsHandler implements MouseListener,
 	/**
 	 * 
 	 */
-	protected transient PropertyChangeListener labelMoveHandler = new PropertyChangeListener()
-	{
+	protected transient PropertyChangeListener labelMoveHandler = new PropertyChangeListener() {
 
 		/*
 		 * (non-Javadoc)
-		 * @see java.beans.PropertyChangeListener#propertyChange(java.beans.PropertyChangeEvent)
+		 * 
+		 * @see java.beans.PropertyChangeListener#propertyChange(java.beans.
+		 * PropertyChangeEvent)
 		 */
-		public void propertyChange(PropertyChangeEvent evt)
-		{
+		public void propertyChange(PropertyChangeEvent evt) {
 			if (evt.getPropertyName().equals("vertexLabelsMovable")
-					|| evt.getPropertyName().equals("edgeLabelsMovable"))
-			{
+					|| evt.getPropertyName().equals("edgeLabelsMovable")) {
 				refresh();
 			}
 		}
@@ -114,8 +109,7 @@ public class mxSelectionCellsHandler implements MouseListener,
 	 * 
 	 * @param graphComponent
 	 */
-	public mxSelectionCellsHandler(final mxGraphComponent graphComponent)
-	{
+	public mxSelectionCellsHandler(final mxGraphComponent graphComponent) {
 		this.graphComponent = graphComponent;
 
 		// Listens to all mouse events on the rendering control
@@ -125,12 +119,9 @@ public class mxSelectionCellsHandler implements MouseListener,
 		// Installs the graph listeners and keeps them in sync
 		addGraphListeners(graphComponent.getGraph());
 
-		graphComponent.addPropertyChangeListener(new PropertyChangeListener()
-		{
-			public void propertyChange(PropertyChangeEvent evt)
-			{
-				if (evt.getPropertyName().equals("graph"))
-				{
+		graphComponent.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				if (evt.getPropertyName().equals("graph")) {
 					removeGraphListeners((mxGraph) evt.getOldValue());
 					addGraphListeners((mxGraph) evt.getNewValue());
 				}
@@ -138,10 +129,8 @@ public class mxSelectionCellsHandler implements MouseListener,
 		});
 
 		// Installs the paint handler
-		graphComponent.addListener(mxEvent.PAINT, new mxIEventListener()
-		{
-			public void invoke(Object sender, mxEventObject evt)
-			{
+		graphComponent.addListener(mxEvent.PAINT, new mxIEventListener() {
+			public void invoke(Object sender, mxEventObject evt) {
 				Graphics g = (Graphics) evt.getProperty("g");
 				paintHandles(g);
 			}
@@ -151,11 +140,9 @@ public class mxSelectionCellsHandler implements MouseListener,
 	/**
 	 * Installs the listeners to update the handles after any changes.
 	 */
-	protected void addGraphListeners(mxGraph graph)
-	{
+	protected void addGraphListeners(mxGraph graph) {
 		// LATER: Install change listener for graph model, selection model, view
-		if (graph != null)
-		{
+		if (graph != null) {
 			graph.getSelectionModel().addListener(mxEvent.CHANGE,
 					refreshHandler);
 			graph.getModel().addListener(mxEvent.CHANGE, refreshHandler);
@@ -166,7 +153,8 @@ public class mxSelectionCellsHandler implements MouseListener,
 			graph.getView().addListener(mxEvent.DOWN, refreshHandler);
 			graph.getView().addListener(mxEvent.UP, refreshHandler);
 
-			// Refreshes the handles if moveVertexLabels or moveEdgeLabels changes
+			// Refreshes the handles if moveVertexLabels or moveEdgeLabels
+			// changes
 			graph.addPropertyChangeListener(labelMoveHandler);
 		}
 	}
@@ -174,10 +162,8 @@ public class mxSelectionCellsHandler implements MouseListener,
 	/**
 	 * Removes all installed listeners.
 	 */
-	protected void removeGraphListeners(mxGraph graph)
-	{
-		if (graph != null)
-		{
+	protected void removeGraphListeners(mxGraph graph) {
+		if (graph != null) {
 			graph.getSelectionModel().removeListener(refreshHandler,
 					mxEvent.CHANGE);
 			graph.getModel().removeListener(refreshHandler, mxEvent.CHANGE);
@@ -188,7 +174,8 @@ public class mxSelectionCellsHandler implements MouseListener,
 			graph.getView().removeListener(refreshHandler, mxEvent.DOWN);
 			graph.getView().removeListener(refreshHandler, mxEvent.UP);
 
-			// Refreshes the handles if moveVertexLabels or moveEdgeLabels changes
+			// Refreshes the handles if moveVertexLabels or moveEdgeLabels
+			// changes
 			graph.removePropertyChangeListener(labelMoveHandler);
 		}
 	}
@@ -196,81 +183,70 @@ public class mxSelectionCellsHandler implements MouseListener,
 	/**
 	 * 
 	 */
-	public mxGraphComponent getGraphComponent()
-	{
+	public mxGraphComponent getGraphComponent() {
 		return graphComponent;
 	}
 
 	/**
 	 * 
 	 */
-	public boolean isEnabled()
-	{
+	public boolean isEnabled() {
 		return enabled;
 	}
 
 	/**
 	 * 
 	 */
-	public void setEnabled(boolean value)
-	{
+	public void setEnabled(boolean value) {
 		enabled = value;
 	}
 
 	/**
 	 * 
 	 */
-	public boolean isVisible()
-	{
+	public boolean isVisible() {
 		return visible;
 	}
 
 	/**
 	 * 
 	 */
-	public void setVisible(boolean value)
-	{
+	public void setVisible(boolean value) {
 		visible = value;
 	}
 
 	/**
 	 * 
 	 */
-	public int getMaxHandlers()
-	{
+	public int getMaxHandlers() {
 		return maxHandlers;
 	}
 
 	/**
 	 * 
 	 */
-	public void setMaxHandlers(int value)
-	{
+	public void setMaxHandlers(int value) {
 		maxHandlers = value;
 	}
 
 	/**
 	 * 
 	 */
-	public mxCellHandler getHandler(Object cell)
-	{
+	public mxCellHandler getHandler(Object cell) {
 		return handlers.get(cell);
 	}
 
 	/**
-	 * Dispatches the mousepressed event to the subhandles. This is
-	 * called from the connection handler as subhandles have precedence
-	 * over the connection handler.
+	 * Dispatches the mousepressed event to the subhandles. This is called from
+	 * the connection handler as subhandles have precedence over the connection
+	 * handler.
 	 */
-	public void mousePressed(MouseEvent e)
-	{
+	public void mousePressed(MouseEvent e) {
 		if (graphComponent.isEnabled()
-				&& !graphComponent.isForceMarqueeEvent(e) && isEnabled())
-		{
+				&& !graphComponent.isForceMarqueeEvent(e) && isEnabled()) {
 			Iterator<mxCellHandler> it = handlers.values().iterator();
 
-			while (it.hasNext() && !e.isConsumed())
-			{
+			while (it.hasNext() && !e.isConsumed()) {
 				it.next().mousePressed(e);
 			}
 		}
@@ -279,14 +255,11 @@ public class mxSelectionCellsHandler implements MouseListener,
 	/**
 	 * 
 	 */
-	public void mouseMoved(MouseEvent e)
-	{
-		if (graphComponent.isEnabled() && isEnabled())
-		{
+	public void mouseMoved(MouseEvent e) {
+		if (graphComponent.isEnabled() && isEnabled()) {
 			Iterator<mxCellHandler> it = handlers.values().iterator();
 
-			while (it.hasNext() && !e.isConsumed())
-			{
+			while (it.hasNext() && !e.isConsumed()) {
 				it.next().mouseMoved(e);
 			}
 		}
@@ -295,14 +268,11 @@ public class mxSelectionCellsHandler implements MouseListener,
 	/**
 	 * 
 	 */
-	public void mouseDragged(MouseEvent e)
-	{
-		if (graphComponent.isEnabled() && isEnabled())
-		{
+	public void mouseDragged(MouseEvent e) {
+		if (graphComponent.isEnabled() && isEnabled()) {
 			Iterator<mxCellHandler> it = handlers.values().iterator();
 
-			while (it.hasNext() && !e.isConsumed())
-			{
+			while (it.hasNext() && !e.isConsumed()) {
 				it.next().mouseDragged(e);
 			}
 		}
@@ -311,14 +281,11 @@ public class mxSelectionCellsHandler implements MouseListener,
 	/**
 	 * 
 	 */
-	public void mouseReleased(MouseEvent e)
-	{
-		if (graphComponent.isEnabled() && isEnabled())
-		{
+	public void mouseReleased(MouseEvent e) {
+		if (graphComponent.isEnabled() && isEnabled()) {
 			Iterator<mxCellHandler> it = handlers.values().iterator();
 
-			while (it.hasNext() && !e.isConsumed())
-			{
+			while (it.hasNext() && !e.isConsumed()) {
 				it.next().mouseReleased(e);
 			}
 		}
@@ -327,19 +294,17 @@ public class mxSelectionCellsHandler implements MouseListener,
 	}
 
 	/**
-	 * Redirects the tooltip handling of the JComponent to the graph
-	 * component, which in turn may use getHandleToolTipText in this class to
-	 * find a tooltip associated with a handle.
+	 * Redirects the tooltip handling of the JComponent to the graph component,
+	 * which in turn may use getHandleToolTipText in this class to find a
+	 * tooltip associated with a handle.
 	 */
-	public String getToolTipText(MouseEvent e)
-	{
+	public String getToolTipText(MouseEvent e) {
 		MouseEvent tmp = SwingUtilities.convertMouseEvent(e.getComponent(), e,
 				graphComponent.getGraphControl());
 		Iterator<mxCellHandler> it = handlers.values().iterator();
 		String tip = null;
 
-		while (it.hasNext() && tip == null)
-		{
+		while (it.hasNext() && tip == null) {
 			tip = it.next().getToolTipText(tmp);
 		}
 
@@ -349,12 +314,10 @@ public class mxSelectionCellsHandler implements MouseListener,
 	/**
 	 * 
 	 */
-	public void reset()
-	{
+	public void reset() {
 		Iterator<mxCellHandler> it = handlers.values().iterator();
 
-		while (it.hasNext())
-		{
+		while (it.hasNext()) {
 			it.next().reset();
 		}
 	}
@@ -362,8 +325,7 @@ public class mxSelectionCellsHandler implements MouseListener,
 	/**
 	 * 
 	 */
-	public void refresh()
-	{
+	public void refresh() {
 		mxGraph graph = graphComponent.getGraph();
 
 		// Creates a new map for the handlers and tries to
@@ -376,68 +338,53 @@ public class mxSelectionCellsHandler implements MouseListener,
 		boolean handlesVisible = tmp.length <= getMaxHandlers();
 		Rectangle handleBounds = null;
 
-		for (int i = 0; i < tmp.length; i++)
-		{
+		for (int i = 0; i < tmp.length; i++) {
 			mxCellState state = graph.getView().getState(tmp[i]);
 
-			if (state != null && state.getCell() != graph.getView().getCurrentRoot())
-			{
+			if (state != null
+					&& state.getCell() != graph.getView().getCurrentRoot()) {
 				mxCellHandler handler = oldHandlers.remove(tmp[i]);
 
-				if (handler != null)
-				{
+				if (handler != null) {
 					handler.refresh(state);
-				}
-				else
-				{
+				} else {
 					handler = graphComponent.createHandler(state);
 				}
 
-				if (handler != null)
-				{
+				if (handler != null) {
 					handler.setHandlesVisible(handlesVisible);
 					handlers.put(tmp[i], handler);
 					Rectangle bounds = handler.getBounds();
 					Stroke stroke = handler.getSelectionStroke();
 
-					if (stroke != null)
-					{
+					if (stroke != null) {
 						bounds = stroke.createStrokedShape(bounds).getBounds();
 					}
 
-					if (handleBounds == null)
-					{
+					if (handleBounds == null) {
 						handleBounds = bounds;
-					}
-					else
-					{
+					} else {
 						handleBounds.add(bounds);
 					}
 				}
 			}
 		}
-		
-		for (mxCellHandler handler: oldHandlers.values())
-		{
+
+		for (mxCellHandler handler : oldHandlers.values()) {
 			handler.destroy();
 		}
 
 		Rectangle dirty = bounds;
 
-		if (handleBounds != null)
-		{
-			if (dirty != null)
-			{
+		if (handleBounds != null) {
+			if (dirty != null) {
 				dirty.add(handleBounds);
-			}
-			else
-			{
+			} else {
 				dirty = handleBounds;
 			}
 		}
 
-		if (dirty != null)
-		{
+		if (dirty != null) {
 			graphComponent.getGraphControl().repaint(dirty);
 		}
 
@@ -448,40 +395,38 @@ public class mxSelectionCellsHandler implements MouseListener,
 	/**
 	 * 
 	 */
-	public void paintHandles(Graphics g)
-	{
+	public void paintHandles(Graphics g) {
 		Iterator<mxCellHandler> it = handlers.values().iterator();
 
-		while (it.hasNext())
-		{
+		while (it.hasNext()) {
 			it.next().paint(g);
 		}
 	}
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
 	 */
-	public void mouseClicked(MouseEvent arg0)
-	{
+	public void mouseClicked(MouseEvent arg0) {
 		// empty
 	}
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
 	 */
-	public void mouseEntered(MouseEvent arg0)
-	{
+	public void mouseEntered(MouseEvent arg0) {
 		// empty
 	}
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see java.awt.event.MouseListener#mouseExited(java.awt.event.MouseEvent)
 	 */
-	public void mouseExited(MouseEvent arg0)
-	{
+	public void mouseExited(MouseEvent arg0) {
 		// empty
 	}
 

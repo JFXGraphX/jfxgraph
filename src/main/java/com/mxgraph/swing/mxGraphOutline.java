@@ -38,8 +38,7 @@ import com.mxgraph.view.mxGraphView;
 /**
  * An outline view for a specific graph component.
  */
-public class mxGraphOutline extends JComponent
-{
+public class mxGraphOutline extends JComponent {
 
 	/**
 	 * 
@@ -125,8 +124,7 @@ public class mxGraphOutline extends JComponent
 	/**
 	 * Not yet implemented.
 	 * 
-	 * Border to add around the page bounds if wholePage is true.
-	 * Default is 4.
+	 * Border to add around the page bounds if wholePage is true. Default is 4.
 	 */
 	protected int outlineBorder = 10;
 
@@ -153,24 +151,18 @@ public class mxGraphOutline extends JComponent
 	/**
 	 * 
 	 */
-	protected mxIEventListener repaintHandler = new mxIEventListener()
-	{
-		public void invoke(Object source, mxEventObject evt)
-		{
+	protected mxIEventListener repaintHandler = new mxIEventListener() {
+		public void invoke(Object source, mxEventObject evt) {
 			updateScaleAndTranslate();
 			mxRectangle dirty = (mxRectangle) evt.getProperty("region");
 
-			if (dirty != null)
-			{
+			if (dirty != null) {
 				repaintClip = new mxRectangle(dirty);
-			}
-			else
-			{
+			} else {
 				repaintBuffer = true;
 			}
 
-			if (dirty != null)
-			{
+			if (dirty != null) {
 				updateFinder(true);
 
 				dirty.grow(1 / scale);
@@ -181,9 +173,7 @@ public class mxGraphOutline extends JComponent
 				dirty.setHeight(dirty.getHeight() * scale);
 
 				repaint(dirty.getRectangle());
-			}
-			else
-			{
+			} else {
 				updateFinder(false);
 				repaint();
 			}
@@ -193,18 +183,13 @@ public class mxGraphOutline extends JComponent
 	/**
 	 * 
 	 */
-	protected ComponentListener componentHandler = new ComponentAdapter()
-	{
-		public void componentResized(ComponentEvent e)
-		{
-			if (updateScaleAndTranslate())
-			{
+	protected ComponentListener componentHandler = new ComponentAdapter() {
+		public void componentResized(ComponentEvent e) {
+			if (updateScaleAndTranslate()) {
 				repaintBuffer = true;
 				updateFinder(false);
 				repaint();
-			}
-			else
-			{
+			} else {
 				updateFinder(true);
 			}
 		}
@@ -213,22 +198,17 @@ public class mxGraphOutline extends JComponent
 	/**
 	 * 
 	 */
-	protected AdjustmentListener adjustmentHandler = new AdjustmentListener()
-	{
+	protected AdjustmentListener adjustmentHandler = new AdjustmentListener() {
 
 		/**
 		 * 
 		 */
-		public void adjustmentValueChanged(AdjustmentEvent e)
-		{
-			if (updateScaleAndTranslate())
-			{
+		public void adjustmentValueChanged(AdjustmentEvent e) {
+			if (updateScaleAndTranslate()) {
 				repaintBuffer = true;
 				updateFinder(false);
 				repaint();
-			}
-			else
-			{
+			} else {
 				updateFinder(true);
 			}
 		}
@@ -238,8 +218,7 @@ public class mxGraphOutline extends JComponent
 	/**
 	 * 
 	 */
-	public mxGraphOutline(mxGraphComponent graphComponent)
-	{
+	public mxGraphOutline(mxGraphComponent graphComponent) {
 		addComponentListener(componentHandler);
 		addMouseMotionListener(tracker);
 		addMouseListener(tracker);
@@ -251,15 +230,14 @@ public class mxGraphOutline extends JComponent
 	/**
 	 * Fires a property change event for <code>tripleBuffered</code>.
 	 * 
-	 * @param tripleBuffered the tripleBuffered to set
+	 * @param tripleBuffered
+	 *            the tripleBuffered to set
 	 */
-	public void setTripleBuffered(boolean tripleBuffered)
-	{
+	public void setTripleBuffered(boolean tripleBuffered) {
 		boolean oldValue = this.tripleBuffered;
 		this.tripleBuffered = tripleBuffered;
 
-		if (!tripleBuffered)
-		{
+		if (!tripleBuffered) {
 			destroyTripleBuffer();
 		}
 
@@ -269,18 +247,17 @@ public class mxGraphOutline extends JComponent
 	/**
 	 * 
 	 */
-	public boolean isTripleBuffered()
-	{
+	public boolean isTripleBuffered() {
 		return tripleBuffered;
 	}
 
 	/**
 	 * Fires a property change event for <code>drawLabels</code>.
 	 * 
-	 * @param drawLabels the drawLabels to set
+	 * @param drawLabels
+	 *            the drawLabels to set
 	 */
-	public void setDrawLabels(boolean drawLabels)
-	{
+	public void setDrawLabels(boolean drawLabels) {
 		boolean oldValue = this.drawLabels;
 		this.drawLabels = drawLabels;
 		repaintTripleBuffer(null);
@@ -291,18 +268,17 @@ public class mxGraphOutline extends JComponent
 	/**
 	 * 
 	 */
-	public boolean isDrawLabels()
-	{
+	public boolean isDrawLabels() {
 		return drawLabels;
 	}
 
 	/**
 	 * Fires a property change event for <code>antiAlias</code>.
 	 * 
-	 * @param antiAlias the antiAlias to set
+	 * @param antiAlias
+	 *            the antiAlias to set
 	 */
-	public void setAntiAlias(boolean antiAlias)
-	{
+	public void setAntiAlias(boolean antiAlias) {
 		boolean oldValue = this.antiAlias;
 		this.antiAlias = antiAlias;
 		repaintTripleBuffer(null);
@@ -313,21 +289,18 @@ public class mxGraphOutline extends JComponent
 	/**
 	 * @return the antiAlias
 	 */
-	public boolean isAntiAlias()
-	{
+	public boolean isAntiAlias() {
 		return antiAlias;
 	}
 
 	/**
 	 * 
 	 */
-	public void setVisible(boolean visible)
-	{
+	public void setVisible(boolean visible) {
 		super.setVisible(visible);
 
 		// Frees memory if the outline is hidden
-		if (!visible)
-		{
+		if (!visible) {
 			destroyTripleBuffer();
 		}
 	}
@@ -335,31 +308,28 @@ public class mxGraphOutline extends JComponent
 	/**
 	 * 
 	 */
-	public void setFinderVisible(boolean visible)
-	{
+	public void setFinderVisible(boolean visible) {
 		finderVisible = visible;
 	}
 
 	/**
 	 * 
 	 */
-	public void setZoomHandleVisible(boolean visible)
-	{
+	public void setZoomHandleVisible(boolean visible) {
 		zoomHandleVisible = visible;
 	}
 
 	/**
 	 * Fires a property change event for <code>fitPage</code>.
 	 * 
-	 * @param fitPage the fitPage to set
+	 * @param fitPage
+	 *            the fitPage to set
 	 */
-	public void setFitPage(boolean fitPage)
-	{
+	public void setFitPage(boolean fitPage) {
 		boolean oldValue = this.fitPage;
 		this.fitPage = fitPage;
 
-		if (updateScaleAndTranslate())
-		{
+		if (updateScaleAndTranslate()) {
 			repaintBuffer = true;
 			updateFinder(false);
 		}
@@ -370,30 +340,27 @@ public class mxGraphOutline extends JComponent
 	/**
 	 * 
 	 */
-	public boolean isFitPage()
-	{
+	public boolean isFitPage() {
 		return fitPage;
 	}
 
 	/**
 	 * 
 	 */
-	public mxGraphComponent getGraphComponent()
-	{
+	public mxGraphComponent getGraphComponent() {
 		return graphComponent;
 	}
 
 	/**
 	 * Fires a property change event for <code>graphComponent</code>.
 	 * 
-	 * @param graphComponent the graphComponent to set
+	 * @param graphComponent
+	 *            the graphComponent to set
 	 */
-	public void setGraphComponent(mxGraphComponent graphComponent)
-	{
+	public void setGraphComponent(mxGraphComponent graphComponent) {
 		mxGraphComponent oldValue = this.graphComponent;
 
-		if (this.graphComponent != null)
-		{
+		if (this.graphComponent != null) {
 			this.graphComponent.getGraph().removeListener(repaintHandler);
 			this.graphComponent.getGraphControl().removeComponentListener(
 					componentHandler);
@@ -405,8 +372,7 @@ public class mxGraphOutline extends JComponent
 
 		this.graphComponent = graphComponent;
 
-		if (this.graphComponent != null)
-		{
+		if (this.graphComponent != null) {
 			this.graphComponent.getGraph().addListener(mxEvent.REPAINT,
 					repaintHandler);
 			this.graphComponent.getGraphControl().addComponentListener(
@@ -417,8 +383,7 @@ public class mxGraphOutline extends JComponent
 					adjustmentHandler);
 		}
 
-		if (updateScaleAndTranslate())
-		{
+		if (updateScaleAndTranslate()) {
 			repaintBuffer = true;
 			repaint();
 		}
@@ -427,48 +392,39 @@ public class mxGraphOutline extends JComponent
 	}
 
 	/**
-	 * Checks if the triple buffer exists and creates a new one if
-	 * it does not. Also compares the size of the buffer with the
-	 * size of the graph and drops the buffer if it has a
-	 * different size.
+	 * Checks if the triple buffer exists and creates a new one if it does not.
+	 * Also compares the size of the buffer with the size of the graph and drops
+	 * the buffer if it has a different size.
 	 */
-	public void checkTripleBuffer()
-	{
-		if (tripleBuffer != null)
-		{
+	public void checkTripleBuffer() {
+		if (tripleBuffer != null) {
 			if (tripleBuffer.getWidth() != getWidth()
-					|| tripleBuffer.getHeight() != getHeight())
-			{
+					|| tripleBuffer.getHeight() != getHeight()) {
 				// Resizes the buffer (destroys existing and creates new)
 				destroyTripleBuffer();
 			}
 		}
 
-		if (tripleBuffer == null)
-		{
+		if (tripleBuffer == null) {
 			createTripleBuffer(getWidth(), getHeight());
 		}
 	}
 
 	/**
-	 * Creates the tripleBufferGraphics and tripleBuffer for the given
-	 * dimension and draws the complete graph onto the triplebuffer.
+	 * Creates the tripleBufferGraphics and tripleBuffer for the given dimension
+	 * and draws the complete graph onto the triplebuffer.
 	 * 
 	 * @param width
 	 * @param height
 	 */
-	protected void createTripleBuffer(int width, int height)
-	{
-		try
-		{
+	protected void createTripleBuffer(int width, int height) {
+		try {
 			tripleBuffer = mxUtils.createBufferedImage(width, height, null);
 			tripleBufferGraphics = tripleBuffer.createGraphics();
 
 			// Repaints the complete buffer
 			repaintTripleBuffer(null);
-		}
-		catch (OutOfMemoryError error)
-		{
+		} catch (OutOfMemoryError error) {
 			// ignore
 		}
 	}
@@ -476,10 +432,8 @@ public class mxGraphOutline extends JComponent
 	/**
 	 * Destroys the tripleBuffer and tripleBufferGraphics objects.
 	 */
-	public void destroyTripleBuffer()
-	{
-		if (tripleBuffer != null)
-		{
+	public void destroyTripleBuffer() {
+		if (tripleBuffer != null) {
 			tripleBuffer = null;
 			tripleBufferGraphics.dispose();
 			tripleBufferGraphics = null;
@@ -492,12 +446,9 @@ public class mxGraphOutline extends JComponent
 	 * 
 	 * @param clip
 	 */
-	public void repaintTripleBuffer(Rectangle clip)
-	{
-		if (tripleBuffered && tripleBufferGraphics != null)
-		{
-			if (clip == null)
-			{
+	public void repaintTripleBuffer(Rectangle clip) {
+		if (tripleBuffered && tripleBufferGraphics != null) {
+			if (clip == null) {
 				clip = new Rectangle(tripleBuffer.getWidth(),
 						tripleBuffer.getHeight());
 			}
@@ -517,8 +468,7 @@ public class mxGraphOutline extends JComponent
 	/**
 	 * 
 	 */
-	public void updateFinder(boolean repaint)
-	{
+	public void updateFinder(boolean repaint) {
 		Rectangle rect = graphComponent.getViewport().getViewRect();
 
 		int x = (int) Math.round(rect.x * scale);
@@ -533,16 +483,13 @@ public class mxGraphOutline extends JComponent
 	/**
 	 * 
 	 */
-	public void updateFinderBounds(Rectangle bounds, boolean repaint)
-	{
-		if (bounds != null && !bounds.equals(finderBounds))
-		{
+	public void updateFinderBounds(Rectangle bounds, boolean repaint) {
+		if (bounds != null && !bounds.equals(finderBounds)) {
 			Rectangle old = new Rectangle(finderBounds);
 			finderBounds = bounds;
 
 			// LATER: Fix repaint region to be smaller
-			if (repaint)
-			{
+			if (repaint) {
 				old = old.union(finderBounds);
 				old.grow(3, 3);
 				repaint(old);
@@ -553,32 +500,23 @@ public class mxGraphOutline extends JComponent
 	/**
 	 * 
 	 */
-	public void paintComponent(Graphics g)
-	{
+	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		paintBackground(g);
 
-		if (graphComponent != null)
-		{
+		if (graphComponent != null) {
 			// Creates or destroys the triple buffer as needed
-			if (tripleBuffered)
-			{
+			if (tripleBuffered) {
 				checkTripleBuffer();
-			}
-			else if (tripleBuffer != null)
-			{
+			} else if (tripleBuffer != null) {
 				destroyTripleBuffer();
 			}
 
 			// Updates the dirty region from the buffered graph image
-			if (tripleBuffer != null)
-			{
-				if (repaintBuffer)
-				{
+			if (tripleBuffer != null) {
+				if (repaintBuffer) {
 					repaintTripleBuffer(null);
-				}
-				else if (repaintClip != null)
-				{
+				} else if (repaintClip != null) {
 					repaintClip.grow(1 / scale);
 
 					repaintClip.setX(repaintClip.getX() * scale + translate.x);
@@ -593,8 +531,7 @@ public class mxGraphOutline extends JComponent
 			}
 
 			// Paints the graph directly onto the graphics
-			else
-			{
+			else {
 				paintGraph(g);
 			}
 
@@ -605,16 +542,13 @@ public class mxGraphOutline extends JComponent
 	/**
 	 * Paints the background.
 	 */
-	protected void paintBackground(Graphics g)
-	{
-		if (graphComponent != null)
-		{
+	protected void paintBackground(Graphics g) {
+		if (graphComponent != null) {
 			Graphics2D g2 = (Graphics2D) g;
 			AffineTransform tx = g2.getTransform();
 
-			try
-			{
-				// Draws the background of the outline if a graph exists 
+			try {
+				// Draws the background of the outline if a graph exists
 				g.setColor(graphComponent.getPageBackgroundColor());
 				mxUtils.fillClippedRect(g, 0, 0, getWidth(), getHeight());
 
@@ -622,12 +556,10 @@ public class mxGraphOutline extends JComponent
 				g2.scale(scale, scale);
 
 				// Draws the scaled page background
-				if (!graphComponent.isPageVisible())
-				{
+				if (!graphComponent.isPageVisible()) {
 					Color bg = graphComponent.getBackground();
 
-					if (graphComponent.getViewport().isOpaque())
-					{
+					if (graphComponent.getViewport().isOpaque()) {
 						bg = graphComponent.getViewport().getBackground();
 					}
 
@@ -638,21 +570,15 @@ public class mxGraphOutline extends JComponent
 					mxUtils.fillClippedRect(g, 0, 0, size.width, size.height);
 					g.setColor(g.getColor().darker().darker());
 					g.drawRect(0, 0, size.width, size.height);
-				}
-				else
-				{
+				} else {
 					// Paints the page background using the graphics scaling
 					graphComponent.paintBackgroundPage(g);
 				}
-			}
-			finally
-			{
+			} finally {
 				g2.setTransform(tx);
 			}
-		}
-		else
-		{
-			// Draws the background of the outline if no graph exists 
+		} else {
+			// Draws the background of the outline if no graph exists
 			g.setColor(getBackground());
 			mxUtils.fillClippedRect(g, 0, 0, getWidth(), getHeight());
 		}
@@ -661,15 +587,12 @@ public class mxGraphOutline extends JComponent
 	/**
 	 * Paints the graph outline.
 	 */
-	public void paintGraph(Graphics g)
-	{
-		if (graphComponent != null)
-		{
+	public void paintGraph(Graphics g) {
+		if (graphComponent != null) {
 			Graphics2D g2 = (Graphics2D) g;
 			AffineTransform tx = g2.getTransform();
 
-			try
-			{
+			try {
 				Point tr = graphComponent.getGraphControl().getTranslate();
 				g2.translate(translate.x + tr.getX() * scale,
 						translate.y + tr.getY() * scale);
@@ -677,9 +600,7 @@ public class mxGraphOutline extends JComponent
 
 				// Draws the scaled graph
 				graphComponent.getGraphControl().drawGraph(g2, drawLabels);
-			}
-			finally
-			{
+			} finally {
 				g2.setTransform(tx);
 			}
 		}
@@ -689,10 +610,8 @@ public class mxGraphOutline extends JComponent
 	 * Paints the foreground. Foreground is dynamic and should never be made
 	 * part of the triple buffer. It is painted on top of the buffer.
 	 */
-	protected void paintForeground(Graphics g)
-	{
-		if (graphComponent != null)
-		{
+	protected void paintForeground(Graphics g) {
+		if (graphComponent != null) {
 			Graphics2D g2 = (Graphics2D) g;
 
 			Stroke stroke = g2.getStroke();
@@ -701,15 +620,14 @@ public class mxGraphOutline extends JComponent
 			g.drawRect(finderBounds.x, finderBounds.y, finderBounds.width,
 					finderBounds.height);
 
-			if (zoomHandleVisible)
-			{
+			if (zoomHandleVisible) {
 				g2.setStroke(stroke);
 				g.setColor(DEFAULT_ZOOMHANDLE_FILL);
-				g.fillRect(finderBounds.x + finderBounds.width - 6, finderBounds.y
-						+ finderBounds.height - 6, 8, 8);
+				g.fillRect(finderBounds.x + finderBounds.width - 6,
+						finderBounds.y + finderBounds.height - 6, 8, 8);
 				g.setColor(Color.BLACK);
-				g.drawRect(finderBounds.x + finderBounds.width - 6, finderBounds.y
-						+ finderBounds.height - 6, 8, 8);
+				g.drawRect(finderBounds.x + finderBounds.width - 6,
+						finderBounds.y + finderBounds.height - 6, 8, 8);
 			}
 		}
 	}
@@ -717,22 +635,19 @@ public class mxGraphOutline extends JComponent
 	/**
 	 * Returns true if the scale or translate has changed.
 	 */
-	public boolean updateScaleAndTranslate()
-	{
+	public boolean updateScaleAndTranslate() {
 		double newScale = 1;
 		int dx = 0;
 		int dy = 0;
 
-		if (this.graphComponent != null)
-		{
+		if (this.graphComponent != null) {
 			Dimension graphSize = graphComponent.getGraphControl().getSize();
 			Dimension outlineSize = getSize();
 
 			int gw = (int) graphSize.getWidth();
 			int gh = (int) graphSize.getHeight();
 
-			if (gw > 0 && gh > 0)
-			{
+			if (gw > 0 && gh > 0) {
 				boolean magnifyPage = graphComponent.isPageVisible()
 						&& isFitPage()
 						&& graphComponent.getHorizontalScrollBar().isVisible()
@@ -745,8 +660,7 @@ public class mxGraphOutline extends JComponent
 				int w = (int) outlineSize.getWidth() - 2 * outlineBorder;
 				int h = (int) outlineSize.getHeight() - 2 * outlineBorder;
 
-				if (magnifyPage)
-				{
+				if (magnifyPage) {
 					gw -= 2 * Math.round(trans.getX() * graphScale);
 					gh -= 2 * Math.round(trans.getY() * graphScale);
 				}
@@ -758,23 +672,19 @@ public class mxGraphOutline extends JComponent
 				dy += (int) Math
 						.round((outlineSize.getHeight() - gh * newScale) / 2);
 
-				if (magnifyPage)
-				{
+				if (magnifyPage) {
 					dx -= Math.round(trans.getX() * newScale * graphScale);
 					dy -= Math.round(trans.getY() * newScale * graphScale);
 				}
 			}
 		}
 
-		if (newScale != scale || translate.x != dx || translate.y != dy)
-		{
+		if (newScale != scale || translate.x != dx || translate.y != dy) {
 			scale = newScale;
 			translate.setLocation(dx, dy);
 
 			return true;
-		}
-		else
-		{
+		} else {
 			return false;
 		}
 	}
@@ -782,8 +692,7 @@ public class mxGraphOutline extends JComponent
 	/**
 	 *
 	 */
-	public class MouseTracker implements MouseListener, MouseMotionListener
-	{
+	public class MouseTracker implements MouseListener, MouseMotionListener {
 		/**
 		 * 
 		 */
@@ -791,30 +700,30 @@ public class mxGraphOutline extends JComponent
 
 		/*
 		 * (non-Javadoc)
-		 * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
+		 * 
+		 * @see
+		 * java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
 		 */
-		public void mousePressed(MouseEvent e)
-		{
+		public void mousePressed(MouseEvent e) {
 			zoomGesture = hitZoomHandle(e.getX(), e.getY());
 
 			if (graphComponent != null && !e.isConsumed()
 					&& !e.isPopupTrigger()
-					&& (finderBounds.contains(e.getPoint()) || zoomGesture))
-			{
+					&& (finderBounds.contains(e.getPoint()) || zoomGesture)) {
 				start = e.getPoint();
 			}
 		}
 
 		/*
 		 * (non-Javadoc)
-		 * @see java.awt.event.MouseMotionListener#mouseDragged(java.awt.event.MouseEvent)
+		 * 
+		 * @see
+		 * java.awt.event.MouseMotionListener#mouseDragged(java.awt.event.MouseEvent
+		 * )
 		 */
-		public void mouseDragged(MouseEvent e)
-		{
-			if (isEnabled() && start != null)
-			{
-				if (zoomGesture)
-				{
+		public void mouseDragged(MouseEvent e) {
+			if (isEnabled() && start != null) {
+				if (zoomGesture) {
 					Rectangle bounds = graphComponent.getViewport()
 							.getViewRect();
 					double viewRatio = bounds.getWidth() / bounds.getHeight();
@@ -826,9 +735,7 @@ public class mxGraphOutline extends JComponent
 							(bounds.getWidth() / viewRatio));
 
 					updateFinderBounds(bounds, true);
-				}
-				else
-				{
+				} else {
 					// TODO: To enable constrained moving, that is, moving
 					// into only x- or y-direction when shift is pressed,
 					// we need the location of the first mouse event, since
@@ -853,14 +760,13 @@ public class mxGraphOutline extends JComponent
 
 		/*
 		 * (non-Javadoc)
-		 * @see java.awt.event.MouseListener#mouseReleased(java.awt.event.MouseEvent)
+		 * 
+		 * @see
+		 * java.awt.event.MouseListener#mouseReleased(java.awt.event.MouseEvent)
 		 */
-		public void mouseReleased(MouseEvent e)
-		{
-			if (start != null)
-			{
-				if (zoomGesture)
-				{
+		public void mouseReleased(MouseEvent e) {
+			if (start != null) {
+				if (zoomGesture) {
 					double dx = e.getX() - start.getX();
 					double w = finderBounds.getWidth();
 
@@ -868,24 +774,18 @@ public class mxGraphOutline extends JComponent
 							.getHorizontalScrollBar();
 					final double sx;
 
-					if (hs != null)
-					{
+					if (hs != null) {
 						sx = (double) hs.getValue() / hs.getMaximum();
-					}
-					else
-					{
+					} else {
 						sx = 0;
 					}
 
 					final JScrollBar vs = graphComponent.getVerticalScrollBar();
 					final double sy;
 
-					if (vs != null)
-					{
+					if (vs != null) {
 						sy = (double) vs.getValue() / vs.getMaximum();
-					}
-					else
-					{
+					} else {
 						sy = 0;
 					}
 
@@ -895,13 +795,11 @@ public class mxGraphOutline extends JComponent
 					double factor = newScale / scale;
 					view.setScale(newScale);
 
-					if (hs != null)
-					{
+					if (hs != null) {
 						hs.setValue((int) (sx * hs.getMaximum() * factor));
 					}
 
-					if (vs != null)
-					{
+					if (vs != null) {
 						vs.setValue((int) (sy * vs.getMaximum() * factor));
 					}
 				}
@@ -914,8 +812,7 @@ public class mxGraphOutline extends JComponent
 		/**
 		 * 
 		 */
-		public boolean hitZoomHandle(int x, int y)
-		{
+		public boolean hitZoomHandle(int x, int y) {
 			return new Rectangle(finderBounds.x + finderBounds.width - 6,
 					finderBounds.y + finderBounds.height - 6, 8, 8).contains(x,
 					y);
@@ -923,48 +820,48 @@ public class mxGraphOutline extends JComponent
 
 		/*
 		 * (non-Javadoc)
-		 * @see java.awt.event.MouseMotionListener#mouseMoved(java.awt.event.MouseEvent)
+		 * 
+		 * @see
+		 * java.awt.event.MouseMotionListener#mouseMoved(java.awt.event.MouseEvent
+		 * )
 		 */
-		public void mouseMoved(MouseEvent e)
-		{
-			if (hitZoomHandle(e.getX(), e.getY()))
-			{
+		public void mouseMoved(MouseEvent e) {
+			if (hitZoomHandle(e.getX(), e.getY())) {
 				setCursor(new Cursor(Cursor.HAND_CURSOR));
-			}
-			else if (finderBounds.contains(e.getPoint()))
-			{
+			} else if (finderBounds.contains(e.getPoint())) {
 				setCursor(new Cursor(Cursor.MOVE_CURSOR));
-			}
-			else
-			{
+			} else {
 				setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 			}
 		}
 
 		/*
 		 * (non-Javadoc)
-		 * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
+		 * 
+		 * @see
+		 * java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
 		 */
-		public void mouseClicked(MouseEvent e)
-		{
+		public void mouseClicked(MouseEvent e) {
 			// ignore
 		}
 
 		/*
 		 * (non-Javadoc)
-		 * @see java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
+		 * 
+		 * @see
+		 * java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
 		 */
-		public void mouseEntered(MouseEvent e)
-		{
+		public void mouseEntered(MouseEvent e) {
 			// ignore
 		}
 
 		/*
 		 * (non-Javadoc)
-		 * @see java.awt.event.MouseListener#mouseExited(java.awt.event.MouseEvent)
+		 * 
+		 * @see
+		 * java.awt.event.MouseListener#mouseExited(java.awt.event.MouseEvent)
 		 */
-		public void mouseExited(MouseEvent e)
-		{
+		public void mouseExited(MouseEvent e) {
 			// ignore
 		}
 

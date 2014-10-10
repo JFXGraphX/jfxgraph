@@ -7,8 +7,7 @@ package com.mxgraph.model;
 /**
  * Defines the requirements for a cell that can be used in an mxGraphModel.
  */
-public interface mxICell
-{
+public interface mxICell {
 
 	/**
 	 * Returns the Id of the cell as a string.
@@ -20,7 +19,8 @@ public interface mxICell
 	/**
 	 * Sets the Id of the cell to the given string.
 	 * 
-	 * @param id String that represents the new Id.
+	 * @param id
+	 *            String that represents the new Id.
 	 */
 	void setId(String id);
 
@@ -34,7 +34,8 @@ public interface mxICell
 	/**
 	 * Sets the user object of the cell.
 	 * 
-	 * @param value Object that represents the new value.
+	 * @param value
+	 *            Object that represents the new value.
 	 */
 	void setValue(Object value);
 
@@ -93,7 +94,8 @@ public interface mxICell
 	/**
 	 * Specifies if the cell is visible.
 	 * 
-	 * @param visible Boolean that specifies the new visible state.
+	 * @param visible
+	 *            Boolean that specifies the new visible state.
 	 */
 	void setVisible(boolean visible);
 
@@ -107,7 +109,8 @@ public interface mxICell
 	/**
 	 * Sets the collapsed state.
 	 * 
-	 * @param collapsed Boolean that specifies the new collapsed state.
+	 * @param collapsed
+	 *            Boolean that specifies the new collapsed state.
 	 */
 	void setCollapsed(boolean collapsed);
 
@@ -121,15 +124,17 @@ public interface mxICell
 	/**
 	 * Sets the parent cell.
 	 * 
-	 * @param parent Cell that represents the new parent.
+	 * @param parent
+	 *            Cell that represents the new parent.
 	 */
 	void setParent(mxICell parent);
 
 	/**
 	 * Returns the source or target terminal.
 	 * 
-	 * @param source Boolean that specifies if the source terminal should be
-	 * returned.
+	 * @param source
+	 *            Boolean that specifies if the source terminal should be
+	 *            returned.
 	 * @return Returns the source or target terminal.
 	 */
 	mxICell getTerminal(boolean source);
@@ -137,9 +142,11 @@ public interface mxICell
 	/**
 	 * Sets the source or target terminal and returns the new terminal.
 	 * 
-	 * @param terminal Cell that represents the new source or target terminal.
-	 * @param isSource Boolean that specifies if the source or target terminal
-	 * should be set.
+	 * @param terminal
+	 *            Cell that represents the new source or target terminal.
+	 * @param isSource
+	 *            Boolean that specifies if the source or target terminal should
+	 *            be set.
 	 * @return Returns the new terminal.
 	 */
 	mxICell setTerminal(mxICell terminal, boolean isSource);
@@ -154,7 +161,8 @@ public interface mxICell
 	/**
 	 * Returns the index of the specified child in the child array.
 	 * 
-	 * @param child Child whose index should be returned.
+	 * @param child
+	 *            Child whose index should be returned.
 	 * @return Returns the index of the given child.
 	 */
 	int getIndex(mxICell child);
@@ -162,7 +170,8 @@ public interface mxICell
 	/**
 	 * Returns the child at the specified index.
 	 * 
-	 * @param index Integer that specifies the child to be returned.
+	 * @param index
+	 *            Integer that specifies the child to be returned.
 	 * @return Returns the child at the given index.
 	 */
 	mxICell getChildAt(int index);
@@ -171,29 +180,33 @@ public interface mxICell
 	 * Appends the specified child into the child array and updates the parent
 	 * reference of the child. Returns the appended child.
 	 * 
-	 * @param child Cell to be appended to the child array.
+	 * @param child
+	 *            Cell to be appended to the child array.
 	 * @return Returns the new child.
 	 */
 	mxICell insert(mxICell child);
 
 	/**
 	 * Inserts the specified child into the child array at the specified index
-	 * and updates the parent reference of the child. Returns the inserted child.
+	 * and updates the parent reference of the child. Returns the inserted
+	 * child.
 	 * 
-	 * @param child Cell to be inserted into the child array.
-	 * @param index Integer that specifies the index at which the child should
-	 * be inserted into the child array.
+	 * @param child
+	 *            Cell to be inserted into the child array.
+	 * @param index
+	 *            Integer that specifies the index at which the child should be
+	 *            inserted into the child array.
 	 * @return Returns the new child.
 	 */
 	mxICell insert(mxICell child, int index);
 
 	/**
-	 * Removes the child at the specified index from the child array and
-	 * returns the child that was removed. Will remove the parent reference of
-	 * the child.
+	 * Removes the child at the specified index from the child array and returns
+	 * the child that was removed. Will remove the parent reference of the
+	 * child.
 	 * 
-	 * @param index Integer that specifies the index of the child to be
-	 * removed.
+	 * @param index
+	 *            Integer that specifies the index of the child to be removed.
 	 * @return Returns the child that was removed.
 	 */
 	mxICell remove(int index);
@@ -202,7 +215,8 @@ public interface mxICell
 	 * Removes the given child from the child array and returns it. Will remove
 	 * the parent reference of the child.
 	 * 
-	 * @param child Cell that represents the child to be removed.
+	 * @param child
+	 *            Cell that represents the child to be removed.
 	 * @return Returns the child that was removed.
 	 */
 	mxICell remove(mxICell child);
@@ -222,7 +236,8 @@ public interface mxICell
 	/**
 	 * Returns the index of the specified edge in the edge array.
 	 * 
-	 * @param edge Cell whose index should be returned.
+	 * @param edge
+	 *            Cell whose index should be returned.
 	 * @return Returns the index of the given edge.
 	 */
 	int getEdgeIndex(mxICell edge);
@@ -230,28 +245,32 @@ public interface mxICell
 	/**
 	 * Returns the edge at the specified index in the edge array.
 	 * 
-	 * @param index Integer that specifies the index of the edge to be
-	 * returned.
+	 * @param index
+	 *            Integer that specifies the index of the edge to be returned.
 	 * @return Returns the edge at the given index.
 	 */
 	mxICell getEdgeAt(int index);
 
 	/**
-	 * Inserts the specified edge into the edge array and returns the edge.
-	 * Will update the respective terminal reference of the edge.
+	 * Inserts the specified edge into the edge array and returns the edge. Will
+	 * update the respective terminal reference of the edge.
 	 * 
-	 * @param edge Cell to be inserted into the edge array.
-	 * @param isOutgoing Boolean that specifies if the edge is outgoing.
+	 * @param edge
+	 *            Cell to be inserted into the edge array.
+	 * @param isOutgoing
+	 *            Boolean that specifies if the edge is outgoing.
 	 * @return Returns the new edge.
 	 */
 	mxICell insertEdge(mxICell edge, boolean isOutgoing);
 
 	/**
-	 * Removes the specified edge from the edge array and returns the edge.
-	 * Will remove the respective terminal reference from the edge.
+	 * Removes the specified edge from the edge array and returns the edge. Will
+	 * remove the respective terminal reference from the edge.
 	 * 
-	 * @param edge Cell to be removed from the edge array.
-	 * @param isOutgoing Boolean that specifies if the edge is outgoing.
+	 * @param edge
+	 *            Cell to be removed from the edge array.
+	 * @param isOutgoing
+	 *            Boolean that specifies if the edge is outgoing.
 	 * @return Returns the edge that was removed.
 	 */
 	mxICell removeEdge(mxICell edge, boolean isOutgoing);
@@ -259,8 +278,9 @@ public interface mxICell
 	/**
 	 * Removes the edge from its source or target terminal.
 	 * 
-	 * @param isSource Boolean that specifies if the edge should be removed
-	 * from its source or target terminal.
+	 * @param isSource
+	 *            Boolean that specifies if the edge should be removed from its
+	 *            source or target terminal.
 	 */
 	void removeFromTerminal(boolean isSource);
 

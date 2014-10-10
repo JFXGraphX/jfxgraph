@@ -23,8 +23,7 @@ import java.util.List;
  * mxEvent.ADD fires after an undoable edit was added to the history. The
  * <code>edit</code> property contains the mxUndoableEdit that was added.
  */
-public class mxUndoManager extends mxEventSource
-{
+public class mxUndoManager extends mxEventSource {
 
 	/**
 	 * Maximum command history size. 0 means unlimited history. Default is 100.
@@ -44,16 +43,14 @@ public class mxUndoManager extends mxEventSource
 	/**
 	 * Constructs a new undo manager with a default history size.
 	 */
-	public mxUndoManager()
-	{
+	public mxUndoManager() {
 		this(100);
 	}
 
 	/**
 	 * Constructs a new undo manager for the specified size.
 	 */
-	public mxUndoManager(int size)
-	{
+	public mxUndoManager(int size) {
 		this.size = size;
 		clear();
 	}
@@ -61,16 +58,14 @@ public class mxUndoManager extends mxEventSource
 	/**
 	 * 
 	 */
-	public boolean isEmpty()
-	{
+	public boolean isEmpty() {
 		return history.isEmpty();
 	}
 
 	/**
 	 * Clears the command history.
 	 */
-	public void clear()
-	{
+	public void clear() {
 		history = new ArrayList<mxUndoableEdit>(size);
 		indexOfNextAdd = 0;
 		fireEvent(new mxEventObject(mxEvent.CLEAR));
@@ -79,23 +74,19 @@ public class mxUndoManager extends mxEventSource
 	/**
 	 * Returns true if an undo is possible.
 	 */
-	public boolean canUndo()
-	{
+	public boolean canUndo() {
 		return indexOfNextAdd > 0;
 	}
 
 	/**
 	 * Undoes the last change.
 	 */
-	public void undo()
-	{
-		while (indexOfNextAdd > 0)
-		{
+	public void undo() {
+		while (indexOfNextAdd > 0) {
 			mxUndoableEdit edit = history.get(--indexOfNextAdd);
 			edit.undo();
 
-			if (edit.isSignificant())
-			{
+			if (edit.isSignificant()) {
 				fireEvent(new mxEventObject(mxEvent.UNDO, "edit", edit));
 				break;
 			}
@@ -105,25 +96,21 @@ public class mxUndoManager extends mxEventSource
 	/**
 	 * Returns true if a redo is possible.
 	 */
-	public boolean canRedo()
-	{
+	public boolean canRedo() {
 		return indexOfNextAdd < history.size();
 	}
 
 	/**
 	 * Redoes the last change.
 	 */
-	public void redo()
-	{
+	public void redo() {
 		int n = history.size();
 
-		while (indexOfNextAdd < n)
-		{
+		while (indexOfNextAdd < n) {
 			mxUndoableEdit edit = history.get(indexOfNextAdd++);
 			edit.redo();
 
-			if (edit.isSignificant())
-			{
+			if (edit.isSignificant()) {
 				fireEvent(new mxEventObject(mxEvent.REDO, "edit", edit));
 				break;
 			}
@@ -133,12 +120,10 @@ public class mxUndoManager extends mxEventSource
 	/**
 	 * Method to be called to add new undoable edits to the history.
 	 */
-	public void undoableEditHappened(mxUndoableEdit undoableEdit)
-	{
+	public void undoableEditHappened(mxUndoableEdit undoableEdit) {
 		trim();
 
-		if (size > 0 && size == history.size())
-		{
+		if (size > 0 && size == history.size()) {
 			history.remove(0);
 		}
 
@@ -148,15 +133,12 @@ public class mxUndoManager extends mxEventSource
 	}
 
 	/**
-	 * Removes all pending steps after indexOfNextAdd from the history,
-	 * invoking die on each edit. This is called from undoableEditHappened.
+	 * Removes all pending steps after indexOfNextAdd from the history, invoking
+	 * die on each edit. This is called from undoableEditHappened.
 	 */
-	protected void trim()
-	{
-		while (history.size() > indexOfNextAdd)
-		{
-			mxUndoableEdit edit = history
-					.remove(indexOfNextAdd);
+	protected void trim() {
+		while (history.size() > indexOfNextAdd) {
+			mxUndoableEdit edit = history.remove(indexOfNextAdd);
 			edit.die();
 		}
 	}

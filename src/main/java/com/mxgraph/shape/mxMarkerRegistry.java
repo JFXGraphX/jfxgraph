@@ -13,29 +13,24 @@ import com.mxgraph.util.mxPoint;
 import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxCellState;
 
-public class mxMarkerRegistry
-{
+public class mxMarkerRegistry {
 	/**
 	 * 
 	 */
 	protected static Map<String, mxIMarker> markers = new Hashtable<String, mxIMarker>();
 
-	static
-	{
-		mxIMarker tmp = new mxIMarker()
-		{
+	static {
+		mxIMarker tmp = new mxIMarker() {
 			public mxPoint paintMarker(mxGraphics2DCanvas canvas,
 					mxCellState state, String type, mxPoint pe, double nx,
-					double ny, double size, boolean source)
-			{
+					double ny, double size, boolean source) {
 				Polygon poly = new Polygon();
 				poly.addPoint((int) Math.round(pe.getX()),
 						(int) Math.round(pe.getY()));
 				poly.addPoint((int) Math.round(pe.getX() - nx - ny / 2),
 						(int) Math.round(pe.getY() - ny + nx / 2));
 
-				if (type.equals(mxConstants.ARROW_CLASSIC))
-				{
+				if (type.equals(mxConstants.ARROW_CLASSIC)) {
 					poly.addPoint((int) Math.round(pe.getX() - nx * 3 / 4),
 							(int) Math.round(pe.getY() - ny * 3 / 4));
 				}
@@ -43,11 +38,11 @@ public class mxMarkerRegistry
 				poly.addPoint((int) Math.round(pe.getX() + ny / 2 - nx),
 						(int) Math.round(pe.getY() - ny - nx / 2));
 
-				if (mxUtils.isTrue(state.getStyle(), (source) ? "startFill" : "endFill", true))
-				{
+				if (mxUtils.isTrue(state.getStyle(), (source) ? "startFill"
+						: "endFill", true)) {
 					canvas.fillShape(poly);
 				}
-				
+
 				canvas.getGraphics().draw(poly);
 
 				return new mxPoint(-nx, -ny);
@@ -57,12 +52,10 @@ public class mxMarkerRegistry
 		registerMarker(mxConstants.ARROW_CLASSIC, tmp);
 		registerMarker(mxConstants.ARROW_BLOCK, tmp);
 
-		registerMarker(mxConstants.ARROW_OPEN, new mxIMarker()
-		{
+		registerMarker(mxConstants.ARROW_OPEN, new mxIMarker() {
 			public mxPoint paintMarker(mxGraphics2DCanvas canvas,
 					mxCellState state, String type, mxPoint pe, double nx,
-					double ny, double size, boolean source)
-			{
+					double ny, double size, boolean source) {
 				canvas.getGraphics().draw(
 						new Line2D.Float((int) Math.round(pe.getX() - nx - ny
 								/ 2),
@@ -78,36 +71,31 @@ public class mxMarkerRegistry
 				return new mxPoint(-nx / 2, -ny / 2);
 			}
 		});
-		
-		registerMarker(mxConstants.ARROW_OVAL, new mxIMarker()
-		{
+
+		registerMarker(mxConstants.ARROW_OVAL, new mxIMarker() {
 			public mxPoint paintMarker(mxGraphics2DCanvas canvas,
 					mxCellState state, String type, mxPoint pe, double nx,
-					double ny, double size, boolean source)
-			{
+					double ny, double size, boolean source) {
 				double cx = pe.getX() - nx / 2;
 				double cy = pe.getY() - ny / 2;
 				double a = size / 2;
 				Shape shape = new Ellipse2D.Double(cx - a, cy - a, size, size);
 
-				if (mxUtils.isTrue(state.getStyle(), (source) ? "startFill" : "endFill", true))
-				{
+				if (mxUtils.isTrue(state.getStyle(), (source) ? "startFill"
+						: "endFill", true)) {
 					canvas.fillShape(shape);
 				}
-				
+
 				canvas.getGraphics().draw(shape);
 
 				return new mxPoint(-nx / 2, -ny / 2);
 			}
 		});
-		
-		
-		registerMarker(mxConstants.ARROW_DIAMOND, new mxIMarker()
-		{
+
+		registerMarker(mxConstants.ARROW_DIAMOND, new mxIMarker() {
 			public mxPoint paintMarker(mxGraphics2DCanvas canvas,
 					mxCellState state, String type, mxPoint pe, double nx,
-					double ny, double size, boolean source)
-			{
+					double ny, double size, boolean source) {
 				Polygon poly = new Polygon();
 				poly.addPoint((int) Math.round(pe.getX()),
 						(int) Math.round(pe.getY()));
@@ -118,11 +106,11 @@ public class mxMarkerRegistry
 				poly.addPoint((int) Math.round(pe.getX() - nx / 2 + ny / 2),
 						(int) Math.round(pe.getY() - ny / 2 - nx / 2));
 
-				if (mxUtils.isTrue(state.getStyle(), (source) ? "startFill" : "endFill", true))
-				{
+				if (mxUtils.isTrue(state.getStyle(), (source) ? "startFill"
+						: "endFill", true)) {
 					canvas.fillShape(poly);
 				}
-				
+
 				canvas.getGraphics().draw(poly);
 
 				return new mxPoint(-nx / 2, -ny / 2);
@@ -133,16 +121,14 @@ public class mxMarkerRegistry
 	/**
 	 * 
 	 */
-	public static mxIMarker getMarker(String name)
-	{
+	public static mxIMarker getMarker(String name) {
 		return markers.get(name);
 	}
 
 	/**
 	 * 
 	 */
-	public static void registerMarker(String name, mxIMarker marker)
-	{
+	public static void registerMarker(String name, mxIMarker marker) {
 		markers.put(name, marker);
 	}
 

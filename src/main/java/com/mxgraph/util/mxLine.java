@@ -10,8 +10,7 @@ import java.awt.geom.Line2D;
  * Implements a line with double precision coordinates.
  */
 
-public class mxLine extends mxPoint
-{
+public class mxLine extends mxPoint {
 	/**
 	 * 
 	 */
@@ -24,18 +23,16 @@ public class mxLine extends mxPoint
 	/**
 	 * Creates a new line
 	 */
-	public mxLine(mxPoint startPt, mxPoint endPt)
-	{
+	public mxLine(mxPoint startPt, mxPoint endPt) {
 		this.setX(startPt.getX());
 		this.setY(startPt.getY());
 		this.endPoint = endPt;
 	}
-	
+
 	/**
 	 * Creates a new line
 	 */
-	public mxLine(double startPtX, double startPtY, mxPoint endPt)
-	{
+	public mxLine(double startPtX, double startPtY, mxPoint endPt) {
 		x = startPtX;
 		y = startPtY;
 		this.endPoint = endPt;
@@ -46,56 +43,55 @@ public class mxLine extends mxPoint
 	 * 
 	 * @return Returns the end point of the line.
 	 */
-	public mxPoint getEndPoint()
-	{
+	public mxPoint getEndPoint() {
 		return this.endPoint;
 	}
 
 	/**
 	 * Sets the end point of the rectangle.
 	 * 
-	 * @param value The new end point of the line
+	 * @param value
+	 *            The new end point of the line
 	 */
-	public void setEndPoint(mxPoint value)
-	{
+	public void setEndPoint(mxPoint value) {
 		this.endPoint = value;
 	}
 
 	/**
 	 * Sets the start and end points.
 	 */
-	public void setPoints(mxPoint startPt, mxPoint endPt)
-	{
+	public void setPoints(mxPoint startPt, mxPoint endPt) {
 		this.setX(startPt.getX());
 		this.setY(startPt.getY());
 		this.endPoint = endPt;
 	}
-	
+
 	/**
 	 * Returns the square of the shortest distance from a point to this line.
-	 * The line is considered extrapolated infinitely in both directions for 
-	 * the purposes of the calculation.
+	 * The line is considered extrapolated infinitely in both directions for the
+	 * purposes of the calculation.
 	 *
-	 * @param pt the point whose distance is being measured
+	 * @param pt
+	 *            the point whose distance is being measured
 	 * @return the square of the distance from the specified point to this line.
 	 */
-	public double ptLineDistSq(mxPoint pt)
-	{
-		return new Line2D.Double(getX(), getY(), endPoint.getX(), endPoint
-				.getY()).ptLineDistSq(pt.getX(), pt.getY());
+	public double ptLineDistSq(mxPoint pt) {
+		return new Line2D.Double(getX(), getY(), endPoint.getX(),
+				endPoint.getY()).ptLineDistSq(pt.getX(), pt.getY());
 	}
 
 	/**
-	 * Returns the square of the shortest distance from a point to this 
-	 * line segment.
+	 * Returns the square of the shortest distance from a point to this line
+	 * segment.
 	 *
-	 * @param pt the point whose distance is being measured
-	 * @return the square of the distance from the specified point to this segment.
+	 * @param pt
+	 *            the point whose distance is being measured
+	 * @return the square of the distance from the specified point to this
+	 *         segment.
 	 */
-	public double ptSegDistSq(mxPoint pt)
-	{
-		return new Line2D.Double(getX(), getY(), endPoint.getX(), endPoint
-				.getY()).ptSegDistSq(pt.getX(), pt.getY());
+	public double ptSegDistSq(mxPoint pt) {
+		return new Line2D.Double(getX(), getY(), endPoint.getX(),
+				endPoint.getY()).ptSegDistSq(pt.getX(), pt.getY());
 	}
 
 }

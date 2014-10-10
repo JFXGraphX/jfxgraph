@@ -3,8 +3,7 @@ package com.mxgraph.shape;
 import com.mxgraph.canvas.mxGraphics2DCanvas;
 import com.mxgraph.view.mxCellState;
 
-public interface mxIShape
-{
+public interface mxIShape {
 	/**
 	 * 
 	 */

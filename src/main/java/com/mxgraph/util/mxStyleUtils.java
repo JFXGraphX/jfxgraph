@@ -12,8 +12,7 @@ import com.mxgraph.model.mxIGraphModel;
 /**
  * Contains various style helper methods for use with mxGraph.
  */
-public class mxStyleUtils
-{
+public class mxStyleUtils {
 	/**
 	 * Returns the stylename in a style of the form stylename[;key=value] or an
 	 * empty string if the given style does not contain a stylename.
@@ -22,15 +21,12 @@ public class mxStyleUtils
 	 *            String of the form stylename[;key=value].
 	 * @return Returns the stylename from the given formatted string.
 	 */
-	public static String getStylename(String style)
-	{
-		if (style != null)
-		{
+	public static String getStylename(String style) {
+		if (style != null) {
 			String[] pairs = style.split(";");
 			String stylename = pairs[0];
 
-			if (stylename.indexOf("=") < 0)
-			{
+			if (stylename.indexOf("=") < 0) {
 				return stylename;
 			}
 		}
@@ -46,18 +42,14 @@ public class mxStyleUtils
 	 *            String of the form stylename[;stylename][;key=value].
 	 * @return Returns the stylename from the given formatted string.
 	 */
-	public static String[] getStylenames(String style)
-	{
+	public static String[] getStylenames(String style) {
 		List<String> result = new ArrayList<String>();
 
-		if (style != null)
-		{
+		if (style != null) {
 			String[] pairs = style.split(";");
 
-			for (int i = 0; i < pairs.length; i++)
-			{
-				if (pairs[i].indexOf("=") < 0)
-				{
+			for (int i = 0; i < pairs.length; i++) {
+				if (pairs[i].indexOf("=") < 0) {
 					result.add(pairs[i]);
 				}
 			}
@@ -71,17 +63,13 @@ public class mxStyleUtils
 	 * -1 if the given stylename does not occur (as a stylename) in the given
 	 * style, otherwise it returns the index of the first character.
 	 */
-	public static int indexOfStylename(String style, String stylename)
-	{
-		if (style != null && stylename != null)
-		{
+	public static int indexOfStylename(String style, String stylename) {
+		if (style != null && stylename != null) {
 			String[] tokens = style.split(";");
 			int pos = 0;
 
-			for (int i = 0; i < tokens.length; i++)
-			{
-				if (tokens[i].equals(stylename))
-				{
+			for (int i = 0; i < tokens.length; i++) {
+				if (tokens[i].equals(stylename)) {
 					return pos;
 				}
 
@@ -96,17 +84,12 @@ public class mxStyleUtils
 	 * Adds the specified stylename to the given style if it does not already
 	 * contain the stylename.
 	 */
-	public static String addStylename(String style, String stylename)
-	{
-		if (indexOfStylename(style, stylename) < 0)
-		{
-			if (style == null)
-			{
+	public static String addStylename(String style, String stylename) {
+		if (indexOfStylename(style, stylename) < 0) {
+			if (style == null) {
 				style = "";
-			}
-			else if (style.length() > 0
-					&& style.charAt(style.length() - 1) != ';')
-			{
+			} else if (style.length() > 0
+					&& style.charAt(style.length() - 1) != ';') {
 				style += ';';
 			}
 
@@ -120,18 +103,14 @@ public class mxStyleUtils
 	 * Removes all occurrences of the specified stylename in the given style and
 	 * returns the updated style. Trailing semicolons are preserved.
 	 */
-	public static String removeStylename(String style, String stylename)
-	{
+	public static String removeStylename(String style, String stylename) {
 		StringBuffer buffer = new StringBuffer();
 
-		if (style != null)
-		{
+		if (style != null) {
 			String[] tokens = style.split(";");
 
-			for (int i = 0; i < tokens.length; i++)
-			{
-				if (!tokens[i].equals(stylename))
-				{
+			for (int i = 0; i < tokens.length; i++) {
+				if (!tokens[i].equals(stylename)) {
 					buffer.append(tokens[i] + ";");
 				}
 			}
@@ -145,18 +124,14 @@ public class mxStyleUtils
 	 * Removes all stylenames from the given style and returns the updated
 	 * style.
 	 */
-	public static String removeAllStylenames(String style)
-	{
+	public static String removeAllStylenames(String style) {
 		StringBuffer buffer = new StringBuffer();
 
-		if (style != null)
-		{
+		if (style != null) {
 			String[] tokens = style.split(";");
 
-			for (int i = 0; i < tokens.length; i++)
-			{
-				if (tokens[i].indexOf('=') >= 0)
-				{
+			for (int i = 0; i < tokens.length; i++) {
+				if (tokens[i].indexOf('=') >= 0) {
 					buffer.append(tokens[i] + ";");
 				}
 			}
@@ -180,25 +155,18 @@ public class mxStyleUtils
 	 *            New value for the given key.
 	 */
 	public static void setCellStyles(mxIGraphModel model, Object[] cells,
-			String key, String value)
-	{
-		if (cells != null && cells.length > 0)
-		{
+			String key, String value) {
+		if (cells != null && cells.length > 0) {
 			model.beginUpdate();
-			try
-			{
-				for (int i = 0; i < cells.length; i++)
-				{
-					if (cells[i] != null)
-					{
+			try {
+				for (int i = 0; i < cells.length; i++) {
+					if (cells[i] != null) {
 						String style = setStyle(model.getStyle(cells[i]), key,
 								value);
 						model.setStyle(cells[i], style);
 					}
 				}
-			}
-			finally
-			{
+			} finally {
 				model.endUpdate();
 			}
 		}
@@ -217,36 +185,26 @@ public class mxStyleUtils
 	 *            New value for the given key.
 	 * @return Returns the new style.
 	 */
-	public static String setStyle(String style, String key, String value)
-	{
+	public static String setStyle(String style, String key, String value) {
 		boolean isValue = value != null && value.length() > 0;
 
-		if (style == null || style.length() == 0)
-		{
-			if (isValue)
-			{
+		if (style == null || style.length() == 0) {
+			if (isValue) {
 				style = key + "=" + value;
 			}
-		}
-		else
-		{
+		} else {
 			int index = style.indexOf(key + "=");
 
-			if (index < 0)
-			{
-				if (isValue)
-				{
+			if (index < 0) {
+				if (isValue) {
 					String sep = (style.endsWith(";")) ? "" : ";";
 					style = style + sep + key + '=' + value;
 				}
-			}
-			else
-			{
+			} else {
 				String tmp = (isValue) ? key + "=" + value : "";
 				int cont = style.indexOf(";", index);
 
-				if (!isValue)
-				{
+				if (!isValue) {
 					cont++;
 				}
 
@@ -283,25 +241,18 @@ public class mxStyleUtils
 	 *            Optional boolean value for the flag.
 	 */
 	public static void setCellStyleFlags(mxIGraphModel model, Object[] cells,
-			String key, int flag, Boolean value)
-	{
-		if (cells != null && cells.length > 0)
-		{
+			String key, int flag, Boolean value) {
+		if (cells != null && cells.length > 0) {
 			model.beginUpdate();
-			try
-			{
-				for (int i = 0; i < cells.length; i++)
-				{
-					if (cells[i] != null)
-					{
+			try {
+				for (int i = 0; i < cells.length; i++) {
+					if (cells[i] != null) {
 						String style = setStyleFlag(model.getStyle(cells[i]),
 								key, flag, value);
 						model.setStyle(cells[i], style);
 					}
 				}
-			}
-			finally
-			{
+			} finally {
 				model.endUpdate();
 			}
 		}
@@ -321,61 +272,40 @@ public class mxStyleUtils
 	 *            Optional boolean value for the given flag.
 	 */
 	public static String setStyleFlag(String style, String key, int flag,
-			Boolean value)
-	{
-		if (style == null || style.length() == 0)
-		{
-			if (value == null || value.booleanValue())
-			{
+			Boolean value) {
+		if (style == null || style.length() == 0) {
+			if (value == null || value.booleanValue()) {
 				style = key + "=" + flag;
-			}
-			else
-			{
+			} else {
 				style = key + "=0";
 			}
-		}
-		else
-		{
+		} else {
 			int index = style.indexOf(key + "=");
 
-			if (index < 0)
-			{
+			if (index < 0) {
 				String sep = (style.endsWith(";")) ? "" : ";";
 
-				if (value == null || value.booleanValue())
-				{
+				if (value == null || value.booleanValue()) {
 					style = style + sep + key + "=" + flag;
-				}
-				else
-				{
+				} else {
 					style = style + sep + key + "=0";
 				}
-			}
-			else
-			{
+			} else {
 				int cont = style.indexOf(";", index);
 				String tmp = "";
 				int result = 0;
 
-				if (cont < 0)
-				{
+				if (cont < 0) {
 					tmp = style.substring(index + key.length() + 1);
-				}
-				else
-				{
+				} else {
 					tmp = style.substring(index + key.length() + 1, cont);
 				}
 
-				if (value == null)
-				{
+				if (value == null) {
 					result = Integer.parseInt(tmp) ^ flag;
-				}
-				else if (value.booleanValue())
-				{
+				} else if (value.booleanValue()) {
 					result = Integer.parseInt(tmp) | flag;
-				}
-				else
-				{
+				} else {
 					result = Integer.parseInt(tmp) & ~flag;
 				}
 

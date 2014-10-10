@@ -25,12 +25,11 @@ import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxCellState;
 
 /**
- * An implementation of a canvas that uses SVG for painting. This canvas
- * ignores the STYLE_LABEL_BACKGROUNDCOLOR and
- * STYLE_LABEL_BORDERCOLOR styles due to limitations of SVG.
+ * An implementation of a canvas that uses SVG for painting. This canvas ignores
+ * the STYLE_LABEL_BACKGROUNDCOLOR and STYLE_LABEL_BORDERCOLOR styles due to
+ * limitations of SVG.
  */
-public class mxSvgCanvas extends mxBasicCanvas
-{
+public class mxSvgCanvas extends mxBasicCanvas {
 
 	/**
 	 * Holds the HTML document that represents the canvas.
@@ -54,16 +53,15 @@ public class mxSvgCanvas extends mxBasicCanvas
 	protected Element defs = null;
 
 	/**
-	 * Specifies if images should be embedded as base64 encoded strings.
-	 * Default is false.
+	 * Specifies if images should be embedded as base64 encoded strings. Default
+	 * is false.
 	 */
 	protected boolean embedded = false;
 
 	/**
 	 * Constructs a new SVG canvas for the specified dimension and scale.
 	 */
-	public mxSvgCanvas()
-	{
+	public mxSvgCanvas() {
 		this(null);
 	}
 
@@ -71,18 +69,15 @@ public class mxSvgCanvas extends mxBasicCanvas
 	 * Constructs a new SVG canvas for the specified bounds, scale and
 	 * background color.
 	 */
-	public mxSvgCanvas(Document document)
-	{
+	public mxSvgCanvas(Document document) {
 		setDocument(document);
 	}
 
 	/**
 	 * 
 	 */
-	public void appendSvgElement(Element node)
-	{
-		if (document != null)
-		{
+	public void appendSvgElement(Element node) {
+		if (document != null) {
 			document.getDocumentElement().appendChild(node);
 		}
 	}
@@ -90,20 +85,15 @@ public class mxSvgCanvas extends mxBasicCanvas
 	/**
 	 * 
 	 */
-	protected Element getDefsElement()
-	{
-		if (defs == null)
-		{
+	protected Element getDefsElement() {
+		if (defs == null) {
 			defs = document.createElement("defs");
 
 			Element svgNode = document.getDocumentElement();
 
-			if (svgNode.hasChildNodes())
-			{
+			if (svgNode.hasChildNodes()) {
 				svgNode.insertBefore(defs, svgNode.getFirstChild());
-			}
-			else
-			{
+			} else {
 				svgNode.appendChild(defs);
 			}
 		}
@@ -114,13 +104,11 @@ public class mxSvgCanvas extends mxBasicCanvas
 	/**
 	 * 
 	 */
-	public Element getGradientElement(String start, String end, String direction)
-	{
+	public Element getGradientElement(String start, String end, String direction) {
 		String id = getGradientId(start, end, direction);
 		Element gradient = gradients.get(id);
 
-		if (gradient == null)
-		{
+		if (gradient == null) {
 			gradient = createGradientElement(start, end, direction);
 			gradient.setAttribute("id", "g" + (gradients.size() + 1));
 			getDefsElement().appendChild(gradient);
@@ -133,14 +121,12 @@ public class mxSvgCanvas extends mxBasicCanvas
 	/**
 	 * 
 	 */
-	public Element getGlassGradientElement()
-	{
+	public Element getGlassGradientElement() {
 		String id = "mx-glass-gradient";
 
 		Element glassGradient = gradients.get(id);
 
-		if (glassGradient == null)
-		{
+		if (glassGradient == null) {
 			glassGradient = document.createElement("linearGradient");
 			glassGradient.setAttribute("x1", "0%");
 			glassGradient.setAttribute("y1", "0%");
@@ -169,28 +155,20 @@ public class mxSvgCanvas extends mxBasicCanvas
 	 * 
 	 */
 	protected Element createGradientElement(String start, String end,
-			String direction)
-	{
+			String direction) {
 		Element gradient = document.createElement("linearGradient");
 		gradient.setAttribute("x1", "0%");
 		gradient.setAttribute("y1", "0%");
 		gradient.setAttribute("x2", "0%");
 		gradient.setAttribute("y2", "0%");
 
-		if (direction == null || direction.equals(mxConstants.DIRECTION_SOUTH))
-		{
+		if (direction == null || direction.equals(mxConstants.DIRECTION_SOUTH)) {
 			gradient.setAttribute("y2", "100%");
-		}
-		else if (direction.equals(mxConstants.DIRECTION_EAST))
-		{
+		} else if (direction.equals(mxConstants.DIRECTION_EAST)) {
 			gradient.setAttribute("x2", "100%");
-		}
-		else if (direction.equals(mxConstants.DIRECTION_NORTH))
-		{
+		} else if (direction.equals(mxConstants.DIRECTION_NORTH)) {
 			gradient.setAttribute("y1", "100%");
-		}
-		else if (direction.equals(mxConstants.DIRECTION_WEST))
-		{
+		} else if (direction.equals(mxConstants.DIRECTION_WEST)) {
 			gradient.setAttribute("x1", "100%");
 		}
 
@@ -210,16 +188,13 @@ public class mxSvgCanvas extends mxBasicCanvas
 	/**
 	 * 
 	 */
-	public String getGradientId(String start, String end, String direction)
-	{
+	public String getGradientId(String start, String end, String direction) {
 		// Removes illegal characters from gradient ID
-		if (start.startsWith("#"))
-		{
+		if (start.startsWith("#")) {
 			start = start.substring(1);
 		}
 
-		if (end.startsWith("#"))
-		{
+		if (end.startsWith("#")) {
 			end = end.substring(1);
 		}
 
@@ -230,26 +205,18 @@ public class mxSvgCanvas extends mxBasicCanvas
 
 		String dir = null;
 
-		if (direction == null || direction.equals(mxConstants.DIRECTION_SOUTH))
-		{
+		if (direction == null || direction.equals(mxConstants.DIRECTION_SOUTH)) {
 			dir = "south";
-		}
-		else if (direction.equals(mxConstants.DIRECTION_EAST))
-		{
+		} else if (direction.equals(mxConstants.DIRECTION_EAST)) {
 			dir = "east";
-		}
-		else
-		{
+		} else {
 			String tmp = start;
 			start = end;
 			end = tmp;
 
-			if (direction.equals(mxConstants.DIRECTION_NORTH))
-			{
+			if (direction.equals(mxConstants.DIRECTION_NORTH)) {
 				dir = "south";
-			}
-			else if (direction.equals(mxConstants.DIRECTION_WEST))
-			{
+			} else if (direction.equals(mxConstants.DIRECTION_WEST)) {
 				dir = "east";
 			}
 		}
@@ -260,8 +227,7 @@ public class mxSvgCanvas extends mxBasicCanvas
 	/**
 	 * Returns true if the given string ends with .png, .jpg or .gif.
 	 */
-	protected boolean isImageResource(String src)
-	{
+	protected boolean isImageResource(String src) {
 		return src != null
 				&& (src.toLowerCase().endsWith(".png")
 						|| src.toLowerCase().endsWith(".jpg") || src
@@ -271,16 +237,12 @@ public class mxSvgCanvas extends mxBasicCanvas
 	/**
 	 * 
 	 */
-	protected InputStream getResource(String src)
-	{
+	protected InputStream getResource(String src) {
 		InputStream stream = null;
 
-		try
-		{
+		try {
 			stream = new BufferedInputStream(new URL(src).openStream());
-		}
-		catch (Exception e1)
-		{
+		} catch (Exception e1) {
 			stream = getClass().getResourceAsStream(src);
 		}
 
@@ -288,24 +250,23 @@ public class mxSvgCanvas extends mxBasicCanvas
 	}
 
 	/**
-	 * @throws IOException 
+	 * @throws IOException
 	 * 
 	 */
-	protected String createDataUrl(String src) throws IOException
-	{
+	protected String createDataUrl(String src) throws IOException {
 		String result = null;
-		InputStream inputStream = isImageResource(src) ? getResource(src) : null;
+		InputStream inputStream = isImageResource(src) ? getResource(src)
+				: null;
 
-		if (inputStream != null)
-		{
+		if (inputStream != null) {
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream(1024);
 			byte[] bytes = new byte[512];
 
-			// Read bytes from the input stream in bytes.length-sized chunks and write
+			// Read bytes from the input stream in bytes.length-sized chunks and
+			// write
 			// them into the output stream
 			int readBytes;
-			while ((readBytes = inputStream.read(bytes)) > 0)
-			{
+			while ((readBytes = inputStream.read(bytes)) > 0) {
 				outputStream.write(bytes, 0, readBytes);
 			}
 
@@ -313,8 +274,7 @@ public class mxSvgCanvas extends mxBasicCanvas
 			String format = "png";
 			int dot = src.lastIndexOf('.');
 
-			if (dot > 0 && dot < src.length())
-			{
+			if (dot > 0 && dot < src.length()) {
 				format = src.substring(dot + 1);
 			}
 
@@ -331,12 +291,10 @@ public class mxSvgCanvas extends mxBasicCanvas
 	/**
 	 * 
 	 */
-	protected Element getEmbeddedImageElement(String src)
-	{
+	protected Element getEmbeddedImageElement(String src) {
 		Element img = images.get(src);
 
-		if (img == null)
-		{
+		if (img == null) {
 			img = document.createElement("svg");
 			img.setAttribute("width", "100%");
 			img.setAttribute("height", "100%");
@@ -348,19 +306,14 @@ public class mxSvgCanvas extends mxBasicCanvas
 			// Store before transforming to DataURL
 			images.put(src, img);
 
-			if (!src.startsWith("data:image/"))
-			{
-				try
-				{
+			if (!src.startsWith("data:image/")) {
+				try {
 					String tmp = createDataUrl(src);
-					
-					if (tmp != null)
-					{
+
+					if (tmp != null) {
 						src = tmp;
 					}
-				}
-				catch (IOException e)
-				{
+				} catch (IOException e) {
 					// ignore
 				}
 			}
@@ -379,20 +332,16 @@ public class mxSvgCanvas extends mxBasicCanvas
 	 */
 	protected Element createImageElement(double x, double y, double w,
 			double h, String src, boolean aspect, boolean flipH, boolean flipV,
-			boolean embedded)
-	{
+			boolean embedded) {
 		Element elem = null;
 
-		if (embedded)
-		{
+		if (embedded) {
 			elem = document.createElement("use");
 
 			Element img = getEmbeddedImageElement(src);
 			elem.setAttributeNS(mxConstants.NS_XLINK, "xlink:href",
 					"#" + img.getAttribute("id"));
-		}
-		else
-		{
+		} else {
 			elem = document.createElement("image");
 
 			elem.setAttributeNS(mxConstants.NS_XLINK, "xlink:href", src);
@@ -405,12 +354,9 @@ public class mxSvgCanvas extends mxBasicCanvas
 
 		// FIXME: SVG element must be used for reference to image with
 		// aspect but for images with no aspect this does not work.
-		if (aspect)
-		{
+		if (aspect) {
 			elem.setAttribute("preserveAspectRatio", "xMidYMid");
-		}
-		else
-		{
+		} else {
 			elem.setAttribute("preserveAspectRatio", "none");
 		}
 
@@ -419,32 +365,27 @@ public class mxSvgCanvas extends mxBasicCanvas
 		double dx = 0;
 		double dy = 0;
 
-		if (flipH)
-		{
+		if (flipH) {
 			sx *= -1;
 			dx = -w - 2 * x;
 		}
 
-		if (flipV)
-		{
+		if (flipV) {
 			sy *= -1;
 			dy = -h - 2 * y;
 		}
 
 		String transform = "";
 
-		if (sx != 1 || sy != 1)
-		{
+		if (sx != 1 || sy != 1) {
 			transform += "scale(" + sx + " " + sy + ") ";
 		}
 
-		if (dx != 0 || dy != 0)
-		{
+		if (dx != 0 || dy != 0) {
 			transform += "translate(" + dx + " " + dy + ") ";
 		}
 
-		if (transform.length() > 0)
-		{
+		if (transform.length() > 0) {
 			elem.setAttribute("transform", transform);
 		}
 
@@ -454,8 +395,7 @@ public class mxSvgCanvas extends mxBasicCanvas
 	/**
 	 * 
 	 */
-	public void setDocument(Document document)
-	{
+	public void setDocument(Document document) {
 		this.document = document;
 	}
 
@@ -464,38 +404,34 @@ public class mxSvgCanvas extends mxBasicCanvas
 	 * 
 	 * @return Returns the document.
 	 */
-	public Document getDocument()
-	{
+	public Document getDocument() {
 		return document;
 	}
 
 	/**
 	 * 
 	 */
-	public void setEmbedded(boolean value)
-	{
+	public void setEmbedded(boolean value) {
 		embedded = value;
 	}
 
 	/**
 	 * 
 	 */
-	public boolean isEmbedded()
-	{
+	public boolean isEmbedded() {
 		return embedded;
 	}
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see com.mxgraph.canvas.mxICanvas#drawCell()
 	 */
-	public Object drawCell(mxCellState state)
-	{
+	public Object drawCell(mxCellState state) {
 		Map<String, Object> style = state.getStyle();
 		Element elem = null;
 
-		if (state.getAbsolutePointCount() > 1)
-		{
+		if (state.getAbsolutePointCount() > 1) {
 			List<mxPoint> pts = state.getAbsolutePoints();
 
 			// Transpose all points by cloning into a new array
@@ -508,27 +444,21 @@ public class mxSvgCanvas extends mxBasicCanvas
 			float opacity = mxUtils.getFloat(style, mxConstants.STYLE_OPACITY,
 					100);
 
-			if (opacity != 100)
-			{
+			if (opacity != 100) {
 				String value = String.valueOf(opacity / 100);
 				elem.setAttribute("fill-opacity", value);
 				elem.setAttribute("stroke-opacity", value);
 			}
-		}
-		else
-		{
+		} else {
 			int x = (int) state.getX() + translate.x;
 			int y = (int) state.getY() + translate.y;
 			int w = (int) state.getWidth();
 			int h = (int) state.getHeight();
 
 			if (!mxUtils.getString(style, mxConstants.STYLE_SHAPE, "").equals(
-					mxConstants.SHAPE_SWIMLANE))
-			{
+					mxConstants.SHAPE_SWIMLANE)) {
 				elem = drawShape(x, y, w, h, style);
-			}
-			else
-			{
+			} else {
 				int start = (int) Math.round(mxUtils.getInt(style,
 						mxConstants.STYLE_STARTSIZE,
 						mxConstants.DEFAULT_STARTSIZE)
@@ -540,13 +470,10 @@ public class mxSvgCanvas extends mxBasicCanvas
 				cloned.remove(mxConstants.STYLE_FILLCOLOR);
 				cloned.remove(mxConstants.STYLE_ROUNDED);
 
-				if (mxUtils.isTrue(style, mxConstants.STYLE_HORIZONTAL, true))
-				{
+				if (mxUtils.isTrue(style, mxConstants.STYLE_HORIZONTAL, true)) {
 					elem = drawShape(x, y, w, start, style);
 					drawShape(x, y + start, w, h - start, cloned);
-				}
-				else
-				{
+				} else {
 					elem = drawShape(x, y, start, h, style);
 					drawShape(x + start, y, w - start, h, cloned);
 				}
@@ -558,14 +485,13 @@ public class mxSvgCanvas extends mxBasicCanvas
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see com.mxgraph.canvas.mxICanvas#drawLabel()
 	 */
-	public Object drawLabel(String label, mxCellState state, boolean html)
-	{
+	public Object drawLabel(String label, mxCellState state, boolean html) {
 		mxRectangle bounds = state.getLabelBounds();
 
-		if (drawLabels && bounds != null)
-		{
+		if (drawLabels && bounds != null) {
 			int x = (int) bounds.getX() + translate.x;
 			int y = (int) bounds.getY() + translate.y;
 			int w = (int) bounds.getWidth();
@@ -581,15 +507,19 @@ public class mxSvgCanvas extends mxBasicCanvas
 	/**
 	 * Draws the shape specified with the STYLE_SHAPE key in the given style.
 	 * 
-	 * @param x X-coordinate of the shape.
-	 * @param y Y-coordinate of the shape.
-	 * @param w Width of the shape.
-	 * @param h Height of the shape.
-	 * @param style Style of the the shape.
+	 * @param x
+	 *            X-coordinate of the shape.
+	 * @param y
+	 *            Y-coordinate of the shape.
+	 * @param w
+	 *            Width of the shape.
+	 * @param h
+	 *            Height of the shape.
+	 * @param style
+	 *            Style of the the shape.
 	 */
 	public Element drawShape(int x, int y, int w, int h,
-			Map<String, Object> style)
-	{
+			Map<String, Object> style) {
 		String fillColor = mxUtils.getString(style,
 				mxConstants.STYLE_FILLCOLOR, "none");
 		String gradientColor = mxUtils.getString(style,
@@ -605,12 +535,10 @@ public class mxSvgCanvas extends mxBasicCanvas
 		Element elem = null;
 		Element background = null;
 
-		if (shape.equals(mxConstants.SHAPE_IMAGE))
-		{
+		if (shape.equals(mxConstants.SHAPE_IMAGE)) {
 			String img = getImageForStyle(style);
 
-			if (img != null)
-			{
+			if (img != null) {
 				// Vertical and horizontal image flipping
 				boolean flipH = mxUtils.isTrue(style,
 						mxConstants.STYLE_IMAGE_FLIPH, false);
@@ -620,39 +548,30 @@ public class mxSvgCanvas extends mxBasicCanvas
 				elem = createImageElement(x, y, w, h, img,
 						PRESERVE_IMAGE_ASPECT, flipH, flipV, isEmbedded());
 			}
-		}
-		else if (shape.equals(mxConstants.SHAPE_LINE))
-		{
+		} else if (shape.equals(mxConstants.SHAPE_LINE)) {
 			String direction = mxUtils.getString(style,
 					mxConstants.STYLE_DIRECTION, mxConstants.DIRECTION_EAST);
 			String d = null;
 
 			if (direction.equals(mxConstants.DIRECTION_EAST)
-					|| direction.equals(mxConstants.DIRECTION_WEST))
-			{
+					|| direction.equals(mxConstants.DIRECTION_WEST)) {
 				int mid = (y + h / 2);
 				d = "M " + x + " " + mid + " L " + (x + w) + " " + mid;
-			}
-			else
-			{
+			} else {
 				int mid = (x + w / 2);
 				d = "M " + mid + " " + y + " L " + mid + " " + (y + h);
 			}
 
 			elem = document.createElement("path");
 			elem.setAttribute("d", d + " Z");
-		}
-		else if (shape.equals(mxConstants.SHAPE_ELLIPSE))
-		{
+		} else if (shape.equals(mxConstants.SHAPE_ELLIPSE)) {
 			elem = document.createElement("ellipse");
 
 			elem.setAttribute("cx", String.valueOf(x + w / 2));
 			elem.setAttribute("cy", String.valueOf(y + h / 2));
 			elem.setAttribute("rx", String.valueOf(w / 2));
 			elem.setAttribute("ry", String.valueOf(h / 2));
-		}
-		else if (shape.equals(mxConstants.SHAPE_DOUBLE_ELLIPSE))
-		{
+		} else if (shape.equals(mxConstants.SHAPE_DOUBLE_ELLIPSE)) {
 			elem = document.createElement("g");
 			background = document.createElement("ellipse");
 			background.setAttribute("cx", String.valueOf(x + w / 2));
@@ -674,9 +593,7 @@ public class mxSvgCanvas extends mxBasicCanvas
 			foreground.setAttribute("rx", String.valueOf(w / 2 - inset));
 			foreground.setAttribute("ry", String.valueOf(h / 2 - inset));
 			elem.appendChild(foreground);
-		}
-		else if (shape.equals(mxConstants.SHAPE_RHOMBUS))
-		{
+		} else if (shape.equals(mxConstants.SHAPE_RHOMBUS)) {
 			elem = document.createElement("path");
 
 			String d = "M " + (x + w / 2) + " " + y + " L " + (x + w) + " "
@@ -684,30 +601,22 @@ public class mxSvgCanvas extends mxBasicCanvas
 					+ x + " " + (y + h / 2);
 
 			elem.setAttribute("d", d + " Z");
-		}
-		else if (shape.equals(mxConstants.SHAPE_TRIANGLE))
-		{
+		} else if (shape.equals(mxConstants.SHAPE_TRIANGLE)) {
 			elem = document.createElement("path");
 			String direction = mxUtils.getString(style,
 					mxConstants.STYLE_DIRECTION, "");
 			String d = null;
 
-			if (direction.equals(mxConstants.DIRECTION_NORTH))
-			{
+			if (direction.equals(mxConstants.DIRECTION_NORTH)) {
 				d = "M " + x + " " + (y + h) + " L " + (x + w / 2) + " " + y
 						+ " L " + (x + w) + " " + (y + h);
-			}
-			else if (direction.equals(mxConstants.DIRECTION_SOUTH))
-			{
+			} else if (direction.equals(mxConstants.DIRECTION_SOUTH)) {
 				d = "M " + x + " " + y + " L " + (x + w / 2) + " " + (y + h)
 						+ " L " + (x + w) + " " + y;
-			}
-			else if (direction.equals(mxConstants.DIRECTION_WEST))
-			{
+			} else if (direction.equals(mxConstants.DIRECTION_WEST)) {
 				d = "M " + (x + w) + " " + y + " L " + x + " " + (y + h / 2)
 						+ " L " + (x + w) + " " + (y + h);
-			}
-			else
+			} else
 			// east
 			{
 				d = "M " + x + " " + y + " L " + (x + w) + " " + (y + h / 2)
@@ -715,25 +624,20 @@ public class mxSvgCanvas extends mxBasicCanvas
 			}
 
 			elem.setAttribute("d", d + " Z");
-		}
-		else if (shape.equals(mxConstants.SHAPE_HEXAGON))
-		{
+		} else if (shape.equals(mxConstants.SHAPE_HEXAGON)) {
 			elem = document.createElement("path");
 			String direction = mxUtils.getString(style,
 					mxConstants.STYLE_DIRECTION, "");
 			String d = null;
 
 			if (direction.equals(mxConstants.DIRECTION_NORTH)
-					|| direction.equals(mxConstants.DIRECTION_SOUTH))
-			{
+					|| direction.equals(mxConstants.DIRECTION_SOUTH)) {
 				d = "M " + (x + 0.5 * w) + " " + y + " L " + (x + w) + " "
 						+ (y + 0.25 * h) + " L " + (x + w) + " "
 						+ (y + 0.75 * h) + " L " + (x + 0.5 * w) + " "
 						+ (y + h) + " L " + x + " " + (y + 0.75 * h) + " L "
 						+ x + " " + (y + 0.25 * h);
-			}
-			else
-			{
+			} else {
 				d = "M " + (x + 0.25 * w) + " " + y + " L " + (x + 0.75 * w)
 						+ " " + y + " L " + (x + w) + " " + (y + 0.5 * h)
 						+ " L " + (x + 0.75 * w) + " " + (y + h) + " L "
@@ -742,9 +646,7 @@ public class mxSvgCanvas extends mxBasicCanvas
 			}
 
 			elem.setAttribute("d", d + " Z");
-		}
-		else if (shape.equals(mxConstants.SHAPE_CLOUD))
-		{
+		} else if (shape.equals(mxConstants.SHAPE_CLOUD)) {
 			elem = document.createElement("path");
 
 			String d = "M " + (x + 0.25 * w) + " " + (y + 0.25 * h) + " C "
@@ -765,9 +667,7 @@ public class mxSvgCanvas extends mxBasicCanvas
 					+ (x + 0.25 * w) + " " + (y + 0.25 * h);
 
 			elem.setAttribute("d", d + " Z");
-		}
-		else if (shape.equals(mxConstants.SHAPE_ACTOR))
-		{
+		} else if (shape.equals(mxConstants.SHAPE_ACTOR)) {
 			elem = document.createElement("path");
 			double width3 = w / 3;
 
@@ -783,9 +683,7 @@ public class mxSvgCanvas extends mxBasicCanvas
 					+ (y + 3 * h / 5) + " " + (x + w) + " " + (y + h);
 
 			elem.setAttribute("d", d + " Z");
-		}
-		else if (shape.equals(mxConstants.SHAPE_CYLINDER))
-		{
+		} else if (shape.equals(mxConstants.SHAPE_CYLINDER)) {
 			elem = document.createElement("g");
 			background = document.createElement("path");
 
@@ -811,9 +709,7 @@ public class mxSvgCanvas extends mxBasicCanvas
 					.setAttribute("stroke-width", String.valueOf(strokeWidth));
 
 			elem.appendChild(foreground);
-		}
-		else
-		{
+		} else {
 			background = document.createElement("rect");
 			elem = background;
 
@@ -822,8 +718,7 @@ public class mxSvgCanvas extends mxBasicCanvas
 			elem.setAttribute("width", String.valueOf(w));
 			elem.setAttribute("height", String.valueOf(h));
 
-			if (mxUtils.isTrue(style, mxConstants.STYLE_ROUNDED, false))
-			{
+			if (mxUtils.isTrue(style, mxConstants.STYLE_ROUNDED, false)) {
 				String r = String.valueOf(Math.min(w
 						* mxConstants.RECTANGLE_ROUNDING_FACTOR, h
 						* mxConstants.RECTANGLE_ROUNDING_FACTOR));
@@ -833,12 +728,10 @@ public class mxSvgCanvas extends mxBasicCanvas
 			}
 
 			// Paints the label image
-			if (shape.equals(mxConstants.SHAPE_LABEL))
-			{
+			if (shape.equals(mxConstants.SHAPE_LABEL)) {
 				String img = getImageForStyle(style);
 
-				if (img != null)
-				{
+				if (img != null) {
 					String imgAlign = mxUtils.getString(style,
 							mxConstants.STYLE_IMAGE_ALIGN,
 							mxConstants.ALIGN_LEFT);
@@ -856,35 +749,27 @@ public class mxSvgCanvas extends mxBasicCanvas
 
 					mxRectangle imageBounds = new mxRectangle(x, y, w, h);
 
-					if (imgAlign.equals(mxConstants.ALIGN_CENTER))
-					{
+					if (imgAlign.equals(mxConstants.ALIGN_CENTER)) {
 						imageBounds.setX(imageBounds.getX()
 								+ (imageBounds.getWidth() - imgWidth) / 2);
-					}
-					else if (imgAlign.equals(mxConstants.ALIGN_RIGHT))
-					{
+					} else if (imgAlign.equals(mxConstants.ALIGN_RIGHT)) {
 						imageBounds.setX(imageBounds.getX()
 								+ imageBounds.getWidth() - imgWidth - spacing
 								- 2);
-					}
-					else
+					} else
 					// LEFT
 					{
 						imageBounds.setX(imageBounds.getX() + spacing + 4);
 					}
 
-					if (imgValign.equals(mxConstants.ALIGN_TOP))
-					{
+					if (imgValign.equals(mxConstants.ALIGN_TOP)) {
 						imageBounds.setY(imageBounds.getY() + spacing);
-					}
-					else if (imgValign.equals(mxConstants.ALIGN_BOTTOM))
-					{
+					} else if (imgValign.equals(mxConstants.ALIGN_BOTTOM)) {
 						imageBounds
 								.setY(imageBounds.getY()
 										+ imageBounds.getHeight() - imgHeight
 										- spacing);
-					}
-					else
+					} else
 					// MIDDLE
 					{
 						imageBounds.setY(imageBounds.getY()
@@ -902,8 +787,7 @@ public class mxSvgCanvas extends mxBasicCanvas
 							imageBounds.getWidth(), imageBounds.getHeight(),
 							img, false, false, false, isEmbedded());
 
-					if (opacity != 100)
-					{
+					if (opacity != 100) {
 						String value = String.valueOf(opacity / 100);
 						imageElement.setAttribute("opacity", value);
 					}
@@ -912,17 +796,19 @@ public class mxSvgCanvas extends mxBasicCanvas
 				}
 
 				// Paints the glass effect
-				if (mxUtils.isTrue(style, mxConstants.STYLE_GLASS, false))
-				{
+				if (mxUtils.isTrue(style, mxConstants.STYLE_GLASS, false)) {
 					double size = 0.4;
 
 					// TODO: Mask with rectangle or rounded rectangle of label
 					// Creates glass overlay
 					Element glassOverlay = document.createElement("path");
 
-					// LATER: Not sure what the behaviour is for mutiple SVG elements in page.
-					// Probably its possible that this points to an element in another SVG
-					// node which when removed will result in an undefined background.
+					// LATER: Not sure what the behaviour is for mutiple SVG
+					// elements in page.
+					// Probably its possible that this points to an element in
+					// another SVG
+					// node which when removed will result in an undefined
+					// background.
 					glassOverlay.setAttribute("fill", "url(#"
 							+ getGlassGradientElement().getAttribute("id")
 							+ ")");
@@ -948,30 +834,24 @@ public class mxSvgCanvas extends mxBasicCanvas
 
 		Element bg = background;
 
-		if (bg == null)
-		{
+		if (bg == null) {
 			bg = elem;
 		}
 
 		if (!bg.getNodeName().equalsIgnoreCase("use")
-				&& !bg.getNodeName().equalsIgnoreCase("image"))
-		{
+				&& !bg.getNodeName().equalsIgnoreCase("image")) {
 			if (!fillColor.equalsIgnoreCase("none")
-					&& !gradientColor.equalsIgnoreCase("none"))
-			{
+					&& !gradientColor.equalsIgnoreCase("none")) {
 				String direction = mxUtils.getString(style,
 						mxConstants.STYLE_GRADIENT_DIRECTION);
 				Element gradient = getGradientElement(fillColor, gradientColor,
 						direction);
 
-				if (gradient != null)
-				{
+				if (gradient != null) {
 					bg.setAttribute("fill",
 							"url(#" + gradient.getAttribute("id") + ")");
 				}
-			}
-			else
-			{
+			} else {
 				bg.setAttribute("fill", fillColor);
 			}
 
@@ -982,8 +862,7 @@ public class mxSvgCanvas extends mxBasicCanvas
 			Element shadowElement = null;
 
 			if (mxUtils.isTrue(style, mxConstants.STYLE_SHADOW, false)
-					&& !fillColor.equals("none"))
-			{
+					&& !fillColor.equals("none")) {
 				shadowElement = (Element) bg.cloneNode(true);
 
 				shadowElement.setAttribute("transform",
@@ -994,15 +873,13 @@ public class mxSvgCanvas extends mxBasicCanvas
 				shadowElement.setAttribute("stroke-width",
 						String.valueOf(strokeWidth));
 
-				if (rotation != 0)
-				{
+				if (rotation != 0) {
 					shadowElement.setAttribute("transform", "rotate("
 							+ rotation + "," + cx + "," + cy + ") "
 							+ mxConstants.SVG_SHADOWTRANSFORM);
 				}
 
-				if (opacity != 100)
-				{
+				if (opacity != 100) {
 					String value = String.valueOf(opacity / 100);
 					shadowElement.setAttribute("fill-opacity", value);
 					shadowElement.setAttribute("stroke-opacity", value);
@@ -1012,23 +889,21 @@ public class mxSvgCanvas extends mxBasicCanvas
 			}
 		}
 
-		if (rotation != 0)
-		{
+		if (rotation != 0) {
 			elem.setAttribute("transform", elem.getAttribute("transform")
 					+ " rotate(" + rotation + "," + cx + "," + cy + ")");
 
 		}
 
-		if (opacity != 100)
-		{
+		if (opacity != 100) {
 			String value = String.valueOf(opacity / 100);
 			elem.setAttribute("fill-opacity", value);
 			elem.setAttribute("stroke-opacity", value);
 		}
 
-		if (mxUtils.isTrue(style, mxConstants.STYLE_DASHED))
-		{
-			String pattern = mxUtils.getString(style, mxConstants.STYLE_DASH_PATTERN, "3, 3");
+		if (mxUtils.isTrue(style, mxConstants.STYLE_DASHED)) {
+			String pattern = mxUtils.getString(style,
+					mxConstants.STYLE_DASH_PATTERN, "3, 3");
 			elem.setAttribute("stroke-dasharray", pattern);
 		}
 
@@ -1038,14 +913,15 @@ public class mxSvgCanvas extends mxBasicCanvas
 	}
 
 	/**
-	 * Draws the given lines as segments between all points of the given list
-	 * of mxPoints.
+	 * Draws the given lines as segments between all points of the given list of
+	 * mxPoints.
 	 * 
-	 * @param pts List of points that define the line.
-	 * @param style Style to be used for painting the line.
+	 * @param pts
+	 *            List of points that define the line.
+	 * @param style
+	 *            Style to be used for painting the line.
 	 */
-	public Element drawLine(List<mxPoint> pts, Map<String, Object> style)
-	{
+	public Element drawLine(List<mxPoint> pts, Map<String, Object> style) {
 		Element group = document.createElement("g");
 		Element path = document.createElement("path");
 
@@ -1057,8 +933,7 @@ public class mxSvgCanvas extends mxBasicCanvas
 				mxConstants.STYLE_STROKEWIDTH, 1));
 		float strokeWidth = (float) (tmpStroke * scale);
 
-		if (strokeColor != null && strokeWidth > 0)
-		{
+		if (strokeColor != null && strokeWidth > 0) {
 			// Draws the start marker
 			Object marker = style.get(mxConstants.STYLE_STARTARROW);
 
@@ -1066,16 +941,13 @@ public class mxSvgCanvas extends mxBasicCanvas
 			mxPoint p0 = pts.get(0);
 			mxPoint offset = null;
 
-			if (marker != null)
-			{
+			if (marker != null) {
 				float size = (mxUtils.getFloat(style,
 						mxConstants.STYLE_STARTSIZE,
 						mxConstants.DEFAULT_MARKERSIZE));
 				offset = drawMarker(group, marker, pt, p0, size, tmpStroke,
 						strokeColor);
-			}
-			else
-			{
+			} else {
 				double dx = pt.getX() - p0.getX();
 				double dy = pt.getY() - p0.getY();
 
@@ -1087,8 +959,7 @@ public class mxSvgCanvas extends mxBasicCanvas
 			}
 
 			// Applies offset to the point
-			if (offset != null)
-			{
+			if (offset != null) {
 				p0 = (mxPoint) p0.clone();
 				p0.setX(p0.getX() + offset.getX());
 				p0.setY(p0.getY() + offset.getY());
@@ -1102,16 +973,13 @@ public class mxSvgCanvas extends mxBasicCanvas
 			pt = pts.get(pts.size() - 2);
 			mxPoint pe = pts.get(pts.size() - 1);
 
-			if (marker != null)
-			{
+			if (marker != null) {
 				float size = (mxUtils.getFloat(style,
 						mxConstants.STYLE_ENDSIZE,
 						mxConstants.DEFAULT_MARKERSIZE));
 				offset = drawMarker(group, marker, pt, pe, size, tmpStroke,
 						strokeColor);
-			}
-			else
-			{
+			} else {
 				double dx = pt.getX() - p0.getX();
 				double dy = pt.getY() - p0.getY();
 
@@ -1123,8 +991,7 @@ public class mxSvgCanvas extends mxBasicCanvas
 			}
 
 			// Applies offset to the point
-			if (offset != null)
-			{
+			if (offset != null) {
 				pe = (mxPoint) pe.clone();
 				pe.setX(pe.getX() + offset.getX());
 				pe.setY(pe.getY() + offset.getY());
@@ -1137,14 +1004,12 @@ public class mxSvgCanvas extends mxBasicCanvas
 			pt = p0;
 			String d = "M " + pt.getX() + " " + pt.getY();
 
-			for (int i = 1; i < pts.size() - 1; i++)
-			{
+			for (int i = 1; i < pts.size() - 1; i++) {
 				mxPoint tmp = pts.get(i);
 				double dx = pt.getX() - tmp.getX();
 				double dy = pt.getY() - tmp.getY();
 
-				if ((rounded && i < pts.size() - 1) && (dx != 0 || dy != 0))
-				{
+				if ((rounded && i < pts.size() - 1) && (dx != 0 || dy != 0)) {
 					// Draws a line from the last point to the current
 					// point with a spacing of size off the current point
 					// into direction of the last point
@@ -1173,9 +1038,7 @@ public class mxSvgCanvas extends mxBasicCanvas
 					d += " Q " + tmp.getX() + " " + tmp.getY() + " " + x2 + " "
 							+ y2;
 					tmp = new mxPoint(x2, y2);
-				}
-				else
-				{
+				} else {
 					d += " L " + tmp.getX() + " " + tmp.getY();
 				}
 
@@ -1189,9 +1052,9 @@ public class mxSvgCanvas extends mxBasicCanvas
 			path.setAttribute("fill", "none");
 			path.setAttribute("stroke-width", String.valueOf(strokeWidth));
 
-			if (mxUtils.isTrue(style, mxConstants.STYLE_DASHED))
-			{
-				String pattern = mxUtils.getString(style, mxConstants.STYLE_DASH_PATTERN, "3, 3");
+			if (mxUtils.isTrue(style, mxConstants.STYLE_DASHED)) {
+				String pattern = mxUtils.getString(style,
+						mxConstants.STYLE_DASH_PATTERN, "3, 3");
 				path.setAttribute("stroke-dasharray", pattern);
 			}
 
@@ -1206,8 +1069,7 @@ public class mxSvgCanvas extends mxBasicCanvas
 	 * Draws the specified marker as a child path in the given parent.
 	 */
 	public mxPoint drawMarker(Element parent, Object type, mxPoint p0,
-			mxPoint pe, float size, float strokeWidth, String color)
-	{
+			mxPoint pe, float size, float strokeWidth, String color) {
 		mxPoint offset = null;
 
 		// Computes the norm and the inverse norm
@@ -1234,8 +1096,7 @@ public class mxSvgCanvas extends mxBasicCanvas
 		String d = null;
 
 		if (type.equals(mxConstants.ARROW_CLASSIC)
-				|| type.equals(mxConstants.ARROW_BLOCK))
-		{
+				|| type.equals(mxConstants.ARROW_BLOCK)) {
 			d = "M "
 					+ pe.getX()
 					+ " "
@@ -1249,9 +1110,7 @@ public class mxSvgCanvas extends mxBasicCanvas
 							+ (pe.getY() - ny * 3 / 4)) + " L "
 					+ (pe.getX() + ny / 2 - nx) + " "
 					+ (pe.getY() - ny - nx / 2) + " z";
-		}
-		else if (type.equals(mxConstants.ARROW_OPEN))
-		{
+		} else if (type.equals(mxConstants.ARROW_OPEN)) {
 			nx *= 1.2;
 			ny *= 1.2;
 
@@ -1262,9 +1121,7 @@ public class mxSvgCanvas extends mxBasicCanvas
 					+ (pe.getY() - ny - nx / 2) + " M " + pe.getX() + " "
 					+ pe.getY();
 			path.setAttribute("fill", "none");
-		}
-		else if (type.equals(mxConstants.ARROW_OVAL))
-		{
+		} else if (type.equals(mxConstants.ARROW_OVAL)) {
 			nx *= 1.2;
 			ny *= 1.2;
 			absSize *= 1.2;
@@ -1272,9 +1129,7 @@ public class mxSvgCanvas extends mxBasicCanvas
 			d = "M " + (pe.getX() - ny / 2) + " " + (pe.getY() + nx / 2)
 					+ " a " + (absSize / 2) + " " + (absSize / 2) + " 0  1,1 "
 					+ (nx / 8) + " " + (ny / 8) + " z";
-		}
-		else if (type.equals(mxConstants.ARROW_DIAMOND))
-		{
+		} else if (type.equals(mxConstants.ARROW_DIAMOND)) {
 			d = "M " + (pe.getX() + nx / 2) + " " + (pe.getY() + ny / 2)
 					+ " L " + (pe.getX() - ny / 2) + " " + (pe.getY() + nx / 2)
 					+ " L " + (pe.getX() - nx / 2) + " " + (pe.getY() - ny / 2)
@@ -1282,8 +1137,7 @@ public class mxSvgCanvas extends mxBasicCanvas
 					+ " z";
 		}
 
-		if (d != null)
-		{
+		if (d != null) {
 			path.setAttribute("d", d);
 			parent.appendChild(path);
 		}
@@ -1294,16 +1148,21 @@ public class mxSvgCanvas extends mxBasicCanvas
 	/**
 	 * Draws the specified text either using drawHtmlString or using drawString.
 	 * 
-	 * @param text Text to be painted.
-	 * @param x X-coordinate of the text.
-	 * @param y Y-coordinate of the text.
-	 * @param w Width of the text.
-	 * @param h Height of the text.
-	 * @param style Style to be used for painting the text.
+	 * @param text
+	 *            Text to be painted.
+	 * @param x
+	 *            X-coordinate of the text.
+	 * @param y
+	 *            Y-coordinate of the text.
+	 * @param w
+	 *            Width of the text.
+	 * @param h
+	 *            Height of the text.
+	 * @param style
+	 *            Style to be used for painting the text.
 	 */
 	public Object drawText(String text, int x, int y, int w, int h,
-			Map<String, Object> style)
-	{
+			Map<String, Object> style) {
 		Element elem = null;
 		String fontColor = mxUtils.getString(style,
 				mxConstants.STYLE_FONTCOLOR, "black");
@@ -1312,8 +1171,7 @@ public class mxSvgCanvas extends mxBasicCanvas
 		int fontSize = (int) (mxUtils.getInt(style, mxConstants.STYLE_FONTSIZE,
 				mxConstants.DEFAULT_FONTSIZE) * scale);
 
-		if (text != null && text.length() > 0)
-		{
+		if (text != null && text.length() > 0) {
 			float strokeWidth = (float) (mxUtils.getFloat(style,
 					mxConstants.STYLE_STROKEWIDTH, 1) * scale);
 
@@ -1329,15 +1187,13 @@ public class mxSvgCanvas extends mxBasicCanvas
 
 			String transform = null;
 
-			if (!mxUtils.isTrue(style, mxConstants.STYLE_HORIZONTAL, true))
-			{
+			if (!mxUtils.isTrue(style, mxConstants.STYLE_HORIZONTAL, true)) {
 				double cx = x + w / 2;
 				double cy = y + h / 2;
 				transform = "rotate(270 " + cx + " " + cy + ")";
 			}
 
-			if (bg != null || border != null)
-			{
+			if (bg != null || border != null) {
 				Element background = document.createElement("rect");
 
 				background.setAttribute("x", String.valueOf(x));
@@ -1345,36 +1201,28 @@ public class mxSvgCanvas extends mxBasicCanvas
 				background.setAttribute("width", String.valueOf(w));
 				background.setAttribute("height", String.valueOf(h));
 
-				if (bg != null)
-				{
+				if (bg != null) {
 					background.setAttribute("fill", bg);
-				}
-				else
-				{
+				} else {
 					background.setAttribute("fill", "none");
 				}
 
-				if (border != null)
-				{
+				if (border != null) {
 					background.setAttribute("stroke", border);
-				}
-				else
-				{
+				} else {
 					background.setAttribute("stroke", "none");
 				}
 
 				background.setAttribute("stroke-width",
 						String.valueOf(strokeWidth));
 
-				if (opacity != 100)
-				{
+				if (opacity != 100) {
 					String value = String.valueOf(opacity / 100);
 					background.setAttribute("fill-opacity", value);
 					background.setAttribute("stroke-opacity", value);
 				}
 
-				if (transform != null)
-				{
+				if (transform != null) {
 					background.setAttribute("transform", transform);
 				}
 
@@ -1391,8 +1239,7 @@ public class mxSvgCanvas extends mxBasicCanvas
 					: "none";
 			elem.setAttribute("font-decoration", uline);
 
-			if ((fontStyle & mxConstants.FONT_ITALIC) == mxConstants.FONT_ITALIC)
-			{
+			if ((fontStyle & mxConstants.FONT_ITALIC) == mxConstants.FONT_ITALIC) {
 				elem.setAttribute("font-style", "italic");
 			}
 
@@ -1400,8 +1247,7 @@ public class mxSvgCanvas extends mxBasicCanvas
 			elem.setAttribute("font-family", fontFamily);
 			elem.setAttribute("fill", fontColor);
 
-			if (opacity != 100)
-			{
+			if (opacity != 100) {
 				String value = String.valueOf(opacity / 100);
 				elem.setAttribute("fill-opacity", value);
 				elem.setAttribute("stroke-opacity", value);
@@ -1421,25 +1267,19 @@ public class mxSvgCanvas extends mxBasicCanvas
 					mxConstants.ALIGN_CENTER);
 			String anchor = "start";
 
-			if (align.equals(mxConstants.ALIGN_RIGHT))
-			{
+			if (align.equals(mxConstants.ALIGN_RIGHT)) {
 				anchor = "end";
 				x += w - mxConstants.LABEL_INSET * scale;
-			}
-			else if (align.equals(mxConstants.ALIGN_CENTER))
-			{
+			} else if (align.equals(mxConstants.ALIGN_CENTER)) {
 				anchor = "middle";
 				x += w / 2;
-			}
-			else
-			{
+			} else {
 				x += mxConstants.LABEL_INSET * scale;
 			}
 
 			elem.setAttribute("text-anchor", anchor);
 
-			for (int i = 0; i < lines.length; i++)
-			{
+			for (int i = 0; i < lines.length; i++) {
 				Element tspan = document.createElement("tspan");
 
 				tspan.setAttribute("x", String.valueOf(x));
@@ -1451,8 +1291,7 @@ public class mxSvgCanvas extends mxBasicCanvas
 				y += fontSize + mxConstants.LINESPACING;
 			}
 
-			if (transform != null)
-			{
+			if (transform != null) {
 				elem.setAttribute("transform", transform);
 			}
 

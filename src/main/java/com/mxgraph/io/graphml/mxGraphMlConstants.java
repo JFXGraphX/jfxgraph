@@ -7,8 +7,7 @@ package com.mxgraph.io.graphml;
 /**
  * This class contains constants used in the Import of gml documents.
  */
-public class mxGraphMlConstants
-{
+public class mxGraphMlConstants {
 	public static String ID = "id";
 
 	public static String KEY_FOR = "for";

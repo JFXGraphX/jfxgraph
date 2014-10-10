@@ -10,20 +10,20 @@ import java.util.List;
 /**
  * Base class for objects that dispatch named events.
  */
-public class mxEventSource
-{
+public class mxEventSource {
 
 	/**
 	 * Defines the requirements for an object that listens to an event source.
 	 */
-	public interface mxIEventListener
-	{
+	public interface mxIEventListener {
 
 		/**
 		 * Called when the graph model has changed.
 		 * 
-		 * @param sender Reference to the source of the event.
-		 * @param evt Event object to be dispatched.
+		 * @param sender
+		 *            Reference to the source of the event.
+		 * @param evt
+		 *            Event object to be dispatched.
 		 */
 		void invoke(Object sender, mxEventObject evt);
 
@@ -49,59 +49,51 @@ public class mxEventSource
 	/**
 	 * Constructs a new event source using this as the source object.
 	 */
-	public mxEventSource()
-	{
+	public mxEventSource() {
 		this(null);
 	}
 
 	/**
 	 * Constructs a new event source for the given source object.
 	 */
-	public mxEventSource(Object source)
-	{
+	public mxEventSource(Object source) {
 		setEventSource(source);
 	}
 
 	/**
 	 * 
 	 */
-	public Object getEventSource()
-	{
+	public Object getEventSource() {
 		return eventSource;
 	}
 
 	/**
 	 * 
 	 */
-	public void setEventSource(Object value)
-	{
+	public void setEventSource(Object value) {
 		this.eventSource = value;
 	}
 
 	/**
 	 * 
 	 */
-	public boolean isEventsEnabled()
-	{
+	public boolean isEventsEnabled() {
 		return eventsEnabled;
 	}
 
 	/**
 	 * 
 	 */
-	public void setEventsEnabled(boolean eventsEnabled)
-	{
+	public void setEventsEnabled(boolean eventsEnabled) {
 		this.eventsEnabled = eventsEnabled;
 	}
 
 	/**
-	 * Binds the specified function to the given event name. If no event name
-	 * is given, then the listener is registered for all events.
+	 * Binds the specified function to the given event name. If no event name is
+	 * given, then the listener is registered for all events.
 	 */
-	public void addListener(String eventName, mxIEventListener listener)
-	{
-		if (eventListeners == null)
-		{
+	public void addListener(String eventName, mxIEventListener listener) {
+		if (eventListeners == null) {
 			eventListeners = new ArrayList<Object>();
 		}
 
@@ -114,8 +106,7 @@ public class mxEventSource
 	 *
 	 * Removes all occurances of the given listener from the list of listeners.
 	 */
-	public void removeListener(mxIEventListener listener)
-	{
+	public void removeListener(mxIEventListener listener) {
 		removeListener(listener, null);
 	}
 
@@ -124,16 +115,12 @@ public class mxEventSource
 	 *
 	 * Removes all occurances of the given listener from the list of listeners.
 	 */
-	public void removeListener(mxIEventListener listener, String eventName)
-	{
-		if (eventListeners != null)
-		{
-			for (int i = eventListeners.size() - 2; i > -1; i -= 2)
-			{
+	public void removeListener(mxIEventListener listener, String eventName) {
+		if (eventListeners != null) {
+			for (int i = eventListeners.size() - 2; i > -1; i -= 2) {
 				if (eventListeners.get(i + 1) == listener
 						&& (eventName == null || String.valueOf(
-								eventListeners.get(i)).equals(eventName)))
-				{
+								eventListeners.get(i)).equals(eventName))) {
 					eventListeners.remove(i + 1);
 					eventListeners.remove(i);
 				}
@@ -146,8 +133,7 @@ public class mxEventSource
 	 * <code>fireEvent(new mxEventObject("eventName", key1, val1, .., keyN, valN))</code>
 	 * 
 	 */
-	public void fireEvent(mxEventObject evt)
-	{
+	public void fireEvent(mxEventObject evt) {
 		fireEvent(evt, null);
 	}
 
@@ -155,27 +141,21 @@ public class mxEventSource
 	 * Dispatches the given event name, passing all arguments after the given
 	 * name to the registered listeners for the event.
 	 */
-	public void fireEvent(mxEventObject evt, Object sender)
-	{
+	public void fireEvent(mxEventObject evt, Object sender) {
 		if (eventListeners != null && !eventListeners.isEmpty()
-				&& isEventsEnabled())
-		{
-			if (sender == null)
-			{
+				&& isEventsEnabled()) {
+			if (sender == null) {
 				sender = getEventSource();
 			}
 
-			if (sender == null)
-			{
+			if (sender == null) {
 				sender = this;
 			}
 
-			for (int i = 0; i < eventListeners.size(); i += 2)
-			{
+			for (int i = 0; i < eventListeners.size(); i += 2) {
 				String listen = (String) eventListeners.get(i);
 
-				if (listen == null || listen.equals(evt.getName()))
-				{
+				if (listen == null || listen.equals(evt.getName())) {
 					((mxIEventListener) eventListeners.get(i + 1)).invoke(
 							sender, evt);
 				}

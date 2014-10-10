@@ -32,11 +32,10 @@ import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxCellState;
 
 /**
- * Draws the edge label along a curve derived from the curve describing
- * the edge's path
+ * Draws the edge label along a curve derived from the curve describing the
+ * edge's path
  */
-public class mxCurveLabelShape implements mxITextShape
-{
+public class mxCurveLabelShape implements mxITextShape {
 	/**
 	 * Cache of the label text
 	 */
@@ -53,8 +52,7 @@ public class mxCurveLabelShape implements mxITextShape
 	protected List<mxPoint> lastPoints;
 
 	/**
-	 * Cache of the points between which drawing straight lines views as a
-	 * curve
+	 * Cache of the points between which drawing straight lines views as a curve
 	 */
 	protected mxCurve curve;
 
@@ -64,8 +62,8 @@ public class mxCurveLabelShape implements mxITextShape
 	protected mxCellState state;
 
 	/**
-	 * Cache of information describing characteristics relating to drawing 
-	 * each glyph of this label
+	 * Cache of information describing characteristics relating to drawing each
+	 * glyph of this label
 	 */
 	protected LabelGlyphCache[] labelGlyphs;
 
@@ -95,7 +93,7 @@ public class mxCurveLabelShape implements mxITextShape
 	public static double CURVE_TEXT_STRETCH_FACTOR = 20.0;
 
 	/**
-	 * Indicates that a glyph does not have valid drawing bounds, usually 
+	 * Indicates that a glyph does not have valid drawing bounds, usually
 	 * because it is not visible
 	 */
 	public static mxRectangle INVALID_GLYPH_BOUNDS = new mxRectangle(0, 0, 0, 0);
@@ -106,7 +104,8 @@ public class mxCurveLabelShape implements mxITextShape
 	public int centerVisibleIndex = 0;
 
 	/**
-	 * Specifies if image aspect should be preserved in drawImage. Default is true.
+	 * Specifies if image aspect should be preserved in drawImage. Default is
+	 * true.
 	 */
 	public static Object FONT_FRACTIONALMETRICS = RenderingHints.VALUE_FRACTIONALMETRICS_DEFAULT;
 
@@ -126,8 +125,7 @@ public class mxCurveLabelShape implements mxITextShape
 	 */
 	protected boolean rotationEnabled = true;
 
-	public mxCurveLabelShape(mxCellState state, mxCurve value)
-	{
+	public mxCurveLabelShape(mxCellState state, mxCurve value) {
 		this.state = state;
 		this.curve = value;
 	}
@@ -135,16 +133,14 @@ public class mxCurveLabelShape implements mxITextShape
 	/**
 	 *
 	 */
-	public boolean getRotationEnabled()
-	{
+	public boolean getRotationEnabled() {
 		return rotationEnabled;
 	}
 
 	/**
 	 *
 	 */
-	public void setRotationEnabled(boolean value)
-	{
+	public void setRotationEnabled(boolean value) {
 		rotationEnabled = value;
 	}
 
@@ -152,20 +148,17 @@ public class mxCurveLabelShape implements mxITextShape
 	 * 
 	 */
 	public void paintShape(mxGraphics2DCanvas canvas, String text,
-			mxCellState state, Map<String, Object> style)
-	{
+			mxCellState state, Map<String, Object> style) {
 		Rectangle rect = state.getLabelBounds().getRectangle();
 		Graphics2D g = canvas.getGraphics();
 
-		if (labelGlyphs == null)
-		{
+		if (labelGlyphs == null) {
 			updateLabelBounds(text, style);
 		}
 
 		if (labelGlyphs != null
 				&& (g.getClipBounds() == null || g.getClipBounds().intersects(
-						rect)))
-		{
+						rect))) {
 			// Creates a temporary graphics instance for drawing this shape
 			float opacity = mxUtils.getFloat(style, mxConstants.STYLE_OPACITY,
 					100);
@@ -185,19 +178,16 @@ public class mxCurveLabelShape implements mxITextShape
 			g.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS,
 					FONT_FRACTIONALMETRICS);
 
-			for (int j = 0; j < labelGlyphs.length; j++)
-			{
+			for (int j = 0; j < labelGlyphs.length; j++) {
 				mxLine parallel = labelGlyphs[j].glyphGeometry;
 
 				if (labelGlyphs[j].visible && parallel != null
-						&& parallel != mxCurve.INVALID_POSITION)
-				{
+						&& parallel != mxCurve.INVALID_POSITION) {
 					mxPoint parallelEnd = parallel.getEndPoint();
 					double x = parallelEnd.getX();
 					double rotation = (Math.atan(parallelEnd.getY() / x));
 
-					if (x < 0)
-					{
+					if (x < 0) {
 						// atan only ranges from -PI/2 to PI/2, have to offset
 						// for negative x values
 						rotation += Math.PI;
@@ -218,33 +208,32 @@ public class mxCurveLabelShape implements mxITextShape
 	}
 
 	/**
-	 * Updates the cached position and size of each glyph in the edge label. 
-	 * @param label the entire string of the label.
-	 * @param style the edge style
+	 * Updates the cached position and size of each glyph in the edge label.
+	 * 
+	 * @param label
+	 *            the entire string of the label.
+	 * @param style
+	 *            the edge style
 	 */
-	public mxRectangle updateLabelBounds(String label, Map<String, Object> style)
-	{
+	public mxRectangle updateLabelBounds(String label, Map<String, Object> style) {
 		double scale = state.getView().getScale();
 		Font font = mxUtils.getFont(style, scale);
 		FontMetrics fm = mxUtils.getFontMetrics(font);
 		int descent = 0;
 		int ascent = 0;
 
-		if (fm != null)
-		{
+		if (fm != null) {
 			descent = fm.getDescent();
 			ascent = fm.getAscent();
 		}
 
-		// Check that the size of the widths array matches 
+		// Check that the size of the widths array matches
 		// that of the label size
-		if (labelGlyphs == null || (!label.equals(lastValue)))
-		{
+		if (labelGlyphs == null || (!label.equals(lastValue))) {
 			labelGlyphs = new LabelGlyphCache[label.length()];
 		}
 
-		if (!label.equals(lastValue) || !font.equals(lastFont))
-		{
+		if (!label.equals(lastValue) || !font.equals(lastFont)) {
 			char[] labelChars = label.toCharArray();
 			ArrayList<LabelGlyphCache> glyphList = new ArrayList<LabelGlyphCache>();
 			boolean bidiRequired = Bidi.requiresBidi(labelChars, 0,
@@ -252,21 +241,18 @@ public class mxCurveLabelShape implements mxITextShape
 
 			labelSize = 0;
 
-			if (bidiRequired)
-			{
+			if (bidiRequired) {
 				Bidi bidi = new Bidi(label,
 						Bidi.DIRECTION_DEFAULT_LEFT_TO_RIGHT);
 
 				int runCount = bidi.getRunCount();
 
 				if (rtlGlyphVectors == null
-						|| rtlGlyphVectors.length != runCount)
-				{
+						|| rtlGlyphVectors.length != runCount) {
 					rtlGlyphVectors = new GlyphVector[runCount];
 				}
 
-				for (int i = 0; i < bidi.getRunCount(); i++)
-				{
+				for (int i = 0; i < bidi.getRunCount(); i++) {
 					final String labelSection = label.substring(
 							bidi.getRunStart(i), bidi.getRunLimit(i));
 					rtlGlyphVectors[i] = font
@@ -278,18 +264,17 @@ public class mxCurveLabelShape implements mxITextShape
 
 				int charCount = 0;
 
-				for (GlyphVector gv : rtlGlyphVectors)
-				{
+				for (GlyphVector gv : rtlGlyphVectors) {
 					float vectorOffset = 0.0f;
 
-					for (int j = 0; j < gv.getNumGlyphs(); j++)
-					{
+					for (int j = 0; j < gv.getNumGlyphs(); j++) {
 						Shape shape = gv.getGlyphOutline(j, -vectorOffset, 0);
 
 						LabelGlyphCache qlyph = new LabelGlyphCache();
 						glyphList.add(qlyph);
 						qlyph.glyphShape = shape;
-						mxRectangle size = new mxRectangle(gv.getGlyphLogicalBounds(j).getBounds2D());
+						mxRectangle size = new mxRectangle(gv
+								.getGlyphLogicalBounds(j).getBounds2D());
 						qlyph.labelGlyphBounds = size;
 						labelSize += size.getWidth();
 						vectorOffset += size.getWidth();
@@ -297,44 +282,38 @@ public class mxCurveLabelShape implements mxITextShape
 						charCount++;
 					}
 				}
-			}
-			else
-			{
+			} else {
 				rtlGlyphVectors = null;
-				//String locale = System.getProperty("user.language");
+				// String locale = System.getProperty("user.language");
 				// Character iterator required where character is split over
 				// string elements
-				BreakIterator it = BreakIterator.getCharacterInstance(Locale.getDefault());
+				BreakIterator it = BreakIterator.getCharacterInstance(Locale
+						.getDefault());
 				it.setText(label);
 
-				for (int i = 0; i < label.length();)
-				{
+				for (int i = 0; i < label.length();) {
 					int next = it.next();
 					int characterLen = 1;
-					
-					if (next != BreakIterator.DONE)
-					{
+
+					if (next != BreakIterator.DONE) {
 						characterLen = next - i;
 					}
 
 					String glyph = label.substring(i, i + characterLen);
-					
+
 					LabelGlyphCache labelGlyph = new LabelGlyphCache();
 					glyphList.add(labelGlyph);
 					labelGlyph.glyph = glyph;
 					GlyphVector vector = font.createGlyphVector(frc, glyph);
 					labelGlyph.glyphShape = vector.getOutline();
 
-					if (fm == null)
-					{
+					if (fm == null) {
 						mxRectangle size = new mxRectangle(
 								font.getStringBounds(glyph,
 										mxCurveLabelShape.frc));
 						labelGlyph.labelGlyphBounds = size;
 						labelSize += size.getWidth();
-					}
-					else
-					{
+					} else {
 						double width = fm.stringWidth(glyph);
 						labelGlyph.labelGlyphBounds = new mxRectangle(0, 0,
 								width, ascent);
@@ -342,31 +321,34 @@ public class mxCurveLabelShape implements mxITextShape
 					}
 
 					i += characterLen;
-					
 
 				}
 			}
 
-			// Update values used to determine whether or not the label cache 
+			// Update values used to determine whether or not the label cache
 			// is valid or not
 			lastValue = label;
 			lastFont = font;
 			lastPoints = curve.getGuidePoints();
-			this.labelGlyphs = glyphList.toArray(new LabelGlyphCache[glyphList.size()]);
+			this.labelGlyphs = glyphList.toArray(new LabelGlyphCache[glyphList
+					.size()]);
 		}
 
-		// Store the start/end buffers that pad out the ends of the branch so the label is
-		// visible. We work initially as the start section being at the start of the
-		// branch and the end at the end of the branch. Note that the actual label curve
-		// might be reversed, so we allow for this after completing the buffer calculations,
+		// Store the start/end buffers that pad out the ends of the branch so
+		// the label is
+		// visible. We work initially as the start section being at the start of
+		// the
+		// branch and the end at the end of the branch. Note that the actual
+		// label curve
+		// might be reversed, so we allow for this after completing the buffer
+		// calculations,
 		// otherwise they'd need to be constant isReversed() checks throughout
 		labelPosition.startBuffer = LABEL_BUFFER * scale;
 		labelPosition.endBuffer = LABEL_BUFFER * scale;
 
 		calculationLabelPosition(style, label);
 
-		if (curve.isLabelReversed())
-		{
+		if (curve.isLabelReversed()) {
 			double temp = labelPosition.startBuffer;
 			labelPosition.startBuffer = labelPosition.endBuffer;
 			labelPosition.endBuffer = temp;
@@ -388,10 +370,8 @@ public class mxCurveLabelShape implements mxITextShape
 		// Might be better than the curve is the only thing updated and
 		// the curve shapes listen to curve events
 		// !lastPoints.equals(curve.getGuidePoints())
-		for (int j = 0; j < labelGlyphs.length; j++)
-		{
-			if (currentPos > endPos)
-			{
+		for (int j = 0; j < labelGlyphs.length; j++) {
+			if (currentPos > endPos) {
 				labelGlyphs[j].visible = false;
 				continue;
 			}
@@ -399,8 +379,7 @@ public class mxCurveLabelShape implements mxITextShape
 			mxLine parallel = nextParallel;
 
 			if (currentCurveDelta > curveDeltaSignificant
-					|| nextParallel == null)
-			{
+					|| nextParallel == null) {
 				parallel = curve.getCurveParallel(mxCurve.LABEL_CURVE,
 						currentPos);
 
@@ -410,8 +389,7 @@ public class mxCurveLabelShape implements mxITextShape
 
 			labelGlyphs[j].glyphGeometry = parallel;
 
-			if (parallel == mxCurve.INVALID_POSITION)
-			{
+			if (parallel == mxCurve.INVALID_POSITION) {
 				continue;
 			}
 
@@ -457,7 +435,7 @@ public class mxCurveLabelShape implements mxITextShape
 			// Hook for sub-classers
 			postprocessGlyph(curve, label, j, currentPos);
 
-			// Need to allow for text on inside of curve bends. Need to get the 
+			// Need to allow for text on inside of curve bends. Need to get the
 			// parallel for the next section, if there is an excessive
 			// inner curve, advance the current position accordingly
 
@@ -475,30 +453,26 @@ public class mxCurveLabelShape implements mxITextShape
 			double end2Y = nextVector.getY();
 
 			if (nextParallel != mxCurve.INVALID_POSITION
-					&& j + 1 < label.length())
-			{
+					&& j + 1 < label.length()) {
 				// Extend the current parallel line in its direction
 				// by the length of the next parallel. Use the approximate
 				// deviation to work out the angle change
 				double deltaX = Math.abs(x - end2X);
 				double deltaY = Math.abs(y - end2Y);
 
-				// The difference as a proportion of the length of the next 
+				// The difference as a proportion of the length of the next
 				// vector. 1 means a variation of 60 degrees.
 				currentCurveDelta = Math
 						.sqrt(deltaX * deltaX + deltaY * deltaY);
 			}
 
-			if (currentCurveDelta > curveDeltaSignificant)
-			{
+			if (currentCurveDelta > curveDeltaSignificant) {
 				// Work out which direction the curve is going in
 				int ccw = Line2D.relativeCCW(0, 0, x, y, end2X, end2Y);
 
-				if (ccw == 1)
-				{
+				if (ccw == 1) {
 					// Text is on inside of curve
-					if (currentCurveDelta > curveDeltaMax)
-					{
+					if (currentCurveDelta > curveDeltaMax) {
 						// Don't worry about excessive deltas, if they
 						// are big the label curve will be screwed anyway
 						currentCurveDelta = curveDeltaMax;
@@ -511,24 +485,18 @@ public class mxCurveLabelShape implements mxITextShape
 				}
 			}
 
-			if (labelGlyphs[j].drawingBounds != null)
-			{
+			if (labelGlyphs[j].drawingBounds != null) {
 				labelGlyphs[j].drawingBounds.setRect(minX, minY, maxX - minX,
 						maxY - minY);
-			}
-			else
-			{
+			} else {
 				labelGlyphs[j].drawingBounds = new mxRectangle(minX, minY, maxX
 						- minX, maxY - minY);
 			}
 
-			if (overallLabelBounds == null)
-			{
+			if (overallLabelBounds == null) {
 				overallLabelBounds = (mxRectangle) labelGlyphs[j].drawingBounds
 						.clone();
-			}
-			else
-			{
+			} else {
 				overallLabelBounds.add(labelGlyphs[j].drawingBounds);
 			}
 
@@ -538,8 +506,7 @@ public class mxCurveLabelShape implements mxITextShape
 
 		centerVisibleIndex /= 2;
 
-		if (overallLabelBounds == null)
-		{
+		if (overallLabelBounds == null) {
 			// Return a small rectangle in the center of the label curve
 			// Null label bounds causes NPE when editing
 			mxLine labelCenter = curve.getCurveParallel(mxCurve.LABEL_CURVE,
@@ -553,41 +520,42 @@ public class mxCurveLabelShape implements mxITextShape
 	}
 
 	/**
-	 * Hook for sub-classers to perform additional processing on
-	 * each glyph
-	 * @param curve The curve object holding the label curve
-	 * @param label the text label of the curve
-	 * @param j the index of the label
-	 * @param currentPos the distance along the label curve the glyph is
+	 * Hook for sub-classers to perform additional processing on each glyph
+	 * 
+	 * @param curve
+	 *            The curve object holding the label curve
+	 * @param label
+	 *            the text label of the curve
+	 * @param j
+	 *            the index of the label
+	 * @param currentPos
+	 *            the distance along the label curve the glyph is
 	 */
 	protected void postprocessGlyph(mxCurve curve, String label, int j,
-			double currentPos)
-	{
+			double currentPos) {
 	}
 
 	/**
 	 * Returns whether or not the rectangle passed in hits any part of this
 	 * curve.
-	 * @param rect the rectangle to detect for a hit
+	 * 
+	 * @param rect
+	 *            the rectangle to detect for a hit
 	 * @return whether or not the rectangle hits this curve
 	 */
-	public boolean intersectsRect(Rectangle rect)
-	{
+	public boolean intersectsRect(Rectangle rect) {
 		// To save CPU, we can test if the rectangle intersects the entire
 		// bounds of this label
-		if ( (labelBounds != null
-				&& (!labelBounds.getRectangle().intersects(rect)) )
-				|| labelGlyphs == null )
-		{
+		if ((labelBounds != null && (!labelBounds.getRectangle().intersects(
+				rect)))
+				|| labelGlyphs == null) {
 			return false;
 		}
 
-		for (int i = 0; i < labelGlyphs.length; i++)
-		{
+		for (int i = 0; i < labelGlyphs.length; i++) {
 			if (labelGlyphs[i].visible
 					&& rect.intersects(labelGlyphs[i].drawingBounds
-							.getRectangle()))
-			{
+							.getRectangle())) {
 				return true;
 			}
 		}
@@ -597,12 +565,14 @@ public class mxCurveLabelShape implements mxITextShape
 
 	/**
 	 * Hook method to override how the label is positioned on the curve
-	 * @param style the style of the curve
-	 * @param label the string label to be displayed on the curve
+	 * 
+	 * @param style
+	 *            the style of the curve
+	 * @param label
+	 *            the string label to be displayed on the curve
 	 */
 	protected void calculationLabelPosition(Map<String, Object> style,
-			String label)
-	{
+			String label) {
 		double curveLength = curve.getCurveLength(mxCurve.LABEL_CURVE);
 		double availableLabelSpace = curveLength - labelPosition.startBuffer
 				- labelPosition.endBuffer;
@@ -617,16 +587,15 @@ public class mxCurveLabelShape implements mxITextShape
 	/**
 	 * @return the curve
 	 */
-	public mxCurve getCurve()
-	{
+	public mxCurve getCurve() {
 		return curve;
 	}
 
 	/**
-	 * @param curve the curve to set
+	 * @param curve
+	 *            the curve to set
 	 */
-	public void setCurve(mxCurve curve)
-	{
+	public void setCurve(mxCurve curve) {
 		this.curve = curve;
 	}
 
@@ -635,11 +604,10 @@ public class mxCurveLabelShape implements mxITextShape
 	 * branch label. Each instance represents one glyph
 	 *
 	 */
-	public class LabelGlyphCache
-	{
+	public class LabelGlyphCache {
 		/**
-		 * Cache of the bounds of the individual element of the label of this 
-		 * edge. Note that these are the unrotated values used to determine the 
+		 * Cache of the bounds of the individual element of the label of this
+		 * edge. Note that these are the unrotated values used to determine the
 		 * width of each glyph.
 		 */
 		public mxRectangle labelGlyphBounds;
@@ -672,11 +640,10 @@ public class mxCurveLabelShape implements mxITextShape
 	}
 
 	/**
-	 * Utility class that stores details of how the label is positioned
-	 * on the curve
+	 * Utility class that stores details of how the label is positioned on the
+	 * curve
 	 */
-	public class LabelPosition
-	{
+	public class LabelPosition {
 		public double startBuffer = LABEL_BUFFER;
 
 		public double endBuffer = LABEL_BUFFER;
@@ -684,17 +651,16 @@ public class mxCurveLabelShape implements mxITextShape
 		public double defaultInterGlyphSpace = 0;;
 	}
 
-	public mxRectangle getLabelBounds()
-	{
+	public mxRectangle getLabelBounds() {
 		return labelBounds;
 	}
 
 	/**
 	 * Returns the drawing bounds of the central indexed visible glyph
+	 * 
 	 * @return the centerVisibleIndex
 	 */
-	public mxRectangle getCenterVisiblePosition()
-	{
+	public mxRectangle getCenterVisiblePosition() {
 		return labelGlyphs[centerVisibleIndex].drawingBounds;
 	}
 }

@@ -9,8 +9,7 @@ import java.util.EventObject;
 /**
  *
  */
-public interface mxICellEditor
-{
+public interface mxICellEditor {
 
 	/**
 	 * Returns the cell that is currently being edited.

@@ -13,12 +13,11 @@ import com.mxgraph.util.mxUtils;
  * Implements a session that may be attached to a shared diagram. The session
  * contains a synchronized buffer which is used to hold the pending edits which
  * are to be sent to a specific client. The update mechnism between the server
- * and the client uses HTTP requests (polling). The request is kept on the server
- * for an amount of time or wakes up / returns immediately if the buffer is no
- * longer empty.
+ * and the client uses HTTP requests (polling). The request is kept on the
+ * server for an amount of time or wakes up / returns immediately if the buffer
+ * is no longer empty.
  */
-public class mxSession implements mxDiagramChangeListener
-{
+public class mxSession implements mxDiagramChangeListener {
 	/**
 	 * Default timeout is 10000 ms.
 	 */
@@ -47,11 +46,12 @@ public class mxSession implements mxDiagramChangeListener
 	/**
 	 * Constructs a new session with the given ID.
 	 * 
-	 * @param id Specifies the session ID to be used.
-	 * @param diagram Reference to the shared diagram.
+	 * @param id
+	 *            Specifies the session ID to be used.
+	 * @param diagram
+	 *            Reference to the shared diagram.
 	 */
-	public mxSession(String id, mxSharedState diagram)
-	{
+	public mxSession(String id, mxSharedState diagram) {
 		this.id = id;
 		this.diagram = diagram;
 		this.diagram.addDiagramChangeListener(this);
@@ -62,8 +62,7 @@ public class mxSession implements mxDiagramChangeListener
 	/**
 	 * Returns the session ID.
 	 */
-	public String getId()
-	{
+	public String getId() {
 		return id;
 	}
 
@@ -73,10 +72,8 @@ public class mxSession implements mxDiagramChangeListener
 	 *
 	 * @return Returns the initial state of the session.
 	 */
-	public synchronized String init()
-	{
-		synchronized (this)
-		{
+	public synchronized String init() {
+		synchronized (this) {
 			buffer = new StringBuffer();
 			notify();
 		}
@@ -90,8 +87,7 @@ public class mxSession implements mxDiagramChangeListener
 	 * namespace, which is used on the client side to prefix IDs of newly
 	 * created cells.
 	 */
-	public String getInitialMessage()
-	{
+	public String getInitialMessage() {
 		String ns = mxUtils.getMd5Hash(id);
 
 		StringBuffer result = new StringBuffer("<message namespace=\"" + ns
@@ -108,66 +104,63 @@ public class mxSession implements mxDiagramChangeListener
 	}
 
 	/**
-	 * Posts the change represented by the given XML string to the shared diagram.
+	 * Posts the change represented by the given XML string to the shared
+	 * diagram.
 	 * 
-	 * @param message XML that represents the change.
+	 * @param message
+	 *            XML that represents the change.
 	 */
-	public void receive(Node message)
-	{
-		//System.out.println(getId() + ": " + mxUtils.getPrettyXml(message));
+	public void receive(Node message) {
+		// System.out.println(getId() + ": " + mxUtils.getPrettyXml(message));
 		Node child = message.getFirstChild();
 
-		while (child != null)
-		{
-			if (child.getNodeName().equals("delta"))
-			{
+		while (child != null) {
+			if (child.getNodeName().equals("delta")) {
 				diagram.processDelta(this, child);
 			}
 
 			child = child.getNextSibling();
 		}
-		/*System.out.println(mxUtils.getPrettyXml(new mxCodec()
-				.encode(((mxSharedGraphModel) diagram).getModel())));*/
+		/*
+		 * System.out.println(mxUtils.getPrettyXml(new mxCodec()
+		 * .encode(((mxSharedGraphModel) diagram).getModel())));
+		 */
 	}
 
 	/**
 	 * Returns the changes received by other sessions for the shared diagram.
-	 * The method returns an empty XML node if no change was received within
-	 * 10 seconds.
+	 * The method returns an empty XML node if no change was received within 10
+	 * seconds.
 	 * 
 	 * @return Returns a string representing the changes to the shared diagram.
 	 */
-	public String poll() throws InterruptedException
-	{
+	public String poll() throws InterruptedException {
 		return poll(DEFAULT_TIMEOUT);
 	}
 
 	/**
 	 * Returns the changes received by other sessions for the shared diagram.
-	 * The method returns an empty XML node if no change was received within
-	 * the given timeout.
+	 * The method returns an empty XML node if no change was received within the
+	 * given timeout.
 	 * 
-	 * @param timeout Time in milliseconds to wait for changes.
+	 * @param timeout
+	 *            Time in milliseconds to wait for changes.
 	 * @return Returns a string representing the changes to the shared diagram.
 	 */
-	public String poll(long timeout) throws InterruptedException
-	{
+	public String poll(long timeout) throws InterruptedException {
 		lastTimeMillis = System.currentTimeMillis();
 		StringBuffer result = new StringBuffer("<message>");
 
-		synchronized (this)
-		{
-			if (buffer.length() == 0)
-			{
+		synchronized (this) {
+			if (buffer.length() == 0) {
 				wait(timeout);
 			}
 
-			if (buffer.length() > 0)
-			{
+			if (buffer.length() > 0) {
 				result.append("<delta>");
 				result.append(buffer.toString());
 				result.append("</delta>");
-				
+
 				buffer = new StringBuffer();
 			}
 
@@ -181,14 +174,14 @@ public class mxSession implements mxDiagramChangeListener
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.mxgraph.sharing.mxSharedDiagram.mxDiagramChangeListener#diagramChanged(java.lang.Object, org.w3c.dom.Node)
+	 * 
+	 * @see
+	 * com.mxgraph.sharing.mxSharedDiagram.mxDiagramChangeListener#diagramChanged
+	 * (java.lang.Object, org.w3c.dom.Node)
 	 */
-	public synchronized void diagramChanged(Object sender, String edits)
-	{
-		if (sender != this)
-		{
-			synchronized (this)
-			{
+	public synchronized void diagramChanged(Object sender, String edits) {
+		if (sender != this) {
+			synchronized (this) {
 				buffer.append(edits);
 				notify();
 			}
@@ -198,16 +191,14 @@ public class mxSession implements mxDiagramChangeListener
 	/**
 	 * Returns the number of milliseconds this session has been inactive.
 	 */
-	public long inactiveTimeMillis()
-	{
+	public long inactiveTimeMillis() {
 		return System.currentTimeMillis() - lastTimeMillis;
 	}
 
 	/**
 	 * Destroys the session and removes its listener from the shared diagram.
 	 */
-	public void destroy()
-	{
+	public void destroy() {
 		diagram.removeDiagramChangeListener(this);
 	}
 

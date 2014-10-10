@@ -19,23 +19,20 @@ import com.mxgraph.swing.util.mxGraphActions;
  * @author Administrator
  * 
  */
-public class mxKeyboardHandler
-{
+public class mxKeyboardHandler {
 
 	/**
 	 * 
 	 * @param graphComponent
 	 */
-	public mxKeyboardHandler(mxGraphComponent graphComponent)
-	{
+	public mxKeyboardHandler(mxGraphComponent graphComponent) {
 		installKeyboardActions(graphComponent);
 	}
 
 	/**
 	 * Invoked as part from the boilerplate install block.
 	 */
-	protected void installKeyboardActions(mxGraphComponent graphComponent)
-	{
+	protected void installKeyboardActions(mxGraphComponent graphComponent) {
 		InputMap inputMap = getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 		SwingUtilities.replaceUIInputMap(graphComponent,
 				JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT, inputMap);
@@ -49,16 +46,12 @@ public class mxKeyboardHandler
 	/**
 	 * Return JTree's input map.
 	 */
-	protected InputMap getInputMap(int condition)
-	{
+	protected InputMap getInputMap(int condition) {
 		InputMap map = null;
 
-		if (condition == JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
-		{
+		if (condition == JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT) {
 			map = (InputMap) UIManager.get("ScrollPane.ancestorInputMap");
-		}
-		else if (condition == JComponent.WHEN_FOCUSED)
-		{
+		} else if (condition == JComponent.WHEN_FOCUSED) {
 			map = new InputMap();
 
 			map.put(KeyStroke.getKeyStroke("F2"), "edit");
@@ -92,8 +85,7 @@ public class mxKeyboardHandler
 	/**
 	 * Return the mapping between JTree's input map and JGraph's actions.
 	 */
-	protected ActionMap createActionMap()
-	{
+	protected ActionMap createActionMap() {
 		ActionMap map = (ActionMap) UIManager.get("ScrollPane.actionMap");
 
 		map.put("edit", mxGraphActions.getEditAction());

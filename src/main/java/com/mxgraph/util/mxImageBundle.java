@@ -8,8 +8,8 @@ import java.util.Hashtable;
 import java.util.Map;
 
 /**
- * Maps from keys to base64 encoded images or file locations. All values must
- * be URLs or use the format data:image/format followed by a comma and the base64
+ * Maps from keys to base64 encoded images or file locations. All values must be
+ * URLs or use the format data:image/format followed by a comma and the base64
  * encoded image data, eg. "data:image/gif,XYZ", where XYZ is the base64 encoded
  * image data.
  * 
@@ -24,9 +24,9 @@ import java.util.Map;
  * graph.addImageBundle(bundle);
  * </code>
  * 
- * The image can then be referenced in any cell style using image=myImage.
- * If you are using mxOutline, you should use the same image bundles in the
- * graph that renders the outline.
+ * The image can then be referenced in any cell style using image=myImage. If
+ * you are using mxOutline, you should use the same image bundles in the graph
+ * that renders the outline.
  * 
  * To convert a given BufferedImage to a base64 encoded String, the following
  * code can be used:
@@ -42,8 +42,7 @@ import java.util.Map;
  * and the short format above is converted to a data URI in
  * mxGraph.postProcessCellStyle.
  */
-public class mxImageBundle
-{
+public class mxImageBundle {
 
 	/**
 	 * Maps from keys to images.
@@ -53,29 +52,25 @@ public class mxImageBundle
 	/**
 	 * Returns the images.
 	 */
-	public Map<String, String> getImages()
-	{
+	public Map<String, String> getImages() {
 		return images;
 	}
 
 	/**
 	 * Adds the specified entry to the map.
 	 */
-	public void putImage(String key, String value)
-	{
+	public void putImage(String key, String value) {
 		images.put(key, value);
 	}
 
 	/**
 	 * Returns the value for the given key.
 	 */
-	public String getImage(String key)
-	{
-		if (key != null)
-		{
+	public String getImage(String key) {
+		if (key != null) {
 			return images.get(key);
 		}
-		
+
 		return null;
 	}
 

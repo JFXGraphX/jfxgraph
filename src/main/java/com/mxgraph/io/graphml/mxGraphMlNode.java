@@ -13,8 +13,7 @@ import org.w3c.dom.Element;
 /**
  * Represents a Data element in the GML Structure.
  */
-public class mxGraphMlNode
-{
+public class mxGraphMlNode {
 	private String nodeId;
 
 	private mxGraphMlData nodeData;
@@ -27,103 +26,96 @@ public class mxGraphMlNode
 
 	/**
 	 * Construct a node with Id and one data element
-	 * @param nodeId Node`s ID
-	 * @param nodeData Gml Data.
+	 * 
+	 * @param nodeId
+	 *            Node`s ID
+	 * @param nodeData
+	 *            Gml Data.
 	 */
-	public mxGraphMlNode(String nodeId, mxGraphMlData nodeData)
-	{
+	public mxGraphMlNode(String nodeId, mxGraphMlData nodeData) {
 		this.nodeId = nodeId;
 		this.nodeData = nodeData;
 	}
 
 	/**
 	 * Construct a Node from a xml Node Element.
-	 * @param nodeElement Xml Node Element.
+	 * 
+	 * @param nodeElement
+	 *            Xml Node Element.
 	 */
-	public mxGraphMlNode(Element nodeElement)
-	{
+	public mxGraphMlNode(Element nodeElement) {
 		this.nodeId = nodeElement.getAttribute(mxGraphMlConstants.ID);
 
-		//Add data elements
+		// Add data elements
 		List<Element> dataList = mxGraphMlUtils.childsTags(nodeElement,
 				mxGraphMlConstants.DATA);
 
-		for (Element dataElem : dataList)
-		{
+		for (Element dataElem : dataList) {
 			mxGraphMlData data = new mxGraphMlData(dataElem);
 			String key = data.getDataKey();
 			nodeDataMap.put(key, data);
 		}
 
-		//Add graph elements
+		// Add graph elements
 		List<Element> graphList = mxGraphMlUtils.childsTags(nodeElement,
 				mxGraphMlConstants.GRAPH);
 
-		for (Element graphElem : graphList)
-		{
+		for (Element graphElem : graphList) {
 			mxGraphMlGraph graph = new mxGraphMlGraph(graphElem);
 			nodeGraphList.add(graph);
 		}
 
-		//Add port elements
+		// Add port elements
 		List<Element> portList = mxGraphMlUtils.childsTags(nodeElement,
 				mxGraphMlConstants.PORT);
 
-		for (Element portElem : portList)
-		{
+		for (Element portElem : portList) {
 			mxGraphMlPort port = new mxGraphMlPort(portElem);
 			String name = port.getName();
 			nodePortMap.put(name, port);
 		}
 	}
 
-	public String getNodeId()
-	{
+	public String getNodeId() {
 		return nodeId;
 	}
 
-	public void setNodeId(String nodeId)
-	{
+	public void setNodeId(String nodeId) {
 		this.nodeId = nodeId;
 	}
 
-	public HashMap<String, mxGraphMlData> getNodeDataMap()
-	{
+	public HashMap<String, mxGraphMlData> getNodeDataMap() {
 		return nodeDataMap;
 	}
 
-	public void setNodeDataMap(HashMap<String, mxGraphMlData> nodeDataMap)
-	{
+	public void setNodeDataMap(HashMap<String, mxGraphMlData> nodeDataMap) {
 		this.nodeDataMap = nodeDataMap;
 	}
 
-	public List<mxGraphMlGraph> getNodeGraph()
-	{
+	public List<mxGraphMlGraph> getNodeGraph() {
 		return nodeGraphList;
 	}
 
-	public void setNodeGraph(List<mxGraphMlGraph> nodeGraph)
-	{
+	public void setNodeGraph(List<mxGraphMlGraph> nodeGraph) {
 		this.nodeGraphList = nodeGraph;
 	}
 
-	public HashMap<String, mxGraphMlPort> getNodePort()
-	{
+	public HashMap<String, mxGraphMlPort> getNodePort() {
 		return nodePortMap;
 	}
 
-	public void setNodePort(HashMap<String, mxGraphMlPort> nodePort)
-	{
+	public void setNodePort(HashMap<String, mxGraphMlPort> nodePort) {
 		this.nodePortMap = nodePort;
 	}
 
 	/**
 	 * Generates a Key Element from this class.
-	 * @param document Document where the key Element will be inserted.
+	 * 
+	 * @param document
+	 *            Document where the key Element will be inserted.
 	 * @return Returns the generated Elements.
 	 */
-	public Element generateElement(Document document)
-	{
+	public Element generateElement(Document document) {
 		Element node = document.createElement(mxGraphMlConstants.NODE);
 
 		node.setAttribute(mxGraphMlConstants.ID, nodeId);
@@ -131,14 +123,12 @@ public class mxGraphMlNode
 		Element dataElement = nodeData.generateNodeElement(document);
 		node.appendChild(dataElement);
 
-		for (mxGraphMlPort port : nodePortMap.values())
-		{
+		for (mxGraphMlPort port : nodePortMap.values()) {
 			Element portElement = port.generateElement(document);
 			node.appendChild(portElement);
 		}
 
-		for (mxGraphMlGraph graph : nodeGraphList)
-		{
+		for (mxGraphMlGraph graph : nodeGraphList) {
 			Element graphElement = graph.generateElement(document);
 			node.appendChild(graphElement);
 		}
@@ -146,13 +136,11 @@ public class mxGraphMlNode
 		return node;
 	}
 
-	public mxGraphMlData getNodeData()
-	{
+	public mxGraphMlData getNodeData() {
 		return nodeData;
 	}
 
-	public void setNodeData(mxGraphMlData nodeData)
-	{
+	public void setNodeData(mxGraphMlData nodeData) {
 		this.nodeData = nodeData;
 	}
 

@@ -23,8 +23,8 @@ import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxGraphView;
 
 /**
- * A singleton class that provides algorithms for graphs. Assume these
- * variables for the following examples:<br>
+ * A singleton class that provides algorithms for graphs. Assume these variables
+ * for the following examples:<br>
  * <code>
  * mxICostFunction cf = mxDistanceCostFunction();
  * Object[] v = graph.getChildVertices(graph.getDefaultParent());
@@ -42,10 +42,8 @@ import com.mxgraph.view.mxGraphView;
  * <h3>Minimum Spanning Tree</h3>
  * 
  * This algorithm finds the set of edges with the minimal length that connect
- * all vertices. This algorithm can be used as follows:
- * <h5>Prim</h5>
- * <code>mga.getMinimumSpanningTree(graph, v, cf, true))</code>
- * <h5>Kruskal</h5>
+ * all vertices. This algorithm can be used as follows: <h5>Prim</h5>
+ * <code>mga.getMinimumSpanningTree(graph, v, cf, true))</code> <h5>Kruskal</h5>
  * <code>mga.getMinimumSpanningTree(graph, v, e, cf))</code>
  * 
  * <h3>Connection Components</h3>
@@ -55,8 +53,7 @@ import com.mxgraph.view.mxGraphView;
  * 
  * @see mxICostFunction
  */
-public class mxGraphAnalysis
-{
+public class mxGraphAnalysis {
 
 	/**
 	 * Holds the shared instance of this class.
@@ -66,26 +63,24 @@ public class mxGraphAnalysis
 	/**
 	 *
 	 */
-	protected mxGraphAnalysis()
-	{
+	protected mxGraphAnalysis() {
 		// empty
 	}
 
 	/**
 	 * @return Returns the sharedInstance.
 	 */
-	public static mxGraphAnalysis getInstance()
-	{
+	public static mxGraphAnalysis getInstance() {
 		return instance;
 	}
 
 	/**
 	 * Sets the shared instance of this class.
 	 * 
-	 * @param instance The instance to set.
+	 * @param instance
+	 *            The instance to set.
 	 */
-	public static void setInstance(mxGraphAnalysis instance)
-	{
+	public static void setInstance(mxGraphAnalysis instance) {
 		mxGraphAnalysis.instance = instance;
 	}
 
@@ -94,21 +89,26 @@ public class mxGraphAnalysis
 	 * represented as an array of edges in order of traversal. <br>
 	 * This implementation is based on the Dijkstra algorithm.
 	 * 
-	 * @param graph The object that defines the graph structure
-	 * @param from The source cell.
-	 * @param to The target cell (aka sink).
-	 * @param cf The cost function that defines the edge length.
-	 * @param steps The maximum number of edges to traverse.
-	 * @param directed If edge directions should be taken into account.
-	 * @return Returns the shortest path as an alternating array of vertices
-	 * and edges, starting with <code>from</code> and ending with
-	 * <code>to</code>.
+	 * @param graph
+	 *            The object that defines the graph structure
+	 * @param from
+	 *            The source cell.
+	 * @param to
+	 *            The target cell (aka sink).
+	 * @param cf
+	 *            The cost function that defines the edge length.
+	 * @param steps
+	 *            The maximum number of edges to traverse.
+	 * @param directed
+	 *            If edge directions should be taken into account.
+	 * @return Returns the shortest path as an alternating array of vertices and
+	 *         edges, starting with <code>from</code> and ending with
+	 *         <code>to</code>.
 	 * 
 	 * @see #createPriorityQueue()
 	 */
 	public Object[] getShortestPath(mxGraph graph, Object from, Object to,
-			mxICostFunction cf, int steps, boolean directed)
-	{
+			mxICostFunction cf, int steps, boolean directed) {
 		// Sets up a pqueue and a hashtable to store the predecessor for each
 		// cell in tha graph traversal. The pqueue is initialized
 		// with the from element at prio 0.
@@ -119,15 +119,13 @@ public class mxGraphAnalysis
 
 		// The main loop of the dijkstra algorithm is based on the pqueue being
 		// updated with the actual shortest distance to the source vertex.
-		for (int j = 0; j < steps; j++)
-		{
+		for (int j = 0; j < steps; j++) {
 			mxFibonacciHeap.Node node = q.removeMin();
 			double prio = node.getKey();
 			Object obj = node.getUserObject();
 
 			// Exits the loop if the target node or vertex has been reached
-			if (obj == to)
-			{
+			if (obj == to) {
 				break;
 			}
 
@@ -135,33 +133,30 @@ public class mxGraphAnalysis
 			Object[] e = (directed) ? graph.getOutgoingEdges(obj) : graph
 					.getConnections(obj);
 
-			if (e != null)
-			{
-				for (int i = 0; i < e.length; i++)
-				{
+			if (e != null) {
+				for (int i = 0; i < e.length; i++) {
 					Object[] opp = graph.getOpposites(new Object[] { e[i] },
 							obj);
 
-					if (opp != null && opp.length > 0)
-					{
+					if (opp != null && opp.length > 0) {
 						Object neighbour = opp[0];
 
-						// Updates the priority in the pqueue for the opposite node
+						// Updates the priority in the pqueue for the opposite
+						// node
 						// to be the distance of this step plus the cost to
 						// traverese the edge to the neighbour. Note that the
-						// priority queue will make sure that in the next step the
+						// priority queue will make sure that in the next step
+						// the
 						// node with the smallest prio will be traversed.
 						if (neighbour != null && neighbour != obj
-								&& neighbour != from)
-						{
+								&& neighbour != from) {
 							double newPrio = prio
 									+ ((cf != null) ? cf.getCost(view
 											.getState(e[i])) : 1);
 							node = q.getNode(neighbour, true);
 							double oldPrio = node.getKey();
 
-							if (newPrio < oldPrio)
-							{
+							if (newPrio < oldPrio) {
 								pred.put(neighbour, e[i]);
 								q.decreaseKey(node, newPrio);
 							}
@@ -170,8 +165,7 @@ public class mxGraphAnalysis
 				}
 			}
 
-			if (q.isEmpty())
-			{
+			if (q.isEmpty()) {
 				break;
 			}
 		}
@@ -182,12 +176,10 @@ public class mxGraphAnalysis
 		Object obj = to;
 		Object edge = pred.get(obj);
 
-		if (edge != null)
-		{
+		if (edge != null) {
 			list.add(obj);
 
-			while (edge != null)
-			{
+			while (edge != null) {
 				list.add(0, edge);
 
 				mxCellState state = view.getState(edge);
@@ -227,8 +219,7 @@ public class mxGraphAnalysis
 	 * @see #createPriorityQueue()
 	 */
 	public Object[] getMinimumSpanningTree(mxGraph graph, Object[] v,
-			mxICostFunction cf, boolean directed)
-	{
+			mxICostFunction cf, boolean directed) {
 		ArrayList<Object> mst = new ArrayList<Object>(v.length);
 
 		// Sets up a pqueue and a hashtable to store the predecessor for each
@@ -239,21 +230,18 @@ public class mxGraphAnalysis
 		Object u = v[0];
 		q.decreaseKey(q.getNode(u, true), 0);
 
-		for (int i = 1; i < v.length; i++)
-		{
+		for (int i = 1; i < v.length; i++) {
 			q.getNode(v[i], true);
 		}
 
 		// The main loop of the dijkstra algorithm is based on the pqueue being
 		// updated with the actual shortest distance to the source vertex.
-		while (!q.isEmpty())
-		{
+		while (!q.isEmpty()) {
 			mxFibonacciHeap.Node node = q.removeMin();
 			u = node.getUserObject();
 			Object edge = pred.get(u);
 
-			if (edge != null)
-			{
+			if (edge != null) {
 				mst.add(edge);
 			}
 
@@ -262,10 +250,8 @@ public class mxGraphAnalysis
 					.getConnections(u);
 			Object[] opp = graph.getOpposites(e, u);
 
-			if (e != null)
-			{
-				for (int i = 0; i < e.length; i++)
-				{
+			if (e != null) {
+				for (int i = 0; i < e.length; i++) {
 					Object neighbour = opp[i];
 
 					// Updates the priority in the pqueue for the opposite node
@@ -273,18 +259,15 @@ public class mxGraphAnalysis
 					// traverese the edge to the neighbour. Note that the
 					// priority queue will make sure that in the next step the
 					// node with the smallest prio will be traversed.
-					if (neighbour != null && neighbour != u)
-					{
+					if (neighbour != null && neighbour != u) {
 						node = q.getNode(neighbour, false);
 
-						if (node != null)
-						{
+						if (node != null) {
 							double newPrio = cf.getCost(graph.getView()
 									.getState(e[i]));
 							double oldPrio = node.getKey();
 
-							if (newPrio < oldPrio)
-							{
+							if (newPrio < oldPrio) {
 								pred.put(neighbour, e[i]);
 								q.decreaseKey(node, newPrio);
 							}
@@ -306,21 +289,23 @@ public class mxGraphAnalysis
 	 * O(|E|) find and O(|V|) union calls on the union find structure, thus
 	 * yielding no more than O(|E|log|V|) steps. For a faster implementatin
 	 * 
-	 * @see #getMinimumSpanningTree(mxGraph, Object[], mxICostFunction,
-	 *      boolean)
+	 * @see #getMinimumSpanningTree(mxGraph, Object[], mxICostFunction, boolean)
 	 * 
-	 * @param graph The object that contains the graph.
-	 * @param v The vertices of the graph.
-	 * @param e The edges of the graph.
-	 * @param cf The cost function that defines the edge length.
+	 * @param graph
+	 *            The object that contains the graph.
+	 * @param v
+	 *            The vertices of the graph.
+	 * @param e
+	 *            The edges of the graph.
+	 * @param cf
+	 *            The cost function that defines the edge length.
 	 * 
 	 * @return Returns the MST as an array of edges.
 	 * 
 	 * @see #createUnionFind(Object[])
 	 */
 	public Object[] getMinimumSpanningTree(mxGraph graph, Object[] v,
-			Object[] e, mxICostFunction cf)
-	{
+			Object[] e, mxICostFunction cf) {
 		// Sorts all edges according to their lengths, then creates a union
 		// find structure for all vertices. Then walks through all edges by
 		// increasing length and tries adding to the MST. Only edges are added
@@ -333,16 +318,14 @@ public class mxGraphAnalysis
 		ArrayList<Object> result = new ArrayList<Object>(e.length);
 		mxCellState[] edgeStates = sort(view.getCellStates(e), cf);
 
-		for (int i = 0; i < edgeStates.length; i++)
-		{
+		for (int i = 0; i < edgeStates.length; i++) {
 			Object source = edgeStates[i].getVisibleTerminal(true);
 			Object target = edgeStates[i].getVisibleTerminal(false);
 
 			mxUnionFind.Node setA = uf.find(uf.getNode(source));
 			mxUnionFind.Node setB = uf.find(uf.getNode(target));
 
-			if (setA == null || setB == null || setA != setB)
-			{
+			if (setA == null || setB == null || setA != setB) {
 				uf.union(setA, setB);
 				result.add(edgeStates[i].getCell());
 			}
@@ -355,21 +338,22 @@ public class mxGraphAnalysis
 	 * Returns a union find structure representing the connection components of
 	 * G=(E,V).
 	 * 
-	 * @param graph The object that contains the graph.
-	 * @param v The vertices of the graph.
-	 * @param e The edges of the graph.
+	 * @param graph
+	 *            The object that contains the graph.
+	 * @param v
+	 *            The vertices of the graph.
+	 * @param e
+	 *            The edges of the graph.
 	 * @return Returns the connection components in G=(E,V)
 	 * 
 	 * @see #createUnionFind(Object[])
 	 */
 	public mxUnionFind getConnectionComponents(mxGraph graph, Object[] v,
-			Object[] e)
-	{
+			Object[] e) {
 		mxGraphView view = graph.getView();
 		mxUnionFind uf = createUnionFind(v);
 
-		for (int i = 0; i < e.length; i++)
-		{
+		for (int i = 0; i < e.length; i++) {
 			mxCellState state = view.getState(e[i]);
 			Object source = (state != null) ? state.getVisibleTerminal(true)
 					: view.getVisibleTerminal(e[i], true);
@@ -391,21 +375,17 @@ public class mxGraphAnalysis
 	 * @param cf
 	 *            the cost function that defines the order
 	 * 
-	 * @return Returns an ordered set of <code>cells</code> wrt.
-	 *         <code>cf</code>
+	 * @return Returns an ordered set of <code>cells</code> wrt. <code>cf</code>
 	 */
-	public mxCellState[] sort(mxCellState[] states, final mxICostFunction cf)
-	{
+	public mxCellState[] sort(mxCellState[] states, final mxICostFunction cf) {
 		List<mxCellState> result = Arrays.asList(states);
 
-		Collections.sort(result, new Comparator<mxCellState>()
-		{
+		Collections.sort(result, new Comparator<mxCellState>() {
 
 			/**
 			 * 
 			 */
-			public int compare(mxCellState o1, mxCellState o2)
-			{
+			public int compare(mxCellState o1, mxCellState o2) {
 				Double d1 = new Double(cf.getCost(o1));
 				Double d2 = new Double(cf.getCost(o2));
 
@@ -428,12 +408,10 @@ public class mxGraphAnalysis
 	 * 
 	 * @return Returns the sum of all cell cost
 	 */
-	public double sum(mxCellState[] states, mxICostFunction cf)
-	{
+	public double sum(mxCellState[] states, mxICostFunction cf) {
 		double sum = 0;
 
-		for (int i = 0; i < states.length; i++)
-		{
+		for (int i = 0; i < states.length; i++) {
 			sum += cf.getCost(states[i]);
 		}
 
@@ -448,16 +426,14 @@ public class mxGraphAnalysis
 	 * 
 	 * @return Returns a union find structure for <code>v</code>
 	 */
-	protected mxUnionFind createUnionFind(Object[] v)
-	{
+	protected mxUnionFind createUnionFind(Object[] v) {
 		return new mxUnionFind(v);
 	}
 
 	/**
 	 * Hook for subclassers to provide a custom fibonacci heap.
 	 */
-	protected mxFibonacciHeap createPriorityQueue()
-	{
+	protected mxFibonacciHeap createPriorityQueue() {
 		return new mxFibonacciHeap();
 	}
 

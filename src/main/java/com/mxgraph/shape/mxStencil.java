@@ -18,11 +18,10 @@ import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxCellState;
 
 /**
- * Implements a stencil for the given XML definition. This class implements the mxGraph
- * stencil schema.
+ * Implements a stencil for the given XML definition. This class implements the
+ * mxGraph stencil schema.
  */
-public class mxStencil implements mxIShape
-{
+public class mxStencil implements mxIShape {
 	/**
 	 * Holds the top-level node of the stencil definition.
 	 */
@@ -71,24 +70,21 @@ public class mxStencil implements mxIShape
 	/**
 	 * Constructs a new stencil for the given mxGraph shape description.
 	 */
-	public mxStencil(Element description)
-	{
+	public mxStencil(Element description) {
 		setDescription(description);
 	}
-	
+
 	/**
 	 * Returns the description.
 	 */
-	public Element getDescription()
-	{
+	public Element getDescription() {
 		return desc;
 	}
-	
+
 	/**
 	 * Sets the description.
 	 */
-	public void setDescription(Element value)
-	{
+	public void setDescription(Element value) {
 		desc = value;
 		parseDescription();
 	}
@@ -96,16 +92,14 @@ public class mxStencil implements mxIShape
 	/**
 	 * Creates the canvas for rendering the stencil.
 	 */
-	protected mxGraphicsCanvas2D createCanvas(mxGraphics2DCanvas gc)
-	{
+	protected mxGraphicsCanvas2D createCanvas(mxGraphics2DCanvas gc) {
 		return new mxGraphicsCanvas2D(gc.getGraphics());
 	}
-	
+
 	/**
 	 * Paints the stencil for the given state.
 	 */
-	public void paintShape(mxGraphics2DCanvas gc, mxCellState state)
-	{
+	public void paintShape(mxGraphics2DCanvas gc, mxCellState state) {
 		Map<String, Object> style = state.getStyle();
 		mxGraphicsCanvas2D canvas = createCanvas(gc);
 
@@ -115,18 +109,12 @@ public class mxStencil implements mxIShape
 				mxConstants.STYLE_DIRECTION, null);
 
 		// Default direction is east (ignored if rotation exists)
-		if (direction != null)
-		{
-			if (direction.equals("north"))
-			{
+		if (direction != null) {
+			if (direction.equals("north")) {
 				rotation += 270;
-			}
-			else if (direction.equals("west"))
-			{
+			} else if (direction.equals("west")) {
 				rotation += 180;
-			}
-			else if (direction.equals("south"))
-			{
+			} else if (direction.equals("south")) {
 				rotation += 90;
 			}
 		}
@@ -137,8 +125,7 @@ public class mxStencil implements mxIShape
 		boolean flipV = mxUtils.isTrue(style, mxConstants.STYLE_STENCIL_FLIPV,
 				false);
 
-		if (flipH && flipV)
-		{
+		if (flipH && flipV) {
 			rotation += 180;
 			flipH = false;
 			flipV = false;
@@ -150,8 +137,7 @@ public class mxStencil implements mxIShape
 		// Adds rotation and horizontal/vertical flipping
 		rotation = rotation % 360;
 
-		if (rotation != 0 || flipH || flipV)
-		{
+		if (rotation != 0 || flipH || flipV) {
 			canvas.rotate(rotation, flipH, flipV, state.getCenterX(),
 					state.getCenterY());
 		}
@@ -167,60 +153,50 @@ public class mxStencil implements mxIShape
 				mxConstants.STYLE_GRADIENTCOLOR, null);
 
 		// Converts colors with special keyword none to null
-		if (gradientColor != null && gradientColor.equals(mxConstants.NONE))
-		{
+		if (gradientColor != null && gradientColor.equals(mxConstants.NONE)) {
 			gradientColor = null;
 		}
 
 		String fillColor = mxUtils.getString(style,
 				mxConstants.STYLE_FILLCOLOR, null);
 
-		if (fillColor != null && fillColor.equals(mxConstants.NONE))
-		{
+		if (fillColor != null && fillColor.equals(mxConstants.NONE)) {
 			fillColor = null;
 		}
 
 		String strokeColor = mxUtils.getString(style,
 				mxConstants.STYLE_STROKECOLOR, null);
 
-		if (strokeColor != null && strokeColor.equals(mxConstants.NONE))
-		{
+		if (strokeColor != null && strokeColor.equals(mxConstants.NONE)) {
 			strokeColor = null;
 		}
 
 		// Draws the shadow if the fillColor is not transparent
-		if (mxUtils.isTrue(style, mxConstants.STYLE_SHADOW, false))
-		{
-			drawShadow(canvas, state, rotation, flipH, flipV, state, alpha, fillColor != null);
+		if (mxUtils.isTrue(style, mxConstants.STYLE_SHADOW, false)) {
+			drawShadow(canvas, state, rotation, flipH, flipV, state, alpha,
+					fillColor != null);
 		}
 
 		canvas.setAlpha(alpha);
 
 		// Sets the dashed state
-		if (mxUtils.isTrue(style, mxConstants.STYLE_DASHED, false))
-		{
+		if (mxUtils.isTrue(style, mxConstants.STYLE_DASHED, false)) {
 			canvas.setDashed(true);
 		}
 
 		// Draws background and foreground
-		if (strokeColor != null || fillColor != null)
-		{
-			if (strokeColor != null)
-			{
+		if (strokeColor != null || fillColor != null) {
+			if (strokeColor != null) {
 				canvas.setStrokeColor(strokeColor);
 			}
 
-			if (fillColor != null)
-			{
+			if (fillColor != null) {
 				if (gradientColor != null
-						&& !gradientColor.equals("transparent"))
-				{
+						&& !gradientColor.equals("transparent")) {
 					canvas.setGradient(fillColor, gradientColor, state.getX(),
 							state.getY(), state.getWidth(), state.getHeight(),
 							direction, 1, 1);
-				}
-				else
-				{
+				} else {
 					canvas.setFillColor(fillColor);
 				}
 			}
@@ -230,55 +206,53 @@ public class mxStencil implements mxIShape
 			drawShape(canvas, state, state, false);
 		}
 	}
-	
+
 	/**
 	 * Draws the shadow.
 	 */
-	protected void drawShadow(mxGraphicsCanvas2D canvas, mxCellState state, double rotation, boolean flipH,
-			boolean flipV, mxRectangle bounds, double alpha, boolean filled)
-	{
+	protected void drawShadow(mxGraphicsCanvas2D canvas, mxCellState state,
+			double rotation, boolean flipH, boolean flipV, mxRectangle bounds,
+			double alpha, boolean filled) {
 		// Requires background in generic shape for shadow, looks like only one
 		// fillAndStroke is allowed per current path, try working around that
 		// Computes rotated shadow offset
 		double rad = rotation * Math.PI / 180;
 		double cos = Math.cos(-rad);
 		double sin = Math.sin(-rad);
-		mxPoint offset = mxUtils.getRotatedPoint(new mxPoint(mxConstants.SHADOW_OFFSETX, mxConstants.SHADOW_OFFSETY), cos, sin);
-		
-		if (flipH)
-		{
+		mxPoint offset = mxUtils.getRotatedPoint(new mxPoint(
+				mxConstants.SHADOW_OFFSETX, mxConstants.SHADOW_OFFSETY), cos,
+				sin);
+
+		if (flipH) {
 			offset.setX(offset.getX() * -1);
 		}
-		
-		if (flipV)
-		{
+
+		if (flipV) {
 			offset.setY(offset.getY() * -1);
 		}
-		
-		// TODO: Use save/restore instead of negative offset to restore (requires fix for HTML canvas)
+
+		// TODO: Use save/restore instead of negative offset to restore
+		// (requires fix for HTML canvas)
 		canvas.translate(offset.getX(), offset.getY());
-		
+
 		// Returns true if a shadow has been painted (path has been created)
-		if (drawShape(canvas, state, bounds, true))
-		{
+		if (drawShape(canvas, state, bounds, true)) {
 			canvas.setAlpha(mxConstants.STENCIL_SHADOW_OPACITY * alpha);
 			// TODO: Implement new shadow
-			//canvas.shadow(mxConstants.STENCIL_SHADOWCOLOR, filled);
+			// canvas.shadow(mxConstants.STENCIL_SHADOWCOLOR, filled);
 		}
 
 		canvas.translate(-offset.getX(), -offset.getY());
 	}
-			
+
 	/**
 	 * Draws this stencil inside the given bounds.
 	 */
 	public boolean drawShape(mxGraphicsCanvas2D canvas, mxCellState state,
-			mxRectangle bounds, boolean background)
-	{
+			mxRectangle bounds, boolean background) {
 		Element elt = (background) ? bgNode : fgNode;
 
-		if (elt != null)
-		{
+		if (elt != null) {
 			String direction = mxUtils.getString(state.getStyle(),
 					mxConstants.STYLE_DIRECTION, null);
 			mxRectangle aspect = computeAspect(state, bounds, direction);
@@ -293,10 +267,8 @@ public class mxStencil implements mxIShape
 
 			Node tmp = elt.getFirstChild();
 
-			while (tmp != null)
-			{
-				if (tmp.getNodeType() == Node.ELEMENT_NODE)
-				{
+			while (tmp != null) {
+				if (tmp.getNodeType() == Node.ELEMENT_NODE) {
 					drawElement(canvas, state, (Element) tmp, aspect);
 				}
 
@@ -310,13 +282,12 @@ public class mxStencil implements mxIShape
 	}
 
 	/**
-	 * Returns a rectangle that contains the offset in x and y and the horizontal
-	 * and vertical scale in width and height used to draw this shape inside the
-	 * given rectangle.
+	 * Returns a rectangle that contains the offset in x and y and the
+	 * horizontal and vertical scale in width and height used to draw this shape
+	 * inside the given rectangle.
 	 */
 	protected mxRectangle computeAspect(mxCellState state, mxRectangle bounds,
-			String direction)
-	{
+			String direction) {
 		double x0 = bounds.getX();
 		double y0 = bounds.getY();
 		double sx = bounds.getWidth() / w0;
@@ -325,8 +296,7 @@ public class mxStencil implements mxIShape
 		boolean inverse = (direction != null && (direction.equals("north") || direction
 				.equals("south")));
 
-		if (inverse)
-		{
+		if (inverse) {
 			sy = bounds.getWidth() / h0;
 			sx = bounds.getHeight() / w0;
 
@@ -336,19 +306,15 @@ public class mxStencil implements mxIShape
 			y0 -= delta;
 		}
 
-		if (aspect.equals("fixed"))
-		{
+		if (aspect.equals("fixed")) {
 			sy = Math.min(sx, sy);
 			sx = sy;
 
 			// Centers the shape inside the available space
-			if (inverse)
-			{
+			if (inverse) {
 				x0 += (bounds.getHeight() - this.w0 * sx) / 2;
 				y0 += (bounds.getWidth() - this.h0 * sy) / 2;
-			}
-			else
-			{
+			} else {
 				x0 += (bounds.getWidth() - this.w0 * sx) / 2;
 				y0 += (bounds.getHeight() - this.h0 * sy) / 2;
 			}
@@ -361,8 +327,7 @@ public class mxStencil implements mxIShape
 	 * Drawsthe given element.
 	 */
 	protected void drawElement(mxGraphicsCanvas2D canvas, mxCellState state,
-			Element node, mxRectangle aspect)
-	{
+			Element node, mxRectangle aspect) {
 		String name = node.getNodeName();
 		double x0 = aspect.getX();
 		double y0 = aspect.getY();
@@ -371,65 +336,46 @@ public class mxStencil implements mxIShape
 		double minScale = Math.min(sx, sy);
 
 		// LATER: Move to lookup table
-		if (name.equals("save"))
-		{
+		if (name.equals("save")) {
 			canvas.save();
-		}
-		else if (name.equals("restore"))
-		{
+		} else if (name.equals("restore")) {
 			canvas.restore();
-		}
-		else if (name.equals("path"))
-		{
+		} else if (name.equals("path")) {
 			canvas.begin();
 
 			// Renders the elements inside the given path
 			Node childNode = node.getFirstChild();
 
-			while (childNode != null)
-			{
-				if (childNode.getNodeType() == Node.ELEMENT_NODE)
-				{
+			while (childNode != null) {
+				if (childNode.getNodeType() == Node.ELEMENT_NODE) {
 					drawElement(canvas, state, (Element) childNode, aspect);
 				}
 
 				childNode = childNode.getNextSibling();
 			}
-		}
-		else if (name.equals("close"))
-		{
+		} else if (name.equals("close")) {
 			canvas.close();
-		}
-		else if (name.equals("move"))
-		{
+		} else if (name.equals("move")) {
 			lastMoveX = x0 + getDouble(node, "x") * sx;
 			lastMoveY = y0 + getDouble(node, "y") * sy;
 			canvas.moveTo(lastMoveX, lastMoveY);
-		}
-		else if (name.equals("line"))
-		{
+		} else if (name.equals("line")) {
 			lastMoveX = x0 + getDouble(node, "x") * sx;
 			lastMoveY = y0 + getDouble(node, "y") * sy;
 			canvas.lineTo(lastMoveX, lastMoveY);
-		}
-		else if (name.equals("quad"))
-		{
+		} else if (name.equals("quad")) {
 			lastMoveX = x0 + getDouble(node, "x2") * sx;
 			lastMoveY = y0 + getDouble(node, "y2") * sy;
 			canvas.quadTo(x0 + getDouble(node, "x1") * sx,
 					y0 + getDouble(node, "y1") * sy, lastMoveX, lastMoveY);
-		}
-		else if (name.equals("curve"))
-		{
+		} else if (name.equals("curve")) {
 			lastMoveX = x0 + getDouble(node, "x3") * sx;
 			lastMoveY = y0 + getDouble(node, "y3") * sy;
 			canvas.curveTo(x0 + getDouble(node, "x1") * sx,
 					y0 + getDouble(node, "y1") * sy, x0 + getDouble(node, "x2")
 							* sx, y0 + getDouble(node, "y2") * sy, lastMoveX,
 					lastMoveY);
-		}
-		else if (name.equals("arc"))
-		{
+		} else if (name.equals("arc")) {
 			// Arc from stencil is turned into curves in image output
 			double r1 = getDouble(node, "rx") * sx;
 			double r2 = getDouble(node, "ry") * sy;
@@ -443,27 +389,21 @@ public class mxStencil implements mxIShape
 					this.lastMoveY, r1, r2, angle, largeArcFlag, sweepFlag, x,
 					y);
 
-			for (int i = 0; i < curves.length; i += 6)
-			{
+			for (int i = 0; i < curves.length; i += 6) {
 				canvas.curveTo(curves[i], curves[i + 1], curves[i + 2],
 						curves[i + 3], curves[i + 4], curves[i + 5]);
 
 				lastMoveX = curves[i + 4];
 				lastMoveY = curves[i + 5];
 			}
-		}
-		else if (name.equals("rect"))
-		{
+		} else if (name.equals("rect")) {
 			canvas.rect(x0 + getDouble(node, "x") * sx,
 					y0 + getDouble(node, "y") * sy, getDouble(node, "w") * sx,
 					getDouble(node, "h") * sy);
-		}
-		else if (name.equals("roundrect"))
-		{
+		} else if (name.equals("roundrect")) {
 			double arcsize = getDouble(node, "arcsize");
 
-			if (arcsize == 0)
-			{
+			if (arcsize == 0) {
 				arcsize = mxConstants.RECTANGLE_ROUNDING_FACTOR * 100;
 			}
 
@@ -475,15 +415,11 @@ public class mxStencil implements mxIShape
 			canvas.roundrect(x0 + getDouble(node, "x") * sx,
 					y0 + getDouble(node, "y") * sy, getDouble(node, "w") * sx,
 					getDouble(node, "h") * sy, r, r);
-		}
-		else if (name.equals("ellipse"))
-		{
+		} else if (name.equals("ellipse")) {
 			canvas.ellipse(x0 + getDouble(node, "x") * sx,
 					y0 + getDouble(node, "y") * sy, getDouble(node, "w") * sx,
 					getDouble(node, "h") * sy);
-		}
-		else if (name.equals("image"))
-		{
+		} else if (name.equals("image")) {
 			String src = evaluateAttribute(node, "src", state);
 
 			canvas.image(x0 + getDouble(node, "x") * sx,
@@ -491,24 +427,20 @@ public class mxStencil implements mxIShape
 					getDouble(node, "h") * sy, src, false,
 					getString(node, "flipH", "0").equals("1"),
 					getString(node, "flipV", "0").equals("1"));
-		}
-		else if (name.equals("text"))
-		{
+		} else if (name.equals("text")) {
 			String str = evaluateAttribute(node, "str", state);
-			double rotation = getString(node, "vertical", "0").equals("1") ? -90 : 0;
-			
+			double rotation = getString(node, "vertical", "0").equals("1") ? -90
+					: 0;
+
 			canvas.text(x0 + getDouble(node, "x") * sx,
 					y0 + getDouble(node, "y") * sy, 0, 0, str,
 					node.getAttribute("align"), node.getAttribute("valign"),
 					false, "", null, false, rotation);
-		}
-		else if (name.equals("include-shape"))
-		{
+		} else if (name.equals("include-shape")) {
 			mxStencil stencil = mxStencilRegistry.getStencil(node
 					.getAttribute("name"));
 
-			if (stencil != null)
-			{
+			if (stencil != null) {
 				double x = x0 + getDouble(node, "x") * sx;
 				double y = y0 + getDouble(node, "y") * sy;
 				double w = getDouble(node, "w") * sx;
@@ -518,40 +450,25 @@ public class mxStencil implements mxIShape
 				stencil.drawShape(canvas, state, tmp, true);
 				stencil.drawShape(canvas, state, tmp, false);
 			}
-		}
-		else if (name.equals("fillstroke"))
-		{
+		} else if (name.equals("fillstroke")) {
 			canvas.fillAndStroke();
-		}
-		else if (name.equals("fill"))
-		{
+		} else if (name.equals("fill")) {
 			canvas.fill();
-		}
-		else if (name.equals("stroke"))
-		{
+		} else if (name.equals("stroke")) {
 			canvas.stroke();
-		}
-		else if (name.equals("strokewidth"))
-		{
+		} else if (name.equals("strokewidth")) {
 			canvas.setStrokeWidth(getDouble(node, "width") * minScale);
-		}
-		else if (name.equals("dashed"))
-		{
+		} else if (name.equals("dashed")) {
 			canvas.setDashed(node.getAttribute("dashed") == "1");
-		}
-		else if (name.equals("dashpattern"))
-		{
+		} else if (name.equals("dashpattern")) {
 			String value = node.getAttribute("pattern");
 
-			if (value != null)
-			{
+			if (value != null) {
 				String[] tmp = value.split(" ");
 				StringBuffer pat = new StringBuffer();
 
-				for (int i = 0; i < tmp.length; i++)
-				{
-					if (tmp[i].length() > 0)
-					{
+				for (int i = 0; i < tmp.length; i++) {
+					if (tmp[i].length() > 0) {
 						pat.append(Double.parseDouble(tmp[i]) * minScale);
 						pat.append(" ");
 					}
@@ -561,41 +478,23 @@ public class mxStencil implements mxIShape
 			}
 
 			canvas.setDashPattern(value);
-		}
-		else if (name.equals("strokecolor"))
-		{
+		} else if (name.equals("strokecolor")) {
 			canvas.setStrokeColor(node.getAttribute("color"));
-		}
-		else if (name.equals("linecap"))
-		{
+		} else if (name.equals("linecap")) {
 			canvas.setLineCap(node.getAttribute("cap"));
-		}
-		else if (name.equals("linejoin"))
-		{
+		} else if (name.equals("linejoin")) {
 			canvas.setLineJoin(node.getAttribute("join"));
-		}
-		else if (name.equals("miterlimit"))
-		{
+		} else if (name.equals("miterlimit")) {
 			canvas.setMiterLimit(getDouble(node, "limit"));
-		}
-		else if (name.equals("fillcolor"))
-		{
+		} else if (name.equals("fillcolor")) {
 			canvas.setFillColor(node.getAttribute("color"));
-		}
-		else if (name.equals("fontcolor"))
-		{
+		} else if (name.equals("fontcolor")) {
 			canvas.setFontColor(node.getAttribute("color"));
-		}
-		else if (name.equals("fontstyle"))
-		{
+		} else if (name.equals("fontstyle")) {
 			canvas.setFontStyle(getInt(node, "style", 0));
-		}
-		else if (name.equals("fontfamily"))
-		{
+		} else if (name.equals("fontfamily")) {
 			canvas.setFontFamily(node.getAttribute("family"));
-		}
-		else if (name.equals("fontsize"))
-		{
+		} else if (name.equals("fontsize")) {
 			canvas.setFontSize(getDouble(node, "size") * minScale);
 		}
 	}
@@ -603,18 +502,13 @@ public class mxStencil implements mxIShape
 	/**
 	 * Returns the given attribute or the default value.
 	 */
-	protected int getInt(Element elt, String attribute, int defaultValue)
-	{
+	protected int getInt(Element elt, String attribute, int defaultValue) {
 		String value = elt.getAttribute(attribute);
 
-		if (value != null && value.length() > 0)
-		{
-			try
-			{
+		if (value != null && value.length() > 0) {
+			try {
 				defaultValue = (int) Math.floor(Float.parseFloat(value));
-			}
-			catch (NumberFormatException e)
-			{
+			} catch (NumberFormatException e) {
 				// ignore
 			}
 		}
@@ -625,8 +519,7 @@ public class mxStencil implements mxIShape
 	/**
 	 * Returns the given attribute or 0.
 	 */
-	protected double getDouble(Element elt, String attribute)
-	{
+	protected double getDouble(Element elt, String attribute) {
 		return getDouble(elt, attribute, 0);
 	}
 
@@ -634,18 +527,13 @@ public class mxStencil implements mxIShape
 	 * Returns the given attribute or the default value.
 	 */
 	protected double getDouble(Element elt, String attribute,
-			double defaultValue)
-	{
+			double defaultValue) {
 		String value = elt.getAttribute(attribute);
 
-		if (value != null && value.length() > 0)
-		{
-			try
-			{
+		if (value != null && value.length() > 0) {
+			try {
 				defaultValue = Double.parseDouble(value);
-			}
-			catch (NumberFormatException e)
-			{
+			} catch (NumberFormatException e) {
 				// ignore
 			}
 		}
@@ -657,12 +545,10 @@ public class mxStencil implements mxIShape
 	 * Returns the given attribute or the default value.
 	 */
 	protected String getString(Element elt, String attribute,
-			String defaultValue)
-	{
+			String defaultValue) {
 		String value = elt.getAttribute(attribute);
 
-		if (value != null && value.length() > 0)
-		{
+		if (value != null && value.length() > 0) {
 			defaultValue = value;
 		}
 
@@ -672,8 +558,7 @@ public class mxStencil implements mxIShape
 	/**
 	 * Parses the description of this shape.
 	 */
-	protected void parseDescription()
-	{
+	protected void parseDescription() {
 		// LATER: Preprocess nodes for faster painting
 		fgNode = (Element) desc.getElementsByTagName("foreground").item(0);
 		bgNode = (Element) desc.getElementsByTagName("background").item(0);
@@ -693,18 +578,16 @@ public class mxStencil implements mxIShape
 	}
 
 	/**
-	 * Gets the attribute for the given name from the given node. If the attribute
-	 * does not exist then the text content of the node is evaluated and if it is
-	 * a function it is invoked with <state> as the only argument and the return
-	 * value is used as the attribute value to be returned.
+	 * Gets the attribute for the given name from the given node. If the
+	 * attribute does not exist then the text content of the node is evaluated
+	 * and if it is a function it is invoked with <state> as the only argument
+	 * and the return value is used as the attribute value to be returned.
 	 */
 	public String evaluateAttribute(Element elt, String attribute,
-			mxCellState state)
-	{
+			mxCellState state) {
 		String result = elt.getAttribute(attribute);
 
-		if (result == null)
-		{
+		if (result == null) {
 			// JS functions as text content are currently not supported in Java
 		}
 

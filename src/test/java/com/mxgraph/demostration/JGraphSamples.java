@@ -29,6 +29,12 @@ import com.mxgraph.util.png.mxPngImageEncoder;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxStylesheet;
 
+/**
+ * 目前在linux 下可正常运行.
+ * 
+ * @author albert
+ *
+ */
 public class JGraphSamples extends JFrame
 {
     private static final long serialVersionUID = -8645440291176361843L;

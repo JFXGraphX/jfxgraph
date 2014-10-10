@@ -9,8 +9,7 @@ import com.mxgraph.view.mxCellState;
 /**
  * Implements a cost function for a constant cost per traversed cell.
  */
-public class mxConstantCostFunction implements mxICostFunction
-{
+public class mxConstantCostFunction implements mxICostFunction {
 
 	/**
 	 * 
@@ -21,16 +20,14 @@ public class mxConstantCostFunction implements mxICostFunction
 	 * 
 	 * @param cost
 	 */
-	public mxConstantCostFunction(double cost)
-	{
+	public mxConstantCostFunction(double cost) {
 		this.cost = cost;
 	}
 
 	/**
 	 *
 	 */
-	public double getCost(mxCellState state)
-	{
+	public double getCost(mxCellState state) {
 		return cost;
 	}
 

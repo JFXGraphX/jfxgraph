@@ -15,11 +15,10 @@ import com.mxgraph.util.mxEventSource;
 
 /**
  * Baseclass for all timer-based animations. Fires mxEvent.DONE when the
- * stopAnimation method is called. Implement updateAnimation for the
- * actual animation or listen to mxEvent.EXECUTE.
+ * stopAnimation method is called. Implement updateAnimation for the actual
+ * animation or listen to mxEvent.EXECUTE.
  */
-public class mxAnimation extends mxEventSource
-{
+public class mxAnimation extends mxEventSource {
 	/**
 	 * Specifies the default delay for animations in ms. Default is 20.
 	 */
@@ -38,47 +37,39 @@ public class mxAnimation extends mxEventSource
 	/**
 	 * Constructs a new animation instance with the given repaint delay.
 	 */
-	public mxAnimation()
-	{
+	public mxAnimation() {
 		this(DEFAULT_DELAY);
 	}
 
 	/**
 	 * Constructs a new animation instance with the given repaint delay.
 	 */
-	public mxAnimation(int delay)
-	{
+	public mxAnimation(int delay) {
 		this.delay = delay;
 	}
 
 	/**
 	 * Returns the delay for the animation.
 	 */
-	public int getDelay()
-	{
+	public int getDelay() {
 		return delay;
 	}
 
 	/**
 	 * Sets the delay for the animation.
 	 */
-	public void setDelay(int value)
-	{
+	public void setDelay(int value) {
 		delay = value;
 	}
 
 	/**
 	 * Starts the animation by repeatedly invoking updateAnimation.
 	 */
-	public void startAnimation()
-	{
-		if (timer == null)
-		{
-			timer = new Timer(delay, new ActionListener()
-			{
+	public void startAnimation() {
+		if (timer == null) {
+			timer = new Timer(delay, new ActionListener() {
 
-				public void actionPerformed(ActionEvent e)
-				{
+				public void actionPerformed(ActionEvent e) {
 					updateAnimation();
 				}
 
@@ -93,18 +84,15 @@ public class mxAnimation extends mxEventSource
 	 * when finished, startAnimation to resume. This is called whenever the
 	 * timer fires and fires an mxEvent.EXECUTE event with no properties.
 	 */
-	public void updateAnimation()
-	{
+	public void updateAnimation() {
 		fireEvent(new mxEventObject(mxEvent.EXECUTE));
 	}
 
 	/**
 	 * Stops the animation by deleting the timer and fires mxEvent.DONE.
 	 */
-	public void stopAnimation()
-	{
-		if (timer != null)
-		{
+	public void stopAnimation() {
+		if (timer != null) {
 			timer.stop();
 			timer = null;
 			fireEvent(new mxEventObject(mxEvent.DONE));

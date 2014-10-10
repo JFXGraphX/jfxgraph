@@ -21,11 +21,11 @@ import com.mxgraph.view.mxCellState;
 import com.mxgraph.view.mxGraph;
 
 /**
- * Connection handler creates new connections between cells. This control is used to display the connector
- * icon, while the preview is used to draw the line.
+ * Connection handler creates new connections between cells. This control is
+ * used to display the connector icon, while the preview is used to draw the
+ * line.
  */
-public class mxMovePreview extends mxEventSource
-{
+public class mxMovePreview extends mxEventSource {
 	/**
 	 * 
 	 */
@@ -37,9 +37,8 @@ public class mxMovePreview extends mxEventSource
 	protected int threshold = 200;
 
 	/**
-	 * Specifies if the placeholder rectangle should be used for all
-	 * previews. Default is false. This overrides all other preview
-	 * settings if true.
+	 * Specifies if the placeholder rectangle should be used for all previews.
+	 * Default is false. This overrides all other preview settings if true.
 	 */
 	protected boolean placeholderPreview = false;
 
@@ -51,8 +50,7 @@ public class mxMovePreview extends mxEventSource
 
 	/**
 	 * Specifies if connected, unselected edges should be included in the
-	 * preview. Default is true. This should not be used if cloning is
-	 * enabled.
+	 * preview. Default is true. This should not be used if cloning is enabled.
 	 */
 	protected boolean contextPreview = true;
 
@@ -100,17 +98,15 @@ public class mxMovePreview extends mxEventSource
 	/**
 	 * Constructs a new rubberband selection for the given graph component.
 	 * 
-	 * @param graphComponent Component that contains the rubberband.
+	 * @param graphComponent
+	 *            Component that contains the rubberband.
 	 */
-	public mxMovePreview(mxGraphComponent graphComponent)
-	{
+	public mxMovePreview(mxGraphComponent graphComponent) {
 		this.graphComponent = graphComponent;
 
 		// Installs the paint handler
-		graphComponent.addListener(mxEvent.AFTER_PAINT, new mxIEventListener()
-		{
-			public void invoke(Object sender, mxEventObject evt)
-			{
+		graphComponent.addListener(mxEvent.AFTER_PAINT, new mxIEventListener() {
+			public void invoke(Object sender, mxEventObject evt) {
 				Graphics g = (Graphics) evt.getProperty("g");
 				paint(g);
 			}
@@ -120,104 +116,91 @@ public class mxMovePreview extends mxEventSource
 	/**
 	 * 
 	 */
-	public int getThreshold()
-	{
+	public int getThreshold() {
 		return threshold;
 	}
 
 	/**
 	 * 
 	 */
-	public void setThreshold(int value)
-	{
+	public void setThreshold(int value) {
 		threshold = value;
 	}
 
 	/**
 	 * 
 	 */
-	public boolean isPlaceholderPreview()
-	{
+	public boolean isPlaceholderPreview() {
 		return placeholderPreview;
 	}
 
 	/**
 	 * 
 	 */
-	public void setPlaceholderPreview(boolean value)
-	{
+	public void setPlaceholderPreview(boolean value) {
 		placeholderPreview = value;
 	}
 
 	/**
 	 * 
 	 */
-	public boolean isClonePreview()
-	{
+	public boolean isClonePreview() {
 		return clonePreview;
 	}
 
 	/**
 	 * 
 	 */
-	public void setClonePreview(boolean value)
-	{
+	public void setClonePreview(boolean value) {
 		clonePreview = value;
 	}
 
 	/**
 	 * 
 	 */
-	public boolean isContextPreview()
-	{
+	public boolean isContextPreview() {
 		return contextPreview;
 	}
 
 	/**
 	 * 
 	 */
-	public void setContextPreview(boolean value)
-	{
+	public void setContextPreview(boolean value) {
 		contextPreview = value;
 	}
 
 	/**
 	 * 
 	 */
-	public boolean isHideSelectionHandler()
-	{
+	public boolean isHideSelectionHandler() {
 		return hideSelectionHandler;
 	}
 
 	/**
 	 * 
 	 */
-	public void setHideSelectionHandler(boolean value)
-	{
+	public void setHideSelectionHandler(boolean value) {
 		hideSelectionHandler = value;
 	}
 
 	/**
 	 * 
 	 */
-	public boolean isActive()
-	{
+	public boolean isActive() {
 		return startState != null;
 	}
 
 	/**
 	 * FIXME: Cells should be assigned outside of getPreviewStates
 	 */
-	public Object[] getMovingCells()
-	{
+	public Object[] getMovingCells() {
 		return movingCells;
 	}
 
 	/**
 	 * 
 	 */
-	public Object[] getCells(mxCellState initialState)
-	{
+	public Object[] getCells(mxCellState initialState) {
 		mxGraph graph = graphComponent.getGraph();
 
 		return graph.getMovableCells(graph.getSelectionCells());
@@ -226,41 +209,32 @@ public class mxMovePreview extends mxEventSource
 	/**
 	 * Returns the states that are affected by the move operation.
 	 */
-	protected mxCellState[] getPreviewStates()
-	{
+	protected mxCellState[] getPreviewStates() {
 		mxGraph graph = graphComponent.getGraph();
 		Collection<mxCellState> result = new LinkedList<mxCellState>();
 
-		for (Object cell : movingCells)
-		{
+		for (Object cell : movingCells) {
 			mxCellState cellState = graph.getView().getState(cell);
 
-			if (cellState != null)
-			{
+			if (cellState != null) {
 				result.add(cellState);
 
 				// Terminates early if too many cells
-				if (result.size() >= threshold)
-				{
+				if (result.size() >= threshold) {
 					return null;
 				}
 
-				if (isContextPreview())
-				{
+				if (isContextPreview()) {
 					Object[] edges = graph.getAllEdges(new Object[] { cell });
 
-					for (Object edge : edges)
-					{
-						if (!graph.isCellSelected(edge))
-						{
+					for (Object edge : edges) {
+						if (!graph.isCellSelected(edge)) {
 							mxCellState edgeState = graph.getView().getState(
 									edge);
 
-							if (edgeState != null)
-							{
+							if (edgeState != null) {
 								// Terminates early if too many cells
-								if (result.size() >= threshold)
-								{
+								if (result.size() >= threshold) {
 									return null;
 								}
 
@@ -278,22 +252,19 @@ public class mxMovePreview extends mxEventSource
 	/**
 	 * 
 	 */
-	protected boolean isCellOpaque(Object cell)
-	{
+	protected boolean isCellOpaque(Object cell) {
 		return startState != null && startState.getCell() == cell;
 	}
 
 	/**
 	 * Sets the translation of the preview.
 	 */
-	public void start(MouseEvent e, mxCellState state)
-	{
+	public void start(MouseEvent e, mxCellState state) {
 		startState = state;
 		movingCells = getCells(state);
 		previewStates = (!placeholderPreview) ? getPreviewStates() : null;
 
-		if (previewStates == null || previewStates.length >= threshold)
-		{
+		if (previewStates == null || previewStates.length >= threshold) {
 			placeholder = getPlaceholderBounds(startState).getRectangle();
 			initialPlaceholder = new Rectangle(placeholder);
 			graphComponent.getGraphControl().repaint(placeholder);
@@ -306,8 +277,7 @@ public class mxMovePreview extends mxEventSource
 	/**
 	 * 
 	 */
-	protected mxRectangle getPlaceholderBounds(mxCellState startState)
-	{
+	protected mxRectangle getPlaceholderBounds(mxCellState startState) {
 		mxGraph graph = graphComponent.getGraph();
 
 		return graph.getView().getBounds(graph.getSelectionCells());
@@ -316,14 +286,10 @@ public class mxMovePreview extends mxEventSource
 	/**
 	 * 
 	 */
-	public mxCellStatePreview createCellStatePreview()
-	{
-		return new mxCellStatePreview(graphComponent, isClonePreview())
-		{
-			protected float getOpacityForCell(Object cell)
-			{
-				if (isCellOpaque(cell))
-				{
+	public mxCellStatePreview createCellStatePreview() {
+		return new mxCellStatePreview(graphComponent, isClonePreview()) {
+			protected float getOpacityForCell(Object cell) {
+				if (isCellOpaque(cell)) {
 					return 1;
 				}
 
@@ -335,38 +301,31 @@ public class mxMovePreview extends mxEventSource
 	/**
 	 * Sets the translation of the preview.
 	 */
-	public void update(MouseEvent e, double dx, double dy, boolean clone)
-	{
+	public void update(MouseEvent e, double dx, double dy, boolean clone) {
 		mxGraph graph = graphComponent.getGraph();
 
-		if (placeholder != null)
-		{
+		if (placeholder != null) {
 			Rectangle tmp = new Rectangle(placeholder);
 			placeholder.x = initialPlaceholder.x + (int) dx;
 			placeholder.y = initialPlaceholder.x + (int) dy;
 			tmp.add(placeholder);
 			graphComponent.getGraphControl().repaint(tmp);
-		}
-		else if (previewStates != null)
-		{
+		} else if (previewStates != null) {
 			preview = createCellStatePreview();
 			preview.setOpacity(graphComponent.getPreviewAlpha());
 
 			// Combines the layout result with the move preview
-			for (mxCellState previewState : previewStates)
-			{
+			for (mxCellState previewState : previewStates) {
 				preview.moveState(previewState, dx, dy, false, false);
 
 				// FIXME: Move into show-handler?
 				boolean visible = true;
 
-				if ((dx != 0 || dy != 0) && clone && isContextPreview())
-				{
+				if ((dx != 0 || dy != 0) && clone && isContextPreview()) {
 					visible = false;
 					Object tmp = previewState.getCell();
 
-					while (!visible && tmp != null)
-					{
+					while (!visible && tmp != null) {
 						visible = graph.isCellSelected(tmp);
 						tmp = graph.getModel().getParent(tmp);
 					}
@@ -377,23 +336,18 @@ public class mxMovePreview extends mxEventSource
 
 			lastDirty = preview.show();
 
-			if (dirty != null)
-			{
+			if (dirty != null) {
 				dirty.add(lastDirty);
-			}
-			else
-			{
+			} else {
 				dirty = lastDirty;
 			}
 
-			if (dirty != null)
-			{
+			if (dirty != null) {
 				repaint(dirty);
 			}
 		}
 
-		if (isHideSelectionHandler())
-		{
+		if (isHideSelectionHandler()) {
 			graphComponent.getSelectionCellsHandler().setVisible(false);
 		}
 
@@ -404,14 +358,10 @@ public class mxMovePreview extends mxEventSource
 	/**
 	 * 
 	 */
-	protected void repaint(mxRectangle dirty)
-	{
-		if (dirty != null)
-		{
+	protected void repaint(mxRectangle dirty) {
+		if (dirty != null) {
 			graphComponent.getGraphControl().repaint(dirty.getRectangle());
-		}
-		else
-		{
+		} else {
 			graphComponent.getGraphControl().repaint();
 		}
 	}
@@ -419,26 +369,22 @@ public class mxMovePreview extends mxEventSource
 	/**
 	 * 
 	 */
-	protected void reset()
-	{
+	protected void reset() {
 		mxGraph graph = graphComponent.getGraph();
 
-		if (placeholder != null)
-		{
+		if (placeholder != null) {
 			Rectangle tmp = placeholder;
 			placeholder = null;
 			graphComponent.getGraphControl().repaint(tmp);
 		}
 
-		if (isHideSelectionHandler())
-		{
+		if (isHideSelectionHandler()) {
 			graphComponent.getSelectionCellsHandler().setVisible(true);
 		}
 
 		// Revalidates the screen
 		// TODO: Should only revalidate moved cells
-		if (!isClonePreview() && previewStates != null)
-		{
+		if (!isClonePreview() && previewStates != null) {
 			graph.getView().revalidate();
 		}
 
@@ -447,8 +393,7 @@ public class mxMovePreview extends mxEventSource
 		startState = null;
 		preview = null;
 
-		if (lastDirty != null)
-		{
+		if (lastDirty != null) {
 			graphComponent.getGraphControl().repaint(lastDirty.getRectangle());
 			lastDirty = null;
 		}
@@ -458,17 +403,14 @@ public class mxMovePreview extends mxEventSource
 	 *
 	 */
 	public Object[] stop(boolean commit, MouseEvent e, double dx, double dy,
-			boolean clone, Object target)
-	{
+			boolean clone, Object target) {
 		Object[] cells = movingCells;
 		reset();
 
 		mxGraph graph = graphComponent.getGraph();
 		graph.getModel().beginUpdate();
-		try
-		{
-			if (commit)
-			{
+		try {
+			if (commit) {
 				double s = graph.getView().getScale();
 				cells = graph.moveCells(cells, dx / s, dy / s, clone, target,
 						e.getPoint());
@@ -476,9 +418,7 @@ public class mxMovePreview extends mxEventSource
 
 			fireEvent(new mxEventObject(mxEvent.STOP, "event", e, "commit",
 					commit));
-		}
-		finally
-		{
+		} finally {
 			graph.getModel().endUpdate();
 		}
 
@@ -488,17 +428,14 @@ public class mxMovePreview extends mxEventSource
 	/**
 	 *
 	 */
-	public void paint(Graphics g)
-	{
-		if (placeholder != null)
-		{
+	public void paint(Graphics g) {
+		if (placeholder != null) {
 			mxSwingConstants.PREVIEW_BORDER.paintBorder(graphComponent, g,
 					placeholder.x, placeholder.y, placeholder.width,
 					placeholder.height);
 		}
 
-		if (preview != null)
-		{
+		if (preview != null) {
 			preview.paint(g);
 		}
 	}

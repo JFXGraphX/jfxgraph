@@ -22,8 +22,7 @@ import com.mxgraph.view.mxCellState;
 /**
  * An abstract converter that renders display XML data onto a canvas.
  */
-public abstract class mxGraphViewReader extends DefaultHandler
-{
+public abstract class mxGraphViewReader extends DefaultHandler {
 
 	/**
 	 * Holds the canvas to be used for rendering the graph.
@@ -31,8 +30,8 @@ public abstract class mxGraphViewReader extends DefaultHandler
 	protected mxICanvas canvas;
 
 	/**
-	 * Holds the global scale of the graph. This is set just before
-	 * createCanvas is called.
+	 * Holds the global scale of the graph. This is set just before createCanvas
+	 * is called.
 	 */
 	protected double scale = 1;
 
@@ -44,23 +43,22 @@ public abstract class mxGraphViewReader extends DefaultHandler
 	/**
 	 * Sets the htmlLabels switch.
 	 */
-	public void setHtmlLabels(boolean value)
-	{
+	public void setHtmlLabels(boolean value) {
 		htmlLabels = value;
 	}
 
 	/**
 	 * Returns the htmlLabels switch.
 	 */
-	public boolean isHtmlLabels()
-	{
+	public boolean isHtmlLabels() {
 		return htmlLabels;
 	}
 
 	/**
 	 * Returns the canvas to be used for rendering.
 	 * 
-	 * @param attrs Specifies the attributes of the new canvas.
+	 * @param attrs
+	 *            Specifies the attributes of the new canvas.
 	 * @return Returns a new canvas.
 	 */
 	public abstract mxICanvas createCanvas(Map<String, Object> attrs);
@@ -70,27 +68,26 @@ public abstract class mxGraphViewReader extends DefaultHandler
 	 * 
 	 * @return Returns the canvas.
 	 */
-	public mxICanvas getCanvas()
-	{
+	public mxICanvas getCanvas() {
 		return canvas;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.xml.sax.helpers.DefaultHandler#startElement(java.lang.String, java.lang.String, java.lang.String, org.xml.sax.Attributes)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.xml.sax.helpers.DefaultHandler#startElement(java.lang.String,
+	 * java.lang.String, java.lang.String, org.xml.sax.Attributes)
 	 */
 	public void startElement(String uri, String localName, String qName,
-			Attributes atts) throws SAXException
-	{
+			Attributes atts) throws SAXException {
 		String tagName = qName.toUpperCase();
 		Map<String, Object> attrs = new Hashtable<String, Object>();
 
-		for (int i = 0; i < atts.getLength(); i++)
-		{
+		for (int i = 0; i < atts.getLength(); i++) {
 			String name = atts.getQName(i);
 
 			// Workaround for possible null name
-			if (name == null || name.length() == 0)
-			{
+			if (name == null || name.length() == 0) {
 				name = atts.getLocalName(i);
 			}
 
@@ -103,23 +100,20 @@ public abstract class mxGraphViewReader extends DefaultHandler
 	/**
 	 * Parses the given element and paints it onto the canvas.
 	 * 
-	 * @param tagName Name of the node to be parsed.
-	 * @param attrs Attributes of the node to be parsed.
+	 * @param tagName
+	 *            Name of the node to be parsed.
+	 * @param attrs
+	 *            Attributes of the node to be parsed.
 	 */
-	public void parseElement(String tagName, Map<String, Object> attrs)
-	{
-		if (canvas == null && tagName.equalsIgnoreCase("graph"))
-		{
+	public void parseElement(String tagName, Map<String, Object> attrs) {
+		if (canvas == null && tagName.equalsIgnoreCase("graph")) {
 			scale = mxUtils.getDouble(attrs, "scale", 1);
 			canvas = createCanvas(attrs);
 
-			if (canvas != null)
-			{
+			if (canvas != null) {
 				canvas.setScale(scale);
 			}
-		}
-		else if (canvas != null)
-		{
+		} else if (canvas != null) {
 			boolean edge = tagName.equalsIgnoreCase("edge");
 			boolean group = tagName.equalsIgnoreCase("group");
 			boolean vertex = tagName.equalsIgnoreCase("vertex");
@@ -128,8 +122,7 @@ public abstract class mxGraphViewReader extends DefaultHandler
 					|| ((vertex || group) && attrs.containsKey("x")
 							&& attrs.containsKey("y")
 							&& attrs.containsKey("width") && attrs
-							.containsKey("height")))
-			{
+								.containsKey("height"))) {
 				mxCellState state = new mxCellState(null, null, attrs);
 
 				String label = parseState(state, edge);
@@ -144,8 +137,7 @@ public abstract class mxGraphViewReader extends DefaultHandler
 	 * of the state into its respective fields and returns the label of the
 	 * cell.
 	 */
-	public String parseState(mxCellState state, boolean edge)
-	{
+	public String parseState(mxCellState state, boolean edge) {
 		Map<String, Object> style = state.getStyle();
 
 		// Parses the bounds
@@ -157,22 +149,20 @@ public abstract class mxGraphViewReader extends DefaultHandler
 		// Parses the absolute points list
 		List<mxPoint> pts = parsePoints(mxUtils.getString(style, "points"));
 
-		if (pts.size() > 0)
-		{
+		if (pts.size() > 0) {
 			state.setAbsolutePoints(pts);
 		}
 
 		// Parses the label and label bounds
 		String label = mxUtils.getString(style, "label");
 
-		if (label != null && label.length() > 0)
-		{
+		if (label != null && label.length() > 0) {
 			mxPoint offset = new mxPoint(mxUtils.getDouble(style, "dx"),
 					mxUtils.getDouble(style, "dy"));
 			mxRectangle vertexBounds = (!edge) ? state : null;
-			state.setLabelBounds(mxUtils.getLabelPaintBounds(label, state
-					.getStyle(), mxUtils.isTrue(style, "html", false), offset,
-					vertexBounds, scale));
+			state.setLabelBounds(mxUtils.getLabelPaintBounds(label,
+					state.getStyle(), mxUtils.isTrue(style, "html", false),
+					offset, vertexBounds, scale));
 		}
 
 		return label;
@@ -181,39 +171,31 @@ public abstract class mxGraphViewReader extends DefaultHandler
 	/**
 	 * Parses the list of points into an object-oriented representation.
 	 * 
-	 * @param pts String containing a list of points.
+	 * @param pts
+	 *            String containing a list of points.
 	 * @return Returns the points as a list of mxPoints.
 	 */
-	public static List<mxPoint> parsePoints(String pts)
-	{
+	public static List<mxPoint> parsePoints(String pts) {
 		List<mxPoint> result = new ArrayList<mxPoint>();
 
-		if (pts != null)
-		{
+		if (pts != null) {
 			int len = pts.length();
 			String tmp = "";
 			String x = null;
 
-			for (int i = 0; i < len; i++)
-			{
+			for (int i = 0; i < len; i++) {
 				char c = pts.charAt(i);
 
-				if (c == ',' || c == ' ')
-				{
-					if (x == null)
-					{
+				if (c == ',' || c == ' ') {
+					if (x == null) {
 						x = tmp;
-					}
-					else
-					{
+					} else {
 						result.add(new mxPoint(Double.parseDouble(x), Double
 								.parseDouble(tmp)));
 						x = null;
 					}
 					tmp = "";
-				}
-				else
-				{
+				} else {
 					tmp += c;
 				}
 			}

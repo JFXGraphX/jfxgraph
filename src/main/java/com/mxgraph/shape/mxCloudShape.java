@@ -7,14 +7,12 @@ import java.awt.geom.GeneralPath;
 import com.mxgraph.canvas.mxGraphics2DCanvas;
 import com.mxgraph.view.mxCellState;
 
-public class mxCloudShape extends mxBasicShape
-{
+public class mxCloudShape extends mxBasicShape {
 
 	/**
 	 * 
 	 */
-	public Shape createShape(mxGraphics2DCanvas canvas, mxCellState state)
-	{
+	public Shape createShape(mxGraphics2DCanvas canvas, mxCellState state) {
 		Rectangle temp = state.getRectangle();
 		int x = temp.x;
 		int y = temp.y;

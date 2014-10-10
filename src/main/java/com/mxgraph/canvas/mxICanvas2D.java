@@ -5,19 +5,13 @@ import com.mxgraph.util.mxConstants;
 /**
  * Requirements for implementing technologies:
  * 
- * - Path rendering (move, line, quad, curve, arc)
- * - Images, flip v/h, aspect, alpha (PNG, JPG, GIF)
- * - Linear gradients (in all four directions)
- * - Transparency, fill and stroke
- * - Rotation, flip v/h
- * - Font rendering
- * - Dash patterns
- * - Clipping by path (not just rectangle)
- * - Alpha gradients (for glass effect)
- * - Encode result as image (PNG, JPG)
+ * - Path rendering (move, line, quad, curve, arc) - Images, flip v/h, aspect,
+ * alpha (PNG, JPG, GIF) - Linear gradients (in all four directions) -
+ * Transparency, fill and stroke - Rotation, flip v/h - Font rendering - Dash
+ * patterns - Clipping by path (not just rectangle) - Alpha gradients (for glass
+ * effect) - Encode result as image (PNG, JPG)
  */
-public interface mxICanvas2D
-{
+public interface mxICanvas2D {
 	/**
 	 * Saves the current state of the canvas.
 	 */
@@ -31,15 +25,18 @@ public interface mxICanvas2D
 	/**
 	 * Uniformaly scales the canvas by the given amount.
 	 * 
-	 * @param value The new scale value.
+	 * @param value
+	 *            The new scale value.
 	 */
 	void scale(double value);
 
 	/**
 	 * Translates the canvas by the given amount.
 	 * 
-	 * @param dx X-coordinate of the translation.
-	 * @param dy Y-coordinate of the translation.
+	 * @param dx
+	 *            X-coordinate of the translation.
+	 * @param dy
+	 *            Y-coordinate of the translation.
 	 */
 	void translate(double dx, double dy);
 
@@ -47,56 +44,67 @@ public interface mxICanvas2D
 	 * Rotates the canvas by the given angle around the given center. This
 	 * method may add rendering overhead and should be used with care.
 	 * 
-	 * @param theta Rotation angle in degrees (0 - 360).
-	 * @param flipH Specifies if drawing should be flipped horizontally.
-	 * @param flipV Specifies if drawing should be flipped vertically.
-	 * @param cx X-coordinate of the center point.
-	 * @param cy Y-coordinate of the center point.
+	 * @param theta
+	 *            Rotation angle in degrees (0 - 360).
+	 * @param flipH
+	 *            Specifies if drawing should be flipped horizontally.
+	 * @param flipV
+	 *            Specifies if drawing should be flipped vertically.
+	 * @param cx
+	 *            X-coordinate of the center point.
+	 * @param cy
+	 *            Y-coordinate of the center point.
 	 */
 	void rotate(double theta, boolean flipH, boolean flipV, double cx, double cy);
 
 	/**
 	 * Sets the stroke width. This should default to 1 if unset.
 	 * 
-	 * @param value Width of the stroke. The value should be multiplied by the
-	 * current scale.
+	 * @param value
+	 *            Width of the stroke. The value should be multiplied by the
+	 *            current scale.
 	 */
 	void setStrokeWidth(double value);
 
 	/**
-	 * Sets the stroke color. This should default to {@link mxConstants#NONE}
-	 * if unset.
+	 * Sets the stroke color. This should default to {@link mxConstants#NONE} if
+	 * unset.
 	 * 
-	 * @param value Hex representation of the color or {@link mxConstants#NONE}.
+	 * @param value
+	 *            Hex representation of the color or {@link mxConstants#NONE}.
 	 */
 	void setStrokeColor(String value);
 
 	/**
 	 * Sets the dashed state. This should default to false if unset.
 	 * 
-	 * @param value Boolean representing the dashed state.
+	 * @param value
+	 *            Boolean representing the dashed state.
 	 */
 	void setDashed(boolean value);
 
 	/**
 	 * Sets the dash pattern. This should default to "3 3" if unset.
 	 * 
-	 * @param value Space separated list of floats representing the dash
-	 * pattern. The value should be multiplied by the current scale.
+	 * @param value
+	 *            Space separated list of floats representing the dash pattern.
+	 *            The value should be multiplied by the current scale.
 	 */
 	void setDashPattern(String value);
 
 	/**
 	 * Sets the linecap. This should default to "flat" if unset.
 	 * 
-	 * @param value "flat", "square" or "round".
+	 * @param value
+	 *            "flat", "square" or "round".
 	 */
 	void setLineCap(String value);
 
 	/**
 	 * Sets the linejoin. This should default to "miter" if unset.
 	 * 
-	 * @param value "miter", "round" or "bevel".
+	 * @param value
+	 *            "miter", "round" or "bevel".
 	 */
 	void setLineJoin(String value);
 
@@ -117,7 +125,8 @@ public interface mxICanvas2D
 	/**
 	 * Default value "#000000".
 	 * 
-	 * @param value Hex representation of the color or {@link mxConstants#NONE}.
+	 * @param value
+	 *            Hex representation of the color or {@link mxConstants#NONE}.
 	 */
 	void setFontColor(String value);
 
@@ -138,14 +147,16 @@ public interface mxICanvas2D
 	/**
 	 * Default value "#000000".
 	 * 
-	 * @param value Hex representation of the color or {@link mxConstants#NONE}.
+	 * @param value
+	 *            Hex representation of the color or {@link mxConstants#NONE}.
 	 */
 	void setFontBackgroundColor(String value);
 
 	/**
 	 * Default value "#000000".
 	 * 
-	 * @param value Hex representation of the color or {@link mxConstants#NONE}.
+	 * @param value
+	 *            Hex representation of the color or {@link mxConstants#NONE}.
 	 */
 	void setFontBorderColor(String value);
 
@@ -160,7 +171,8 @@ public interface mxICanvas2D
 	/**
 	 * Default value {@link mxConstants#NONE}.
 	 * 
-	 * @param value Hex representation of the color or {@link mxConstants#NONE}.
+	 * @param value
+	 *            Hex representation of the color or {@link mxConstants#NONE}.
 	 */
 	void setFillColor(String value);
 
@@ -173,8 +185,9 @@ public interface mxICanvas2D
 	 * @param y
 	 * @param w
 	 * @param h
-	 * @param direction Direction may be null. Use default value
-	 * 		{@link mxConstants#DIRECTION_SOUTH}.
+	 * @param direction
+	 *            Direction may be null. Use default value
+	 *            {@link mxConstants#DIRECTION_SOUTH}.
 	 */
 	void setGradient(String color1, String color2, double x, double y,
 			double w, double h, String direction, double alpha1, double alpha2);
@@ -182,28 +195,32 @@ public interface mxICanvas2D
 	/**
 	 * Enables or disables the painting of shadows.
 	 * 
-	 * @param enabled Whether the shadow should be enabled.
+	 * @param enabled
+	 *            Whether the shadow should be enabled.
 	 */
 	void setShadow(boolean enabled);
 
 	/**
 	 * Default value {@link mxConstants#NONE}.
 	 * 
-	 * @param value Hex representation of the color or {@link mxConstants#NONE}.
+	 * @param value
+	 *            Hex representation of the color or {@link mxConstants#NONE}.
 	 */
 	void setShadowColor(String value);
 
 	/**
 	 * Default value {@link mxConstants#NONE}.
 	 * 
-	 * @param value Hex representation of the color or {@link mxConstants#NONE}.
+	 * @param value
+	 *            Hex representation of the color or {@link mxConstants#NONE}.
 	 */
 	void setShadowAlpha(double value);
 
 	/**
 	 * Default value {@link mxConstants#NONE}.
 	 * 
-	 * @param value Hex representation of the color or {@link mxConstants#NONE}.
+	 * @param value
+	 *            Hex representation of the color or {@link mxConstants#NONE}.
 	 */
 	void setShadowOffset(double dx, double dy);
 
@@ -269,8 +286,9 @@ public interface mxICanvas2D
 	 * @param valign
 	 * @param vertical
 	 */
-	void text(double x, double y, double w, double h, String str, String align, String valign,
-			boolean wrap, String format, String overflow, boolean clip, double rotation);
+	void text(double x, double y, double w, double h, String str, String align,
+			String valign, boolean wrap, String format, String overflow,
+			boolean clip, double rotation);
 
 	/**
 	 * Begins a new path.

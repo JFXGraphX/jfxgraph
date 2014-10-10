@@ -10,8 +10,7 @@ import java.util.HashMap;
 /**
  * Contains various helper methods for use with mxGraph.
  */
-public class mxHtmlColor
-{
+public class mxHtmlColor {
 
 	/**
 	 * HTML color lookup table. Supports the 147 CSS color names.
@@ -21,8 +20,7 @@ public class mxHtmlColor
 	/**
 	 * 
 	 */
-	public static String hexString(Color color)
-	{
+	public static String hexString(Color color) {
 		int r = color.getRed();
 		int g = color.getGreen();
 		int b = color.getBlue();
@@ -37,17 +35,16 @@ public class mxHtmlColor
 	 *            Color to return the hex string for.
 	 * @return Returns a hex string for the given color.
 	 */
-	public static String getHexColorString(Color color)
-	{
-		return Integer.toHexString((color.getRGB() & 0x00FFFFFF) | (color.getAlpha() << 24));
+	public static String getHexColorString(Color color) {
+		return Integer.toHexString((color.getRGB() & 0x00FFFFFF)
+				| (color.getAlpha() << 24));
 	}
 
 	/**
 	 * Convert a string representing a 24/32bit hex color value into a Color
 	 * object. All 147 CSS color names and none are also supported. None returns
-	 * null.
-	 * Examples of possible hex color values are: #C3D9FF, #6482B9 and #774400,
-	 * but note that you do not include the "#" in the string passed in
+	 * null. Examples of possible hex color values are: #C3D9FF, #6482B9 and
+	 * #774400, but note that you do not include the "#" in the string passed in
 	 * 
 	 * @param str
 	 *            the 24/32bit hex string value (ARGB)
@@ -56,61 +53,50 @@ public class mxHtmlColor
 	 *                if the specified string cannot be interpreted as a
 	 *                hexidecimal integer
 	 */
-	public static Color parseColor(String str) throws NumberFormatException
-	{
-		if (str == null || str.equals(mxConstants.NONE))
-		{
+	public static Color parseColor(String str) throws NumberFormatException {
+		if (str == null || str.equals(mxConstants.NONE)) {
 			return null;
-		}
-		else if (!str.startsWith("#"))
-		{
+		} else if (!str.startsWith("#")) {
 			Color result = htmlColors.get(str);
-			
-			// LATER: Return the result even if it's null to avoid invalid color codes
-			if (result != null)
-			{
+
+			// LATER: Return the result even if it's null to avoid invalid color
+			// codes
+			if (result != null) {
 				return result;
 			}
-		}
-		else if (str.length() == 4)
-		{
-			// Adds support for special short notation of hex colors, eg. #abc=#aabbcc
-			str = new String(new char[] { '#', str.charAt(1), str.charAt(1), str.charAt(2),
-					str.charAt(2), str.charAt(3), str.charAt(3) });
+		} else if (str.length() == 4) {
+			// Adds support for special short notation of hex colors, eg.
+			// #abc=#aabbcc
+			str = new String(
+					new char[] { '#', str.charAt(1), str.charAt(1),
+							str.charAt(2), str.charAt(2), str.charAt(3),
+							str.charAt(3) });
 		}
 
 		int value = 0;
-		try
-		{
+		try {
 			String tmp = str;
 
-			if (tmp.startsWith("#"))
-			{
+			if (tmp.startsWith("#")) {
 				tmp = tmp.substring(1);
 			}
 
 			value = (int) Long.parseLong(tmp, 16);
-		}
-		catch (NumberFormatException nfe)
-		{
-			try
-			{
+		} catch (NumberFormatException nfe) {
+			try {
 				value = Long.decode(str).intValue();
-			}
-			catch (NumberFormatException e)
-			{
+			} catch (NumberFormatException e) {
 				// ignores exception and returns black
 			}
 		}
 
 		return new Color(value);
 	}
-	
+
 	/**
 	 * Initializes HTML color table.
 	 */
-	static
-	{
+	static {
 		htmlColors.put("aliceblue", parseColor("#F0F8FF"));
 		htmlColors.put("antiquewhite", parseColor("#FAEBD7"));
 		htmlColors.put("aqua", parseColor("#00FFFF"));
@@ -259,5 +245,5 @@ public class mxHtmlColor
 		htmlColors.put("yellow", parseColor("#FFFF00"));
 		htmlColors.put("yellowgreen", parseColor("#9ACD32"));
 	}
-	
+
 }

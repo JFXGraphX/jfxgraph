@@ -47,8 +47,7 @@ import com.mxgraph.util.mxUndoableEdit.mxUndoableChange;
  * been layouted in layoutCells. The <code>cells</code> property contains all
  * cells that have been passed to layoutCells.
  */
-public class mxLayoutManager extends mxEventSource
-{
+public class mxLayoutManager extends mxEventSource {
 
 	/**
 	 * Defines the type of the source or target terminal. The type is a string
@@ -57,8 +56,8 @@ public class mxLayoutManager extends mxEventSource
 	protected mxGraph graph;
 
 	/**
-	 * Optional string that specifies the value of the attribute to be passed
-	 * to mxCell.is to check if the rule applies to a cell. Default is true.
+	 * Optional string that specifies the value of the attribute to be passed to
+	 * mxCell.is to check if the rule applies to a cell. Default is true.
 	 */
 	protected boolean enabled = true;
 
@@ -71,12 +70,9 @@ public class mxLayoutManager extends mxEventSource
 	/**
 	 * 
 	 */
-	protected mxIEventListener undoHandler = new mxIEventListener()
-	{
-		public void invoke(Object source, mxEventObject evt)
-		{
-			if (isEnabled())
-			{
+	protected mxIEventListener undoHandler = new mxIEventListener() {
+		public void invoke(Object source, mxEventObject evt) {
+			if (isEnabled()) {
 				beforeUndo((mxUndoableEdit) evt.getProperty("edit"));
 			}
 		}
@@ -85,14 +81,11 @@ public class mxLayoutManager extends mxEventSource
 	/**
 	 * 
 	 */
-	protected mxIEventListener moveHandler = new mxIEventListener()
-	{
-		public void invoke(Object source, mxEventObject evt)
-		{
-			if (isEnabled())
-			{
-				cellsMoved((Object[]) evt.getProperty("cells"), (Point) evt
-						.getProperty("location"));
+	protected mxIEventListener moveHandler = new mxIEventListener() {
+		public void invoke(Object source, mxEventObject evt) {
+			if (isEnabled()) {
+				cellsMoved((Object[]) evt.getProperty("cells"),
+						(Point) evt.getProperty("location"));
 			}
 		}
 	};
@@ -100,58 +93,53 @@ public class mxLayoutManager extends mxEventSource
 	/**
 	 * 
 	 */
-	public mxLayoutManager(mxGraph graph)
-	{
+	public mxLayoutManager(mxGraph graph) {
 		setGraph(graph);
 	}
 
 	/**
 	 * @return the enabled
 	 */
-	public boolean isEnabled()
-	{
+	public boolean isEnabled() {
 		return enabled;
 	}
 
 	/**
-	 * @param value the enabled to set
+	 * @param value
+	 *            the enabled to set
 	 */
-	public void setEnabled(boolean value)
-	{
+	public void setEnabled(boolean value) {
 		enabled = value;
 	}
 
 	/**
 	 * @return the bubbling
 	 */
-	public boolean isBubbling()
-	{
+	public boolean isBubbling() {
 		return bubbling;
 	}
 
 	/**
-	 * @param value the bubbling to set
+	 * @param value
+	 *            the bubbling to set
 	 */
-	public void setBubbling(boolean value)
-	{
+	public void setBubbling(boolean value) {
 		bubbling = value;
 	}
 
 	/**
 	 * @return the graph
 	 */
-	public mxGraph getGraph()
-	{
+	public mxGraph getGraph() {
 		return graph;
 	}
 
 	/**
-	 * @param value the graph to set
+	 * @param value
+	 *            the graph to set
 	 */
-	public void setGraph(mxGraph value)
-	{
-		if (graph != null)
-		{
+	public void setGraph(mxGraph value) {
+		if (graph != null) {
 			mxIGraphModel model = graph.getModel();
 			model.removeListener(undoHandler);
 			graph.removeListener(moveHandler);
@@ -159,8 +147,7 @@ public class mxLayoutManager extends mxEventSource
 
 		graph = value;
 
-		if (graph != null)
-		{
+		if (graph != null) {
 			mxIGraphModel model = graph.getModel();
 			model.addListener(mxEvent.BEFORE_UNDO, undoHandler);
 			graph.addListener(mxEvent.MOVE_CELLS, moveHandler);
@@ -170,27 +157,22 @@ public class mxLayoutManager extends mxEventSource
 	/**
 	 * 
 	 */
-	protected mxIGraphLayout getLayout(Object parent)
-	{
+	protected mxIGraphLayout getLayout(Object parent) {
 		return null;
 	}
 
 	/**
 	 * 
 	 */
-	protected void cellsMoved(Object[] cells, Point location)
-	{
-		if (cells != null && location != null)
-		{
+	protected void cellsMoved(Object[] cells, Point location) {
+		if (cells != null && location != null) {
 			mxIGraphModel model = getGraph().getModel();
 
 			// Checks if a layout exists to take care of the moving
-			for (int i = 0; i < cells.length; i++)
-			{
+			for (int i = 0; i < cells.length; i++) {
 				mxIGraphLayout layout = getLayout(model.getParent(cells[i]));
 
-				if (layout != null)
-				{
+				if (layout != null) {
 					layout.moveCell(cells[i], location.x, location.y);
 				}
 			}
@@ -200,17 +182,14 @@ public class mxLayoutManager extends mxEventSource
 	/**
 	 * 
 	 */
-	protected void beforeUndo(mxUndoableEdit edit)
-	{
+	protected void beforeUndo(mxUndoableEdit edit) {
 		Collection<Object> cells = getCellsForChanges(edit.getChanges());
 		mxIGraphModel model = getGraph().getModel();
 
-		if (isBubbling())
-		{
+		if (isBubbling()) {
 			Object[] tmp = mxGraphModel.getParents(model, cells.toArray());
 
-			while (tmp.length > 0)
-			{
+			while (tmp.length > 0) {
 				cells.addAll(Arrays.asList(tmp));
 				tmp = mxGraphModel.getParents(model, tmp);
 			}
@@ -223,21 +202,16 @@ public class mxLayoutManager extends mxEventSource
 	 * 
 	 */
 	protected Collection<Object> getCellsForChanges(
-			List<mxUndoableChange> changes)
-	{
+			List<mxUndoableChange> changes) {
 		Set<Object> result = new HashSet<Object>();
 		Iterator<mxUndoableChange> it = changes.iterator();
 
-		while (it.hasNext())
-		{
+		while (it.hasNext()) {
 			mxUndoableChange change = it.next();
 
-			if (change instanceof mxRootChange)
-			{
+			if (change instanceof mxRootChange) {
 				return new HashSet<Object>();
-			}
-			else
-			{
+			} else {
 				result.addAll(getCellsForChange(change));
 			}
 		}
@@ -248,45 +222,35 @@ public class mxLayoutManager extends mxEventSource
 	/**
 	 * 
 	 */
-	protected Collection<Object> getCellsForChange(mxUndoableChange change)
-	{
+	protected Collection<Object> getCellsForChange(mxUndoableChange change) {
 		mxIGraphModel model = getGraph().getModel();
 		Set<Object> result = new HashSet<Object>();
 
-		if (change instanceof mxChildChange)
-		{
+		if (change instanceof mxChildChange) {
 			mxChildChange cc = (mxChildChange) change;
 			Object parent = model.getParent(cc.getChild());
 
-			if (cc.getChild() != null)
-			{
+			if (cc.getChild() != null) {
 				result.add(cc.getChild());
 			}
 
-			if (parent != null)
-			{
+			if (parent != null) {
 				result.add(parent);
 			}
 
-			if (cc.getPrevious() != null)
-			{
+			if (cc.getPrevious() != null) {
 				result.add(cc.getPrevious());
 			}
-		}
-		else if (change instanceof mxTerminalChange
-				|| change instanceof mxGeometryChange)
-		{
+		} else if (change instanceof mxTerminalChange
+				|| change instanceof mxGeometryChange) {
 			Object cell = (change instanceof mxTerminalChange) ? ((mxTerminalChange) change)
-					.getCell()
-					: ((mxGeometryChange) change).getCell();
+					.getCell() : ((mxGeometryChange) change).getCell();
 
-			if (cell != null)
-			{
+			if (cell != null) {
 				result.add(cell);
 				Object parent = model.getParent(cell);
 
-				if (parent != null)
-				{
+				if (parent != null) {
 					result.add(parent);
 				}
 			}
@@ -298,29 +262,22 @@ public class mxLayoutManager extends mxEventSource
 	/**
 	 * 
 	 */
-	protected void layoutCells(Object[] cells)
-	{
-		if (cells.length > 0)
-		{
+	protected void layoutCells(Object[] cells) {
+		if (cells.length > 0) {
 			// Invokes the layouts while removing duplicates
 			mxIGraphModel model = getGraph().getModel();
 
 			model.beginUpdate();
-			try
-			{
-				for (int i = 0; i < cells.length; i++)
-				{
-					if (cells[i] != model.getRoot())
-					{
+			try {
+				for (int i = 0; i < cells.length; i++) {
+					if (cells[i] != model.getRoot()) {
 						executeLayout(getLayout(cells[i]), cells[i]);
 					}
 				}
 
 				fireEvent(new mxEventObject(mxEvent.LAYOUT_CELLS, "cells",
 						cells));
-			}
-			finally
-			{
+			} finally {
 				model.endUpdate();
 			}
 		}
@@ -329,10 +286,8 @@ public class mxLayoutManager extends mxEventSource
 	/**
 	 * 
 	 */
-	protected void executeLayout(mxIGraphLayout layout, Object parent)
-	{
-		if (layout != null && parent != null)
-		{
+	protected void executeLayout(mxIGraphLayout layout, Object parent) {
+		if (layout != null && parent != null) {
 			layout.execute(parent);
 		}
 	}
@@ -340,8 +295,7 @@ public class mxLayoutManager extends mxEventSource
 	/**
 	 * 
 	 */
-	public void destroy()
-	{
+	public void destroy() {
 		setGraph(null);
 	}
 

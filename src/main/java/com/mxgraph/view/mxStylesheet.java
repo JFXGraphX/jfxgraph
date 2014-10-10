@@ -10,9 +10,8 @@ import java.util.Map;
 import com.mxgraph.util.mxConstants;
 
 /**
- * Defines the appearance of the cells in a graph. The following example
- * changes the font size for all vertices by changing the default vertex
- * style in-place:
+ * Defines the appearance of the cells in a graph. The following example changes
+ * the font size for all vertices by changing the default vertex style in-place:
  * <code>
  * getDefaultVertexStyle().put(mxConstants.STYLE_FONTSIZE, 16);
  * </code>
@@ -20,8 +19,7 @@ import com.mxgraph.util.mxConstants;
  * To change the default font size for all cells, set
  * mxConstants.DEFAULT_FONTSIZE.
  */
-public class mxStylesheet
-{
+public class mxStylesheet {
 
 	/**
 	 * Shared immutable empty hashtable (for undefined cell styles).
@@ -36,8 +34,7 @@ public class mxStylesheet
 	/**
 	 * Constructs a new stylesheet and assigns default styles.
 	 */
-	public mxStylesheet()
-	{
+	public mxStylesheet() {
 		setDefaultVertexStyle(createDefaultVertexStyle());
 		setDefaultEdgeStyle(createDefaultEdgeStyle());
 	}
@@ -47,16 +44,14 @@ public class mxStylesheet
 	 * 
 	 * @return All styles in this stylesheet.
 	 */
-	public Map<String, Map<String, Object>> getStyles()
-	{
+	public Map<String, Map<String, Object>> getStyles() {
 		return styles;
 	}
 
 	/**
 	 * Sets all styles in the stylesheet.
 	 */
-	public void setStyles(Map<String, Map<String, Object>> styles)
-	{
+	public void setStyles(Map<String, Map<String, Object>> styles) {
 		this.styles = styles;
 	}
 
@@ -65,8 +60,7 @@ public class mxStylesheet
 	 * 
 	 * @return Returns the default vertex style.
 	 */
-	protected Map<String, Object> createDefaultVertexStyle()
-	{
+	protected Map<String, Object> createDefaultVertexStyle() {
 		Map<String, Object> style = new Hashtable<String, Object>();
 
 		style.put(mxConstants.STYLE_SHAPE, mxConstants.SHAPE_RECTANGLE);
@@ -85,8 +79,7 @@ public class mxStylesheet
 	 * 
 	 * @return Returns the default edge style.
 	 */
-	protected Map<String, Object> createDefaultEdgeStyle()
-	{
+	protected Map<String, Object> createDefaultEdgeStyle() {
 		Map<String, Object> style = new Hashtable<String, Object>();
 
 		style.put(mxConstants.STYLE_SHAPE, mxConstants.SHAPE_CONNECTOR);
@@ -104,18 +97,17 @@ public class mxStylesheet
 	 * 
 	 * @return Returns the default vertex style.
 	 */
-	public Map<String, Object> getDefaultVertexStyle()
-	{
+	public Map<String, Object> getDefaultVertexStyle() {
 		return styles.get("defaultVertex");
 	}
 
 	/**
 	 * Sets the default style for vertices.
 	 * 
-	 * @param value Style to be used for vertices.
+	 * @param value
+	 *            Style to be used for vertices.
 	 */
-	public void setDefaultVertexStyle(Map<String, Object> value)
-	{
+	public void setDefaultVertexStyle(Map<String, Object> value) {
 		putCellStyle("defaultVertex", value);
 	}
 
@@ -124,29 +116,29 @@ public class mxStylesheet
 	 * 
 	 * @return Returns the default edge style.
 	 */
-	public Map<String, Object> getDefaultEdgeStyle()
-	{
+	public Map<String, Object> getDefaultEdgeStyle() {
 		return styles.get("defaultEdge");
 	}
 
 	/**
 	 * Sets the default style for edges.
 	 * 
-	 * @param value Style to be used for edges.
+	 * @param value
+	 *            Style to be used for edges.
 	 */
-	public void setDefaultEdgeStyle(Map<String, Object> value)
-	{
+	public void setDefaultEdgeStyle(Map<String, Object> value) {
 		putCellStyle("defaultEdge", value);
 	}
 
 	/**
 	 * Stores the specified style under the given name.
 	 * 
-	 * @param name Name for the style to be stored.
-	 * @param style Key, value pairs that define the style.
+	 * @param name
+	 *            Name for the style to be stored.
+	 * @param style
+	 *            Key, value pairs that define the style.
 	 */
-	public void putCellStyle(String name, Map<String, Object> style)
-	{
+	public void putCellStyle(String name, Map<String, Object> style) {
 		styles.put(name, style);
 	}
 
@@ -154,54 +146,43 @@ public class mxStylesheet
 	 * Returns the cell style for the specified cell or the given defaultStyle
 	 * if no style can be found for the given stylename.
 	 * 
-	 * @param name String of the form [(stylename|key=value);] that represents the
-	 * style.
-	 * @param defaultStyle Default style to be returned if no style can be found.
+	 * @param name
+	 *            String of the form [(stylename|key=value);] that represents
+	 *            the style.
+	 * @param defaultStyle
+	 *            Default style to be returned if no style can be found.
 	 * @return Returns the style for the given formatted cell style.
 	 */
 	public Map<String, Object> getCellStyle(String name,
-			Map<String, Object> defaultStyle)
-	{
+			Map<String, Object> defaultStyle) {
 		Map<String, Object> style = defaultStyle;
 
-		if (name != null && name.length() > 0)
-		{
+		if (name != null && name.length() > 0) {
 			String[] pairs = name.split(";");
 
-			if (style != null && !name.startsWith(";"))
-			{
+			if (style != null && !name.startsWith(";")) {
 				style = new Hashtable<String, Object>(style);
-			}
-			else
-			{
+			} else {
 				style = new Hashtable<String, Object>();
 			}
 
-			for (int i = 0; i < pairs.length; i++)
-			{
+			for (int i = 0; i < pairs.length; i++) {
 				String tmp = pairs[i];
 				int c = tmp.indexOf('=');
 
-				if (c >= 0)
-				{
+				if (c >= 0) {
 					String key = tmp.substring(0, c);
 					String value = tmp.substring(c + 1);
 
-					if (value.equals(mxConstants.NONE))
-					{
+					if (value.equals(mxConstants.NONE)) {
 						style.remove(key);
-					}
-					else
-					{
+					} else {
 						style.put(key, value);
 					}
-				}
-				else
-				{
+				} else {
 					Map<String, Object> tmpStyle = styles.get(tmp);
 
-					if (tmpStyle != null)
-					{
+					if (tmpStyle != null) {
 						style.putAll(tmpStyle);
 					}
 				}

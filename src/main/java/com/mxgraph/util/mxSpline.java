@@ -6,12 +6,11 @@ package com.mxgraph.util;
 
 import java.util.List;
 
-public class mxSpline
-{
-	/** 
-	 *	Array representing the relative proportion of the total distance
-	 *	of each point in the line ( i.e. first point is 0.0, end point is
-	 *	1.0, a point halfway on line is 0.5 ).
+public class mxSpline {
+	/**
+	 * Array representing the relative proportion of the total distance of each
+	 * point in the line ( i.e. first point is 0.0, end point is 1.0, a point
+	 * halfway on line is 0.5 ).
 	 */
 	private double[] t;
 
@@ -24,16 +23,13 @@ public class mxSpline
 	 */
 	private double length;
 
-	public mxSpline(List<mxPoint> points)
-	{
-		if (points != null)
-		{
+	public mxSpline(List<mxPoint> points) {
+		if (points != null) {
 			double[] x = new double[points.size()];
 			double[] y = new double[points.size()];
 			int i = 0;
 
-			for (mxPoint point : points)
-			{
+			for (mxPoint point : points) {
 				x[i] = point.getX();
 				y[i++] = point.getY();
 			}
@@ -44,25 +40,22 @@ public class mxSpline
 
 	/**
 	 * Creates a new mxSpline.
+	 * 
 	 * @param x
 	 * @param y
 	 */
-	public void Spline2D(double[] x, double[] y)
-	{
+	public void Spline2D(double[] x, double[] y) {
 		init(x, y);
 	}
 
-	protected void init(double[] x, double[] y)
-	{
-		if (x.length != y.length)
-		{
+	protected void init(double[] x, double[] y) {
+		if (x.length != y.length) {
 			// Arrays must have the same length
 			// TODO log something
 			return;
 		}
 
-		if (x.length < 2)
-		{
+		if (x.length < 2) {
 			// Spline edges must have at least two points
 			// TODO log something
 			return;
@@ -74,22 +67,17 @@ public class mxSpline
 
 		// Calculate the partial proportions of each section between each set
 		// of points and the total length of sum of all sections
-		for (int i = 1; i < t.length; i++)
-		{
+		for (int i = 1; i < t.length; i++) {
 			double lx = x[i] - x[i - 1];
 			double ly = y[i] - y[i - 1];
 
-			// If either diff is zero there is no point performing the square root
-			if (0.0 == lx)
-			{
+			// If either diff is zero there is no point performing the square
+			// root
+			if (0.0 == lx) {
 				t[i] = Math.abs(ly);
-			}
-			else if (0.0 == ly)
-			{
+			} else if (0.0 == ly) {
 				t[i] = Math.abs(lx);
-			}
-			else
-			{
+			} else {
 				t[i] = Math.sqrt(lx * lx + ly * ly);
 			}
 
@@ -97,8 +85,7 @@ public class mxSpline
 			t[i] += t[i - 1];
 		}
 
-		for (int j = 1; j < (t.length) - 1; j++)
-		{
+		for (int j = 1; j < (t.length) - 1; j++) {
 			t[j] = t[j] / length;
 		}
 
@@ -109,10 +96,10 @@ public class mxSpline
 	}
 
 	/**
-	 * @param t 0 <= t <= 1
+	 * @param t
+	 *            0 <= t <= 1
 	 */
-	public mxPoint getPoint(double t)
-	{
+	public mxPoint getPoint(double t) {
 		mxPoint result = new mxPoint(splineX.getValue(t), splineY.getValue(t));
 
 		return result;
@@ -121,33 +108,27 @@ public class mxSpline
 	/**
 	 * Used to check the correctness of this spline
 	 */
-	public boolean checkValues()
-	{
+	public boolean checkValues() {
 		return (splineX.len.length > 1 && splineY.len.length > 1);
 	}
 
-	public double getDx(double t)
-	{
+	public double getDx(double t) {
 		return splineX.getDx(t);
 	}
 
-	public double getDy(double t)
-	{
+	public double getDy(double t) {
 		return splineY.getDx(t);
 	}
 
-	public mxSpline1D getSplineX()
-	{
+	public mxSpline1D getSplineX() {
 		return splineX;
 	}
 
-	public mxSpline1D getSplineY()
-	{
+	public mxSpline1D getSplineY() {
 		return splineY;
 	}
 
-	public double getLength()
-	{
+	public double getLength() {
 		return length;
 	}
 }

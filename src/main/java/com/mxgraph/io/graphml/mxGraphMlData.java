@@ -13,13 +13,12 @@ import org.w3c.dom.NodeList;
 /**
  * Represents a Data element in the GML Structure.
  */
-public class mxGraphMlData
-{
+public class mxGraphMlData {
 	private String dataId = "";
 
 	private String dataKey = "";
 
-	private String dataValue = "";//not using
+	private String dataValue = "";// not using
 
 	private mxGraphMlShapeNode dataShapeNode;
 
@@ -27,15 +26,20 @@ public class mxGraphMlData
 
 	/**
 	 * Construct a data with the params values.
-	 * @param dataId Data's ID
-	 * @param dataKey Reference to a Key Element ID
-	 * @param dataValue Value of the data Element
-	 * @param dataShapeEdge JGraph specific edge properties.
-	 * @param dataShapeNode JGraph specific node properties.
+	 * 
+	 * @param dataId
+	 *            Data's ID
+	 * @param dataKey
+	 *            Reference to a Key Element ID
+	 * @param dataValue
+	 *            Value of the data Element
+	 * @param dataShapeEdge
+	 *            JGraph specific edge properties.
+	 * @param dataShapeNode
+	 *            JGraph specific node properties.
 	 */
 	public mxGraphMlData(String dataId, String dataKey, String dataValue,
-			mxGraphMlShapeEdge dataShapeEdge, mxGraphMlShapeNode dataShapeNode)
-	{
+			mxGraphMlShapeEdge dataShapeEdge, mxGraphMlShapeNode dataShapeNode) {
 		this.dataId = dataId;
 		this.dataKey = dataKey;
 		this.dataValue = dataValue;
@@ -45,10 +49,11 @@ public class mxGraphMlData
 
 	/**
 	 * Construct a data from one xml data element.
-	 * @param dataElement Xml Data Element.
+	 * 
+	 * @param dataElement
+	 *            Xml Data Element.
 	 */
-	public mxGraphMlData(Element dataElement)
-	{
+	public mxGraphMlData(Element dataElement) {
 		this.dataId = dataElement.getAttribute(mxGraphMlConstants.ID);
 		this.dataKey = dataElement.getAttribute(mxGraphMlConstants.KEY);
 
@@ -58,24 +63,17 @@ public class mxGraphMlData
 				mxGraphMlConstants.JGRAPH + mxGraphMlConstants.SHAPENODE);
 		Element shapeEdgeElement = mxGraphMlUtils.childsTag(dataElement,
 				mxGraphMlConstants.JGRAPH + mxGraphMlConstants.SHAPEEDGE);
-		
-		if (shapeNodeElement != null)
-		{
+
+		if (shapeNodeElement != null) {
 			this.dataShapeNode = new mxGraphMlShapeNode(shapeNodeElement);
-		}
-		else if (shapeEdgeElement != null)
-		{
+		} else if (shapeEdgeElement != null) {
 			this.dataShapeEdge = new mxGraphMlShapeEdge(shapeEdgeElement);
-		}
-		else
-		{
+		} else {
 			NodeList childs = dataElement.getChildNodes();
 			List<Node> childrens = mxGraphMlUtils.copyNodeList(childs);
-			
-			for (Node n : childrens)
-			{
-				if (n.getNodeName().equals("#text"))
-				{
+
+			for (Node n : childrens) {
+				if (n.getNodeName().equals("#text")) {
 
 					this.dataValue += n.getNodeValue();
 				}
@@ -87,67 +85,57 @@ public class mxGraphMlData
 	/**
 	 * Construct an empty data.
 	 */
-	public mxGraphMlData()
-	{
+	public mxGraphMlData() {
 	}
 
-	public String getDataId()
-	{
+	public String getDataId() {
 		return dataId;
 	}
 
-	public void setDataId(String dataId)
-	{
+	public void setDataId(String dataId) {
 		this.dataId = dataId;
 	}
 
-	public String getDataKey()
-	{
+	public String getDataKey() {
 		return dataKey;
 	}
 
-	public void setDataKey(String dataKey)
-	{
+	public void setDataKey(String dataKey) {
 		this.dataKey = dataKey;
 	}
 
-	public String getDataValue()
-	{
+	public String getDataValue() {
 		return dataValue;
 	}
 
-	public void setDataValue(String dataValue)
-	{
+	public void setDataValue(String dataValue) {
 		this.dataValue = dataValue;
 	}
 
-	public mxGraphMlShapeNode getDataShapeNode()
-	{
+	public mxGraphMlShapeNode getDataShapeNode() {
 		return dataShapeNode;
 	}
 
-	public void setDataShapeNode(mxGraphMlShapeNode dataShapeNode)
-	{
+	public void setDataShapeNode(mxGraphMlShapeNode dataShapeNode) {
 		this.dataShapeNode = dataShapeNode;
 	}
 
-	public mxGraphMlShapeEdge getDataShapeEdge()
-	{
+	public mxGraphMlShapeEdge getDataShapeEdge() {
 		return dataShapeEdge;
 	}
 
-	public void setDataShapeEdge(mxGraphMlShapeEdge dataShapeEdge)
-	{
+	public void setDataShapeEdge(mxGraphMlShapeEdge dataShapeEdge) {
 		this.dataShapeEdge = dataShapeEdge;
 	}
 
 	/**
 	 * Generates an Node Data Element from this class.
-	 * @param document Document where the key Element will be inserted.
+	 * 
+	 * @param document
+	 *            Document where the key Element will be inserted.
 	 * @return Returns the generated Elements.
 	 */
-	public Element generateNodeElement(Document document)
-	{
+	public Element generateNodeElement(Document document) {
 		Element data = document.createElement(mxGraphMlConstants.DATA);
 		data.setAttribute(mxGraphMlConstants.KEY, dataKey);
 
@@ -159,11 +147,12 @@ public class mxGraphMlData
 
 	/**
 	 * Generates an Edge Data Element from this class.
-	 * @param document Document where the key Element will be inserted.
+	 * 
+	 * @param document
+	 *            Document where the key Element will be inserted.
 	 * @return Returns the generated Elements.
 	 */
-	public Element generateEdgeElement(Document document)
-	{
+	public Element generateEdgeElement(Document document) {
 		Element data = document.createElement(mxGraphMlConstants.DATA);
 		data.setAttribute(mxGraphMlConstants.KEY, dataKey);
 

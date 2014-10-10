@@ -16,20 +16,17 @@ import com.mxgraph.util.mxConstants;
 import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxCellState;
 
-public class mxDefaultTextShape implements mxITextShape
-{
+public class mxDefaultTextShape implements mxITextShape {
 
 	/**
 	 * 
 	 */
 	public void paintShape(mxGraphics2DCanvas canvas, String text,
-			mxCellState state, Map<String, Object> style)
-	{
+			mxCellState state, Map<String, Object> style) {
 		Rectangle rect = state.getLabelBounds().getRectangle();
 		Graphics2D g = canvas.getGraphics();
 
-		if (g.getClipBounds() == null || g.getClipBounds().intersects(rect))
-		{
+		if (g.getClipBounds() == null || g.getClipBounds().intersects(rect)) {
 			boolean horizontal = mxUtils.isTrue(style,
 					mxConstants.STYLE_HORIZONTAL, true);
 			double scale = canvas.getScale();
@@ -38,8 +35,7 @@ public class mxDefaultTextShape implements mxITextShape
 			int w = rect.width;
 			int h = rect.height;
 
-			if (!horizontal)
-			{
+			if (!horizontal) {
 				g.rotate(-Math.PI / 2, x + w / 2, y + h / 2);
 				g.translate(w / 2 - h / 2, h / 2 - w / 2);
 			}
@@ -71,12 +67,9 @@ public class mxDefaultTextShape implements mxITextShape
 					mxConstants.STYLE_VERTICAL_ALIGN, mxConstants.ALIGN_MIDDLE);
 			double vertAlignProportion = 0.5;
 
-			if (vertAlign.equals(mxConstants.ALIGN_TOP))
-			{
+			if (vertAlign.equals(mxConstants.ALIGN_TOP)) {
 				vertAlignProportion = 0;
-			}
-			else if (vertAlign.equals(mxConstants.ALIGN_BOTTOM))
-			{
+			} else if (vertAlign.equals(mxConstants.ALIGN_BOTTOM)) {
 				vertAlignProportion = 1.0;
 			}
 
@@ -86,37 +79,27 @@ public class mxDefaultTextShape implements mxITextShape
 			Object align = mxUtils.getString(style, mxConstants.STYLE_ALIGN,
 					mxConstants.ALIGN_CENTER);
 
-			if (align.equals(mxConstants.ALIGN_LEFT))
-			{
+			if (align.equals(mxConstants.ALIGN_LEFT)) {
 				x += mxConstants.LABEL_INSET * scale;
-			}
-			else if (align.equals(mxConstants.ALIGN_RIGHT))
-			{
+			} else if (align.equals(mxConstants.ALIGN_RIGHT)) {
 				x -= mxConstants.LABEL_INSET * scale;
 			}
 
 			// Draws the text line by line
 			String[] lines = text.split("\n");
-			
-			for (int i = 0; i < lines.length; i++)
-			{
+
+			for (int i = 0; i < lines.length; i++) {
 				int dx = 0;
 
-				if (align.equals(mxConstants.ALIGN_CENTER))
-				{
+				if (align.equals(mxConstants.ALIGN_CENTER)) {
 					int sw = fm.stringWidth(lines[i]);
 
-					if (horizontal)
-					{
+					if (horizontal) {
 						dx = (w - sw) / 2;
-					}
-					else
-					{
+					} else {
 						dx = (h - sw) / 2;
 					}
-				}
-				else if (align.equals(mxConstants.ALIGN_RIGHT))
-				{
+				} else if (align.equals(mxConstants.ALIGN_RIGHT)) {
 					int sw = fm.stringWidth(lines[i]);
 					dx = ((horizontal) ? w : h) - sw;
 				}
@@ -130,12 +113,21 @@ public class mxDefaultTextShape implements mxITextShape
 
 	/**
 	 * Hook to add functionality after a line has been drawn
-	 * @param text the entire label text
-	 * @param line the line at the specified location
-	 * @param fm the text font metrics
-	 * @param canvas the canvas object currently being painted to
-	 * @param x the x co-ord of the baseline of the text line
-	 * @param y the y co-ord of the baseline of the text line
+	 * 
+	 * @param text
+	 *            the entire label text
+	 * @param line
+	 *            the line at the specified location
+	 * @param fm
+	 *            the text font metrics
+	 * @param canvas
+	 *            the canvas object currently being painted to
+	 * @param x
+	 *            the x co-ord of the baseline of the text line
+	 * @param y
+	 *            the y co-ord of the baseline of the text line
 	 */
-	protected void postProcessLine(String text, String line, FontMetrics fm, mxGraphics2DCanvas canvas, int x, int y){}
+	protected void postProcessLine(String text, String line, FontMetrics fm,
+			mxGraphics2DCanvas canvas, int x, int y) {
+	}
 }

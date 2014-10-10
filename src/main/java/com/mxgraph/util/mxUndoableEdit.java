@@ -10,14 +10,12 @@ import java.util.List;
 /**
  * Implements a 2-dimensional rectangle with double precision coordinates.
  */
-public class mxUndoableEdit
-{
+public class mxUndoableEdit {
 
 	/**
 	 * Defines the requirements for an undoable change.
 	 */
-	public interface mxUndoableChange
-	{
+	public interface mxUndoableChange {
 
 		/**
 		 * Undoes or redoes the change depending on its undo state.
@@ -49,26 +47,23 @@ public class mxUndoableEdit
 	/**
 	 * Constructs a new undoable edit for the given source.
 	 */
-	public mxUndoableEdit(Object source)
-	{
+	public mxUndoableEdit(Object source) {
 		this(source, true);
 	}
 
 	/**
 	 * Constructs a new undoable edit for the given source.
 	 */
-	public mxUndoableEdit(Object source, boolean significant)
-	{
+	public mxUndoableEdit(Object source, boolean significant) {
 		this.source = source;
 		this.significant = significant;
 	}
 
 	/**
-	 * Hook to notify any listeners of the changes after an undo or redo
-	 * has been carried out. This implementation is empty.
+	 * Hook to notify any listeners of the changes after an undo or redo has
+	 * been carried out. This implementation is empty.
 	 */
-	public void dispatch()
-	{
+	public void dispatch() {
 		// empty
 	}
 
@@ -76,56 +71,49 @@ public class mxUndoableEdit
 	 * Hook to free resources after the edit has been removed from the command
 	 * history. This implementation is empty.
 	 */
-	public void die()
-	{
+	public void die() {
 		// empty
 	}
 
 	/**
 	 * @return the source
 	 */
-	public Object getSource()
-	{
+	public Object getSource() {
 		return source;
 	}
 
 	/**
 	 * @return the changes
 	 */
-	public List<mxUndoableChange> getChanges()
-	{
+	public List<mxUndoableChange> getChanges() {
 		return changes;
 	}
 
 	/**
 	 * @return the significant
 	 */
-	public boolean isSignificant()
-	{
+	public boolean isSignificant() {
 		return significant;
 	}
 
 	/**
 	 * @return the undone
 	 */
-	public boolean isUndone()
-	{
+	public boolean isUndone() {
 		return undone;
 	}
 
 	/**
 	 * @return the redone
 	 */
-	public boolean isRedone()
-	{
+	public boolean isRedone() {
 		return redone;
 	}
 
 	/**
 	 * Returns true if the this edit contains no changes.
 	 */
-	public boolean isEmpty()
-	{
+	public boolean isEmpty() {
 		return changes.isEmpty();
 	}
 
@@ -133,22 +121,18 @@ public class mxUndoableEdit
 	 * Adds the specified change to this edit. The change is an object that is
 	 * expected to either have an undo and redo, or an execute function.
 	 */
-	public void add(mxUndoableChange change)
-	{
+	public void add(mxUndoableChange change) {
 		changes.add(change);
 	}
 
 	/**
 	 * 
 	 */
-	public void undo()
-	{
-		if (!undone)
-		{
+	public void undo() {
+		if (!undone) {
 			int count = changes.size();
 
-			for (int i = count - 1; i >= 0; i--)
-			{
+			for (int i = count - 1; i >= 0; i--) {
 				mxUndoableChange change = changes.get(i);
 				change.execute();
 			}
@@ -163,14 +147,11 @@ public class mxUndoableEdit
 	/**
 	 * 
 	 */
-	public void redo()
-	{
-		if (!redone)
-		{
+	public void redo() {
+		if (!redone) {
 			int count = changes.size();
 
-			for (int i = 0; i < count; i++)
-			{
+			for (int i = 0; i < count; i++) {
 				mxUndoableChange change = changes.get(i);
 				change.execute();
 			}

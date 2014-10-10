@@ -13,18 +13,15 @@ import com.mxgraph.model.mxGraphModel.mxChildChange;
 import com.mxgraph.model.mxICell;
 
 /**
- * Codec for mxChildChanges. This class is created and registered
- * dynamically at load time and used implicitely via mxCodec
- * and the mxCodecRegistry.
+ * Codec for mxChildChanges. This class is created and registered dynamically at
+ * load time and used implicitely via mxCodec and the mxCodecRegistry.
  */
-public class mxChildChangeCodec extends mxObjectCodec
-{
+public class mxChildChangeCodec extends mxObjectCodec {
 
 	/**
 	 * Constructs a new model codec.
 	 */
-	public mxChildChangeCodec()
-	{
+	public mxChildChangeCodec() {
 		this(new mxChildChange(), new String[] { "model", "child",
 				"previousIndex" }, new String[] { "parent", "previous" }, null);
 	}
@@ -33,48 +30,48 @@ public class mxChildChangeCodec extends mxObjectCodec
 	 * Constructs a new model codec for the given arguments.
 	 */
 	public mxChildChangeCodec(Object template, String[] exclude,
-			String[] idrefs, Map<String, String> mapping)
-	{
+			String[] idrefs, Map<String, String> mapping) {
 		super(template, exclude, idrefs, mapping);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.mxgraph.io.mxObjectCodec#isReference(java.lang.Object, java.lang.String, java.lang.Object, boolean)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.mxgraph.io.mxObjectCodec#isReference(java.lang.Object,
+	 * java.lang.String, java.lang.Object, boolean)
 	 */
 	@Override
 	public boolean isReference(Object obj, String attr, Object value,
-			boolean isWrite)
-	{
+			boolean isWrite) {
 		if (attr.equals("child") && obj instanceof mxChildChange
-				&& (((mxChildChange) obj).getPrevious() != null || !isWrite))
-		{
+				&& (((mxChildChange) obj).getPrevious() != null || !isWrite)) {
 			return true;
 		}
 
 		return idrefs.contains(attr);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.mxgraph.io.mxObjectCodec#afterEncode(com.mxgraph.io.mxCodec, java.lang.Object, org.w3c.dom.Node)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.mxgraph.io.mxObjectCodec#afterEncode(com.mxgraph.io.mxCodec,
+	 * java.lang.Object, org.w3c.dom.Node)
 	 */
 	@Override
-	public Node afterEncode(mxCodec enc, Object obj, Node node)
-	{
-		if (obj instanceof mxChildChange)
-		{
+	public Node afterEncode(mxCodec enc, Object obj, Node node) {
+		if (obj instanceof mxChildChange) {
 			mxChildChange change = (mxChildChange) obj;
 			Object child = change.getChild();
 
-			if (isReference(obj, "child", child, true))
-			{
+			if (isReference(obj, "child", child, true)) {
 				// Encodes as reference (id)
 				mxCodec.setAttribute(node, "child", enc.getId(child));
-			}
-			else
-			{
-				// At this point, the encoder is no longer able to know which cells
+			} else {
+				// At this point, the encoder is no longer able to know which
+				// cells
 				// are new, so we have to encode the complete cell hierarchy and
-				// ignore the ones that are already there at decoding time. Note:
+				// ignore the ones that are already there at decoding time.
+				// Note:
 				// This can only be resolved by moving the notify event into the
 				// execute of the edit.
 				enc.encodeCell((mxICell) child, node, true);
@@ -88,15 +85,12 @@ public class mxChildChangeCodec extends mxObjectCodec
 	 * Reads the cells into the graph model. All cells are children of the root
 	 * element in the node.
 	 */
-	public Node beforeDecode(mxCodec dec, Node node, Object into)
-	{
-		if (into instanceof mxChildChange)
-		{
+	public Node beforeDecode(mxCodec dec, Node node, Object into) {
+		if (into instanceof mxChildChange) {
 			mxChildChange change = (mxChildChange) into;
 
 			if (node.getFirstChild() != null
-					&& node.getFirstChild().getNodeType() == Node.ELEMENT_NODE)
-			{
+					&& node.getFirstChild().getNodeType() == Node.ELEMENT_NODE) {
 				// Makes sure the original node isn't modified
 				node = node.cloneNode(true);
 
@@ -107,12 +101,10 @@ public class mxChildChangeCodec extends mxObjectCodec
 				tmp.getParentNode().removeChild(tmp);
 				tmp = tmp2;
 
-				while (tmp != null)
-				{
+				while (tmp != null) {
 					tmp2 = tmp.getNextSibling();
 
-					if (tmp.getNodeType() == Node.ELEMENT_NODE)
-					{
+					if (tmp.getNodeType() == Node.ELEMENT_NODE) {
 						// Ignores all existing cells because those do not need
 						// to be re-inserted into the model. Since the encoded
 						// version of these cells contains the new parent, this
@@ -121,8 +113,7 @@ public class mxChildChangeCodec extends mxObjectCodec
 						// parentForCellChanged).
 						String id = ((Element) tmp).getAttribute("id");
 
-						if (dec.lookup(id) == null)
-						{
+						if (dec.lookup(id) == null) {
 							dec.decodeCell(tmp, true);
 						}
 					}
@@ -130,9 +121,7 @@ public class mxChildChangeCodec extends mxObjectCodec
 					tmp.getParentNode().removeChild(tmp);
 					tmp = tmp2;
 				}
-			}
-			else
-			{
+			} else {
 				String childRef = ((Element) node).getAttribute("child");
 				change.setChild((mxICell) dec.getObject(childRef));
 			}
@@ -141,19 +130,23 @@ public class mxChildChangeCodec extends mxObjectCodec
 		return node;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.mxgraph.io.mxObjectCodec#afterDecode(com.mxgraph.io.mxCodec, org.w3c.dom.Node, java.lang.Object)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.mxgraph.io.mxObjectCodec#afterDecode(com.mxgraph.io.mxCodec,
+	 * org.w3c.dom.Node, java.lang.Object)
 	 */
 	@Override
-	public Object afterDecode(mxCodec dec, Node node, Object obj)
-	{
-		if (obj instanceof mxChildChange)
-		{
+	public Object afterDecode(mxCodec dec, Node node, Object obj) {
+		if (obj instanceof mxChildChange) {
 			mxChildChange change = (mxChildChange) obj;
 
-			// Cells are encoded here after a complete transaction so the previous
-			// parent must be restored on the cell for the case where the cell was
-			// added. This is needed for the local model to identify the cell as a
+			// Cells are encoded here after a complete transaction so the
+			// previous
+			// parent must be restored on the cell for the case where the cell
+			// was
+			// added. This is needed for the local model to identify the cell as
+			// a
 			// new cell and register the ID.
 			((mxICell) change.getChild()).setParent((mxICell) change
 					.getPrevious());

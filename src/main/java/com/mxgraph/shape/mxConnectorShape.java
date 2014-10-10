@@ -16,17 +16,14 @@ import com.mxgraph.util.mxPoint;
 import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxCellState;
 
-public class mxConnectorShape extends mxBasicShape
-{
+public class mxConnectorShape extends mxBasicShape {
 
 	/**
 	 * 
 	 */
-	public void paintShape(mxGraphics2DCanvas canvas, mxCellState state)
-	{
+	public void paintShape(mxGraphics2DCanvas canvas, mxCellState state) {
 		if (state.getAbsolutePointCount() > 1
-				&& configureGraphics(canvas, state, false))
-		{
+				&& configureGraphics(canvas, state, false)) {
 			List<mxPoint> pts = new ArrayList<mxPoint>(
 					state.getAbsolutePoints());
 			Map<String, Object> style = state.getStyle();
@@ -36,21 +33,16 @@ public class mxConnectorShape extends mxBasicShape
 			boolean dashed = mxUtils.isTrue(style, mxConstants.STYLE_DASHED);
 			Object dashedValue = style.get(mxConstants.STYLE_DASHED);
 
-			if (dashed)
-			{
+			if (dashed) {
 				style.remove(mxConstants.STYLE_DASHED);
 				canvas.getGraphics().setStroke(canvas.createStroke(style));
 			}
 
-			translatePoint(pts, 0,
-					paintMarker(canvas, state, true));
-			translatePoint(
-					pts,
-					pts.size() - 1,
+			translatePoint(pts, 0, paintMarker(canvas, state, true));
+			translatePoint(pts, pts.size() - 1,
 					paintMarker(canvas, state, false));
 
-			if (dashed)
-			{
+			if (dashed) {
 				// Replace the dash pattern
 				style.put(mxConstants.STYLE_DASHED, dashedValue);
 				canvas.getGraphics().setStroke(canvas.createStroke(style));
@@ -64,8 +56,7 @@ public class mxConnectorShape extends mxBasicShape
 	 * 
 	 */
 	protected void paintPolyline(mxGraphics2DCanvas canvas,
-			List<mxPoint> points, Map<String, Object> style)
-	{
+			List<mxPoint> points, Map<String, Object> style) {
 		boolean rounded = isRounded(style)
 				&& canvas.getScale() > mxConstants.MIN_SCALE_FOR_ROUNDED_LINES;
 
@@ -76,18 +67,15 @@ public class mxConnectorShape extends mxBasicShape
 	/**
 	 * 
 	 */
-	public boolean isRounded(Map<String, Object> style)
-	{
+	public boolean isRounded(Map<String, Object> style) {
 		return mxUtils.isTrue(style, mxConstants.STYLE_ROUNDED, false);
 	}
 
 	/**
 	 * 
 	 */
-	private void translatePoint(List<mxPoint> points, int index, mxPoint offset)
-	{
-		if (offset != null)
-		{
+	private void translatePoint(List<mxPoint> points, int index, mxPoint offset) {
+		if (offset != null) {
 			mxPoint pt = (mxPoint) points.get(index).clone();
 			pt.setX(pt.getX() + offset.getX());
 			pt.setY(pt.getY() + offset.getY());
@@ -100,8 +88,8 @@ public class mxConnectorShape extends mxBasicShape
 	 * 
 	 * @return the offset of the marker from the end of the line
 	 */
-	public mxPoint paintMarker(mxGraphics2DCanvas canvas, mxCellState state, boolean source)
-	{
+	public mxPoint paintMarker(mxGraphics2DCanvas canvas, mxCellState state,
+			boolean source) {
 		Map<String, Object> style = state.getStyle();
 		float strokeWidth = (float) (mxUtils.getFloat(style,
 				mxConstants.STYLE_STROKEWIDTH, 1) * canvas.getScale());
@@ -134,7 +122,7 @@ public class mxConnectorShape extends mxBasicShape
 		double nx = unitX * absSize;
 		double ny = unitY * absSize;
 
-		// Allow for stroke width in the end point used and the 
+		// Allow for stroke width in the end point used and the
 		// orthogonal vectors describing the direction of the
 		// marker
 		double strokeX = unitX * strokeWidth;
@@ -142,21 +130,18 @@ public class mxConnectorShape extends mxBasicShape
 		pe = (mxPoint) pe.clone();
 		pe.setX(pe.getX() - strokeX / 2.0);
 		pe.setY(pe.getY() - strokeY / 2.0);
-		
+
 		mxIMarker marker = mxMarkerRegistry.getMarker(type);
-		
-		if (marker != null)
-		{
-			offset = marker.paintMarker(canvas, state, type, pe, nx, ny, absSize, source);
-			
-			if (offset != null)
-			{
+
+		if (marker != null) {
+			offset = marker.paintMarker(canvas, state, type, pe, nx, ny,
+					absSize, source);
+
+			if (offset != null) {
 				offset.setX(offset.getX() - strokeX / 2.0);
 				offset.setY(offset.getY() - strokeY / 2.0);
 			}
-		}
-		else
-		{
+		} else {
 			// Offset for the strokewidth
 			nx = dx * strokeWidth / dist;
 			ny = dy * strokeWidth / dist;
@@ -169,29 +154,31 @@ public class mxConnectorShape extends mxBasicShape
 
 	/**
 	 * Hook to override creation of the vector that the marker is drawn along
-	 * since it may not be the same as the vector between any two control
-	 * points
-	 * @param points the guide points of the connector
-	 * @param source whether the marker is at the source end
-	 * @param markerSize the scaled maximum length of the marker
+	 * since it may not be the same as the vector between any two control points
+	 * 
+	 * @param points
+	 *            the guide points of the connector
+	 * @param source
+	 *            whether the marker is at the source end
+	 * @param markerSize
+	 *            the scaled maximum length of the marker
 	 * @return a line describing the vector the marker should be drawn along
 	 */
 	protected mxLine getMarkerVector(List<mxPoint> points, boolean source,
-			double markerSize)
-	{
+			double markerSize) {
 		int n = points.size();
 		mxPoint p0 = (source) ? points.get(1) : points.get(n - 2);
 		mxPoint pe = (source) ? points.get(0) : points.get(n - 1);
 		int count = 1;
-		
+
 		// Uses next non-overlapping point
-		while (count < n - 1 && Math.round(p0.getX() - pe.getX()) == 0 && Math.round(p0.getY() - pe.getY()) == 0)
-		{
+		while (count < n - 1 && Math.round(p0.getX() - pe.getX()) == 0
+				&& Math.round(p0.getY() - pe.getY()) == 0) {
 			p0 = (source) ? points.get(1 + count) : points.get(n - 2 - count);
 			count++;
 		}
-		
+
 		return new mxLine(p0, pe);
 	}
-	
+
 }

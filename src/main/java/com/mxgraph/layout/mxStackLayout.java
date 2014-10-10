@@ -7,8 +7,7 @@ import com.mxgraph.util.mxRectangle;
 import com.mxgraph.view.mxCellState;
 import com.mxgraph.view.mxGraph;
 
-public class mxStackLayout extends mxGraphLayout
-{
+public class mxStackLayout extends mxGraphLayout {
 
 	/**
 	 * Specifies the orientation of the layout. Default is true.
@@ -29,7 +28,7 @@ public class mxStackLayout extends mxGraphLayout
 	 * Specifies the vertical origin of the layout. Default is 0.
 	 */
 	protected int y0;
-	
+
 	/**
 	 * Border to be added if fill is true. Default is 0.
 	 */
@@ -42,8 +41,8 @@ public class mxStackLayout extends mxGraphLayout
 	protected boolean fill = false;
 
 	/**
-	 * If the parent should be resized to match the width/height of the
-	 * stack. Default is false.
+	 * If the parent should be resized to match the width/height of the stack.
+	 * Default is false.
 	 */
 	protected boolean resizeParent = false;
 
@@ -53,39 +52,35 @@ public class mxStackLayout extends mxGraphLayout
 	protected int wrap = 0;
 
 	/**
-	 * Constructs a new stack layout layout for the specified graph,
-	 * spacing, orientation and offset.
+	 * Constructs a new stack layout layout for the specified graph, spacing,
+	 * orientation and offset.
 	 */
-	public mxStackLayout(mxGraph graph)
-	{
+	public mxStackLayout(mxGraph graph) {
 		this(graph, true);
 	}
 
 	/**
-	 * Constructs a new stack layout layout for the specified graph,
-	 * spacing, orientation and offset.
+	 * Constructs a new stack layout layout for the specified graph, spacing,
+	 * orientation and offset.
 	 */
-	public mxStackLayout(mxGraph graph, boolean horizontal)
-	{
+	public mxStackLayout(mxGraph graph, boolean horizontal) {
 		this(graph, horizontal, 0);
 	}
 
 	/**
-	 * Constructs a new stack layout layout for the specified graph,
-	 * spacing, orientation and offset.
+	 * Constructs a new stack layout layout for the specified graph, spacing,
+	 * orientation and offset.
 	 */
-	public mxStackLayout(mxGraph graph, boolean horizontal, int spacing)
-	{
+	public mxStackLayout(mxGraph graph, boolean horizontal, int spacing) {
 		this(graph, horizontal, spacing, 0, 0, 0);
 	}
 
 	/**
-	 * Constructs a new stack layout layout for the specified graph,
-	 * spacing, orientation and offset.
+	 * Constructs a new stack layout layout for the specified graph, spacing,
+	 * orientation and offset.
 	 */
 	public mxStackLayout(mxGraph graph, boolean horizontal, int spacing,
-			int x0, int y0, int border)
-	{
+			int x0, int y0, int border) {
 		super(graph);
 		this.horizontal = horizontal;
 		this.spacing = spacing;
@@ -93,54 +88,48 @@ public class mxStackLayout extends mxGraphLayout
 		this.y0 = y0;
 		this.border = border;
 	}
-	
+
 	/**
 	 * 
 	 */
-	public boolean isHorizontal()
-	{
+	public boolean isHorizontal() {
 		return horizontal;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.mxgraph.layout.mxGraphLayout#move(java.lang.Object, double, double)
+	 * 
+	 * @see com.mxgraph.layout.mxGraphLayout#move(java.lang.Object, double,
+	 * double)
 	 */
-	public void moveCell(Object cell, double x, double y)
-	{
+	public void moveCell(Object cell, double x, double y) {
 		mxIGraphModel model = graph.getModel();
 		Object parent = model.getParent(cell);
 		boolean horizontal = isHorizontal();
 
-		if (cell instanceof mxICell && parent instanceof mxICell)
-		{
+		if (cell instanceof mxICell && parent instanceof mxICell) {
 			int i = 0;
 			double last = 0;
 			int childCount = model.getChildCount(parent);
 			double value = (horizontal) ? x : y;
 			mxCellState pstate = graph.getView().getState(parent);
 
-			if (pstate != null)
-			{
+			if (pstate != null) {
 				value -= (horizontal) ? pstate.getX() : pstate.getY();
 			}
 
-			for (i = 0; i < childCount; i++)
-			{
+			for (i = 0; i < childCount; i++) {
 				Object child = model.getChildAt(parent, i);
 
-				if (child != cell)
-				{
+				if (child != cell) {
 					mxGeometry bounds = model.getGeometry(child);
 
-					if (bounds != null)
-					{
+					if (bounds != null) {
 						double tmp = (horizontal) ? bounds.getX()
 								+ bounds.getWidth() / 2 : bounds.getY()
 								+ bounds.getHeight() / 2;
 
-						if (last < value && tmp > value)
-						{
+						if (last < value && tmp > value) {
 							break;
 						}
 
@@ -160,19 +149,17 @@ public class mxStackLayout extends mxGraphLayout
 	/**
 	 * Hook for subclassers to return the container size.
 	 */
-	public mxRectangle getContainerSize()
-	{
+	public mxRectangle getContainerSize() {
 		return new mxRectangle();
 	}
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see com.mxgraph.layout.mxIGraphLayout#execute(java.lang.Object)
 	 */
-	public void execute(Object parent)
-	{
-		if (parent != null)
-		{
+	public void execute(Object parent) {
+		if (parent != null) {
 			boolean horizontal = isHorizontal();
 			mxIGraphModel model = graph.getModel();
 			mxGeometry pgeo = model.getGeometry(parent);
@@ -181,16 +168,14 @@ public class mxStackLayout extends mxGraphLayout
 			// geometry or the current root of the view in which case the size
 			// of the graph's container will be used.
 			if (pgeo == null && model.getParent(parent) == model.getRoot()
-					|| parent == graph.getView().getCurrentRoot())
-			{
+					|| parent == graph.getView().getCurrentRoot()) {
 				mxRectangle tmp = getContainerSize();
 				pgeo = new mxGeometry(0, 0, tmp.getWidth(), tmp.getHeight());
 			}
 
 			double fillValue = 0;
 
-			if (pgeo != null)
-			{
+			if (pgeo != null) {
 				fillValue = (horizontal) ? pgeo.getHeight() : pgeo.getWidth();
 			}
 
@@ -203,42 +188,33 @@ public class mxStackLayout extends mxGraphLayout
 			double y0 = this.y0 + size.getHeight() + border;
 
 			model.beginUpdate();
-			try
-			{
+			try {
 				double tmp = 0;
 				mxGeometry last = null;
 				int childCount = model.getChildCount(parent);
 
-				for (int i = 0; i < childCount; i++)
-				{
+				for (int i = 0; i < childCount; i++) {
 					Object child = model.getChildAt(parent, i);
 
-					if (!isVertexIgnored(child) && isVertexMovable(child))
-					{
+					if (!isVertexIgnored(child) && isVertexMovable(child)) {
 						mxGeometry geo = model.getGeometry(child);
 
-						if (geo != null)
-						{
+						if (geo != null) {
 							geo = (mxGeometry) geo.clone();
 
-							if (wrap != 0 && last != null)
-							{
+							if (wrap != 0 && last != null) {
 
 								if ((horizontal && last.getX()
 										+ last.getWidth() + geo.getWidth() + 2
 										* spacing > wrap)
 										|| (!horizontal && last.getY()
 												+ last.getHeight()
-												+ geo.getHeight() + 2 * spacing > wrap))
-								{
+												+ geo.getHeight() + 2 * spacing > wrap)) {
 									last = null;
 
-									if (horizontal)
-									{
+									if (horizontal) {
 										y0 += tmp + spacing;
-									}
-									else
-									{
+									} else {
 										x0 += tmp + spacing;
 									}
 
@@ -246,51 +222,35 @@ public class mxStackLayout extends mxGraphLayout
 								}
 							}
 
-							tmp = Math.max(tmp, (horizontal) ? geo
-									.getHeight() : geo.getWidth());
+							tmp = Math.max(tmp, (horizontal) ? geo.getHeight()
+									: geo.getWidth());
 
-							if (last != null)
-							{
-								if (horizontal)
-								{
+							if (last != null) {
+								if (horizontal) {
 									geo.setX(last.getX() + last.getWidth()
 											+ spacing);
-								}
-								else
-								{
+								} else {
 									geo.setY(last.getY() + last.getHeight()
 											+ spacing);
 								}
-							}
-							else
-							{
-								if (horizontal)
-								{
+							} else {
+								if (horizontal) {
 									geo.setX(x0);
-								}
-								else
-								{
+								} else {
 									geo.setY(y0);
 								}
 							}
 
-							if (horizontal)
-							{
+							if (horizontal) {
 								geo.setY(y0);
-							}
-							else
-							{
+							} else {
 								geo.setX(x0);
 							}
 
-							if (fill && fillValue > 0)
-							{
-								if (horizontal)
-								{
+							if (fill && fillValue > 0) {
+								if (horizontal) {
 									geo.setHeight(fillValue);
-								}
-								else
-								{
+								} else {
 									geo.setWidth(fillValue);
 								}
 							}
@@ -302,26 +262,18 @@ public class mxStackLayout extends mxGraphLayout
 				}
 
 				if (resizeParent && pgeo != null && last != null
-						&& !graph.isCellCollapsed(parent))
-				{
+						&& !graph.isCellCollapsed(parent)) {
 					pgeo = (mxGeometry) pgeo.clone();
 
-					if (horizontal)
-					{
+					if (horizontal) {
 						pgeo.setWidth(last.getX() + last.getWidth() + spacing);
-					}
-					else
-					{
-						pgeo
-								.setHeight(last.getY() + last.getHeight()
-										+ spacing);
+					} else {
+						pgeo.setHeight(last.getY() + last.getHeight() + spacing);
 					}
 
 					model.setGeometry(parent, pgeo);
 				}
-			}
-			finally
-			{
+			} finally {
 				model.endUpdate();
 			}
 		}

@@ -15,8 +15,7 @@ import com.mxgraph.swing.mxGraphComponent;
  * Event handler that highlights cells. Inherits from mxCellMarker.
  */
 public class mxCellTracker extends mxCellMarker implements MouseListener,
-		MouseMotionListener
-{
+		MouseMotionListener {
 
 	/**
 	 * 
@@ -26,8 +25,7 @@ public class mxCellTracker extends mxCellMarker implements MouseListener,
 	/**
 	 * Constructs an event handler that highlights cells.
 	 */
-	public mxCellTracker(mxGraphComponent graphComponent, Color color)
-	{
+	public mxCellTracker(mxGraphComponent graphComponent, Color color) {
 		super(graphComponent, color);
 
 		graphComponent.getGraphControl().addMouseListener(this);
@@ -37,72 +35,75 @@ public class mxCellTracker extends mxCellMarker implements MouseListener,
 	/**
 	 * 
 	 */
-	public void destroy()
-	{
+	public void destroy() {
 		graphComponent.getGraphControl().removeMouseListener(this);
 		graphComponent.getGraphControl().removeMouseMotionListener(this);
 	}
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
 	 */
-	public void mouseClicked(MouseEvent e)
-	{
+	public void mouseClicked(MouseEvent e) {
 		// empty
 	}
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
 	 */
-	public void mouseEntered(MouseEvent e)
-	{
+	public void mouseEntered(MouseEvent e) {
 		// empty
 	}
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see java.awt.event.MouseListener#mouseExited(java.awt.event.MouseEvent)
 	 */
-	public void mouseExited(MouseEvent e)
-	{
+	public void mouseExited(MouseEvent e) {
 		// empty
 	}
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
 	 */
-	public void mousePressed(MouseEvent e)
-	{
+	public void mousePressed(MouseEvent e) {
 		// empty
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see java.awt.event.MouseListener#mouseReleased(java.awt.event.MouseEvent)
+	 * 
+	 * @see
+	 * java.awt.event.MouseListener#mouseReleased(java.awt.event.MouseEvent)
 	 */
-	public void mouseReleased(MouseEvent e)
-	{
+	public void mouseReleased(MouseEvent e) {
 		reset();
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see java.awt.event.MouseMotionListener#mouseDragged(java.awt.event.MouseEvent)
+	 * 
+	 * @see
+	 * java.awt.event.MouseMotionListener#mouseDragged(java.awt.event.MouseEvent
+	 * )
 	 */
-	public void mouseDragged(MouseEvent e)
-	{
+	public void mouseDragged(MouseEvent e) {
 		// empty
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see java.awt.event.MouseMotionListener#mouseMoved(java.awt.event.MouseEvent)
+	 * 
+	 * @see
+	 * java.awt.event.MouseMotionListener#mouseMoved(java.awt.event.MouseEvent)
 	 */
-	public void mouseMoved(MouseEvent e)
-	{
+	public void mouseMoved(MouseEvent e) {
 		process(e);
 	}
 

@@ -26,8 +26,7 @@ import com.mxgraph.util.mxRectangle;
  *
  */
 public class mxGraphTransferable implements Transferable, UIResource,
-		Serializable
-{
+		Serializable {
 
 	/**
 	 * 
@@ -35,9 +34,8 @@ public class mxGraphTransferable implements Transferable, UIResource,
 	private static final long serialVersionUID = 5123819419918087664L;
 
 	/**
-	 * Serialized Data Flavor. Use the following code to switch to local 
-	 * reference flavor:
-	 * <code>
+	 * Serialized Data Flavor. Use the following code to switch to local
+	 * reference flavor: <code>
 	 * try
 	 * {
 	 *   mxGraphTransferable.dataFlavor = new DataFlavor(DataFlavor.javaJVMLocalObjectMimeType
@@ -49,8 +47,7 @@ public class mxGraphTransferable implements Transferable, UIResource,
 	 * }
 	 * </code>
 	 * 
-	 * If you get a class not found exception, try the following instead:
-	 * <code>
+	 * If you get a class not found exception, try the following instead: <code>
 	 * mxGraphTransferable.dataFlavor = new DataFlavor(DataFlavor.javaJVMLocalObjectMimeType
 	 *   + "; class=com.mxgraph.swing.util.mxGraphTransferable", null,
 	 *   new com.mxgraph.swing.util.mxGraphTransferable(null, null).getClass().getClassLoader());
@@ -96,8 +93,7 @@ public class mxGraphTransferable implements Transferable, UIResource,
 	/**
 	 * 
 	 */
-	public mxGraphTransferable(Object[] cells, mxRectangle bounds)
-	{
+	public mxGraphTransferable(Object[] cells, mxRectangle bounds) {
 		this(cells, bounds, null);
 	}
 
@@ -105,8 +101,7 @@ public class mxGraphTransferable implements Transferable, UIResource,
 	 * 
 	 */
 	public mxGraphTransferable(Object[] cells, mxRectangle bounds,
-			ImageIcon image)
-	{
+			ImageIcon image) {
 		this.cells = cells;
 		this.bounds = bounds;
 		this.image = image;
@@ -115,32 +110,28 @@ public class mxGraphTransferable implements Transferable, UIResource,
 	/**
 	 * @return Returns the cells.
 	 */
-	public Object[] getCells()
-	{
+	public Object[] getCells() {
 		return cells;
 	}
 
 	/**
 	 * Returns the unscaled, untranslated bounding box of the cells.
 	 */
-	public mxRectangle getBounds()
-	{
+	public mxRectangle getBounds() {
 		return bounds;
 	}
 
 	/**
 	 * 
 	 */
-	public ImageIcon getImage()
-	{
+	public ImageIcon getImage() {
 		return image;
 	}
 
 	/**
 	 * 
 	 */
-	public DataFlavor[] getTransferDataFlavors()
-	{
+	public DataFlavor[] getTransferDataFlavors() {
 		DataFlavor[] richerFlavors = getRicherFlavors();
 
 		int nRicher = (richerFlavors != null) ? richerFlavors.length : 0;
@@ -155,32 +146,27 @@ public class mxGraphTransferable implements Transferable, UIResource,
 		// fill in the array
 		int nDone = 0;
 
-		if (nRicher > 0)
-		{
+		if (nRicher > 0) {
 			System.arraycopy(richerFlavors, 0, flavors, nDone, nRicher);
 			nDone += nRicher;
 		}
 
-		if (nHtml > 0)
-		{
+		if (nHtml > 0) {
 			System.arraycopy(htmlFlavors, 0, flavors, nDone, nHtml);
 			nDone += nHtml;
 		}
 
-		if (nPlain > 0)
-		{
+		if (nPlain > 0) {
 			System.arraycopy(plainFlavors, 0, flavors, nDone, nPlain);
 			nDone += nPlain;
 		}
 
-		if (nString > 0)
-		{
+		if (nString > 0) {
 			System.arraycopy(stringFlavors, 0, flavors, nDone, nString);
 			nDone += nString;
 		}
 
-		if (nImage > 0)
-		{
+		if (nImage > 0) {
 			System.arraycopy(imageFlavors, 0, flavors, nDone, nImage);
 			nDone += nImage;
 		}
@@ -193,8 +179,7 @@ public class mxGraphTransferable implements Transferable, UIResource,
 	 * plain text. If this method returns a non-null value, it will be placed at
 	 * the start of the array of supported flavors.
 	 */
-	protected DataFlavor[] getRicherFlavors()
-	{
+	protected DataFlavor[] getRicherFlavors() {
 		return new DataFlavor[] { dataFlavor };
 	}
 
@@ -206,14 +191,11 @@ public class mxGraphTransferable implements Transferable, UIResource,
 	 *            the requested flavor for the data
 	 * @return boolean indicating whether or not the data flavor is supported
 	 */
-	public boolean isDataFlavorSupported(DataFlavor flavor)
-	{
+	public boolean isDataFlavorSupported(DataFlavor flavor) {
 		DataFlavor[] flavors = getTransferDataFlavors();
 
-		for (int i = 0; i < flavors.length; i++)
-		{
-			if (flavors[i] != null && flavors[i].equals(flavor))
-			{
+		for (int i = 0; i < flavors.length; i++) {
+			if (flavors[i] != null && flavors[i].equals(flavor)) {
 				return true;
 			}
 		}
@@ -236,22 +218,14 @@ public class mxGraphTransferable implements Transferable, UIResource,
 	 *                if the requested data flavor is not supported.
 	 */
 	public Object getTransferData(DataFlavor flavor)
-			throws UnsupportedFlavorException, IOException
-	{
-		if (isRicherFlavor(flavor))
-		{
+			throws UnsupportedFlavorException, IOException {
+		if (isRicherFlavor(flavor)) {
 			return getRicherData(flavor);
-		}
-		else if (isImageFlavor(flavor))
-		{
-			if (image != null && image.getImage() instanceof RenderedImage)
-			{
-				if (flavor.equals(DataFlavor.imageFlavor))
-				{
+		} else if (isImageFlavor(flavor)) {
+			if (image != null && image.getImage() instanceof RenderedImage) {
+				if (flavor.equals(DataFlavor.imageFlavor)) {
 					return image.getImage();
-				}
-				else
-				{
+				} else {
 					ByteArrayOutputStream stream = new ByteArrayOutputStream();
 					ImageIO.write((RenderedImage) image.getImage(), "bmp",
 							stream);
@@ -259,48 +233,34 @@ public class mxGraphTransferable implements Transferable, UIResource,
 					return new ByteArrayInputStream(stream.toByteArray());
 				}
 			}
-		}
-		else if (isHtmlFlavor(flavor))
-		{
+		} else if (isHtmlFlavor(flavor)) {
 			String data = getHtmlData();
 			data = (data == null) ? "" : data;
 
-			if (String.class.equals(flavor.getRepresentationClass()))
-			{
+			if (String.class.equals(flavor.getRepresentationClass())) {
 				return data;
-			}
-			else if (Reader.class.equals(flavor.getRepresentationClass()))
-			{
+			} else if (Reader.class.equals(flavor.getRepresentationClass())) {
 				return new StringReader(data);
-			}
-			else if (InputStream.class.equals(flavor.getRepresentationClass()))
-			{
+			} else if (InputStream.class
+					.equals(flavor.getRepresentationClass())) {
 				return new ByteArrayInputStream(data.getBytes());
 			}
 			// fall through to unsupported
-		}
-		else if (isPlainFlavor(flavor))
-		{
+		} else if (isPlainFlavor(flavor)) {
 			String data = getPlainData();
 			data = (data == null) ? "" : data;
 
-			if (String.class.equals(flavor.getRepresentationClass()))
-			{
+			if (String.class.equals(flavor.getRepresentationClass())) {
 				return data;
-			}
-			else if (Reader.class.equals(flavor.getRepresentationClass()))
-			{
+			} else if (Reader.class.equals(flavor.getRepresentationClass())) {
 				return new StringReader(data);
-			}
-			else if (InputStream.class.equals(flavor.getRepresentationClass()))
-			{
+			} else if (InputStream.class
+					.equals(flavor.getRepresentationClass())) {
 				return new ByteArrayInputStream(data.getBytes());
 			}
 			// fall through to unsupported
 
-		}
-		else if (isStringFlavor(flavor))
-		{
+		} else if (isStringFlavor(flavor)) {
 			String data = getPlainData();
 			data = (data == null) ? "" : data;
 
@@ -314,17 +274,14 @@ public class mxGraphTransferable implements Transferable, UIResource,
 	 * 
 	 * @param flavor
 	 * @return Returns true if the given flavor is a richer flavor of this
-	 * transferable.
+	 *         transferable.
 	 */
-	protected boolean isRicherFlavor(DataFlavor flavor)
-	{
+	protected boolean isRicherFlavor(DataFlavor flavor) {
 		DataFlavor[] richerFlavors = getRicherFlavors();
 		int nFlavors = (richerFlavors != null) ? richerFlavors.length : 0;
 
-		for (int i = 0; i < nFlavors; i++)
-		{
-			if (richerFlavors[i].equals(flavor))
-			{
+		for (int i = 0; i < nFlavors; i++) {
+			if (richerFlavors[i].equals(flavor)) {
 				return true;
 			}
 		}
@@ -339,14 +296,10 @@ public class mxGraphTransferable implements Transferable, UIResource,
 	 * @throws UnsupportedFlavorException
 	 */
 	public Object getRicherData(DataFlavor flavor)
-			throws UnsupportedFlavorException
-	{
-		if (flavor.equals(dataFlavor))
-		{
+			throws UnsupportedFlavorException {
+		if (flavor.equals(dataFlavor)) {
 			return this;
-		}
-		else
-		{
+		} else {
 			throw new UnsupportedFlavorException(flavor);
 		}
 	}
@@ -359,14 +312,11 @@ public class mxGraphTransferable implements Transferable, UIResource,
 	 *            the requested flavor for the data
 	 * @return boolean indicating whether or not the data flavor is supported
 	 */
-	protected boolean isHtmlFlavor(DataFlavor flavor)
-	{
+	protected boolean isHtmlFlavor(DataFlavor flavor) {
 		DataFlavor[] flavors = htmlFlavors;
 
-		for (int i = 0; i < flavors.length; i++)
-		{
-			if (flavors[i].equals(flavor))
-			{
+		for (int i = 0; i < flavors.length; i++) {
+			if (flavors[i].equals(flavor)) {
 				return true;
 			}
 		}
@@ -378,16 +328,14 @@ public class mxGraphTransferable implements Transferable, UIResource,
 	 * Whether the HTML flavors are offered. If so, the method getHTMLData
 	 * should be implemented to provide something reasonable.
 	 */
-	protected boolean isHtmlSupported()
-	{
+	protected boolean isHtmlSupported() {
 		return false;
 	}
 
 	/**
 	 * Fetch the data in a text/html format
 	 */
-	protected String getHtmlData()
-	{
+	protected String getHtmlData() {
 		return null;
 	}
 
@@ -395,16 +343,13 @@ public class mxGraphTransferable implements Transferable, UIResource,
 	 * 
 	 * @param flavor
 	 * @return Returns true if the given flavor is an image flavor of this
-	 * transferable.
+	 *         transferable.
 	 */
-	protected boolean isImageFlavor(DataFlavor flavor)
-	{
+	protected boolean isImageFlavor(DataFlavor flavor) {
 		int nFlavors = (imageFlavors != null) ? imageFlavors.length : 0;
 
-		for (int i = 0; i < nFlavors; i++)
-		{
-			if (imageFlavors[i].equals(flavor))
-			{
+		for (int i = 0; i < nFlavors; i++) {
+			if (imageFlavors[i].equals(flavor)) {
 				return true;
 			}
 		}
@@ -415,8 +360,7 @@ public class mxGraphTransferable implements Transferable, UIResource,
 	/**
 	 * 
 	 */
-	public boolean isImageSupported()
-	{
+	public boolean isImageSupported() {
 		return image != null;
 	}
 
@@ -428,14 +372,11 @@ public class mxGraphTransferable implements Transferable, UIResource,
 	 *            the requested flavor for the data
 	 * @return boolean indicating whether or not the data flavor is supported
 	 */
-	protected boolean isPlainFlavor(DataFlavor flavor)
-	{
+	protected boolean isPlainFlavor(DataFlavor flavor) {
 		DataFlavor[] flavors = plainFlavors;
 
-		for (int i = 0; i < flavors.length; i++)
-		{
-			if (flavors[i].equals(flavor))
-			{
+		for (int i = 0; i < flavors.length; i++) {
+			if (flavors[i].equals(flavor)) {
 				return true;
 			}
 		}
@@ -447,16 +388,14 @@ public class mxGraphTransferable implements Transferable, UIResource,
 	 * Whether the plain text flavors are offered. If so, the method
 	 * getPlainData should be implemented to provide something reasonable.
 	 */
-	protected boolean isPlainSupported()
-	{
+	protected boolean isPlainSupported() {
 		return false;
 	}
 
 	/**
 	 * Fetch the data in a text/plain format.
 	 */
-	protected String getPlainData()
-	{
+	protected String getPlainData() {
 		return null;
 	}
 
@@ -468,14 +407,11 @@ public class mxGraphTransferable implements Transferable, UIResource,
 	 *            the requested flavor for the data
 	 * @return boolean indicating whether or not the data flavor is supported
 	 */
-	protected boolean isStringFlavor(DataFlavor flavor)
-	{
+	protected boolean isStringFlavor(DataFlavor flavor) {
 		DataFlavor[] flavors = stringFlavors;
 
-		for (int i = 0; i < flavors.length; i++)
-		{
-			if (flavors[i].equals(flavor))
-			{
+		for (int i = 0; i < flavors.length; i++) {
+			if (flavors[i].equals(flavor)) {
 				return true;
 			}
 		}
@@ -486,10 +422,8 @@ public class mxGraphTransferable implements Transferable, UIResource,
 	/**
 	 * Local Machine Reference Data Flavor.
 	 */
-	static
-	{
-		try
-		{
+	static {
+		try {
 			htmlFlavors = new DataFlavor[3];
 			htmlFlavors[0] = new DataFlavor("text/html;class=java.lang.String");
 			htmlFlavors[1] = new DataFlavor("text/html;class=java.io.Reader");
@@ -512,20 +446,15 @@ public class mxGraphTransferable implements Transferable, UIResource,
 			imageFlavors = new DataFlavor[2];
 			imageFlavors[0] = DataFlavor.imageFlavor;
 			imageFlavors[1] = new DataFlavor("image/bmp");
-		}
-		catch (ClassNotFoundException cle)
-		{
+		} catch (ClassNotFoundException cle) {
 			System.err
 					.println("error initializing javax.swing.plaf.basic.BasicTranserable");
 		}
 
-		try
-		{
+		try {
 			dataFlavor = new DataFlavor(DataFlavor.javaSerializedObjectMimeType
 					+ "; class=com.mxgraph.swing.util.mxGraphTransferable");
-		}
-		catch (ClassNotFoundException cnfe)
-		{
+		} catch (ClassNotFoundException cnfe) {
 			// do nothing
 		}
 	}

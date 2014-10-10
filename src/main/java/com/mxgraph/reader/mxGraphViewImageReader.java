@@ -26,11 +26,10 @@ import com.mxgraph.util.mxRectangle;
 import com.mxgraph.util.mxUtils;
 
 /**
- * A converter that renders display XML data onto a graphics canvas. This
- * reader can only be used to generate images for encoded graph views.
+ * A converter that renders display XML data onto a graphics canvas. This reader
+ * can only be used to generate images for encoded graph views.
  */
-public class mxGraphViewImageReader extends mxGraphViewReader
-{
+public class mxGraphViewImageReader extends mxGraphViewReader {
 
 	/**
 	 * Specifies the background color. Default is null.
@@ -62,24 +61,21 @@ public class mxGraphViewImageReader extends mxGraphViewReader
 	/**
 	 * Constructs a new reader with a transparent background.
 	 */
-	public mxGraphViewImageReader()
-	{
+	public mxGraphViewImageReader() {
 		this(null);
 	}
 
 	/**
 	 * Constructs a new reader with the given background color.
 	 */
-	public mxGraphViewImageReader(Color background)
-	{
+	public mxGraphViewImageReader(Color background) {
 		this(background, 0);
 	}
 
 	/**
 	 * Constructs a new reader with a transparent background.
 	 */
-	public mxGraphViewImageReader(Color background, int border)
-	{
+	public mxGraphViewImageReader(Color background, int border) {
 		this(background, border, true);
 	}
 
@@ -87,8 +83,7 @@ public class mxGraphViewImageReader extends mxGraphViewReader
 	 * Constructs a new reader with a transparent background.
 	 */
 	public mxGraphViewImageReader(Color background, int border,
-			boolean antiAlias)
-	{
+			boolean antiAlias) {
 		this(background, border, antiAlias, true);
 	}
 
@@ -96,8 +91,7 @@ public class mxGraphViewImageReader extends mxGraphViewReader
 	 * Constructs a new reader with a transparent background.
 	 */
 	public mxGraphViewImageReader(Color background, int border,
-			boolean antiAlias, boolean cropping)
-	{
+			boolean antiAlias, boolean cropping) {
 		setBackground(background);
 		setBorder(border);
 		setAntiAlias(antiAlias);
@@ -107,80 +101,70 @@ public class mxGraphViewImageReader extends mxGraphViewReader
 	/**
 	 * 
 	 */
-	public Color getBackground()
-	{
+	public Color getBackground() {
 		return background;
 	}
 
 	/**
 	 * 
 	 */
-	public void setBackground(Color background)
-	{
+	public void setBackground(Color background) {
 		this.background = background;
 	}
 
 	/**
 	 * 
 	 */
-	public int getBorder()
-	{
+	public int getBorder() {
 		return border;
 	}
 
 	/**
 	 * 
 	 */
-	public void setBorder(int border)
-	{
+	public void setBorder(int border) {
 		this.border = border;
 	}
 
 	/**
 	 * 
 	 */
-	public boolean isAntiAlias()
-	{
+	public boolean isAntiAlias() {
 		return antiAlias;
 	}
 
 	/**
 	 * 
 	 */
-	public void setAntiAlias(boolean antiAlias)
-	{
+	public void setAntiAlias(boolean antiAlias) {
 		this.antiAlias = antiAlias;
 	}
 
 	/**
 	 * Specifies the optional clipping rectangle.
 	 */
-	public boolean isCropping()
-	{
+	public boolean isCropping() {
 		return cropping;
 	}
 
 	/**
 	 * 
 	 */
-	public void setCropping(boolean value)
-	{
+	public void setCropping(boolean value) {
 		this.cropping = value;
 	}
 
 	/**
 	 * 
 	 */
-	public mxRectangle getClip()
-	{
+	public mxRectangle getClip() {
 		return clip;
 	}
 
 	/**
 	 * 
 	 */
-	public void setClip(mxRectangle value)
-	{
+	public void setClip(mxRectangle value) {
 		this.clip = value;
 	}
 
@@ -190,8 +174,7 @@ public class mxGraphViewImageReader extends mxGraphViewReader
 	 * @see
 	 * com.mxgraph.reader.mxGraphViewReader#createCanvas(java.util.Hashtable)
 	 */
-	public mxICanvas createCanvas(Map<String, Object> attrs)
-	{
+	public mxICanvas createCanvas(Map<String, Object> attrs) {
 		int width = 0;
 		int height = 0;
 		int dx = 0;
@@ -199,15 +182,12 @@ public class mxGraphViewImageReader extends mxGraphViewReader
 
 		mxRectangle tmp = getClip();
 
-		if (tmp != null)
-		{
+		if (tmp != null) {
 			dx -= (int) tmp.getX();
 			dy -= (int) tmp.getY();
 			width = (int) tmp.getWidth();
 			height = (int) tmp.getHeight();
-		}
-		else
-		{
+		} else {
 			int x = (int) Math.round(mxUtils.getDouble(attrs, "x"));
 			int y = (int) Math.round(mxUtils.getDouble(attrs, "y"));
 			width = (int) (Math.round(mxUtils.getDouble(attrs, "width")))
@@ -215,13 +195,10 @@ public class mxGraphViewImageReader extends mxGraphViewReader
 			height = (int) (Math.round(mxUtils.getDouble(attrs, "height")))
 					+ border + 3;
 
-			if (isCropping())
-			{
+			if (isCropping()) {
 				dx = -x + 3;
 				dy = -y + 3;
-			}
-			else
-			{
+			} else {
 				width += x;
 				height += y;
 			}
@@ -237,8 +214,7 @@ public class mxGraphViewImageReader extends mxGraphViewReader
 	/**
 	 * Hook that creates the graphics canvas.
 	 */
-	protected mxGraphics2DCanvas createGraphicsCanvas()
-	{
+	protected mxGraphics2DCanvas createGraphicsCanvas() {
 		return new mxGraphics2DCanvas();
 	}
 
@@ -252,8 +228,7 @@ public class mxGraphViewImageReader extends mxGraphViewReader
 	 */
 	public static BufferedImage convert(String filename,
 			mxGraphViewImageReader viewReader)
-			throws ParserConfigurationException, SAXException, IOException
-	{
+			throws ParserConfigurationException, SAXException, IOException {
 		return convert(new InputSource(new FileInputStream(filename)),
 				viewReader);
 	}
@@ -268,8 +243,7 @@ public class mxGraphViewImageReader extends mxGraphViewReader
 	 */
 	public static BufferedImage convert(InputSource inputSource,
 			mxGraphViewImageReader viewReader)
-			throws ParserConfigurationException, SAXException, IOException
-	{
+			throws ParserConfigurationException, SAXException, IOException {
 		BufferedImage result = null;
 		SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
 		XMLReader reader = parser.getXMLReader();
@@ -277,8 +251,7 @@ public class mxGraphViewImageReader extends mxGraphViewReader
 		reader.setContentHandler(viewReader);
 		reader.parse(inputSource);
 
-		if (viewReader.getCanvas() instanceof mxImageCanvas)
-		{
+		if (viewReader.getCanvas() instanceof mxImageCanvas) {
 			result = ((mxImageCanvas) viewReader.getCanvas()).destroy();
 		}
 

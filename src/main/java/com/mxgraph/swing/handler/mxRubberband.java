@@ -25,12 +25,11 @@ import com.mxgraph.util.mxEventSource.mxIEventListener;
 /**
  * Implements a rubberband selection.
  */
-public class mxRubberband implements MouseListener, MouseMotionListener
-{
+public class mxRubberband implements MouseListener, MouseMotionListener {
 
 	/**
-	 * Defines the border color for drawing the rubberband selection.
-	 * Default is mxConstants.RUBBERBAND_BORDERCOLOR.
+	 * Defines the border color for drawing the rubberband selection. Default is
+	 * mxConstants.RUBBERBAND_BORDERCOLOR.
 	 */
 	protected Color borderColor = mxSwingConstants.RUBBERBAND_BORDERCOLOR;
 
@@ -63,39 +62,34 @@ public class mxRubberband implements MouseListener, MouseMotionListener
 	/**
 	 * Constructs a new rubberband selection for the given graph component.
 	 * 
-	 * @param graphComponent Component that contains the rubberband.
+	 * @param graphComponent
+	 *            Component that contains the rubberband.
 	 */
-	public mxRubberband(final mxGraphComponent graphComponent)
-	{
+	public mxRubberband(final mxGraphComponent graphComponent) {
 		this.graphComponent = graphComponent;
 
 		// Adds the required listeners
 		graphComponent.getGraphControl().addMouseListener(this);
 		graphComponent.getGraphControl().addMouseMotionListener(this);
 
-		graphComponent.addListener(mxEvent.AFTER_PAINT, new mxIEventListener()
-		{
+		graphComponent.addListener(mxEvent.AFTER_PAINT, new mxIEventListener() {
 
-			public void invoke(Object source, mxEventObject evt)
-			{
+			public void invoke(Object source, mxEventObject evt) {
 				paintRubberband((Graphics) evt.getProperty("g"));
 			}
 
 		});
 
 		// Handles escape keystrokes
-		graphComponent.addKeyListener(new KeyAdapter()
-		{
+		graphComponent.addKeyListener(new KeyAdapter() {
 			/**
 			 * 
 			 * @param e
 			 * @return
 			 */
-			public void keyPressed(KeyEvent e)
-			{
+			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ESCAPE
-						&& graphComponent.isEscapeEnabled())
-				{
+						&& graphComponent.isEscapeEnabled()) {
 					reset();
 				}
 			}
@@ -107,64 +101,56 @@ public class mxRubberband implements MouseListener, MouseMotionListener
 	/**
 	 * Returns the enabled state.
 	 */
-	public boolean isEnabled()
-	{
+	public boolean isEnabled() {
 		return enabled;
 	}
 
 	/**
 	 * Sets the enabled state.
 	 */
-	public void setEnabled(boolean enabled)
-	{
+	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
 
 	/**
 	 * Returns the border color.
 	 */
-	public Color getBorderColor()
-	{
+	public Color getBorderColor() {
 		return borderColor;
 	}
 
 	/**
 	 * Sets the border color.
 	 */
-	public void setBorderColor(Color value)
-	{
+	public void setBorderColor(Color value) {
 		borderColor = value;
 	}
 
 	/**
 	 * Returns the fill color.
 	 */
-	public Color getFillColor()
-	{
+	public Color getFillColor() {
 		return fillColor;
 	}
 
 	/**
 	 * Sets the fill color.
 	 */
-	public void setFillColor(Color value)
-	{
+	public void setFillColor(Color value) {
 		fillColor = value;
 	}
 
 	/**
 	 * Returns true if the given event should start the rubberband selection.
 	 */
-	public boolean isRubberbandTrigger(MouseEvent e)
-	{
+	public boolean isRubberbandTrigger(MouseEvent e) {
 		return true;
 	}
 
 	/**
 	 * Starts the rubberband selection at the given point.
 	 */
-	public void start(Point point)
-	{
+	public void start(Point point) {
 		first = point;
 		bounds = new Rectangle(first);
 	}
@@ -172,12 +158,10 @@ public class mxRubberband implements MouseListener, MouseMotionListener
 	/**
 	 * Resets the rubberband selection without carrying out the selection.
 	 */
-	public void reset()
-	{
+	public void reset() {
 		first = null;
 
-		if (bounds != null)
-		{
+		if (bounds != null) {
 			graphComponent.getGraphControl().repaint(bounds);
 			bounds = null;
 		}
@@ -188,19 +172,16 @@ public class mxRubberband implements MouseListener, MouseMotionListener
 	 * @param rect
 	 * @param e
 	 */
-	public Object[] select(Rectangle rect, MouseEvent e)
-	{
+	public Object[] select(Rectangle rect, MouseEvent e) {
 		return graphComponent.selectRegion(rect, e);
 	}
 
 	/**
 	 * 
 	 */
-	public void paintRubberband(Graphics g)
-	{
+	public void paintRubberband(Graphics g) {
 		if (first != null && bounds != null
-				&& graphComponent.isSignificant(bounds.width, bounds.height))
-		{
+				&& graphComponent.isSignificant(bounds.width, bounds.height)) {
 			Rectangle rect = new Rectangle(bounds);
 			g.setColor(fillColor);
 			mxUtils.fillClippedRect(g, rect.x, rect.y, rect.width, rect.height);
@@ -214,11 +195,9 @@ public class mxRubberband implements MouseListener, MouseMotionListener
 	/**
 	 * 
 	 */
-	public void mousePressed(MouseEvent e)
-	{
+	public void mousePressed(MouseEvent e) {
 		if (!e.isConsumed() && isEnabled() && isRubberbandTrigger(e)
-				&& !e.isPopupTrigger())
-		{
+				&& !e.isPopupTrigger()) {
 			start(e.getPoint());
 			e.consume();
 		}
@@ -227,32 +206,27 @@ public class mxRubberband implements MouseListener, MouseMotionListener
 	/**
 	 * 
 	 */
-	public void mouseDragged(MouseEvent e)
-	{
-		if (!e.isConsumed() && first != null)
-		{
+	public void mouseDragged(MouseEvent e) {
+		if (!e.isConsumed() && first != null) {
 			Rectangle oldBounds = new Rectangle(bounds);
 			bounds = new Rectangle(first);
 			bounds.add(e.getPoint());
 
-			if (graphComponent.isSignificant(bounds.width, bounds.height))
-			{
+			if (graphComponent.isSignificant(bounds.width, bounds.height)) {
 				mxGraphControl control = graphComponent.getGraphControl();
 
 				// Repaints exact difference between old and new bounds
 				Rectangle union = new Rectangle(oldBounds);
 				union.add(bounds);
 
-				if (bounds.x != oldBounds.x)
-				{
+				if (bounds.x != oldBounds.x) {
 					int maxleft = Math.max(bounds.x, oldBounds.x);
 					Rectangle tmp = new Rectangle(union.x - 1, union.y, maxleft
 							- union.x + 2, union.height);
 					control.repaint(tmp);
 				}
 
-				if (bounds.x + bounds.width != oldBounds.x + oldBounds.width)
-				{
+				if (bounds.x + bounds.width != oldBounds.x + oldBounds.width) {
 					int minright = Math.min(bounds.x + bounds.width,
 							oldBounds.x + oldBounds.width);
 					Rectangle tmp = new Rectangle(minright - 1, union.y,
@@ -260,16 +234,14 @@ public class mxRubberband implements MouseListener, MouseMotionListener
 					control.repaint(tmp);
 				}
 
-				if (bounds.y != oldBounds.y)
-				{
+				if (bounds.y != oldBounds.y) {
 					int maxtop = Math.max(bounds.y, oldBounds.y);
 					Rectangle tmp = new Rectangle(union.x, union.y - 1,
 							union.width, maxtop - union.y + 2);
 					control.repaint(tmp);
 				}
 
-				if (bounds.y + bounds.height != oldBounds.y + oldBounds.height)
-				{
+				if (bounds.y + bounds.height != oldBounds.y + oldBounds.height) {
 					int minbottom = Math.min(bounds.y + bounds.height,
 							oldBounds.y + oldBounds.height);
 					Rectangle tmp = new Rectangle(union.x, minbottom - 1,
@@ -278,8 +250,7 @@ public class mxRubberband implements MouseListener, MouseMotionListener
 				}
 
 				if (!graphComponent.isToggleEvent(e)
-						&& !graphComponent.getGraph().isSelectionEmpty())
-				{
+						&& !graphComponent.getGraph().isSelectionEmpty()) {
 					graphComponent.getGraph().clearSelection();
 				}
 			}
@@ -291,14 +262,12 @@ public class mxRubberband implements MouseListener, MouseMotionListener
 	/**
 	 * 
 	 */
-	public void mouseReleased(MouseEvent e)
-	{
+	public void mouseReleased(MouseEvent e) {
 		Rectangle rect = bounds;
 		reset();
 
 		if (!e.isConsumed() && rect != null
-				&& graphComponent.isSignificant(rect.width, rect.height))
-		{
+				&& graphComponent.isSignificant(rect.width, rect.height)) {
 			select(rect, e);
 			e.consume();
 		}
@@ -307,37 +276,38 @@ public class mxRubberband implements MouseListener, MouseMotionListener
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
 	 */
-	public void mouseClicked(MouseEvent arg0)
-	{
+	public void mouseClicked(MouseEvent arg0) {
 		// empty
 	}
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
 	 */
-	public void mouseEntered(MouseEvent arg0)
-	{
+	public void mouseEntered(MouseEvent arg0) {
 		// empty
 	}
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see java.awt.event.MouseListener#mouseExited(java.awt.event.MouseEvent)
 	 */
-	public void mouseExited(MouseEvent arg0)
-	{
+	public void mouseExited(MouseEvent arg0) {
 		// empty
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see java.awt.event.MouseMotionListener#mouseMoved(java.awt.event.MouseEvent)
+	 * 
+	 * @see
+	 * java.awt.event.MouseMotionListener#mouseMoved(java.awt.event.MouseEvent)
 	 */
-	public void mouseMoved(MouseEvent arg0)
-	{
+	public void mouseMoved(MouseEvent arg0) {
 		// empty
 	}
 

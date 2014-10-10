@@ -41,8 +41,7 @@ import com.mxgraph.view.mxCellState;
  * To control this editor, use mxGraph.invokesStopCellEditing, mxGraph.
  * enterStopsCellEditing and mxGraph.escapeEnabled.
  */
-public class mxCellEditor implements mxICellEditor
-{
+public class mxCellEditor implements mxICellEditor {
 
 	/**
 	 * 
@@ -80,8 +79,8 @@ public class mxCellEditor implements mxICellEditor
 	protected mxGraphComponent graphComponent;
 
 	/**
-	 * Defines the minimum scale to be used for the editor. Set this to
-	 * 0 if the font size in the editor 
+	 * Defines the minimum scale to be used for the editor. Set this to 0 if the
+	 * font size in the editor
 	 */
 	protected double minimumEditorScale = DEFAULT_MINIMUM_EDITOR_SCALE;
 
@@ -121,21 +120,21 @@ public class mxCellEditor implements mxICellEditor
 	protected transient JEditorPane editorPane;
 
 	/**
-	 * Specifies if the text content of the HTML body should be extracted
-	 * before and after editing for HTML markup. Default is true.
+	 * Specifies if the text content of the HTML body should be extracted before
+	 * and after editing for HTML markup. Default is true.
 	 */
 	protected boolean extractHtmlBody = true;
 
 	/**
-	 * Specifies if linefeeds should be replaced with BREAKS before editing,
-	 * and BREAKS should be replaced with linefeeds after editing. This
-	 * value is ignored if extractHtmlBody is false. Default is true.
+	 * Specifies if linefeeds should be replaced with BREAKS before editing, and
+	 * BREAKS should be replaced with linefeeds after editing. This value is
+	 * ignored if extractHtmlBody is false. Default is true.
 	 */
 	protected boolean replaceLinefeeds = true;
 
 	/**
-	 * Specifies if shift ENTER should submit text if enterStopsCellEditing
-	 * is true. Default is false.
+	 * Specifies if shift ENTER should submit text if enterStopsCellEditing is
+	 * true. Default is false.
 	 */
 	protected boolean shiftEnterSubmitsText = false;
 
@@ -168,10 +167,8 @@ public class mxCellEditor implements mxICellEditor
 	/**
 	 * 
 	 */
-	protected AbstractAction cancelEditingAction = new AbstractAction()
-	{
-		public void actionPerformed(ActionEvent e)
-		{
+	protected AbstractAction cancelEditingAction = new AbstractAction() {
+		public void actionPerformed(ActionEvent e) {
 			stopEditing(true);
 		}
 	};
@@ -179,10 +176,8 @@ public class mxCellEditor implements mxICellEditor
 	/**
 	 * 
 	 */
-	protected AbstractAction textSubmitAction = new AbstractAction()
-	{
-		public void actionPerformed(ActionEvent e)
-		{
+	protected AbstractAction textSubmitAction = new AbstractAction() {
+		public void actionPerformed(ActionEvent e) {
 			stopEditing(false);
 		}
 	};
@@ -190,8 +185,7 @@ public class mxCellEditor implements mxICellEditor
 	/**
 	 * 
 	 */
-	public mxCellEditor(mxGraphComponent graphComponent)
-	{
+	public mxCellEditor(mxGraphComponent graphComponent) {
 		this.graphComponent = graphComponent;
 
 		// Creates the plain text editor
@@ -230,57 +224,50 @@ public class mxCellEditor implements mxICellEditor
 	/**
 	 * Returns replaceHtmlLinefeeds
 	 */
-	public boolean isExtractHtmlBody()
-	{
+	public boolean isExtractHtmlBody() {
 		return extractHtmlBody;
 	}
 
 	/**
 	 * Sets extractHtmlBody
 	 */
-	public void setExtractHtmlBody(boolean value)
-	{
+	public void setExtractHtmlBody(boolean value) {
 		extractHtmlBody = value;
 	}
 
 	/**
 	 * Returns replaceHtmlLinefeeds
 	 */
-	public boolean isReplaceHtmlLinefeeds()
-	{
+	public boolean isReplaceHtmlLinefeeds() {
 		return replaceLinefeeds;
 	}
 
 	/**
 	 * Sets replaceHtmlLinefeeds
 	 */
-	public void setReplaceHtmlLinefeeds(boolean value)
-	{
+	public void setReplaceHtmlLinefeeds(boolean value) {
 		replaceLinefeeds = value;
 	}
 
 	/**
 	 * Returns shiftEnterSubmitsText
 	 */
-	public boolean isShiftEnterSubmitsText()
-	{
+	public boolean isShiftEnterSubmitsText() {
 		return shiftEnterSubmitsText;
 	}
 
 	/**
 	 * Sets shiftEnterSubmitsText
 	 */
-	public void setShiftEnterSubmitsText(boolean value)
-	{
+	public void setShiftEnterSubmitsText(boolean value) {
 		shiftEnterSubmitsText = value;
 	}
 
 	/**
-	 * Installs the keyListener in the textArea and editorPane
-	 * for handling the enter keystroke and updating the modified state.
+	 * Installs the keyListener in the textArea and editorPane for handling the
+	 * enter keystroke and updating the modified state.
 	 */
-	protected void configureActionMaps()
-	{
+	protected void configureActionMaps() {
 		InputMap editorInputMap = editorPane.getInputMap();
 		InputMap textInputMap = textArea.getInputMap();
 
@@ -289,26 +276,20 @@ public class mxCellEditor implements mxICellEditor
 		textInputMap.put(escapeKeystroke, cancelEditingAction);
 
 		// Adds handling for shift-enter and redirects enter to stop editing
-		if (graphComponent.isEnterStopsCellEditing())
-		{
+		if (graphComponent.isEnterStopsCellEditing()) {
 			editorInputMap.put(shiftEnterKeystroke, editorEnterActionMapKey);
 			textInputMap.put(shiftEnterKeystroke, textEnterActionMapKey);
 
 			editorInputMap.put(enterKeystroke, SUBMIT_TEXT);
 			textInputMap.put(enterKeystroke, SUBMIT_TEXT);
-		}
-		else
-		{
+		} else {
 			editorInputMap.put(enterKeystroke, editorEnterActionMapKey);
 			textInputMap.put(enterKeystroke, textEnterActionMapKey);
 
-			if (isShiftEnterSubmitsText())
-			{
+			if (isShiftEnterSubmitsText()) {
 				editorInputMap.put(shiftEnterKeystroke, SUBMIT_TEXT);
 				textInputMap.put(shiftEnterKeystroke, SUBMIT_TEXT);
-			}
-			else
-			{
+			} else {
 				editorInputMap.remove(shiftEnterKeystroke);
 				textInputMap.remove(shiftEnterKeystroke);
 			}
@@ -318,14 +299,10 @@ public class mxCellEditor implements mxICellEditor
 	/**
 	 * Returns the current editor or null if no editing is in progress.
 	 */
-	public Component getEditor()
-	{
-		if (textArea.getParent() != null)
-		{
+	public Component getEditor() {
+		if (textArea.getParent() != null) {
 			return textArea;
-		}
-		else if (editingCell != null)
-		{
+		} else if (editingCell != null) {
 			return editorPane;
 		}
 
@@ -336,8 +313,7 @@ public class mxCellEditor implements mxICellEditor
 	 * Returns true if the label bounds of the state should be used for the
 	 * editor.
 	 */
-	protected boolean useLabelBounds(mxCellState state)
-	{
+	protected boolean useLabelBounds(mxCellState state) {
 		mxIGraphModel model = state.getView().getGraph().getModel();
 		mxGeometry geometry = model.getGeometry(state.getCell());
 
@@ -349,33 +325,25 @@ public class mxCellEditor implements mxICellEditor
 	/**
 	 * Returns the bounds to be used for the editor.
 	 */
-	public Rectangle getEditorBounds(mxCellState state, double scale)
-	{
+	public Rectangle getEditorBounds(mxCellState state, double scale) {
 		mxIGraphModel model = state.getView().getGraph().getModel();
 		Rectangle bounds = null;
 
-		if (useLabelBounds(state))
-		{
+		if (useLabelBounds(state)) {
 			bounds = state.getLabelBounds().getRectangle();
 			bounds.height += 10;
-		}
-		else
-		{
+		} else {
 			bounds = state.getRectangle();
 		}
 
 		// Applies the horizontal and vertical label positions
-		if (model.isVertex(state.getCell()))
-		{
+		if (model.isVertex(state.getCell())) {
 			String horizontal = mxUtils.getString(state.getStyle(),
 					mxConstants.STYLE_LABEL_POSITION, mxConstants.ALIGN_CENTER);
 
-			if (horizontal.equals(mxConstants.ALIGN_LEFT))
-			{
+			if (horizontal.equals(mxConstants.ALIGN_LEFT)) {
 				bounds.x -= state.getWidth();
-			}
-			else if (horizontal.equals(mxConstants.ALIGN_RIGHT))
-			{
+			} else if (horizontal.equals(mxConstants.ALIGN_RIGHT)) {
 				bounds.x += state.getWidth();
 			}
 
@@ -383,12 +351,9 @@ public class mxCellEditor implements mxICellEditor
 					mxConstants.STYLE_VERTICAL_LABEL_POSITION,
 					mxConstants.ALIGN_MIDDLE);
 
-			if (vertical.equals(mxConstants.ALIGN_TOP))
-			{
+			if (vertical.equals(mxConstants.ALIGN_TOP)) {
 				bounds.y -= state.getHeight();
-			}
-			else if (vertical.equals(mxConstants.ALIGN_BOTTOM))
-			{
+			} else if (vertical.equals(mxConstants.ALIGN_BOTTOM)) {
 				bounds.y += state.getHeight();
 			}
 		}
@@ -404,19 +369,18 @@ public class mxCellEditor implements mxICellEditor
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.mxgraph.swing.view.mxICellEditor#startEditing(java.lang.Object, java.util.EventObject)
+	 * 
+	 * @see com.mxgraph.swing.view.mxICellEditor#startEditing(java.lang.Object,
+	 * java.util.EventObject)
 	 */
-	public void startEditing(Object cell, EventObject evt)
-	{
-		if (editingCell != null)
-		{
+	public void startEditing(Object cell, EventObject evt) {
+		if (editingCell != null) {
 			stopEditing(true);
 		}
 
 		mxCellState state = graphComponent.getGraph().getView().getState(cell);
 
-		if (state != null)
-		{
+		if (state != null) {
 			editingCell = cell;
 			trigger = evt;
 
@@ -429,10 +393,8 @@ public class mxCellEditor implements mxICellEditor
 			JTextComponent currentEditor = null;
 
 			// Configures the style of the in-place editor
-			if (graphComponent.getGraph().isHtmlLabel(cell))
-			{
-				if (isExtractHtmlBody())
-				{
+			if (graphComponent.getGraph().isHtmlLabel(cell)) {
+				if (isExtractHtmlBody()) {
 					value = mxUtils.getBodyMarkup(value,
 							isReplaceHtmlLinefeeds());
 				}
@@ -449,9 +411,7 @@ public class mxCellEditor implements mxICellEditor
 				scrollPane.setViewportView(wrapper);
 
 				currentEditor = editorPane;
-			}
-			else
-			{
+			} else {
 				textArea.setFont(mxUtils.getFont(state.getStyle(), scale));
 				Color fontColor = mxUtils.getColor(state.getStyle(),
 						mxConstants.STYLE_FONTCOLOR, Color.black);
@@ -464,8 +424,7 @@ public class mxCellEditor implements mxICellEditor
 
 			graphComponent.getGraphControl().add(scrollPane, 0);
 
-			if (isHideLabel(state))
-			{
+			if (isHideLabel(state)) {
 				graphComponent.redraw(state);
 			}
 
@@ -480,38 +439,32 @@ public class mxCellEditor implements mxICellEditor
 	/**
 	 * 
 	 */
-	protected boolean isHideLabel(mxCellState state)
-	{
+	protected boolean isHideLabel(mxCellState state) {
 		return true;
 	}
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see com.mxgraph.swing.view.mxICellEditor#stopEditing(boolean)
 	 */
-	public void stopEditing(boolean cancel)
-	{
-		if (editingCell != null)
-		{
+	public void stopEditing(boolean cancel) {
+		if (editingCell != null) {
 			scrollPane.transferFocusUpCycle();
 			Object cell = editingCell;
 			editingCell = null;
 
-			if (!cancel)
-			{
+			if (!cancel) {
 				EventObject trig = trigger;
 				trigger = null;
 				graphComponent.labelChanged(cell, getCurrentValue(), trig);
-			}
-			else
-			{
+			} else {
 				mxCellState state = graphComponent.getGraph().getView()
 						.getState(cell);
 				graphComponent.redraw(state);
 			}
 
-			if (scrollPane.getParent() != null)
-			{
+			if (scrollPane.getParent() != null) {
 				scrollPane.setVisible(false);
 				scrollPane.getParent().remove(scrollPane);
 			}
@@ -523,28 +476,22 @@ public class mxCellEditor implements mxICellEditor
 	/**
 	 * Gets the initial editing value for the given cell.
 	 */
-	protected String getInitialValue(mxCellState state, EventObject trigger)
-	{
+	protected String getInitialValue(mxCellState state, EventObject trigger) {
 		return graphComponent.getEditingValue(state.getCell(), trigger);
 	}
 
 	/**
 	 * Returns the current editing value.
 	 */
-	public String getCurrentValue()
-	{
+	public String getCurrentValue() {
 		String result;
 
-		if (textArea.getParent() != null)
-		{
+		if (textArea.getParent() != null) {
 			result = textArea.getText();
-		}
-		else
-		{
+		} else {
 			result = editorPane.getText();
 
-			if (isExtractHtmlBody())
-			{
+			if (isExtractHtmlBody()) {
 				result = mxUtils
 						.getBodyMarkup(result, isReplaceHtmlLinefeeds());
 			}
@@ -555,90 +502,84 @@ public class mxCellEditor implements mxICellEditor
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see com.mxgraph.swing.view.mxICellEditor#getEditingCell()
 	 */
-	public Object getEditingCell()
-	{
+	public Object getEditingCell() {
 		return editingCell;
 	}
 
 	/**
 	 * @return the minimumEditorScale
 	 */
-	public double getMinimumEditorScale()
-	{
+	public double getMinimumEditorScale() {
 		return minimumEditorScale;
 	}
 
 	/**
-	 * @param minimumEditorScale the minimumEditorScale to set
+	 * @param minimumEditorScale
+	 *            the minimumEditorScale to set
 	 */
-	public void setMinimumEditorScale(double minimumEditorScale)
-	{
+	public void setMinimumEditorScale(double minimumEditorScale) {
 		this.minimumEditorScale = minimumEditorScale;
 	}
 
 	/**
 	 * @return the minimumWidth
 	 */
-	public int getMinimumWidth()
-	{
+	public int getMinimumWidth() {
 		return minimumWidth;
 	}
 
 	/**
-	 * @param minimumWidth the minimumWidth to set
+	 * @param minimumWidth
+	 *            the minimumWidth to set
 	 */
-	public void setMinimumWidth(int minimumWidth)
-	{
+	public void setMinimumWidth(int minimumWidth) {
 		this.minimumWidth = minimumWidth;
 	}
 
 	/**
 	 * @return the minimumHeight
 	 */
-	public int getMinimumHeight()
-	{
+	public int getMinimumHeight() {
 		return minimumHeight;
 	}
 
 	/**
-	 * @param minimumHeight the minimumHeight to set
+	 * @param minimumHeight
+	 *            the minimumHeight to set
 	 */
-	public void setMinimumHeight(int minimumHeight)
-	{
+	public void setMinimumHeight(int minimumHeight) {
 		this.minimumHeight = minimumHeight;
 	}
 
 	/**
 	 * Workaround for inserted linefeeds when getting text from HTML editor.
 	 */
-	class NoLinefeedHtmlEditorKit extends HTMLEditorKit
-	{
+	class NoLinefeedHtmlEditorKit extends HTMLEditorKit {
 		public void write(Writer out, Document doc, int pos, int len)
-				throws IOException, BadLocationException
-		{
-			if (doc instanceof HTMLDocument)
-			{
+				throws IOException, BadLocationException {
+			if (doc instanceof HTMLDocument) {
 				NoLinefeedHtmlWriter w = new NoLinefeedHtmlWriter(out,
 						(HTMLDocument) doc, pos, len);
 
-				// the default behavior of write() was to setLineLength(80) which resulted in
-				// the inserting or a CR/LF around the 80ith character in any given
-				// line. This was not good because if a merge tag was in that range, it would
-				// insert CR/LF in between the merge tag and then the replacement of
+				// the default behavior of write() was to setLineLength(80)
+				// which resulted in
+				// the inserting or a CR/LF around the 80ith character in any
+				// given
+				// line. This was not good because if a merge tag was in that
+				// range, it would
+				// insert CR/LF in between the merge tag and then the
+				// replacement of
 				// merge tag with bean values was not working.
 				w.setLineLength(Integer.MAX_VALUE);
 				w.write();
-			}
-			else if (doc instanceof StyledDocument)
-			{
+			} else if (doc instanceof StyledDocument) {
 				MinimalHTMLWriter w = new MinimalHTMLWriter(out,
 						(StyledDocument) doc, pos, len);
 				w.write();
-			}
-			else
-			{
+			} else {
 				super.write(out, doc, pos, len);
 			}
 		}
@@ -647,16 +588,13 @@ public class mxCellEditor implements mxICellEditor
 	/**
 	 * Subclassed to make setLineLength visible for the custom editor kit.
 	 */
-	class NoLinefeedHtmlWriter extends HTMLWriter
-	{
+	class NoLinefeedHtmlWriter extends HTMLWriter {
 		public NoLinefeedHtmlWriter(Writer buf, HTMLDocument doc, int pos,
-				int len)
-		{
+				int len) {
 			super(buf, doc, pos, len);
 		}
 
-		protected void setLineLength(int l)
-		{
+		protected void setLineLength(int l) {
 			super.setLineLength(l);
 		}
 	}

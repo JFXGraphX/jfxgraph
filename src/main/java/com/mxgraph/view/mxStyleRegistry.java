@@ -14,8 +14,7 @@ import com.mxgraph.util.mxConstants;
  * Singleton class that acts as a global converter from string to object values
  * in a style. This is currently only used to perimeters and edge styles.
  */
-public class mxStyleRegistry
-{
+public class mxStyleRegistry {
 
 	/**
 	 * Maps from strings to objects.
@@ -23,8 +22,7 @@ public class mxStyleRegistry
 	protected static Map<String, Object> values = new Hashtable<String, Object>();
 
 	// Registers the known object styles
-	static
-	{
+	static {
 		putValue(mxConstants.EDGESTYLE_ELBOW, mxEdgeStyle.ElbowConnector);
 		putValue(mxConstants.EDGESTYLE_ENTITY_RELATION,
 				mxEdgeStyle.EntityRelation);
@@ -45,32 +43,27 @@ public class mxStyleRegistry
 	/**
 	 * Puts the given object into the registry under the given name.
 	 */
-	public static void putValue(String name, Object value)
-	{
+	public static void putValue(String name, Object value) {
 		values.put(name, value);
 	}
 
 	/**
 	 * Returns the value associated with the given name.
 	 */
-	public static Object getValue(String name)
-	{
+	public static Object getValue(String name) {
 		return values.get(name);
 	}
 
 	/**
 	 * Returns the name for the given value.
 	 */
-	public static String getName(Object value)
-	{
+	public static String getName(Object value) {
 		Iterator<Map.Entry<String, Object>> it = values.entrySet().iterator();
 
-		while (it.hasNext())
-		{
+		while (it.hasNext()) {
 			Map.Entry<String, Object> entry = it.next();
 
-			if (entry.getValue() == value)
-			{
+			if (entry.getValue() == value) {
 				return entry.getKey();
 			}
 		}

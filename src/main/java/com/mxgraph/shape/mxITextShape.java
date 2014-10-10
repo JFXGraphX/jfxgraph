@@ -9,8 +9,7 @@ import java.util.Map;
 import com.mxgraph.canvas.mxGraphics2DCanvas;
 import com.mxgraph.view.mxCellState;
 
-public interface mxITextShape
-{
+public interface mxITextShape {
 	/**
 	 * 
 	 */

@@ -8,13 +8,12 @@ import org.w3c.dom.Element;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.util.mxUtils;
 
-public class mxMultiplicity
-{
+public class mxMultiplicity {
 
 	/**
 	 * Defines the type of the source or target terminal. The type is a string
-	 * passed to mxUtils.isNode together with the source or target vertex
-	 * value as the first argument.
+	 * passed to mxUtils.isNode together with the source or target vertex value
+	 * as the first argument.
 	 */
 	protected String type;
 
@@ -25,8 +24,8 @@ public class mxMultiplicity
 	protected String attr;
 
 	/**
-	 * Optional string that specifies the value of the attribute to be passed
-	 * to mxCell.is to check if the rule applies to a cell.
+	 * Optional string that specifies the value of the attribute to be passed to
+	 * mxCell.is to check if the rule applies to a cell.
 	 */
 	protected String value;
 
@@ -43,8 +42,8 @@ public class mxMultiplicity
 	protected int min = 0;
 
 	/**
-	 * Defines the maximum number of connections for which this rule applies.
-	 * A value of 'n' means unlimited times. Default is 'n'. 
+	 * Defines the maximum number of connections for which this rule applies. A
+	 * value of 'n' means unlimited times. Default is 'n'.
 	 */
 	protected String max = "n";
 
@@ -56,8 +55,8 @@ public class mxMultiplicity
 	protected Collection<String> validNeighbors;
 
 	/**
-	 * Boolean indicating if the list of validNeighbors are those that are allowed
-	 * for this rule or those that are not allowed for this rule.
+	 * Boolean indicating if the list of validNeighbors are those that are
+	 * allowed for this rule or those that are not allowed for this rule.
 	 */
 	protected boolean validNeighborsAllowed = true;
 
@@ -80,8 +79,7 @@ public class mxMultiplicity
 	public mxMultiplicity(boolean source, String type, String attr,
 			String value, int min, String max,
 			Collection<String> validNeighbors, String countError,
-			String typeError, boolean validNeighborsAllowed)
-	{
+			String typeError, boolean validNeighborsAllowed) {
 		this.source = source;
 		this.type = type;
 		this.attr = attr;
@@ -97,43 +95,37 @@ public class mxMultiplicity
 	/**
 	 * Function: check
 	 * 
-	 * Checks the multiplicity for the given arguments and returns the error
-	 * for the given connection or null if the multiplicity does not apply.
-	 *  
+	 * Checks the multiplicity for the given arguments and returns the error for
+	 * the given connection or null if the multiplicity does not apply.
+	 * 
 	 * Parameters:
 	 * 
-	 * graph - Reference to the enclosing graph instance.
-	 * edge - Cell that represents the edge to validate.
-	 * source - Cell that represents the source terminal.
-	 * target - Cell that represents the target terminal.
-	 * sourceOut - Number of outgoing edges from the source terminal.
-	 * targetIn - Number of incoming edges for the target terminal.
+	 * graph - Reference to the enclosing graph instance. edge - Cell that
+	 * represents the edge to validate. source - Cell that represents the source
+	 * terminal. target - Cell that represents the target terminal. sourceOut -
+	 * Number of outgoing edges from the source terminal. targetIn - Number of
+	 * incoming edges for the target terminal.
 	 */
 	public String check(mxGraph graph, Object edge, Object source,
-			Object target, int sourceOut, int targetIn)
-	{
+			Object target, int sourceOut, int targetIn) {
 		StringBuffer error = new StringBuffer();
 
 		if ((this.source && checkTerminal(graph, source, edge))
-				|| (!this.source && checkTerminal(graph, target, edge)))
-		{
-			if (!isUnlimited())
-			{
+				|| (!this.source && checkTerminal(graph, target, edge))) {
+			if (!isUnlimited()) {
 				int m = getMaxValue();
 
 				if (m == 0 || (this.source && sourceOut >= m)
-						|| (!this.source && targetIn >= m))
-				{
+						|| (!this.source && targetIn >= m)) {
 					error.append(countError + "\n");
 				}
 			}
 
-			if (validNeighbors != null && typeError != null && validNeighbors.size() > 0)
-			{
+			if (validNeighbors != null && typeError != null
+					&& validNeighbors.size() > 0) {
 				boolean isValid = checkNeighbors(graph, edge, source, target);
 
-				if (!isValid)
-				{
+				if (!isValid) {
 					error.append(typeError + "\n");
 				}
 			}
@@ -146,25 +138,20 @@ public class mxMultiplicity
 	 * Checks the type of the given value.
 	 */
 	public boolean checkNeighbors(mxGraph graph, Object edge, Object source,
-			Object target)
-	{
+			Object target) {
 		mxIGraphModel model = graph.getModel();
 		Object sourceValue = model.getValue(source);
 		Object targetValue = model.getValue(target);
 		boolean isValid = !validNeighborsAllowed;
 		Iterator<String> it = validNeighbors.iterator();
 
-		while (it.hasNext())
-		{
+		while (it.hasNext()) {
 			String tmp = it.next();
 
-			if (this.source && checkType(graph, targetValue, tmp))
-			{
+			if (this.source && checkType(graph, targetValue, tmp)) {
 				isValid = validNeighborsAllowed;
 				break;
-			}
-			else if (!this.source && checkType(graph, sourceValue, tmp))
-			{
+			} else if (!this.source && checkType(graph, sourceValue, tmp)) {
 				isValid = validNeighborsAllowed;
 				break;
 			}
@@ -176,8 +163,7 @@ public class mxMultiplicity
 	/**
 	 * Checks the type of the given value.
 	 */
-	public boolean checkTerminal(mxGraph graph, Object terminal, Object edge)
-	{
+	public boolean checkTerminal(mxGraph graph, Object terminal, Object edge) {
 		Object userObject = graph.getModel().getValue(terminal);
 
 		return checkType(graph, userObject, type, attr, value);
@@ -186,8 +172,7 @@ public class mxMultiplicity
 	/**
 	 * Checks the type of the given value.
 	 */
-	public boolean checkType(mxGraph graph, Object value, String type)
-	{
+	public boolean checkType(mxGraph graph, Object value, String type) {
 		return checkType(graph, value, type, null, null);
 	}
 
@@ -195,16 +180,11 @@ public class mxMultiplicity
 	 * Checks the type of the given value.
 	 */
 	public boolean checkType(mxGraph graph, Object value, String type,
-			String attr, String attrValue)
-	{
-		if (value != null)
-		{
-			if (value instanceof Element)
-			{
+			String attr, String attrValue) {
+		if (value != null) {
+			if (value instanceof Element) {
 				return mxUtils.isNode(value, type, attr, attrValue);
-			}
-			else
-			{
+			} else {
 				return value.equals(type);
 			}
 		}
@@ -215,22 +195,17 @@ public class mxMultiplicity
 	/**
 	 * Returns true if max is "n" (unlimited).
 	 */
-	public boolean isUnlimited()
-	{
+	public boolean isUnlimited() {
 		return max == null || max == "n";
 	}
 
 	/**
 	 * Returns the numeric value of max.
 	 */
-	public int getMaxValue()
-	{
-		try
-		{
+	public int getMaxValue() {
+		try {
 			return Integer.parseInt(max);
-		}
-		catch (NumberFormatException e)
-		{
+		} catch (NumberFormatException e) {
 			// ignore
 		}
 

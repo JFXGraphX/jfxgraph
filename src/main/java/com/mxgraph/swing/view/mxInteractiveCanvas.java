@@ -19,8 +19,7 @@ import com.mxgraph.util.mxPoint;
 import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxCellState;
 
-public class mxInteractiveCanvas extends mxGraphics2DCanvas
-{
+public class mxInteractiveCanvas extends mxGraphics2DCanvas {
 	/**
 	 * 
 	 */
@@ -29,48 +28,42 @@ public class mxInteractiveCanvas extends mxGraphics2DCanvas
 	/**
 	 * 
 	 */
-	public mxInteractiveCanvas()
-	{
+	public mxInteractiveCanvas() {
 		this(null);
 	}
 
 	/**
 	 * 
 	 */
-	public mxInteractiveCanvas(ImageObserver imageObserver)
-	{
+	public mxInteractiveCanvas(ImageObserver imageObserver) {
 		setImageObserver(imageObserver);
 	}
 
 	/**
 	 * 
 	 */
-	public void setImageObserver(ImageObserver value)
-	{
+	public void setImageObserver(ImageObserver value) {
 		imageObserver = value;
 	}
 
 	/**
 	 * 
 	 */
-	public ImageObserver getImageObserver()
-	{
+	public ImageObserver getImageObserver() {
 		return imageObserver;
 	}
 
 	/**
 	 * Overrides graphics call to use image observer.
 	 */
-	protected void drawImageImpl(Image image, int x, int y)
-	{
+	protected void drawImageImpl(Image image, int x, int y) {
 		g.drawImage(image, x, y, imageObserver);
 	}
 
 	/**
 	 * Returns the size for the given image.
 	 */
-	protected Dimension getImageSize(Image image)
-	{
+	protected Dimension getImageSize(Image image) {
 		return new Dimension(image.getWidth(imageObserver),
 				image.getHeight(imageObserver));
 	}
@@ -79,8 +72,7 @@ public class mxInteractiveCanvas extends mxGraphics2DCanvas
 	 * 
 	 */
 	public boolean contains(mxGraphComponent graphComponent, Rectangle rect,
-			mxCellState state)
-	{
+			mxCellState state) {
 		return state != null && state.getX() >= rect.x
 				&& state.getY() >= rect.y
 				&& state.getX() + state.getWidth() <= rect.x + rect.width
@@ -91,22 +83,18 @@ public class mxInteractiveCanvas extends mxGraphics2DCanvas
 	 * 
 	 */
 	public boolean intersects(mxGraphComponent graphComponent, Rectangle rect,
-			mxCellState state)
-	{
-		if (state != null)
-		{
+			mxCellState state) {
+		if (state != null) {
 			// Checks if the label intersects
 			if (state.getLabelBounds() != null
-					&& state.getLabelBounds().getRectangle().intersects(rect))
-			{
+					&& state.getLabelBounds().getRectangle().intersects(rect)) {
 				return true;
 			}
 
 			int pointCount = state.getAbsolutePointCount();
 
 			// Checks if the segments of the edge intersect
-			if (pointCount > 0)
-			{
+			if (pointCount > 0) {
 				rect = (Rectangle) rect.clone();
 				int tolerance = graphComponent.getTolerance();
 				rect.grow(tolerance, tolerance);
@@ -116,41 +104,32 @@ public class mxInteractiveCanvas extends mxGraphics2DCanvas
 				// FIXME: Check if this should be used for all shapes
 				if (mxUtils.getString(state.getStyle(),
 						mxConstants.STYLE_SHAPE, "").equals(
-						mxConstants.SHAPE_ARROW))
-				{
+						mxConstants.SHAPE_ARROW)) {
 					mxIShape shape = getShape(state.getStyle());
 
-					if (shape instanceof mxBasicShape)
-					{
+					if (shape instanceof mxBasicShape) {
 						realShape = ((mxBasicShape) shape).createShape(this,
 								state);
 					}
 				}
 
-				if (realShape != null && realShape.intersects(rect))
-				{
+				if (realShape != null && realShape.intersects(rect)) {
 					return true;
-				}
-				else
-				{
+				} else {
 					mxPoint p0 = state.getAbsolutePoint(0);
 
-					for (int i = 0; i < pointCount; i++)
-					{
+					for (int i = 0; i < pointCount; i++) {
 						mxPoint p1 = state.getAbsolutePoint(i);
 
 						if (rect.intersectsLine(p0.getX(), p0.getY(),
-								p1.getX(), p1.getY()))
-						{
+								p1.getX(), p1.getY())) {
 							return true;
 						}
 
 						p0 = p1;
 					}
 				}
-			}
-			else
-			{
+			} else {
 				// Checks if the bounds of the shape intersect
 				return state.getRectangle().intersects(rect);
 			}
@@ -166,10 +145,8 @@ public class mxInteractiveCanvas extends mxGraphics2DCanvas
 	 * assumed that the caller has checked this before using this method.
 	 */
 	public boolean hitSwimlaneContent(mxGraphComponent graphComponent,
-			mxCellState swimlane, int x, int y)
-	{
-		if (swimlane != null)
-		{
+			mxCellState swimlane, int x, int y) {
+		if (swimlane != null) {
 			int start = (int) Math.max(2, Math.round(mxUtils.getInt(
 					swimlane.getStyle(), mxConstants.STYLE_STARTSIZE,
 					mxConstants.DEFAULT_STARTSIZE)
@@ -177,13 +154,10 @@ public class mxInteractiveCanvas extends mxGraphics2DCanvas
 			Rectangle rect = swimlane.getRectangle();
 
 			if (mxUtils.isTrue(swimlane.getStyle(),
-					mxConstants.STYLE_HORIZONTAL, true))
-			{
+					mxConstants.STYLE_HORIZONTAL, true)) {
 				rect.y += start;
 				rect.height -= start;
-			}
-			else
-			{
+			} else {
 				rect.x += start;
 				rect.width -= start;
 			}

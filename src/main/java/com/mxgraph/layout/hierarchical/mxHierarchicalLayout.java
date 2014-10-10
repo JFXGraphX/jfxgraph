@@ -31,8 +31,10 @@ import com.mxgraph.view.mxGraphView;
  * The top level compound layout of the hierarchical layout. The individual
  * elements of the layout are called in sequence.
  */
-public class mxHierarchicalLayout extends mxGraphLayout/*,
-JGraphLayout.Stoppable*/
+public class mxHierarchicalLayout extends mxGraphLayout/*
+														 * ,
+														 * JGraphLayout.Stoppable
+														 */
 {
 	/** The root nodes of the layout */
 	protected List<Object> roots = null;
@@ -50,8 +52,8 @@ JGraphLayout.Stoppable*/
 	protected boolean moveParent = false;
 
 	/**
-	 * The border to be added around the children if the parent is to be
-	 * resized using resizeParent. Default is 0. @See resizeParent.
+	 * The border to be added around the children if the parent is to be resized
+	 * using resizeParent. Default is 0. @See resizeParent.
 	 */
 	protected int parentBorder = 0;
 
@@ -76,13 +78,13 @@ JGraphLayout.Stoppable*/
 	protected double parallelEdgeSpacing = 10.0;
 
 	/**
-	 * The position of the root node(s) relative to the laid out graph in. 
+	 * The position of the root node(s) relative to the laid out graph in.
 	 * Default is <code>SwingConstants.NORTH</code>, i.e. top-down.
 	 */
 	protected int orientation = SwingConstants.NORTH;
 
 	/**
-	 *  Specifies if the STYLE_NOEDGESTYLE flag should be set on edges that are
+	 * Specifies if the STYLE_NOEDGESTYLE flag should be set on edges that are
 	 * modified by the result. Default is true.
 	 */
 	protected boolean disableEdgeStyle = true;
@@ -94,15 +96,15 @@ JGraphLayout.Stoppable*/
 	protected boolean fineTuning = true;
 
 	/**
-	 * Whether or not to promote edges that terminate on vertices with
-	 * different but common ancestry to appear connected to the highest
-	 * siblings in the ancestry chains
+	 * Whether or not to promote edges that terminate on vertices with different
+	 * but common ancestry to appear connected to the highest siblings in the
+	 * ancestry chains
 	 */
 	protected boolean promoteEdges = true;
 
 	/**
-	 * Whether or not to navigate edges whose terminal vertices 
-	 * have different parents but are in the same ancestry chain
+	 * Whether or not to navigate edges whose terminal vertices have different
+	 * parents but are in the same ancestry chain
 	 */
 	protected boolean traverseAncestors = true;
 
@@ -114,29 +116,33 @@ JGraphLayout.Stoppable*/
 	/**
 	 * The layout progress bar
 	 */
-	//protected JGraphLayoutProgress progress = new JGraphLayoutProgress();
+	// protected JGraphLayoutProgress progress = new JGraphLayoutProgress();
 	/** The logger for this class */
 	private static Logger logger = Logger
 			.getLogger("com.jgraph.layout.hierarchical.JGraphHierarchicalLayout");
 
 	/**
 	 * Constructs a hierarchical layout
-	 * @param graph the graph to lay out
+	 * 
+	 * @param graph
+	 *            the graph to lay out
 	 * 
 	 */
-	public mxHierarchicalLayout(mxGraph graph)
-	{
+	public mxHierarchicalLayout(mxGraph graph) {
 		this(graph, SwingConstants.NORTH);
 	}
 
 	/**
 	 * Constructs a hierarchical layout
-	 * @param graph the graph to lay out
-	 * @param orientation <code>SwingConstants.NORTH, SwingConstants.EAST, SwingConstants.SOUTH</code> or <code> SwingConstants.WEST</code>
+	 * 
+	 * @param graph
+	 *            the graph to lay out
+	 * @param orientation
+	 *            <code>SwingConstants.NORTH, SwingConstants.EAST, SwingConstants.SOUTH</code>
+	 *            or <code> SwingConstants.WEST</code>
 	 * 
 	 */
-	public mxHierarchicalLayout(mxGraph graph, int orientation)
-	{
+	public mxHierarchicalLayout(mxGraph graph, int orientation) {
 		super(graph);
 		this.orientation = orientation;
 	}
@@ -144,29 +150,29 @@ JGraphLayout.Stoppable*/
 	/**
 	 * Returns the model for this layout algorithm.
 	 */
-	public mxGraphHierarchyModel getModel()
-	{
+	public mxGraphHierarchyModel getModel() {
 		return model;
 	}
 
 	/**
 	 * Executes the layout for the children of the specified parent.
 	 * 
-	 * @param parent Parent cell that contains the children to be laid out.
+	 * @param parent
+	 *            Parent cell that contains the children to be laid out.
 	 */
-	public void execute(Object parent)
-	{
+	public void execute(Object parent) {
 		execute(parent, null);
 	}
 
 	/**
 	 * Executes the layout for the children of the specified parent.
 	 * 
-	 * @param parent Parent cell that contains the children to be laid out.
-	 * @param roots the starting roots of the layout
+	 * @param parent
+	 *            Parent cell that contains the children to be laid out.
+	 * @param roots
+	 *            the starting roots of the layout
 	 */
-	public void execute(Object parent, List<Object> roots)
-	{
+	public void execute(Object parent, List<Object> roots) {
 		super.execute(parent);
 		mxIGraphModel model = graph.getModel();
 
@@ -177,18 +183,14 @@ JGraphLayout.Stoppable*/
 		// If just the parent is set use it's immediate
 		// children as the initial set
 
-		if (roots == null && parent == null)
-		{
+		if (roots == null && parent == null) {
 			// TODO indicate the problem
 			return;
 		}
 
-		if (roots != null && parent != null)
-		{
-			for (Object root : roots)
-			{
-				if (!model.isAncestor(parent, root))
-				{
+		if (roots != null && parent != null) {
+			for (Object root : roots) {
+				if (!model.isAncestor(parent, root)) {
 					roots.remove(root);
 				}
 			}
@@ -197,80 +199,67 @@ JGraphLayout.Stoppable*/
 		this.roots = roots;
 
 		model.beginUpdate();
-		try
-		{
+		try {
 			run(parent);
 
-			if (isResizeParent() && !graph.isCellCollapsed(parent))
-			{
+			if (isResizeParent() && !graph.isCellCollapsed(parent)) {
 				graph.updateGroupBounds(new Object[] { parent },
 						getParentBorder(), isMoveParent());
 			}
-		}
-		finally
-		{
+		} finally {
 			model.endUpdate();
 		}
 	}
 
 	/**
 	 * Returns all visible children in the given parent which do not have
-	 * incoming edges. If the result is empty then the children with the
-	 * maximum difference between incoming and outgoing edges are returned.
-	 * This takes into account edges that are being promoted to the given
-	 * root due to invisible children or collapsed cells.
+	 * incoming edges. If the result is empty then the children with the maximum
+	 * difference between incoming and outgoing edges are returned. This takes
+	 * into account edges that are being promoted to the given root due to
+	 * invisible children or collapsed cells.
 	 * 
-	 * @param parent Cell whose children should be checked.
+	 * @param parent
+	 *            Cell whose children should be checked.
 	 * @return List of tree roots in parent.
 	 */
-	public List<Object> findRoots(Object parent, Set<Object> vertices)
-	{
+	public List<Object> findRoots(Object parent, Set<Object> vertices) {
 		List<Object> roots = new ArrayList<Object>();
 
 		Object best = null;
 		int maxDiff = -100000;
 		mxIGraphModel model = graph.getModel();
 
-		for (Object vertex : vertices)
-		{
-			if (model.isVertex(vertex) && graph.isCellVisible(vertex))
-			{
+		for (Object vertex : vertices) {
+			if (model.isVertex(vertex) && graph.isCellVisible(vertex)) {
 				Object[] conns = this.getEdges(vertex);
 				int fanOut = 0;
 				int fanIn = 0;
 
-				for (int k = 0; k < conns.length; k++)
-				{
+				for (int k = 0; k < conns.length; k++) {
 					Object src = graph.getView().getVisibleTerminal(conns[k],
 							true);
 
-					if (src == vertex)
-					{
+					if (src == vertex) {
 						fanOut++;
-					}
-					else
-					{
+					} else {
 						fanIn++;
 					}
 				}
 
-				if (fanIn == 0 && fanOut > 0)
-				{
+				if (fanIn == 0 && fanOut > 0) {
 					roots.add(vertex);
 				}
 
 				int diff = fanOut - fanIn;
 
-				if (diff > maxDiff)
-				{
+				if (diff > maxDiff) {
 					maxDiff = diff;
 					best = vertex;
 				}
 			}
 		}
 
-		if (roots.isEmpty() && best != null)
-		{
+		if (roots.isEmpty() && best != null) {
 			roots.add(best);
 		}
 
@@ -282,19 +271,16 @@ JGraphLayout.Stoppable*/
 	 * @param cell
 	 * @return
 	 */
-	public Object[] getEdges(Object cell)
-	{
+	public Object[] getEdges(Object cell) {
 		mxIGraphModel model = graph.getModel();
 		boolean isCollapsed = graph.isCellCollapsed(cell);
 		List<Object> edges = new ArrayList<Object>();
 		int childCount = model.getChildCount(cell);
 
-		for (int i = 0; i < childCount; i++)
-		{
+		for (int i = 0; i < childCount; i++) {
 			Object child = model.getChildAt(cell, i);
 
-			if (isCollapsed || !graph.isCellVisible(child))
-			{
+			if (isCollapsed || !graph.isCellVisible(child)) {
 				edges.addAll(Arrays.asList(mxGraphModel.getEdges(model, child,
 						true, true, false)));
 			}
@@ -305,8 +291,7 @@ JGraphLayout.Stoppable*/
 		List<Object> result = new ArrayList<Object>(edges.size());
 		Iterator<Object> it = edges.iterator();
 
-		while (it.hasNext())
-		{
+		while (it.hasNext()) {
 			Object edge = it.next();
 			mxCellState state = graph.getView().getState(edge);
 			Object source = (state != null) ? state.getVisibleTerminal(true)
@@ -316,8 +301,7 @@ JGraphLayout.Stoppable*/
 
 			if (((source != target) && ((target == cell && (parent == null || graph
 					.isValidAncestor(source, parent, traverseAncestors))) || (source == cell && (parent == null || graph
-					.isValidAncestor(target, parent, traverseAncestors))))))
-			{
+					.isValidAncestor(target, parent, traverseAncestors)))))) {
 				result.add(edge);
 			}
 		}
@@ -326,28 +310,24 @@ JGraphLayout.Stoppable*/
 	}
 
 	/**
-	 * The API method used to exercise the layout upon the graph description
-	 * and produce a separate description of the vertex position and edge
-	 * routing changes made.
+	 * The API method used to exercise the layout upon the graph description and
+	 * produce a separate description of the vertex position and edge routing
+	 * changes made.
 	 */
-	public void run(Object parent)
-	{
+	public void run(Object parent) {
 		// Separate out unconnected hierarchies
 		List<Set<Object>> hierarchyVertices = new ArrayList<Set<Object>>();
 		Set<Object> allVertexSet = new LinkedHashSet<Object>();
 
-		if (this.roots == null && parent != null)
-		{
+		if (this.roots == null && parent != null) {
 			Set<Object> filledVertexSet = filterDescendants(parent);
 
 			this.roots = new ArrayList<Object>();
 
-			while (!filledVertexSet.isEmpty())
-			{
+			while (!filledVertexSet.isEmpty()) {
 				List<Object> candidateRoots = findRoots(parent, filledVertexSet);
 
-				for (Object root : candidateRoots)
-				{
+				for (Object root : candidateRoots) {
 					Set<Object> vertexSet = new LinkedHashSet<Object>();
 					hierarchyVertices.add(vertexSet);
 
@@ -357,13 +337,10 @@ JGraphLayout.Stoppable*/
 
 				this.roots.addAll(candidateRoots);
 			}
-		}
-		else
-		{
+		} else {
 			// Find vertex set as directed traversal from roots
 
-			for (int i = 0; i < roots.size(); i++)
-			{
+			for (int i = 0; i < roots.size(); i++) {
 				Set<Object> vertexSet = new LinkedHashSet<Object>();
 				hierarchyVertices.add(vertexSet);
 
@@ -372,16 +349,15 @@ JGraphLayout.Stoppable*/
 			}
 		}
 
-		// Iterate through the result removing parents who have children in this layout
-		
-		
+		// Iterate through the result removing parents who have children in this
+		// layout
+
 		// Perform a layout for each separate hierarchy
 		// Track initial coordinate x-positioning
 		double initialX = 0;
 		Iterator<Set<Object>> iter = hierarchyVertices.iterator();
 
-		while (iter.hasNext())
-		{
+		while (iter.hasNext()) {
 			Set<Object> vertexSet = iter.next();
 
 			this.model = new mxGraphHierarchyModel(this, vertexSet.toArray(),
@@ -396,26 +372,25 @@ JGraphLayout.Stoppable*/
 
 	/**
 	 * Creates a set of descendant cells
-	 * @param cell The cell whose descendants are to be calculated
+	 * 
+	 * @param cell
+	 *            The cell whose descendants are to be calculated
 	 * @return the descendants of the cell (not the cell)
 	 */
-	public Set<Object> filterDescendants(Object cell)
-	{
+	public Set<Object> filterDescendants(Object cell) {
 		mxIGraphModel model = graph.getModel();
 		Set<Object> result = new LinkedHashSet<Object>();
 
-		if (model.isVertex(cell) && cell != this.parent && model.isVisible(cell))
-		{
+		if (model.isVertex(cell) && cell != this.parent
+				&& model.isVisible(cell)) {
 			result.add(cell);
 		}
 
 		if (this.traverseAncestors || cell == this.parent
-				&& model.isVisible(cell))
-		{
+				&& model.isVisible(cell)) {
 			int childCount = model.getChildCount(cell);
 
-			for (int i = 0; i < childCount; i++)
-			{
+			for (int i = 0; i < childCount; i++) {
 				Object child = model.getChildAt(cell, i);
 				result.addAll(filterDescendants(child));
 			}
@@ -427,52 +402,50 @@ JGraphLayout.Stoppable*/
 	/**
 	 * Traverses the (directed) graph invoking the given function for each
 	 * visited vertex and edge. The function is invoked with the current vertex
-	 * and the incoming edge as a parameter. This implementation makes sure
-	 * each vertex is only visited once. The function may return false if the
+	 * and the incoming edge as a parameter. This implementation makes sure each
+	 * vertex is only visited once. The function may return false if the
 	 * traversal should stop at the given vertex.
 	 * 
-	 * @param vertex <mxCell> that represents the vertex where the traversal starts.
-	 * @param directed Optional boolean indicating if edges should only be traversed
-	 * from source to target. Default is true.
-	 * @param edge Optional <mxCell> that represents the incoming edge. This is
-	 * null for the first step of the traversal.
-	 * @param allVertices Array of cell paths for the visited cells.
+	 * @param vertex
+	 *            <mxCell> that represents the vertex where the traversal
+	 *            starts.
+	 * @param directed
+	 *            Optional boolean indicating if edges should only be traversed
+	 *            from source to target. Default is true.
+	 * @param edge
+	 *            Optional <mxCell> that represents the incoming edge. This is
+	 *            null for the first step of the traversal.
+	 * @param allVertices
+	 *            Array of cell paths for the visited cells.
 	 */
 	protected void traverse(Object vertex, boolean directed, Object edge,
 			Set<Object> allVertices, Set<Object> currentComp,
-			List<Set<Object>> hierarchyVertices, Set<Object> filledVertexSet)
-	{
+			List<Set<Object>> hierarchyVertices, Set<Object> filledVertexSet) {
 		mxGraphView view = graph.getView();
 		mxIGraphModel model = graph.getModel();
 
-		if (vertex != null && allVertices != null)
-		{
+		if (vertex != null && allVertices != null) {
 			// Has this vertex been seen before in any traversal
-			// And if the filled vertex set is populated, only 
+			// And if the filled vertex set is populated, only
 			// process vertices in that it contains
 			if (!allVertices.contains(vertex)
 					&& (filledVertexSet == null ? true : filledVertexSet
-							.contains(vertex)))
-			{
+							.contains(vertex))) {
 				currentComp.add(vertex);
 				allVertices.add(vertex);
 
-				if (filledVertexSet != null)
-				{
+				if (filledVertexSet != null) {
 					filledVertexSet.remove(vertex);
 				}
 
 				int edgeCount = model.getEdgeCount(vertex);
 
-				if (edgeCount > 0)
-				{
-					for (int i = 0; i < edgeCount; i++)
-					{
+				if (edgeCount > 0) {
+					for (int i = 0; i < edgeCount; i++) {
 						Object e = model.getEdgeAt(vertex, i);
 						boolean isSource = view.getVisibleTerminal(e, true) == vertex;
 
-						if (!directed || isSource)
-						{
+						if (!directed || isSource) {
 							Object next = view.getVisibleTerminal(e, !isSource);
 							traverse(next, directed, e, allVertices,
 									currentComp, hierarchyVertices,
@@ -480,27 +453,22 @@ JGraphLayout.Stoppable*/
 						}
 					}
 				}
-			}
-			else
-			{
-				if (!currentComp.contains(vertex))
-				{
-					// We've seen this vertex before, but not in the current component
+			} else {
+				if (!currentComp.contains(vertex)) {
+					// We've seen this vertex before, but not in the current
+					// component
 					// This component and the one it's in need to be merged
 					Set<Object> matchComp = null;
 
-					for (Set<Object> comp : hierarchyVertices)
-					{
-						if (comp.contains(vertex))
-						{
+					for (Set<Object> comp : hierarchyVertices) {
+						if (comp.contains(vertex)) {
 							currentComp.addAll(comp);
 							matchComp = comp;
 							break;
 						}
 					}
 
-					if (matchComp != null)
-					{
+					if (matchComp != null) {
 						hierarchyVertices.remove(matchComp);
 					}
 				}
@@ -512,8 +480,7 @@ JGraphLayout.Stoppable*/
 	 * Executes the cycle stage. This implementation uses the
 	 * mxMinimumCycleRemover.
 	 */
-	public void cycleStage(Object parent)
-	{
+	public void cycleStage(Object parent) {
 		mxHierarchicalLayoutStage cycleStage = new mxMinimumCycleRemover(this);
 		cycleStage.execute(parent);
 	}
@@ -521,8 +488,7 @@ JGraphLayout.Stoppable*/
 	/**
 	 * Implements first stage of a Sugiyama layout.
 	 */
-	public void layeringStage()
-	{
+	public void layeringStage() {
 		model.initialRank();
 		model.fixRanks();
 	}
@@ -530,8 +496,7 @@ JGraphLayout.Stoppable*/
 	/**
 	 * Executes the crossing stage using mxMedianHybridCrossingReduction.
 	 */
-	public void crossingStage(Object parent)
-	{
+	public void crossingStage(Object parent) {
 		mxHierarchicalLayoutStage crossingStage = new mxMedianHybridCrossingReduction(
 				this);
 		crossingStage.execute(parent);
@@ -540,8 +505,7 @@ JGraphLayout.Stoppable*/
 	/**
 	 * Executes the placement stage using mxCoordinateAssignment.
 	 */
-	public double placementStage(double initialX, Object parent)
-	{
+	public double placementStage(double initialX, Object parent) {
 		mxCoordinateAssignment placementStage = new mxCoordinateAssignment(
 				this, intraCellSpacing, interRankCellSpacing, orientation,
 				initialX, parallelEdgeSpacing);
@@ -554,56 +518,49 @@ JGraphLayout.Stoppable*/
 	/**
 	 * Returns the resizeParent flag.
 	 */
-	public boolean isResizeParent()
-	{
+	public boolean isResizeParent() {
 		return resizeParent;
 	}
 
 	/**
 	 * Sets the resizeParent flag.
 	 */
-	public void setResizeParent(boolean value)
-	{
+	public void setResizeParent(boolean value) {
 		resizeParent = value;
 	}
 
 	/**
 	 * Returns the moveParent flag.
 	 */
-	public boolean isMoveParent()
-	{
+	public boolean isMoveParent() {
 		return moveParent;
 	}
 
 	/**
 	 * Sets the moveParent flag.
 	 */
-	public void setMoveParent(boolean value)
-	{
+	public void setMoveParent(boolean value) {
 		moveParent = value;
 	}
 
 	/**
 	 * Returns parentBorder.
 	 */
-	public int getParentBorder()
-	{
+	public int getParentBorder() {
 		return parentBorder;
 	}
 
 	/**
 	 * Sets parentBorder.
 	 */
-	public void setParentBorder(int value)
-	{
+	public void setParentBorder(int value) {
 		parentBorder = value;
 	}
 
 	/**
 	 * @return Returns the intraCellSpacing.
 	 */
-	public double getIntraCellSpacing()
-	{
+	public double getIntraCellSpacing() {
 		return intraCellSpacing;
 	}
 
@@ -611,16 +568,14 @@ JGraphLayout.Stoppable*/
 	 * @param intraCellSpacing
 	 *            The intraCellSpacing to set.
 	 */
-	public void setIntraCellSpacing(double intraCellSpacing)
-	{
+	public void setIntraCellSpacing(double intraCellSpacing) {
 		this.intraCellSpacing = intraCellSpacing;
 	}
 
 	/**
 	 * @return Returns the interRankCellSpacing.
 	 */
-	public double getInterRankCellSpacing()
-	{
+	public double getInterRankCellSpacing() {
 		return interRankCellSpacing;
 	}
 
@@ -628,16 +583,14 @@ JGraphLayout.Stoppable*/
 	 * @param interRankCellSpacing
 	 *            The interRankCellSpacing to set.
 	 */
-	public void setInterRankCellSpacing(double interRankCellSpacing)
-	{
+	public void setInterRankCellSpacing(double interRankCellSpacing) {
 		this.interRankCellSpacing = interRankCellSpacing;
 	}
 
 	/**
 	 * @return Returns the orientation.
 	 */
-	public int getOrientation()
-	{
+	public int getOrientation() {
 		return orientation;
 	}
 
@@ -645,16 +598,14 @@ JGraphLayout.Stoppable*/
 	 * @param orientation
 	 *            The orientation to set.
 	 */
-	public void setOrientation(int orientation)
-	{
+	public void setOrientation(int orientation) {
 		this.orientation = orientation;
 	}
 
 	/**
 	 * @return Returns the interHierarchySpacing.
 	 */
-	public double getInterHierarchySpacing()
-	{
+	public double getInterHierarchySpacing() {
 		return interHierarchySpacing;
 	}
 
@@ -662,26 +613,22 @@ JGraphLayout.Stoppable*/
 	 * @param interHierarchySpacing
 	 *            The interHierarchySpacing to set.
 	 */
-	public void setInterHierarchySpacing(double interHierarchySpacing)
-	{
+	public void setInterHierarchySpacing(double interHierarchySpacing) {
 		this.interHierarchySpacing = interHierarchySpacing;
 	}
 
-	public double getParallelEdgeSpacing()
-	{
+	public double getParallelEdgeSpacing() {
 		return parallelEdgeSpacing;
 	}
 
-	public void setParallelEdgeSpacing(double parallelEdgeSpacing)
-	{
+	public void setParallelEdgeSpacing(double parallelEdgeSpacing) {
 		this.parallelEdgeSpacing = parallelEdgeSpacing;
 	}
 
 	/**
 	 * @return Returns the fineTuning.
 	 */
-	public boolean isFineTuning()
-	{
+	public boolean isFineTuning() {
 		return fineTuning;
 	}
 
@@ -689,16 +636,14 @@ JGraphLayout.Stoppable*/
 	 * @param fineTuning
 	 *            The fineTuning to set.
 	 */
-	public void setFineTuning(boolean fineTuning)
-	{
+	public void setFineTuning(boolean fineTuning) {
 		this.fineTuning = fineTuning;
 	}
 
 	/**
 	 *
 	 */
-	public boolean isDisableEdgeStyle()
-	{
+	public boolean isDisableEdgeStyle() {
 		return disableEdgeStyle;
 	}
 
@@ -706,23 +651,20 @@ JGraphLayout.Stoppable*/
 	 * 
 	 * @param disableEdgeStyle
 	 */
-	public void setDisableEdgeStyle(boolean disableEdgeStyle)
-	{
+	public void setDisableEdgeStyle(boolean disableEdgeStyle) {
 		this.disableEdgeStyle = disableEdgeStyle;
 	}
 
 	/**
 	 * Sets the logging level of this class
-	 * @param level the logging level to set
+	 * 
+	 * @param level
+	 *            the logging level to set
 	 */
-	public void setLoggerLevel(Level level)
-	{
-		try
-		{
+	public void setLoggerLevel(Level level) {
+		try {
 			logger.setLevel(level);
-		}
-		catch (SecurityException e)
-		{
+		} catch (SecurityException e) {
 			// Probably running in an applet
 		}
 	}
@@ -730,8 +672,7 @@ JGraphLayout.Stoppable*/
 	/**
 	 * Returns <code>Hierarchical</code>, the name of this algorithm.
 	 */
-	public String toString()
-	{
+	public String toString() {
 		return "Hierarchical";
 	}
 

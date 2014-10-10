@@ -7,14 +7,12 @@ import java.awt.Shape;
 import com.mxgraph.canvas.mxGraphics2DCanvas;
 import com.mxgraph.view.mxCellState;
 
-public class mxRhombusShape extends mxBasicShape
-{
+public class mxRhombusShape extends mxBasicShape {
 
 	/**
 	 * 
 	 */
-	public Shape createShape(mxGraphics2DCanvas canvas, mxCellState state)
-	{
+	public Shape createShape(mxGraphics2DCanvas canvas, mxCellState state) {
 		Rectangle temp = state.getRectangle();
 		int x = temp.x;
 		int y = temp.y;

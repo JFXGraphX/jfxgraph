@@ -9,11 +9,10 @@ import java.awt.Point;
 import com.mxgraph.view.mxCellState;
 
 /**
- * Defines the requirements for a canvas that paints the vertices and edges of
- * a graph.
+ * Defines the requirements for a canvas that paints the vertices and edges of a
+ * graph.
  */
-public interface mxICanvas
-{
+public interface mxICanvas {
 	/**
 	 * Sets the translation for the following drawing requests.
 	 */
@@ -39,7 +38,8 @@ public interface mxICanvas
 	/**
 	 * Draws the given cell.
 	 * 
-	 * @param state State of the cell to be painted.
+	 * @param state
+	 *            State of the cell to be painted.
 	 * @return Object that represents the cell.
 	 */
 	Object drawCell(mxCellState state);
@@ -47,9 +47,12 @@ public interface mxICanvas
 	/**
 	 * Draws the given label.
 	 * 
-	 * @param text String that represents the label.
-	 * @param state State of the cell whose label is to be painted.
-	 * @param html Specifies if the label contains HTML markup.
+	 * @param text
+	 *            String that represents the label.
+	 * @param state
+	 *            State of the cell whose label is to be painted.
+	 * @param html
+	 *            Specifies if the label contains HTML markup.
 	 * @return Object that represents the label.
 	 */
 	Object drawLabel(String text, mxCellState state, boolean html);

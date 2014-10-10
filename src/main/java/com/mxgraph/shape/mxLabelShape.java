@@ -12,18 +12,15 @@ import com.mxgraph.util.mxRectangle;
 import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxCellState;
 
-public class mxLabelShape extends mxImageShape
-{
+public class mxLabelShape extends mxImageShape {
 
 	/**
 	 * 
 	 */
-	public void paintShape(mxGraphics2DCanvas canvas, mxCellState state)
-	{
+	public void paintShape(mxGraphics2DCanvas canvas, mxCellState state) {
 		super.paintShape(canvas, state);
 
-		if (mxUtils.isTrue(state.getStyle(), mxConstants.STYLE_GLASS, false))
-		{
+		if (mxUtils.isTrue(state.getStyle(), mxConstants.STYLE_GLASS, false)) {
 			drawGlassEffect(canvas, state);
 		}
 	}
@@ -32,8 +29,7 @@ public class mxLabelShape extends mxImageShape
 	 * Draws the glass effect
 	 */
 	public static void drawGlassEffect(mxGraphics2DCanvas canvas,
-			mxCellState state)
-	{
+			mxCellState state) {
 		double size = 0.4;
 		canvas.getGraphics().setPaint(
 				new GradientPaint((float) state.getX(), (float) state.getY(),
@@ -62,8 +58,7 @@ public class mxLabelShape extends mxImageShape
 	/**
 	 * 
 	 */
-	public Rectangle getImageBounds(mxGraphics2DCanvas canvas, mxCellState state)
-	{
+	public Rectangle getImageBounds(mxGraphics2DCanvas canvas, mxCellState state) {
 		Map<String, Object> style = state.getStyle();
 		double scale = canvas.getScale();
 		String imgAlign = mxUtils.getString(style,
@@ -80,32 +75,24 @@ public class mxLabelShape extends mxImageShape
 
 		mxRectangle imageBounds = new mxRectangle(state);
 
-		if (imgAlign.equals(mxConstants.ALIGN_CENTER))
-		{
+		if (imgAlign.equals(mxConstants.ALIGN_CENTER)) {
 			imageBounds.setX(imageBounds.getX()
 					+ (imageBounds.getWidth() - imgWidth) / 2);
-		}
-		else if (imgAlign.equals(mxConstants.ALIGN_RIGHT))
-		{
+		} else if (imgAlign.equals(mxConstants.ALIGN_RIGHT)) {
 			imageBounds.setX(imageBounds.getX() + imageBounds.getWidth()
 					- imgWidth - spacing - 2);
-		}
-		else
+		} else
 		// LEFT
 		{
 			imageBounds.setX(imageBounds.getX() + spacing + 4);
 		}
 
-		if (imgValign.equals(mxConstants.ALIGN_TOP))
-		{
+		if (imgValign.equals(mxConstants.ALIGN_TOP)) {
 			imageBounds.setY(imageBounds.getY() + spacing);
-		}
-		else if (imgValign.equals(mxConstants.ALIGN_BOTTOM))
-		{
+		} else if (imgValign.equals(mxConstants.ALIGN_BOTTOM)) {
 			imageBounds.setY(imageBounds.getY() + imageBounds.getHeight()
 					- imgHeight - spacing);
-		}
-		else
+		} else
 		// MIDDLE
 		{
 			imageBounds.setY(imageBounds.getY()
@@ -121,16 +108,14 @@ public class mxLabelShape extends mxImageShape
 	/**
 	 * 
 	 */
-	public Color getFillColor(mxGraphics2DCanvas canvas, mxCellState state)
-	{
+	public Color getFillColor(mxGraphics2DCanvas canvas, mxCellState state) {
 		return mxUtils.getColor(state.getStyle(), mxConstants.STYLE_FILLCOLOR);
 	}
 
 	/**
 	 * 
 	 */
-	public Color getStrokeColor(mxGraphics2DCanvas canvas, mxCellState state)
-	{
+	public Color getStrokeColor(mxGraphics2DCanvas canvas, mxCellState state) {
 		return mxUtils
 				.getColor(state.getStyle(), mxConstants.STYLE_STROKECOLOR);
 	}
@@ -138,8 +123,7 @@ public class mxLabelShape extends mxImageShape
 	/**
 	 * 
 	 */
-	public boolean hasGradient(mxGraphics2DCanvas canvas, mxCellState state)
-	{
+	public boolean hasGradient(mxGraphics2DCanvas canvas, mxCellState state) {
 		return true;
 	}
 

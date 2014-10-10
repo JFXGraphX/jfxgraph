@@ -14,8 +14,7 @@ import javax.swing.SwingConstants;
  * @author Administrator
  * 
  */
-public class mxLightweightLabel extends JLabel
-{
+public class mxLightweightLabel extends JLabel {
 
 	/**
 	 * 
@@ -30,14 +29,10 @@ public class mxLightweightLabel extends JLabel
 	/**
 	 * Initializes the shared instance.
 	 */
-	static
-	{
-		try
-		{
+	static {
+		try {
 			sharedInstance = new mxLightweightLabel();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			// ignore
 		}
 	}
@@ -45,8 +40,7 @@ public class mxLightweightLabel extends JLabel
 	/**
 	 * 
 	 */
-	public static mxLightweightLabel getSharedInstance()
-	{
+	public static mxLightweightLabel getSharedInstance() {
 		return sharedInstance;
 	}
 
@@ -54,8 +48,7 @@ public class mxLightweightLabel extends JLabel
 	 * 
 	 * 
 	 */
-	public mxLightweightLabel()
-	{
+	public mxLightweightLabel() {
 		setFont(new Font(mxConstants.DEFAULT_FONTFAMILY, 0,
 				mxConstants.DEFAULT_FONTSIZE));
 		setVerticalAlignment(SwingConstants.TOP);
@@ -65,32 +58,28 @@ public class mxLightweightLabel extends JLabel
 	 * Overridden for performance reasons.
 	 * 
 	 */
-	public void validate()
-	{
+	public void validate() {
 	}
 
 	/**
 	 * Overridden for performance reasons.
 	 * 
 	 */
-	public void revalidate()
-	{
+	public void revalidate() {
 	}
 
 	/**
 	 * Overridden for performance reasons.
 	 * 
 	 */
-	public void repaint(long tm, int x, int y, int width, int height)
-	{
+	public void repaint(long tm, int x, int y, int width, int height) {
 	}
 
 	/**
 	 * Overridden for performance reasons.
 	 * 
 	 */
-	public void repaint(Rectangle r)
-	{
+	public void repaint(Rectangle r) {
 	}
 
 	/**
@@ -98,11 +87,9 @@ public class mxLightweightLabel extends JLabel
 	 * 
 	 */
 	protected void firePropertyChange(String propertyName, Object oldValue,
-			Object newValue)
-	{
+			Object newValue) {
 		// Strings get interned...
-		if (propertyName == "text" || propertyName == "font")
-		{
+		if (propertyName == "text" || propertyName == "font") {
 			super.firePropertyChange(propertyName, oldValue, newValue);
 		}
 	}
@@ -112,8 +99,7 @@ public class mxLightweightLabel extends JLabel
 	 * 
 	 */
 	public void firePropertyChange(String propertyName, byte oldValue,
-			byte newValue)
-	{
+			byte newValue) {
 	}
 
 	/**
@@ -121,8 +107,7 @@ public class mxLightweightLabel extends JLabel
 	 * 
 	 */
 	public void firePropertyChange(String propertyName, char oldValue,
-			char newValue)
-	{
+			char newValue) {
 	}
 
 	/**
@@ -130,8 +115,7 @@ public class mxLightweightLabel extends JLabel
 	 * 
 	 */
 	public void firePropertyChange(String propertyName, short oldValue,
-			short newValue)
-	{
+			short newValue) {
 	}
 
 	/**
@@ -139,8 +123,7 @@ public class mxLightweightLabel extends JLabel
 	 * 
 	 */
 	public void firePropertyChange(String propertyName, int oldValue,
-			int newValue)
-	{
+			int newValue) {
 	}
 
 	/**
@@ -148,8 +131,7 @@ public class mxLightweightLabel extends JLabel
 	 * 
 	 */
 	public void firePropertyChange(String propertyName, long oldValue,
-			long newValue)
-	{
+			long newValue) {
 	}
 
 	/**
@@ -157,8 +139,7 @@ public class mxLightweightLabel extends JLabel
 	 * 
 	 */
 	public void firePropertyChange(String propertyName, float oldValue,
-			float newValue)
-	{
+			float newValue) {
 	}
 
 	/**
@@ -166,8 +147,7 @@ public class mxLightweightLabel extends JLabel
 	 * 
 	 */
 	public void firePropertyChange(String propertyName, double oldValue,
-			double newValue)
-	{
+			double newValue) {
 	}
 
 	/**
@@ -175,8 +155,7 @@ public class mxLightweightLabel extends JLabel
 	 * 
 	 */
 	public void firePropertyChange(String propertyName, boolean oldValue,
-			boolean newValue)
-	{
+			boolean newValue) {
 	}
 
 }

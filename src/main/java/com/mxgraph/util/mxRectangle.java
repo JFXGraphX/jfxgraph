@@ -10,8 +10,7 @@ import java.awt.geom.Rectangle2D;
 /**
  * Implements a 2-dimensional rectangle with double precision coordinates.
  */
-public class mxRectangle extends mxPoint
-{
+public class mxRectangle extends mxPoint {
 
 	/**
 	 * 
@@ -26,41 +25,43 @@ public class mxRectangle extends mxPoint
 	/**
 	 * Constructs a new rectangle at (0, 0) with the width and height set to 0.
 	 */
-	public mxRectangle()
-	{
+	public mxRectangle() {
 		this(0, 0, 0, 0);
 	}
 
 	/**
 	 * Constructs a copy of the given rectangle.
 	 * 
-	 * @param rect Rectangle to construct a copy of.
+	 * @param rect
+	 *            Rectangle to construct a copy of.
 	 */
-	public mxRectangle(Rectangle2D rect)
-	{
+	public mxRectangle(Rectangle2D rect) {
 		this(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
 	}
 
 	/**
 	 * Constructs a copy of the given rectangle.
 	 * 
-	 * @param rect Rectangle to construct a copy of.
+	 * @param rect
+	 *            Rectangle to construct a copy of.
 	 */
-	public mxRectangle(mxRectangle rect)
-	{
+	public mxRectangle(mxRectangle rect) {
 		this(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
 	}
 
 	/**
 	 * Constructs a rectangle using the given parameters.
 	 * 
-	 * @param x X-coordinate of the new rectangle.
-	 * @param y Y-coordinate of the new rectangle.
-	 * @param width Width of the new rectangle.
-	 * @param height Height of the new rectangle.
+	 * @param x
+	 *            X-coordinate of the new rectangle.
+	 * @param y
+	 *            Y-coordinate of the new rectangle.
+	 * @param width
+	 *            Width of the new rectangle.
+	 * @param height
+	 *            Height of the new rectangle.
 	 */
-	public mxRectangle(double x, double y, double width, double height)
-	{
+	public mxRectangle(double x, double y, double width, double height) {
 		super(x, y);
 
 		setWidth(width);
@@ -72,18 +73,17 @@ public class mxRectangle extends mxPoint
 	 * 
 	 * @return Returns the width.
 	 */
-	public double getWidth()
-	{
+	public double getWidth() {
 		return width;
 	}
 
 	/**
 	 * Sets the width of the rectangle.
 	 * 
-	 * @param value Double that specifies the new width.
+	 * @param value
+	 *            Double that specifies the new width.
 	 */
-	public void setWidth(double value)
-	{
+	public void setWidth(double value) {
 		width = value;
 	}
 
@@ -92,44 +92,44 @@ public class mxRectangle extends mxPoint
 	 * 
 	 * @return Returns the height.
 	 */
-	public double getHeight()
-	{
+	public double getHeight() {
 		return height;
 	}
 
 	/**
 	 * Sets the height of the rectangle.
 	 * 
-	 * @param value Double that specifies the new height.
+	 * @param value
+	 *            Double that specifies the new height.
 	 */
-	public void setHeight(double value)
-	{
+	public void setHeight(double value) {
 		height = value;
 	}
 
 	/**
 	 * Sets this rectangle to the specified values
 	 * 
-	 * @param x the new x-axis position
-	 * @param y the new y-axis position
-	 * @param w the new width of the rectangle
-	 * @param h the new height of the rectangle
+	 * @param x
+	 *            the new x-axis position
+	 * @param y
+	 *            the new y-axis position
+	 * @param w
+	 *            the new width of the rectangle
+	 * @param h
+	 *            the new height of the rectangle
 	 */
-	public void setRect(double x, double y, double w, double h)
-	{
-	    this.x = x;
-	    this.y = y;
-	    this.width = w;
-	    this.height = h;
+	public void setRect(double x, double y, double w, double h) {
+		this.x = x;
+		this.y = y;
+		this.width = w;
+		this.height = h;
 	}
 
 	/**
 	 * Adds the given rectangle to this rectangle.
 	 */
-	public void add(mxRectangle rect)
-	{
-		if (rect != null)
-		{
+	public void add(mxRectangle rect) {
+		if (rect != null) {
 			double minX = Math.min(x, rect.x);
 			double minY = Math.min(y, rect.y);
 			double maxX = Math.max(x + width, rect.x + rect.width);
@@ -147,8 +147,7 @@ public class mxRectangle extends mxPoint
 	 * 
 	 * @return Returns the x-coordinate of the center.
 	 */
-	public double getCenterX()
-	{
+	public double getCenterX() {
 		return getX() + getWidth() / 2;
 	}
 
@@ -157,8 +156,7 @@ public class mxRectangle extends mxPoint
 	 * 
 	 * @return Returns the y-coordinate of the center.
 	 */
-	public double getCenterY()
-	{
+	public double getCenterY() {
 		return getY() + getHeight() / 2;
 	}
 
@@ -167,10 +165,10 @@ public class mxRectangle extends mxPoint
 	 * the given amount from the x- and y-coordinates and adds twice the amount
 	 * to the width and height.
 	 *
-	 * @param amount Amount by which the rectangle should be grown.
+	 * @param amount
+	 *            Amount by which the rectangle should be grown.
 	 */
-	public void grow(double amount)
-	{
+	public void grow(double amount) {
 		x -= amount;
 		y -= amount;
 		width += 2 * amount;
@@ -180,47 +178,48 @@ public class mxRectangle extends mxPoint
 	/**
 	 * Returns true if the given point is contained in the rectangle.
 	 * 
-	 * @param x X-coordinate of the point.
-	 * @param y Y-coordinate of the point.
+	 * @param x
+	 *            X-coordinate of the point.
+	 * @param y
+	 *            Y-coordinate of the point.
 	 * @return Returns true if the point is contained in the rectangle.
 	 */
-	public boolean contains(double x, double y)
-	{
+	public boolean contains(double x, double y) {
 		return (this.x <= x && this.x + width >= x && this.y <= y && this.y
 				+ height >= y);
 	}
 
 	/**
-	 * Returns the point at which the specified point intersects the perimeter 
+	 * Returns the point at which the specified point intersects the perimeter
 	 * of this rectangle or null if there is no intersection.
 	 * 
-	 * @param x0 the x co-ordinate of the first point of the line
-	 * @param y0 the y co-ordinate of the first point of the line
-	 * @param x1 the x co-ordinate of the second point of the line
-	 * @param y1 the y co-ordinate of the second point of the line
-	 * @return the point at which the line intersects this rectangle, or null
-	 * 			if there is no intersection
+	 * @param x0
+	 *            the x co-ordinate of the first point of the line
+	 * @param y0
+	 *            the y co-ordinate of the first point of the line
+	 * @param x1
+	 *            the x co-ordinate of the second point of the line
+	 * @param y1
+	 *            the y co-ordinate of the second point of the line
+	 * @return the point at which the line intersects this rectangle, or null if
+	 *         there is no intersection
 	 */
-	public mxPoint intersectLine(double x0, double y0, double x1, double y1)
-	{
+	public mxPoint intersectLine(double x0, double y0, double x1, double y1) {
 		mxPoint result = null;
 
 		result = mxUtils.intersection(x, y, x + width, y, x0, y0, x1, y1);
 
-		if (result == null)
-		{
+		if (result == null) {
 			result = mxUtils.intersection(x + width, y, x + width, y + height,
 					x0, y0, x1, y1);
 		}
 
-		if (result == null)
-		{
+		if (result == null) {
 			result = mxUtils.intersection(x + width, y + height, x, y + height,
 					x0, y0, x1, y1);
 		}
 
-		if (result == null)
-		{
+		if (result == null) {
 			result = mxUtils.intersection(x, y, x, y + height, x0, y0, x1, y1);
 		}
 
@@ -232,8 +231,7 @@ public class mxRectangle extends mxPoint
 	 * 
 	 * @return Returns a new rectangle for the bounds.
 	 */
-	public Rectangle getRectangle()
-	{
+	public Rectangle getRectangle() {
 		int ix = (int) Math.round(x);
 		int iy = (int) Math.round(y);
 		int iw = (int) Math.round(width - ix + x);
@@ -246,10 +244,8 @@ public class mxRectangle extends mxPoint
 	 * 
 	 * Returns true if the given object equals this rectangle.
 	 */
-	public boolean equals(Object obj)
-	{
-		if (obj instanceof mxRectangle)
-		{
+	public boolean equals(Object obj) {
+		if (obj instanceof mxRectangle) {
 			mxRectangle rect = (mxRectangle) obj;
 
 			return rect.getX() == getX() && rect.getY() == getY()
@@ -263,8 +259,7 @@ public class mxRectangle extends mxPoint
 	/**
 	 * Returns a new instance of the same rectangle.
 	 */
-	public Object clone()
-	{
+	public Object clone() {
 		mxRectangle clone = (mxRectangle) super.clone();
 
 		clone.setWidth(getWidth());
@@ -276,11 +271,10 @@ public class mxRectangle extends mxPoint
 	/**
 	 * Returns the <code>String</code> representation of this
 	 * <code>mxRectangle</code>.
-	 * @return a <code>String</code> representing this
-	 * <code>mxRectangle</code>.
+	 * 
+	 * @return a <code>String</code> representing this <code>mxRectangle</code>.
 	 */
-	public String toString()
-	{
+	public String toString() {
 		return getClass().getName() + "[x=" + x + ",y=" + y + ",w=" + width
 				+ ",h=" + height + "]";
 	}

@@ -21,8 +21,7 @@ import com.mxgraph.view.mxCellState;
 /**
  * An implementation of a canvas that uses HTML for painting.
  */
-public class mxHtmlCanvas extends mxBasicCanvas
-{
+public class mxHtmlCanvas extends mxBasicCanvas {
 
 	/**
 	 * Holds the HTML document that represents the canvas.
@@ -32,8 +31,7 @@ public class mxHtmlCanvas extends mxBasicCanvas
 	/**
 	 * Constructs a new HTML canvas for the specified dimension and scale.
 	 */
-	public mxHtmlCanvas()
-	{
+	public mxHtmlCanvas() {
 		this(null);
 	}
 
@@ -41,23 +39,19 @@ public class mxHtmlCanvas extends mxBasicCanvas
 	 * Constructs a new HTML canvas for the specified bounds, scale and
 	 * background color.
 	 */
-	public mxHtmlCanvas(Document document)
-	{
+	public mxHtmlCanvas(Document document) {
 		setDocument(document);
 	}
 
 	/**
 	 * 
 	 */
-	public void appendHtmlElement(Element node)
-	{
-		if (document != null)
-		{
+	public void appendHtmlElement(Element node) {
+		if (document != null) {
 			Node body = document.getDocumentElement().getFirstChild()
 					.getNextSibling();
 
-			if (body != null)
-			{
+			if (body != null) {
 				body.appendChild(node);
 			}
 		}
@@ -66,8 +60,7 @@ public class mxHtmlCanvas extends mxBasicCanvas
 	/**
 	 * 
 	 */
-	public void setDocument(Document document)
-	{
+	public void setDocument(Document document) {
 		this.document = document;
 	}
 
@@ -76,41 +69,34 @@ public class mxHtmlCanvas extends mxBasicCanvas
 	 * 
 	 * @return Returns the document.
 	 */
-	public Document getDocument()
-	{
+	public Document getDocument() {
 		return document;
 	}
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see com.mxgraph.canvas.mxICanvas#drawCell()
 	 */
-	public Object drawCell(mxCellState state)
-	{
+	public Object drawCell(mxCellState state) {
 		Map<String, Object> style = state.getStyle();
-		
-		if (state.getAbsolutePointCount() > 1)
-		{
+
+		if (state.getAbsolutePointCount() > 1) {
 			List<mxPoint> pts = state.getAbsolutePoints();
 
 			// Transpose all points by cloning into a new array
 			pts = mxUtils.translatePoints(pts, translate.x, translate.y);
 			drawLine(pts, style);
-		}
-		else
-		{
+		} else {
 			int x = (int) state.getX() + translate.x;
 			int y = (int) state.getY() + translate.y;
 			int w = (int) state.getWidth();
 			int h = (int) state.getHeight();
 
 			if (!mxUtils.getString(style, mxConstants.STYLE_SHAPE, "").equals(
-					mxConstants.SHAPE_SWIMLANE))
-			{
+					mxConstants.SHAPE_SWIMLANE)) {
 				drawShape(x, y, w, h, style);
-			}
-			else
-			{
+			} else {
 				int start = (int) Math.round(mxUtils.getInt(style,
 						mxConstants.STYLE_STARTSIZE,
 						mxConstants.DEFAULT_STARTSIZE)
@@ -122,13 +108,10 @@ public class mxHtmlCanvas extends mxBasicCanvas
 				cloned.remove(mxConstants.STYLE_FILLCOLOR);
 				cloned.remove(mxConstants.STYLE_ROUNDED);
 
-				if (mxUtils.isTrue(style, mxConstants.STYLE_HORIZONTAL, true))
-				{
+				if (mxUtils.isTrue(style, mxConstants.STYLE_HORIZONTAL, true)) {
 					drawShape(x, y, w, start, style);
 					drawShape(x, y + start, w, h - start, cloned);
-				}
-				else
-				{
+				} else {
 					drawShape(x, y, start, h, style);
 					drawShape(x + start, y, w - start, h, cloned);
 				}
@@ -140,14 +123,13 @@ public class mxHtmlCanvas extends mxBasicCanvas
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see com.mxgraph.canvas.mxICanvas#drawLabel()
 	 */
-	public Object drawLabel(String label, mxCellState state, boolean html)
-	{
+	public Object drawLabel(String label, mxCellState state, boolean html) {
 		mxRectangle bounds = state.getLabelBounds();
 
-		if (drawLabels && bounds != null)
-		{
+		if (drawLabels && bounds != null) {
 			int x = (int) bounds.getX() + translate.x;
 			int y = (int) bounds.getY() + translate.y;
 			int w = (int) bounds.getWidth();
@@ -163,15 +145,19 @@ public class mxHtmlCanvas extends mxBasicCanvas
 	/**
 	 * Draws the shape specified with the STYLE_SHAPE key in the given style.
 	 * 
-	 * @param x X-coordinate of the shape.
-	 * @param y Y-coordinate of the shape.
-	 * @param w Width of the shape.
-	 * @param h Height of the shape.
-	 * @param style Style of the the shape.
+	 * @param x
+	 *            X-coordinate of the shape.
+	 * @param y
+	 *            Y-coordinate of the shape.
+	 * @param w
+	 *            Width of the shape.
+	 * @param h
+	 *            Height of the shape.
+	 * @param style
+	 *            Style of the the shape.
 	 */
 	public Element drawShape(int x, int y, int w, int h,
-			Map<String, Object> style)
-	{
+			Map<String, Object> style) {
 		String fillColor = mxUtils
 				.getString(style, mxConstants.STYLE_FILLCOLOR);
 		String strokeColor = mxUtils.getString(style,
@@ -184,27 +170,22 @@ public class mxHtmlCanvas extends mxBasicCanvas
 
 		Element elem = document.createElement("div");
 
-		if (shape.equals(mxConstants.SHAPE_LINE))
-		{
+		if (shape.equals(mxConstants.SHAPE_LINE)) {
 			String direction = mxUtils.getString(style,
 					mxConstants.STYLE_DIRECTION, mxConstants.DIRECTION_EAST);
 
 			if (direction.equals(mxConstants.DIRECTION_EAST)
-					|| direction.equals(mxConstants.DIRECTION_WEST))
-			{
+					|| direction.equals(mxConstants.DIRECTION_WEST)) {
 				y = Math.round(y + h / 2);
 				h = 1;
-			}
-			else
-			{
+			} else {
 				x = Math.round(y + w / 2);
 				w = 1;
 			}
 		}
 
 		if (mxUtils.isTrue(style, mxConstants.STYLE_SHADOW, false)
-				&& fillColor != null)
-		{
+				&& fillColor != null) {
 			Element shadow = (Element) elem.cloneNode(true);
 
 			String s = "overflow:hidden;position:absolute;" + "left:"
@@ -221,12 +202,10 @@ public class mxHtmlCanvas extends mxBasicCanvas
 			appendHtmlElement(shadow);
 		}
 
-		if (shape.equals(mxConstants.SHAPE_IMAGE))
-		{
+		if (shape.equals(mxConstants.SHAPE_IMAGE)) {
 			String img = getImageForStyle(style);
 
-			if (img != null)
-			{
+			if (img != null) {
 				elem = document.createElement("img");
 				elem.setAttribute("border", "0");
 				elem.setAttribute("src", img);
@@ -250,30 +229,30 @@ public class mxHtmlCanvas extends mxBasicCanvas
 	}
 
 	/**
-	 * Draws the given lines as segments between all points of the given list
-	 * of mxPoints.
+	 * Draws the given lines as segments between all points of the given list of
+	 * mxPoints.
 	 * 
-	 * @param pts List of points that define the line.
-	 * @param style Style to be used for painting the line.
+	 * @param pts
+	 *            List of points that define the line.
+	 * @param style
+	 *            Style to be used for painting the line.
 	 */
-	public void drawLine(List<mxPoint> pts, Map<String, Object> style)
-	{
+	public void drawLine(List<mxPoint> pts, Map<String, Object> style) {
 		String strokeColor = mxUtils.getString(style,
 				mxConstants.STYLE_STROKECOLOR);
 		int strokeWidth = (int) (mxUtils.getInt(style,
 				mxConstants.STYLE_STROKEWIDTH, 1) * scale);
 
-		if (strokeColor != null && strokeWidth > 0)
-		{
+		if (strokeColor != null && strokeWidth > 0) {
 
 			mxPoint last = pts.get(0);
 
-			for (int i = 1; i < pts.size(); i++)
-			{
+			for (int i = 1; i < pts.size(); i++) {
 				mxPoint pt = pts.get(i);
 
-				drawSegment((int) last.getX(), (int) last.getY(), (int) pt
-						.getX(), (int) pt.getY(), strokeColor, strokeWidth);
+				drawSegment((int) last.getX(), (int) last.getY(),
+						(int) pt.getX(), (int) pt.getY(), strokeColor,
+						strokeWidth);
 
 				last = pt;
 			}
@@ -283,16 +262,21 @@ public class mxHtmlCanvas extends mxBasicCanvas
 	/**
 	 * Draws the specified segment of a line.
 	 * 
-	 * @param x0 X-coordinate of the start point.
-	 * @param y0 Y-coordinate of the start point.
-	 * @param x1 X-coordinate of the end point.
-	 * @param y1 Y-coordinate of the end point.
-	 * @param strokeColor Color of the stroke to be painted.
-	 * @param strokeWidth Width of the stroke to be painted.
+	 * @param x0
+	 *            X-coordinate of the start point.
+	 * @param y0
+	 *            Y-coordinate of the start point.
+	 * @param x1
+	 *            X-coordinate of the end point.
+	 * @param y1
+	 *            Y-coordinate of the end point.
+	 * @param strokeColor
+	 *            Color of the stroke to be painted.
+	 * @param strokeWidth
+	 *            Width of the stroke to be painted.
 	 */
 	protected void drawSegment(int x0, int y0, int x1, int y1,
-			String strokeColor, int strokeWidth)
-	{
+			String strokeColor, int strokeWidth) {
 		int tmpX = Math.min(x0, x1);
 		int tmpY = Math.min(y0, y1);
 
@@ -302,8 +286,7 @@ public class mxHtmlCanvas extends mxBasicCanvas
 		x0 = tmpX;
 		y0 = tmpY;
 
-		if (width == 0 || height == 0)
-		{
+		if (width == 0 || height == 0) {
 			String s = "overflow:hidden;position:absolute;" + "left:"
 					+ String.valueOf(x0) + "px;" + "top:" + String.valueOf(y0)
 					+ "px;" + "width:" + String.valueOf(width) + "px;"
@@ -315,9 +298,7 @@ public class mxHtmlCanvas extends mxBasicCanvas
 			elem.setAttribute("style", s);
 
 			appendHtmlElement(elem);
-		}
-		else
-		{
+		} else {
 			int x = x0 + (x1 - x0) / 2;
 
 			drawSegment(x0, y0, x, y0, strokeColor, strokeWidth);
@@ -329,16 +310,21 @@ public class mxHtmlCanvas extends mxBasicCanvas
 	/**
 	 * Draws the specified text either using drawHtmlString or using drawString.
 	 * 
-	 * @param text Text to be painted.
-	 * @param x X-coordinate of the text.
-	 * @param y Y-coordinate of the text.
-	 * @param w Width of the text.
-	 * @param h Height of the text.
-	 * @param style Style to be used for painting the text.
+	 * @param text
+	 *            Text to be painted.
+	 * @param x
+	 *            X-coordinate of the text.
+	 * @param y
+	 *            Y-coordinate of the text.
+	 * @param w
+	 *            Width of the text.
+	 * @param h
+	 *            Height of the text.
+	 * @param style
+	 *            Style to be used for painting the text.
 	 */
 	public Element drawText(String text, int x, int y, int w, int h,
-			Map<String, Object> style)
-	{
+			Map<String, Object> style) {
 		Element table = mxUtils.createTable(document, text, x, y, w, h, scale,
 				style);
 		appendHtmlElement(table);

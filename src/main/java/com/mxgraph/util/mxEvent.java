@@ -7,9 +7,8 @@ package com.mxgraph.util;
 /**
  * Contains all global constants.
  */
-public class mxEvent
-{
-	
+public class mxEvent {
+
 	/**
 	 * 
 	 */
@@ -219,16 +218,16 @@ public class mxEvent
 
 	/**
 	 * Holds the name for the execute event. First and only argument in the
-	 * argument array is the mxAtomicGraphChange that has been executed on the 
+	 * argument array is the mxAtomicGraphChange that has been executed on the
 	 * model. This event fires before the change event.
 	 */
 	public static final String EXECUTE = "execute";
 
 	/**
 	 * Holds the name for the beforeUndo event. First and only argument in the
-	 * argument array is the current edit that is currently in progress in the 
-	 * model. This event fires before notify is called on the currentEdit in
-	 * the model.
+	 * argument array is the current edit that is currently in progress in the
+	 * model. This event fires before notify is called on the currentEdit in the
+	 * model.
 	 */
 	public static final String BEFORE_UNDO = "beforeUndo";
 
@@ -246,9 +245,9 @@ public class mxEvent
 	public static final String BEGIN_UPDATE = "beginUpdate";
 
 	/**
-	 * Holds the name for the endUpdate event. This event has no arguments and fires
-	 * after the updateLevel has been changed in the model. First argument is the
-	 * currentEdit.
+	 * Holds the name for the endUpdate event. This event has no arguments and
+	 * fires after the updateLevel has been changed in the model. First argument
+	 * is the currentEdit.
 	 */
 	public static final String END_UPDATE = "endUpdate";
 
